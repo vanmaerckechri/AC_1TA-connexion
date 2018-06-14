@@ -14,6 +14,7 @@
             <h1>Plateforme Educative</h1>
             <h2>Connexion</h2>
     		<?=$content?>
+            <?=$_SESSION['smsAlert']?>
         </div>
     </div>
     <script defer src="assets/js/fontawesome-all.min.js"></script>

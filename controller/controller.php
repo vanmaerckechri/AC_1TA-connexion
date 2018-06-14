@@ -3,13 +3,13 @@ require('./model/model.php');
 //VIEWS!
 function home()
 {
-    require('./view/login.php');
+    require('./view/loginView.php');
 }
 function classroom()
 {
-    require('./view/classroom.php');
+    require('./view/classroomView.php');
 }
 function pwd()
 {
-    require('./view/pwd.php');
+    require('./view/pwdView.php');
 }
