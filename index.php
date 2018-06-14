@@ -79,8 +79,6 @@ function filterInputs($input, $regEx)
 			$regEx = cutRegex(" ", $regEx);
 		}
 
-		$validChar = substr_replace($validChar, " et", -1, 1);
-
 		// Autres caractères...
 		$regExLength = strlen($regEx);
 		if ($regExLength > 0)
@@ -96,7 +94,15 @@ function filterInputs($input, $regEx)
 				}
 			}
 		}
-
+		// Améliorer la formulation et la ponctuation du message
+		for ($i = strlen($validChar) - 1; $i >= 0; $i--)
+		{
+			if ($validChar[$i] == ",")
+			{
+				$validChar = substr_replace($validChar, " et", $i, 1);
+				break;
+			}
+		}
 		$validChar .= "!";
 
 		$_SESSION['smsAlert'] = "Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar;
