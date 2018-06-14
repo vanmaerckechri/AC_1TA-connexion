@@ -180,8 +180,4 @@ else
 	home();
 }
 
-if (isset($_SESSION['nickname'])) 
-	{
-		echo $_SESSION['nickname'];
-	}
 $_SESSION['smsAlert'] = '';

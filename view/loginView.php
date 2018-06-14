@@ -1,8 +1,8 @@
 <?php ob_start(); ?>
         <form action="index.php" method="post">
             <label for="nickname">Utilisateur</label>
-                <input type="text" name="nickname" autofocus required>
-            <input type="submit" value="Connexion">
+                <input class="formInput" type="text" name="nickname" autofocus required>
+            <input class="formButton" type="submit" value="Suivant">
         </form>
 <?php $content = ob_get_clean(); ?>
 
