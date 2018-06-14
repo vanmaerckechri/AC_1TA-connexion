@@ -20,7 +20,7 @@
                 <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
             </div>
         </div>
-        <p class="smsAlert"><?=$_SESSION['smsAlert']?></p>
+        <p><?=$_SESSION['smsAlert']?></p>
     </div>
     <script defer src="assets/js/fontawesome-all.min.js"></script>
 </body>

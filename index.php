@@ -28,80 +28,78 @@ function filterInputs($input, $regEx)
 		// Lettres...
 		if (strstr($regEx, 'a-z') && strstr($regEx, 'A-Z'))
 		{
-			$validChar .= " de lettres,";
+			$validChar .= " <span class='smsAlert'>de lettres</span>";
+			$validChar .= ",";
 			$regEx = cutRegex("a-z", $regEx);
 			$regEx = cutRegex("A-Z", $regEx);
 		}
 		else if (strstr($regEx, 'a-z') && !strstr($regEx, 'A-Z'))
 		{
-			$validChar .= " de lettres minuscules,";
+			$validChar .= " <span class='smsAlert'>de lettres minuscules</span>";
+			$validChar .= ",";
 			$regEx = cutRegex("a-z", $regEx);
 		}
 		else if (strstr($regEx, 'A-Z') && !strstr($regEx, 'a-z'))
 		{
-			$validChar .= " de lettres majuscules,";
+			$validChar .= " <span class='smsAlert'>de lettres majuscules</span>";
+			$validChar .= ",";
 			$regEx = cutRegex("A-Z", $regEx);
 		}
 		// Lettres accentuées...
 		if (strstr($regEx, 'À-Ö'))
 		{
-			$validChar .= " de lettres accentuées,";
+			$validChar .= " <span class='smsAlert'>de lettres accentuées</span>";
+			$validChar .= ",";
 			$regEx = cutRegex("À-Ö", $regEx);
 		}
 		else if (strstr($regEx, 'à-ö') && !strstr($regEx, 'À-Ö'))
 		{
-			$validChar .= " de lettres minuscules pouvant être accentuées,";
+			$validChar .= " <span class='smsAlert'>de lettres minuscules pouvant être accentuées</span>";
+			$validChar .= ",";
 			$regEx = cutRegex("à-ö", $regEx);
 		}
 		else if (strstr($regEx, 'À-Ö') && !strstr($regEx, 'à-ö'))
 		{
-			$validChar .= " de lettres majuscules pouvant être accentuées,";
+			$validChar .= " <span class='smsAlert'>de lettres majuscules pouvant être accentuées</span>";
+			$validChar .= ",";
 			$regEx = cutRegex("À-Ö", $regEx);
 		}
 		// Chiffres...
 		if (strstr($regEx, '0-9'))
 		{
-			$validChar .= " de chiffres,";
+			$validChar .= " <span class='smsAlert'>de chiffres</span>";
+			$validChar .= ",";
 			$regEx = cutRegex("0-9", $regEx);
 		}
 		// Espaces...
 		if (strstr($regEx, ' '))
 		{
-			$validChar .= " d'espaces,";
+			$validChar .= " <span class='smsAlert'>d'espaces</span>";
+			$validChar .= ",";
 			$regEx = cutRegex(" ", $regEx);
 		}
-		// Autres caractères...
 
+		$validChar = substr_replace($validChar, " et", -1, 1);
+
+		// Autres caractères...
 		$regExLength = strlen($regEx);
 		if ($regExLength > 0)
 		{
-			$validChar .= $regExLength == 1 ? " du caractère suivant:" : " des caractères suivant:";
+			$validChar .= $regExLength == 1 ? " du caractère suivant:" : " des caractères suivants:";
 
 			for ($i = $regExLength - 1; $i >= 0; $i--)
 			{
 				if (strstr($regEx, $regEx[$i]))
 				{
-					$validChar .= " ".$regEx[$i].",";
+					$validChar .= " <span class='smsAlert'>".$regEx[$i]."</span> ";
 					$regEx = cutRegex($regEx[$i], $regEx);
 				}
 			}
 		}
-		// Pour une meilleure formulation, remplacer la dernière virgule du message par "et"
-		for ($i = strlen($validChar) - 1, $lastComma = TRUE; $i >= 0; $i--)
-		{
-			if ($validChar[$i] == "," && $lastComma == TRUE)
-			{
-				$validChar = substr_replace($validChar, "!", $i, 1);
-				$lastComma = FALSE;
-			}
-			else if ($validChar[$i] == "," && $lastComma == FALSE)
-			{
-				$validChar = substr_replace($validChar, " et", $i, 1);
-				break;
-			}
-		}
 
-		$_SESSION['smsAlert'] = "Ce champ ne peut être composé que".$validChar;
+		$validChar .= "!";
+
+		$_SESSION['smsAlert'] = "Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar;
 		return FALSE;
 	}
 }
