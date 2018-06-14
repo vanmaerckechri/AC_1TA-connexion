@@ -52,4 +52,24 @@
 			}
 		}
 	}
+	.enabel
+	{
+		text-align: right;
+		margin-top: 20px;
+		a
+		{
+			margin-left: 10px;
+			border-bottom: 2px solid white;
+			text-decoration: none;
+			color: $enabel-grey;
+			font-size: .8rem;
+			font-style: italic;
+			transition: color .3s, border-color .5s;
+			&:hover
+			{
+				border-color: $ac-blue;
+				color: black;
+			}
+		}
+	}
 }

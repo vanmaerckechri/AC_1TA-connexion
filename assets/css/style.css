@@ -80,5 +80,19 @@ input {
       .connexion form .formButton:hover {
         background-color: #4ab4f1;
         box-shadow: 0px 0px 20px 0px #4ab4f1; }
+  .connexion .enabel {
+    text-align: right;
+    margin-top: 20px; }
+    .connexion .enabel a {
+      margin-left: 10px;
+      border-bottom: 2px solid white;
+      text-decoration: none;
+      color: #575656;
+      font-size: .8rem;
+      font-style: italic;
+      transition: color .3s, border-color .5s; }
+      .connexion .enabel a:hover {
+        border-color: #4ab4f1;
+        color: black; }
 
 /*# sourceMappingURL=style.css.map */
