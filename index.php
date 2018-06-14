@@ -1,4 +1,7 @@
 <?php
+session_cache_limiter('private_no_expire, must-revalidate');
+session_start();
+
 
 require('./controller/controller.php');
 // Si le message d'alerte n'existe pas, on le crée vide.
@@ -22,6 +25,7 @@ function filterInputs($input, $regEx)
 			return str_replace($char, "", $regEx);
 		}
 		$validChar = "";
+		// Lettres...
 		if (strstr($regEx, 'a-z') && strstr($regEx, 'A-Z'))
 		{
 			$validChar .= " de lettres,";
@@ -38,7 +42,7 @@ function filterInputs($input, $regEx)
 			$validChar .= " de lettres majuscules,";
 			$regEx = cutRegex("A-Z", $regEx);
 		}
-
+		// Lettres accentuées...
 		if (strstr($regEx, 'À-Ö'))
 		{
 			$validChar .= " de lettres accentuées,";
@@ -54,13 +58,34 @@ function filterInputs($input, $regEx)
 			$validChar .= " de lettres majuscules pouvant être accentuées,";
 			$regEx = cutRegex("À-Ö", $regEx);
 		}
-
+		// Chiffres...
 		if (strstr($regEx, '0-9'))
 		{
 			$validChar .= " de chiffres,";
 			$regEx = cutRegex("0-9", $regEx);
 		}
+		// Espaces...
+		if (strstr($regEx, ' '))
+		{
+			$validChar .= " d'espaces,";
+			$regEx = cutRegex(" ", $regEx);
+		}
+		// Autres caractères...
 
+		$regExLength = strlen($regEx);
+		if ($regExLength > 0)
+		{
+			$validChar .= $regExLength == 1 ? " du caractère suivant:" : " des caractères suivant:";
+
+			for ($i = $regExLength - 1; $i >= 0; $i--)
+			{
+				if (strstr($regEx, $regEx[$i]))
+				{
+					$validChar .= " ".$regEx[$i].",";
+					$regEx = cutRegex($regEx[$i], $regEx);
+				}
+			}
+		}
 		// Pour une meilleure formulation, remplacer la dernière virgule du message par "et"
 		for ($i = strlen($validChar) - 1, $lastComma = TRUE; $i >= 0; $i--)
 		{
@@ -91,13 +116,13 @@ if (isset($_POST))
 		if ($filteredInput)
 		{
 			$_SESSION['nickname'] = $filteredInput;
-			//Teacher
+			$_SESSION['classroom'] = '';
+			// Teacher
 			if ($test = strstr($_SESSION['nickname'], 'admin@'))
 			{
-				$_SESSION['classroom'] = '';
 				pwd();
 			}
-			//Student
+			// Student
 			else
 			{
 				classroom();
@@ -109,9 +134,9 @@ if (isset($_POST))
 		}
 	}
 	//CLASSROOM (Student Only)
-	else if (isset($_POST['classroom']))
+	else if (isset($_POST['classroom']) && isset($_SESSION['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['classroom'], 'a-zA-Z0-9À-ÖØ-öø-ÿœŒ .-');
+		$filteredInput = filterInputs($_POST['classroom'], 'a-zA-Z0-9À-Ö ._-');
 		if ($filteredInput)
 		{
 			$_SESSION['classroom'] = $filteredInput;
@@ -123,10 +148,27 @@ if (isset($_POST))
 		}
 	}
 	//PASSWORD
-	else if (isset($_POST['password']))
+	else if (isset($_POST['password']) && isset($_SESSION['nickname']))
 	{
-		$_SESSION['password'] = htmlspecialchars($_POST['password']);
-		//checkAccountDB();	
+		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö .-_@#');
+		if ($filteredInput)
+		{
+			if (!isset($_SESSION['classroom']))
+			{
+				// Teacher
+				$_SESSION['password'] = htmlspecialchars($_POST['password']);
+			}
+			else
+			{
+				// Student
+				$_SESSION['password'] = htmlspecialchars($_POST['password']);
+			}
+			//checkAccountDB();	
+		}
+		else
+		{
+			pwd();
+		}
 	}
 	else
 	{
@@ -138,4 +180,8 @@ else
 	home();
 }
 
+if (isset($_SESSION['nickname'])) 
+	{
+		echo $_SESSION['nickname'];
+	}
 $_SESSION['smsAlert'] = '';
