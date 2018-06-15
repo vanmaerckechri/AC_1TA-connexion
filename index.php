@@ -18,7 +18,7 @@ if (isset($_POST))
 			$_SESSION['nickname'] = $filteredInput;
 			$_SESSION['classroom'] = '';
 			// Teacher
-			if ($test = strstr($_SESSION['nickname'], 'admin@'))
+			if (strstr($_SESSION['nickname'], 'admin@'))
 			{
 				pwd();
 			}
@@ -36,7 +36,7 @@ if (isset($_POST))
 	//Classroom (Student Only)
 	else if (isset($_POST['classroom']) && isset($_SESSION['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['classroom'], 'a-zA-Z0-9À-Ö ._-', 4, 20);
+		$filteredInput = filterInputs($_POST['classroom'], 'a-zA-Z0-9À-Ö ._-', 0, 30);
 		if ($filteredInput)
 		{
 			$_SESSION['classroom'] = $filteredInput;
@@ -50,19 +50,24 @@ if (isset($_POST))
 	// Password
 	else if (isset($_POST['password']) && isset($_SESSION['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö .-_@#', 8, 30);
+		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
 		if ($filteredInput)
 		{
-			if (!isset($_SESSION['classroom']))
+			if (strstr($_SESSION['nickname'], 'admin@'))
 			{
 				// Teacher
 				$_SESSION['password'] = $filteredInput;
+				$auth = new Authentification;
+				$auth->connexion();
+				pwd();
 			}
 			else
 			{
 				// Student
 				$_SESSION['password'] = $filteredInput;
-				platform();
+				$auth = new Authentification;
+				$auth->connexion();
+				pwd();
 			}
 			//checkAccountDB();	
 		}
