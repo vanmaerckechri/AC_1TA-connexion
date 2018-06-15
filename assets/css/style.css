@@ -13,7 +13,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  font-family: 'Open Sans', sans-serif; }
+  font-family: 'Open Sans', sans-serif;
+  background-color: white; }
 
 #main {
   width: 360px;
@@ -40,7 +41,6 @@ input {
   color: #ce1d21; }
 
 #main .connexion {
-  margin-bottom: 10px;
   border-bottom-right-radius: 10px;
   border-top-right-radius: 10px;
   padding: 10px;
@@ -79,22 +79,22 @@ input {
       #main .connexion form .formButton:hover {
         background-color: #4ab4f1;
         box-shadow: 0px 0px 20px 0px #4ab4f1; }
-  #main .connexion .enabel {
-    text-align: right;
-    margin-top: 20px; }
-    #main .connexion .enabel a {
-      margin-left: 10px;
-      border-bottom: 2px solid white;
-      text-decoration: none;
-      color: #575656;
-      font-size: .8rem;
-      font-style: italic;
-      transition: color .3s, border-color .5s; }
-      #main .connexion .enabel a:hover {
-        border-color: #4ab4f1;
-        color: black; }
 #main p {
   max-width: 360px;
   position: absolute; }
+
+.enabel {
+  text-align: right; }
+  .enabel a {
+    margin-left: 10px;
+    border-bottom: 2px solid white;
+    text-decoration: none;
+    color: #575656;
+    font-size: .8rem;
+    font-style: italic;
+    transition: color .3s, border-color .5s; }
+    .enabel a:hover {
+      border-color: #4ab4f1;
+      color: black; }
 
 /*# sourceMappingURL=style.css.map */

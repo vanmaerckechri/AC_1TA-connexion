@@ -3,7 +3,6 @@
 {
 	.connexion
 	{
-		margin-bottom: 10px;
 		border-bottom-right-radius: 10px;
 		border-top-right-radius: 10px;
 		padding: 10px;
@@ -56,30 +55,29 @@
 				}
 			}
 		}
-		.enabel
-		{
-			text-align: right;
-			margin-top: 20px;
-			a
-			{
-				margin-left: 10px;
-				border-bottom: 2px solid white;
-				text-decoration: none;
-				color: $enabel-grey;
-				font-size: .8rem;
-				font-style: italic;
-				transition: color .3s, border-color .5s;
-				&:hover
-				{
-					border-color: $ac-blue;
-					color: black;
-				}
-			}
-		}
 	}
 	p
 	{
 		max-width: 360px;
 		position: absolute;
+	}
+}
+.enabel
+{
+	text-align: right;
+	a
+	{
+		margin-left: 10px;
+		border-bottom: 2px solid white;
+		text-decoration: none;
+		color: $enabel-grey;
+		font-size: .8rem;
+		font-style: italic;
+		transition: color .3s, border-color .5s;
+		&:hover
+		{
+			border-color: $ac-blue;
+			color: black;
+		}
 	}
 }

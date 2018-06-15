@@ -15,10 +15,10 @@
             <h1>Plateforme Éducative</h1>
             <h2>Connexion</h2>
     		<?=$content?>
-            <div class="enabel">
-                <a href="https://www.enabel.be/" target="_blank" rel="noopener">Enabel</a>
-                <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
-            </div>
+        </div>
+        <div class="enabel">
+            <a href="https://www.enabel.be/" target="_blank" rel="noopener">Enabel</a>
+            <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
         </div>
         <p><?=$_SESSION['smsAlert']?></p>
     </div>
