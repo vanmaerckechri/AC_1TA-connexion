@@ -222,10 +222,13 @@ class Authentification
 	public function connexion()
 	{
 		$db = $this->loadDB();
+		$nameIsOk = false;
+		$pwdIsOk = false;
+		$classroomIsOk = false;
 
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
-			$requete = $db->prepare("SELECT * FROM PE_adminAccounts WHERE nickname = :name AND password = :pwd");
+			$requete = $db->prepare("SELECT id FROM PE_adminAccounts WHERE nickname = :name AND password = :pwd");
 		}
 		else
 		{
@@ -234,16 +237,16 @@ class Authentification
 
 		$requete->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
 		$requete->bindValue(':pwd', $this->_sessionPwd, PDO::PARAM_STR);
-
 		$requete->execute();
 
 		if ($requete->fetch())
 		{
-		    $_SESSION['smsAlert'] = "Le client: ".$this->_sessionNickname." existe !";
+		    $_SESSION['smsAlert'] = "Connexion réussie!";
+		    $_SESSION['session'] = TRUE;
 		}
 		else
 		{
-		    $_SESSION['smsAlert'] = "Le client: ".$this->_sessionNickname." n'existe pas !";			
+		    $_SESSION['smsAlert'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
 		}
 
 		$requete->closeCursor();
