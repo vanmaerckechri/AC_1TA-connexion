@@ -13,3 +13,9 @@ function pwd()
 {
     require('./view/pwdView.php');
 }
+function platform()
+{
+	header('Location: ./platform/index.php');
+	exit;
+}
+//AUTHENTIFICATION!
