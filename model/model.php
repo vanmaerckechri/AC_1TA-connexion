@@ -184,10 +184,30 @@ class Authentification
 		}	
 	}
 
+	private function loadNextPage()
+	{
+		// Vérifier si l'utilisateur est déjà connecté
+	    if (isset($_SESSION['connexion']) && isset($_SESSION['userStatus']) && $_SESSION['connexion'] == TRUE)
+	    {
+	    	if ($_SESSION['userStatus'] == 1)
+	    	{
+	    		// Admin
+	    		header('Location: http://localhost/AC_1TA-connexion/admin/index.php');
+	    	}
+	    	else
+	    	{
+	    		// Student
+	    		header('Location: http://localhost/AC_1TA-connexion/platform/index.php');	    		
+	    	}
+	    }
+	}
+
 	public function startSession()
 	{
+		// Initialiser
 		session_cache_limiter('private_no_expire, must-revalidate');
 	    session_start();
+	    // Petite protection contre l'usurpation d'identité
 	    if(!isset($_SESSION['ip']))
 	    {
 	        $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
@@ -196,14 +216,10 @@ class Authentification
 	    {
 	        $_SESSION = array();
 	        $_SESSION['smsAlert'] = 'Vous avez été déconnecté pour des raisons de sécurité!';
-	        header('Location: index.php');
+	        header('Location: localhost/AC_1TA-connexion/index.php');
 	        exit;
 	    }
-	}
-
-    public function checkSession()
-	{
-
+	    Authentification::loadNextPage();
 	}
 
 	private function loadDB()
@@ -222,17 +238,18 @@ class Authentification
 	public function connexion()
 	{
 		$db = $this->loadDB();
-		$nameIsOk = false;
-		$pwdIsOk = false;
-		$classroomIsOk = false;
 
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
 			$requete = $db->prepare("SELECT id FROM PE_adminAccounts WHERE nickname = :name AND password = :pwd");
+			// userStatus 1 = admin
+			$_SESSION['userStatus'] = 1;
 		}
 		else
 		{
 			$requete = $db->prepare("SELECT * FROM `$this->_sessionClassroom` WHERE nickname = :name AND password = :pwd");
+			// userStatus 0 = user
+			$_SESSION['userStatus'] = 0;
 		}
 
 		$requete->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
@@ -242,11 +259,13 @@ class Authentification
 		if ($requete->fetch())
 		{
 		    $_SESSION['smsAlert'] = "Connexion réussie!";
-		    $_SESSION['session'] = TRUE;
+		    $_SESSION['connexion'] = TRUE;
+		   	$this->loadNextPage();
 		}
 		else
 		{
 		    $_SESSION['smsAlert'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+		    $_SESSION['connexion'] = FALSE;
 		}
 
 		$requete->closeCursor();
