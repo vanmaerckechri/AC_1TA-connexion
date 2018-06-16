@@ -223,7 +223,7 @@ class Authentification
 
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
-			$req = $db->prepare("SELECT id FROM PE_adminAccounts WHERE nickname = :name AND password = :pwd");
+			$req = $db->prepare("SELECT id FROM PE_adminAccounts WHERE nickname = :name AND password = :pwd AND activated = 1");
 		}
 		else
 		{

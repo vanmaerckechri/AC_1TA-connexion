@@ -4,8 +4,6 @@ require('./controller/controller.php');
 
 // ACTIVATE SESSION!
 Authentification::startSession();
-
-// Check Session
 function checkSession()
 {
 	$auth = new Authentification;
@@ -34,7 +32,6 @@ function checkSession()
 	}
 }
 checkSession();
-//$_SESSION = array();
 
 // Si le message d'alerte n'existe pas, on le crée vide.
 $_SESSION['smsAlert'] = !isset($_SESSION['smsAlert']) || empty($_SESSION['smsAlert']) ? '' : $_SESSION['smsAlert'];
@@ -66,7 +63,7 @@ if (isset($_POST))
 			home();
 		}
 	}
-	//Classroom (Student Only)
+	// Classroom (Student Only)
 	else if (isset($_POST['classroom']) && isset($_SESSION['nickname']))
 	{
 		$filteredInput = filterInputs($_POST['classroom'], 'a-zA-Z0-9À-Ö ._-', 0, 30);
@@ -86,21 +83,9 @@ if (isset($_POST))
 		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
 		if ($filteredInput)
 		{
-			if (strstr($_SESSION['nickname'], 'admin@'))
-			{
-				// Teacher
-				$_SESSION['password'] = $filteredInput;
-				checkSession();
-				pwd();
-			}
-			else
-			{
-				// Student
-				$_SESSION['password'] = $filteredInput;
-				checkSession();
-				pwd();
-			}
-			//checkAccountDB();	
+			$_SESSION['password'] = $filteredInput;
+			checkSession();
+			pwd();
 		}
 		else
 		{
