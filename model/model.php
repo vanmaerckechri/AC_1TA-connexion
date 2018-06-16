@@ -113,6 +113,7 @@ class Authentification
 	private $sessionClassroom;
 	private $sessionPwd;
 	private $sessionStatus;
+	private $resultReq;
 
     public function __construct()
     {
@@ -184,25 +185,7 @@ class Authentification
 		}	
 	}
 
-	private function loadNextPage()
-	{
-		// Vérifier si l'utilisateur est déjà connecté
-	    if (isset($_SESSION['connexion']) && isset($_SESSION['userStatus']) && $_SESSION['connexion'] == TRUE)
-	    {
-	    	if ($_SESSION['userStatus'] == 1)
-	    	{
-	    		// Admin
-	    		header('Location: http://localhost/AC_1TA-connexion/admin/index.php');
-	    	}
-	    	else
-	    	{
-	    		// Student
-	    		header('Location: http://localhost/AC_1TA-connexion/platform/index.php');	    		
-	    	}
-	    }
-	}
-
-	public function startSession()
+	static function startSession()
 	{
 		// Initialiser
 		session_cache_limiter('private_no_expire, must-revalidate');
@@ -219,14 +202,13 @@ class Authentification
 	        header('Location: localhost/AC_1TA-connexion/index.php');
 	        exit;
 	    }
-	    Authentification::loadNextPage();
 	}
 
 	private function loadDB()
 	{
 		try
 		{
-    		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "phpmyadmin", "1234");
+    		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "root", "");
     		return $db;
 		} 
 		catch (Exception $e)
@@ -235,40 +217,50 @@ class Authentification
 		}
 	}
 
-	public function connexion()
+	public function checkSession()
 	{
 		$db = $this->loadDB();
 
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
-			$requete = $db->prepare("SELECT id FROM PE_adminAccounts WHERE nickname = :name AND password = :pwd");
-			// userStatus 1 = admin
-			$_SESSION['userStatus'] = 1;
+			$req = $db->prepare("SELECT id FROM PE_adminAccounts WHERE nickname = :name AND password = :pwd");
 		}
 		else
 		{
-			$requete = $db->prepare("SELECT * FROM `$this->_sessionClassroom` WHERE nickname = :name AND password = :pwd");
-			// userStatus 0 = user
-			$_SESSION['userStatus'] = 0;
+			$req = $db->prepare("SELECT * FROM `$this->_sessionClassroom` WHERE nickname = :name AND password = :pwd");
 		}
+		$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
+		$req->bindValue(':pwd', $this->_sessionPwd, PDO::PARAM_STR);
+		$req->execute();
+		$resultReq = $req->fetch();
+		$req->closeCursor();
+		$req = NULL;
 
-		$requete->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
-		$requete->bindValue(':pwd', $this->_sessionPwd, PDO::PARAM_STR);
-		$requete->execute();
-
-		if ($requete->fetch())
+		// Les données de connexion sont bonnes
+		if ($resultReq != false)
 		{
-		    $_SESSION['smsAlert'] = "Connexion réussie!";
-		    $_SESSION['connexion'] = TRUE;
-		   	$this->loadNextPage();
+		    if (strstr($this->_sessionNickname, 'admin@'))
+		    {
+		    	// Admin
+		    	return 'admin';
+		    }
+		    else
+		    {
+		    	// Student
+		    	return 'student';
+		    }
 		}
+		// Les données de connexion sont mauvaises
 		else
 		{
-		    $_SESSION['smsAlert'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
-		    $_SESSION['connexion'] = FALSE;
-		}
-
-		$requete->closeCursor();
-		$requete = NULL;
+			if ($this->_sessionPwd != '' && $this->_sessionNickname != '')
+			{
+				$_SESSION['smsAlert'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+				$_SESSION['nickname'] = '';
+				$_SESSION['classroom'] = '';
+				$_SESSION['password'] = '';
+				return 'wrong';
+			}
+		}  
 	}
 }
