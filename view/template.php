@@ -13,11 +13,9 @@
     <div id="main">
         <div class="connexion">
             <h1>Plateforme Éducative</h1>
-            <h2>Connexion</h2>
     		<?=$content?>
         </div>
-        <div class="enabel">
-            <a href="https://www.enabel.be/" target="_blank" rel="noopener">Enabel</a>
+        <div class="producer">
             <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
         </div>
         <p><?=$_SESSION['smsAlert']?></p>

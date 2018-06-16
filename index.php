@@ -37,7 +37,7 @@ checkSession();
 $_SESSION['smsAlert'] = !isset($_SESSION['smsAlert']) || empty($_SESSION['smsAlert']) ? '' : $_SESSION['smsAlert'];
 
 // ROUTEUR!
-if (isset($_POST))
+if (isset($_POST) && !isset($_GET['action']))
 {
 	// Login
 	if (isset($_POST['nickname']))
@@ -99,7 +99,22 @@ if (isset($_POST))
 }
 else
 {
-	home();
+	if ($_GET['action'] == 'namerecovery')
+	{
+		nicknameRecovery();
+	}
+	else if ($_GET['action'] == 'passwordrecovery')
+	{
+		passwordRecovery();
+	}
+	else if ($_GET['action'] == 'newadminaccount')
+	{
+		newAdminAccount();
+	}
+	else
+	{
+		home();
+	}
 }
 
 $_SESSION['smsAlert'] = '';

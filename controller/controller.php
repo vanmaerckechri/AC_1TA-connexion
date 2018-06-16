@@ -13,9 +13,18 @@ function pwd()
 {
     require('./view/pwdView.php');
 }
-function platform()
+function nicknameRecovery()
 {
-	header('Location: ./platform/index.php');
+	require('./view/nnRecoveryView.php');
 	exit;
 }
-//AUTHENTIFICATION!
+function passwordRecovery()
+{
+	require('./view/passwordRecoveryView.php');
+	exit;
+}
+function newAdminAccount()
+{
+	require('./view/newAdminAccountView.php');
+	exit;
+}
