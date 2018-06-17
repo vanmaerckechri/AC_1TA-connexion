@@ -1,30 +1,64 @@
 <?php
+
 require('./model/model.php');
+
+// ACTIVATE SESSION!
+Authentification::startSession();
+
+function checkSession()
+{
+	$auth = new Authentification;
+	$sessionResult = $auth->checkSession();
+
+	if ($sessionResult != null)
+	{
+	    if ($sessionResult == 'admin')
+		{
+			// Admin connexion
+			header('Location: ./admin/index.php');
+			exit;  		
+		}
+		else if ($sessionResult == 'student')
+		{
+			// Student connexion
+			header('Location: ./platform/index.php');	  
+			exit;  		
+		}
+		else if ($sessionResult == 'wrong')
+		{
+			// Informations de connexion incorrectes
+			header('Location: ./index.php');
+			exit;	    		
+		}
+	}
+}
+checkSession();
+
+// Si le message d'alerte n'existe pas, on le crée vide.
+$_SESSION['smsAlert'] = !isset($_SESSION['smsAlert']) || empty($_SESSION['smsAlert']) ? '' : $_SESSION['smsAlert'];
+
 //VIEWS!
-function home()
+function loadHomeView()
 {
     require('./view/loginView.php');
 }
-function classroom()
+function loadClassroomView()
 {
     require('./view/classroomView.php');
 }
-function pwd()
+function loadPwdView()
 {
     require('./view/pwdView.php');
 }
-function nicknameRecovery()
+function loadNicknameRecoveryView()
 {
 	require('./view/nnRecoveryView.php');
-	exit;
 }
-function passwordRecovery()
+function loadPwdRecoveryView()
 {
 	require('./view/passwordRecoveryView.php');
-	exit;
 }
-function newAdminAccount()
+function loadCreateAdminAccountView()
 {
 	require('./view/newAdminAccountView.php');
-	exit;
 }
