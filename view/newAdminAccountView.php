@@ -9,6 +9,7 @@
             <input class="formInput" type="password" name="password" required>
             <label for="password2">Confirmer le mot de passe</label>
             <input class="formInput" type="password" name="password2" required>
+            <a href="index.php">Se connecter</a>
             <input class="formButton" type="submit" value="Valider">
         </form>
 <?php $content = ob_get_clean(); ?>

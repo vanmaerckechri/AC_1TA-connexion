@@ -4,6 +4,7 @@
         <form action="index.php" method="post">
             <label for="email">Adresse e-mail</label>
             <input class="formInput" type="email" name="email" autofocus required>
+            <a href="index.php">Se connecter</a>
             <input class="formButton" type="submit" value="Suivant">
         </form>
 <?php $content = ob_get_clean(); ?>

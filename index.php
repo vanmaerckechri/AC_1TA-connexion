@@ -99,14 +99,17 @@ if (isset($_POST) && !isset($_GET['action']))
 }
 else
 {
+	// Nickname recovery
 	if ($_GET['action'] == 'namerecovery')
 	{
 		nicknameRecovery();
 	}
+	// Password recovery
 	else if ($_GET['action'] == 'passwordrecovery')
 	{
 		passwordRecovery();
 	}
+	// Create admin account
 	else if ($_GET['action'] == 'newadminaccount')
 	{
 		newAdminAccount();
