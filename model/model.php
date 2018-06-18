@@ -12,63 +12,60 @@ function filterInputs($input, $regEx, $minLength, $maxLength)
 		else
 		{
 			// Message dynamique en fonction du regEx
-			function cutRegex($char, $regEx)
-			{
-				return str_replace($char, "", $regEx);
-			}
+
 			$validChar = "";
 			// Lettres...
 			if (strstr($regEx, 'a-z') && strstr($regEx, 'A-Z'))
 			{
 				$validChar .= " <span class='smsAlert'>de lettres</span>";
 				$validChar .= ",";
-				$regEx = cutRegex("a-z", $regEx);
-				$regEx = cutRegex("A-Z", $regEx);
+				$regEx = str_replace("a-z", "", $regEx);
+				$regEx = str_replace("A-Z", "", $regEx);
 			}
 			else if (strstr($regEx, 'a-z') && !strstr($regEx, 'A-Z'))
 			{
 				$validChar .= " <span class='smsAlert'>de lettres minuscules</span>";
 				$validChar .= ",";
-				$regEx = cutRegex("a-z", $regEx);
+				$regEx = str_replace("a-z", "", $regEx);
 			}
 			else if (strstr($regEx, 'A-Z') && !strstr($regEx, 'a-z'))
 			{
 				$validChar .= " <span class='smsAlert'>de lettres majuscules</span>";
 				$validChar .= ",";
-				$regEx = cutRegex("A-Z", $regEx);
+				$regEx = str_replace("A-Z", "", $regEx);
 			}
 			// Lettres accentuées...
 			if (strstr($regEx, 'À-Ö'))
 			{
 				$validChar .= " <span class='smsAlert'>de lettres accentuées</span>";
 				$validChar .= ",";
-				$regEx = cutRegex("À-Ö", $regEx);
+				$regEx = str_replace("À-Ö", "", $regEx);
 			}
 			else if (strstr($regEx, 'à-ö') && !strstr($regEx, 'À-Ö'))
 			{
 				$validChar .= " <span class='smsAlert'>de lettres minuscules pouvant être accentuées</span>";
 				$validChar .= ",";
-				$regEx = cutRegex("à-ö", $regEx);
+				$regEx = str_replace("à-ö", "", $regEx);
 			}
 			else if (strstr($regEx, 'À-Ö') && !strstr($regEx, 'à-ö'))
 			{
 				$validChar .= " <span class='smsAlert'>de lettres majuscules pouvant être accentuées</span>";
 				$validChar .= ",";
-				$regEx = cutRegex("À-Ö", $regEx);
+				$regEx = str_replace("À-Ö", "", $regEx);
 			}
 			// Chiffres...
 			if (strstr($regEx, '0-9'))
 			{
 				$validChar .= " <span class='smsAlert'>de chiffres</span>";
 				$validChar .= ",";
-				$regEx = cutRegex("0-9", $regEx);
+				$regEx = str_replace("0-9", "", $regEx);
 			}
 			// Espaces...
 			if (strstr($regEx, ' '))
 			{
 				$validChar .= " <span class='smsAlert'>d'espaces</span>";
 				$validChar .= ",";
-				$regEx = cutRegex(" ", $regEx);
+				$regEx = str_replace(" ", "", $regEx);
 			}
 
 			// Autres caractères...
@@ -82,29 +79,36 @@ function filterInputs($input, $regEx, $minLength, $maxLength)
 					if (strstr($regEx, $regEx[$i]))
 					{
 						$validChar .= " <span class='smsAlert'>".$regEx[$i]."</span> ";
-						$regEx = cutRegex($regEx[$i], $regEx);
+						$regEx = str_replace($regEx[$i], "", $regEx);
 					}
 				}
+				$validChar .= ",";
 			}
 			// Améliorer la formulation et la ponctuation du message
-			for ($i = strlen($validChar) - 1; $i >= 0; $i--)
+			for ($validCharLength = strlen($validChar) - 1, $i = $validCharLength; $i >= 0; $i--)
 			{
 				if ($validChar[$i] == ",")
 				{
-					$validChar = substr_replace($validChar, " et", $i, 1);
-					break;
+					if ($i == $validCharLength)
+					{
+						$validChar = substr_replace($validChar, "!", $i, 1);
+					}
+					else
+					{
+						$validChar = substr_replace($validChar, " et", $i, 1);
+						break;
+					}
 				}
 			}
-			$validChar .= "!";
 
-			$_SESSION['smsAlert'] = "Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar;
+			//$_SESSION['smsAlert'] = "Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar;
+			return ["Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar];
 		}
 	}
 	else
 	{
-		$_SESSION['smsAlert'] = "Le nombre de caractères pour ce champ doit être compris entre <span class='smsAlert'>".$minLength."</span> et <span class='smsAlert'>".$maxLength."</span>!";
+		return ["Le nombre de caractères pour ce champ doit être compris entre <span class='smsAlert'>".$minLength."</span> et <span class='smsAlert'>".$maxLength."</span>!"];
 	}
-	return FALSE;
 }
 
 class Authentification
@@ -208,7 +212,7 @@ class Authentification
 	{
 		try
 		{
-    		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "root", "");
+    		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "phpmyadmin", "1234");
     		return $db;
 		} 
 		catch (Exception $e)
@@ -262,5 +266,50 @@ class Authentification
 				return 'wrong';
 			}
 		}  
+	}
+}
+
+class SendMail
+{
+	public function activeAccount($mail, $id, $code)
+	{
+		$_SESSION['smsAlert'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
+		$_sujet = "Lien d'Activation du Compte!";
+		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
+		<a href="https://cvm.one/test/index.php?action=activate&id='.$id.'&code='.$code.'">https://cvm.one/test/index.php?action=activate&id='.$id.'&code='.$code.'</a></p>';
+		$_destinataire = $mail;
+
+		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
+		$_headers .= "Reply-To: admin@cvm.one\n";
+		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Transfer-Encoding: 8bit";
+		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
+	}
+	public function resetPwd($mail, $id, $rstpwd)
+	{
+		$_SESSION['smsAuth'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
+		$_sujet = "Réinitialisation du Mot de Passe";
+		$_message = '<p>Bienvenue! Cliquer sur le lien suivant pour reinitialiser votre password.
+		<a href="https://cvm.one/test/index.php?action=resetpwd&id='.$id.'&rstpwd='.$rstpwd.'">https://cvm.one/test/index.php?action=activate&resetpwd='.$id.'&rstpwd='.$rstpwd.'</a></p>';
+		$_destinataire = $mail;
+
+		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
+		$_headers .= "Reply-To: admin@cvm.one\n";
+		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Transfer-Encoding: 8bit";
+		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
+	}
+	public function callNickname($mail, $nickname)
+	{
+		$_SESSION['smsAuth'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
+		$_sujet = "Votre Nom d'Utilisateur";
+		$_message = "<p>Bienvenue! Votre nom d'utilisateur est le suivant: ".$nickname.".</p>";
+		$_destinataire = $mail;
+
+		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
+		$_headers .= "Reply-To: admin@cvm.one\n";
+		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Transfer-Encoding: 8bit";
+		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
 	}
 }

@@ -1,14 +1,22 @@
 <?php ob_start(); ?>
         <h2>Créer un Compte Administrateur</h2>
         <form action="index.php" method="post">
-            <label for="nickname">Nom d'utilisateur</label>
-            <input class="formInput" type="text" name="nickname" autofocus required>
-            <label for="email">Adresse e-mail</label>
-            <input class="formInput" type="email" name="email" required>
-            <label for="password">Mot de passe</label>
-            <input class="formInput" type="password" name="password" required>
-            <label for="password2">Confirmer le mot de passe</label>
-            <input class="formInput" type="password" name="password2" required>
+            <label for="createAdminAccountnickname">Nom d'utilisateur</label>
+            <input class="formInput" type="text" name="createAdminAccountNickname" autofocus required>
+            <p><?=$_SESSION['smsAlert']['nickname']?></p>
+
+            <label for="createAdminAccountEmail">Adresse e-mail</label>
+            <input class="formInput" type="email" name="createAdminAccountEmail" required>
+            <p><?=$_SESSION['smsAlert']['email']?></p>
+
+            <label for="createAdminAccountPassword">Mot de passe</label>
+            <input class="formInput" type="password" name="createAdminAccountPassword" required>
+            <p><?=$_SESSION['smsAlert']['password']?></p>
+
+            <label for="createAdminAccountPassword2">Confirmer le mot de passe</label>
+            <input class="formInput" type="password" name="createAdminAccountPassword2" required>
+            <p><?=$_SESSION['smsAlert']['password2']?></p>
+
             <a href="index.php">Se connecter</a>
             <input class="formButton" type="submit" value="Valider">
         </form>
