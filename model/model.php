@@ -118,6 +118,19 @@ function filterInputs($input, $regEx, $minLength, $maxLength, $smsTitle)
 	return false;
 }
 
+function loadDb()
+{
+	try
+	{
+		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "phpmyadmin", "1234");
+		return $db;
+	} 
+	catch (Exception $e)
+	{
+	    die('Erreur : ' . $e->getMessage());
+	}
+}
+
 class Authentification
 {
 	private $sessionNickname;
@@ -186,6 +199,7 @@ class Authentification
 		if (is_string($sessionPwd))
 		{
 			$this->_sessionPwd = htmlspecialchars($sessionPwd, ENT_NOQUOTES);
+			$this->_sessionPwd = hash('sha256', $this->_sessionPwd);
 		}
 	}
 	private function setSessionStatus($sessionStatus)
@@ -215,22 +229,9 @@ class Authentification
 	    }
 	}
 
-	private function loadDB()
-	{
-		try
-		{
-    		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "phpmyadmin", "1234");
-    		return $db;
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
-	}
-
 	public function checkSession()
 	{
-		$db = $this->loadDB();
+		$db = loadDB();
 
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
@@ -273,6 +274,115 @@ class Authentification
 				return 'wrong';
 			}
 		}  
+	}
+}
+
+class RecordAccount
+{
+	private $nickname;
+	private $mail;
+	private $classroom;
+	private $pwd;
+	public $alreadyExist;
+
+    public function __construct($nickname, $mail, $classroom, $pwd)
+    {
+    	$this->hydrate($nickname, $mail, $classroom, $pwd);
+    	$this->saveInDb();
+    }
+
+	private function hydrate($nickname, $mail, $classroom, $pwd)
+  	{
+  		$variables = [$nickname, $mail, $classroom, $pwd];
+  		$variablesName = ['_nickname', '_mail', '_classroom', '_pwd'];
+  		for ($i = count($variables) - 1; $i >= 0; $i--)
+  		{
+  			$this->setVariable($variables[$i], $variablesName[$i]);
+  		}
+  	}
+
+  	private function setVariable($input, $name)
+	{
+		$this->$name = htmlspecialchars($input, ENT_NOQUOTES);
+		if ($name == '_pwd')
+		{
+			$this->_pwd = hash('sha256', $this->_pwd);
+		}
+		else if ($name == '_nickname')
+		{
+			$this->_nickname = 'admin@'.$this->_nickname;
+		}
+	}
+
+	public function getAlreadyExist()
+	{
+		return $this->_alreadyExist;
+	}
+
+	private function saveInDb()
+	{
+		$db = loadDB();
+
+		// Login or mail already exist ?
+		if ($this->_classroom == false)
+		{
+			$req = $db->prepare("SELECT nickname, mail FROM PE_adminAccounts WHERE mail = :email OR nickname = :name");
+			$req->bindValue(':email', $this->_mail, PDO::PARAM_STR);
+		}
+		else
+		{
+			$req = $db->prepare("SELECT * FROM `$this->_sessionClassroom` WHERE nickname = :name");
+		}
+		$req->bindValue(':name', $this->_nickname, PDO::PARAM_STR);
+		$req->execute();
+		$resultReq = $req->fetchAll(PDO::FETCH_ASSOC);
+
+		$mailExist = false;
+		$nameExist = false;
+		foreach ($resultReq as $mailsAndNames) 
+		{
+			if ($mailsAndNames['mail'] == $this->_mail)
+			{
+				$_SESSION['smsAlert']['email'] = "<span class='smsAlert'>Cette adresse email est déjà prise!</span>";
+				$mailExist = true;
+			}
+			if ($mailsAndNames['nickname'] == $this->_nickname)
+			{
+				$_SESSION['smsAlert']['nickname'] = "<span class='smsAlert'>Ce nom d'utilisateur existe déjà!</span>";
+				$nameExist = true;
+			}
+			if ($mailExist == true && $nameExist == true)
+			{
+				break;
+			}
+		}
+		if ($mailExist == true || $nameExist == true)
+		{
+			$this->_alreadyExist = true;
+			$req->closeCursor();
+			$req = NULL;	
+			return;
+		}
+
+		// Insert new account in DB
+		if ($this->_classroom == false)
+		{
+			$req = $db->prepare("INSERT INTO PE_adminAccounts (nickname, mail, password, pwdreset, activated) VALUES (:name, :email, :pwd, :pwdreset, :activated)");
+			$req->bindValue(':pwdreset', 0, PDO::PARAM_INT);
+			$req->bindValue(':activated', 1, PDO::PARAM_INT);
+		}
+		else
+		{
+			$req = $db->prepare("INSERT INTO `$this->_classroom` (nickname, mail, password) VALUES (:name, :email, :pwd)");
+		}
+		$req->bindValue(':name', $this->_nickname, PDO::PARAM_STR);
+		$req->bindValue(':email', $this->_mail, PDO::PARAM_STR);
+		$req->bindValue(':pwd', $this->_pwd, PDO::PARAM_STR);
+
+		$req->execute();
+		$resultReq = $req->fetch();
+		$req->closeCursor();
+		$req = NULL;		
 	}
 }
 
