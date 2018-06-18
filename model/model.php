@@ -122,7 +122,7 @@ function loadDb()
 {
 	try
 	{
-		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "phpmyadmin", "1234");
+		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "root", "");
 		return $db;
 	} 
 	catch (Exception $e)
@@ -135,8 +135,7 @@ class Authentification
 {
 	private $sessionNickname;
 	private $sessionClassroom;
-	private $sessionPwd;
-	private $sessionStatus;
+	private $sessionPassword;
 	private $resultReq;
 
     public function __construct()
@@ -146,68 +145,28 @@ class Authentification
 
 	private function hydrate()
   	{
-  		if (isset($_SESSION['nickname']))
+  		$sessionVarNames = ['nickname', 'classroom', 'password'];
+  		for ($i = count($sessionVarNames) - 1; $i >= 0; $i--)
   		{
-      		$this->setSessionNickname($_SESSION['nickname']);
-  		}
-  		else
-		{
-			$this->_sessionNickname = '';
-		}
-		if (isset($_SESSION['classroom']))
-  		{
-      		$this->setSessionClassroom($_SESSION['classroom']);
-  		}
-  		else
-		{
-			$this->_sessionClassroom = '';
-		}
-  		if (isset($_SESSION['password']))
-  		{
-      		$this->setSessionPwd($_SESSION['password']);
-  		}
-  		else
-		{
-			$this->_sessionPwd = '';
-		}
-		if (isset($_SESSION['sessionStatus']))
-  		{
-      		$this->setSessionStatus($_SESSION['sessionStatus']);
-  		}
-  		else
-		{
-			$this->_sessionStatus = '';
-		}
+  			$sessionVarName = ucfirst($sessionVarNames[$i]);
+  			$sessionVarName = '_session'.$sessionVarName;
+	  		if (isset($_SESSION[$sessionVarNames[$i]]))
+	  		{
+	      		$this->setSession($_SESSION[$sessionVarNames[$i]], $sessionVarName);
+	  		}
+	  		else
+	  		{
+				$this->$sessionVarName = "";
+	  		}
+	  	}
   	}
 
-	private function setSessionNickname($sessionNickname)
+	private function setSession($sessionVar, $sessionVarName)
 	{
-		if (is_string($sessionNickname))
+		if (is_string($sessionVar))
 		{
-			$this->_sessionNickname = htmlspecialchars($sessionNickname, ENT_NOQUOTES);
+			$this->$sessionVarName = htmlspecialchars($sessionVar, ENT_NOQUOTES);
 		}
-	}
-	private function setSessionClassroom($sessionClassroom)
-	{
-		if (is_string($sessionClassroom))
-		{
-			$this->_sessionClassroom = htmlspecialchars($sessionClassroom, ENT_NOQUOTES);
-		}	
-	}
-	private function setSessionPwd($sessionPwd)
-	{
-		if (is_string($sessionPwd))
-		{
-			$this->_sessionPwd = htmlspecialchars($sessionPwd, ENT_NOQUOTES);
-			$this->_sessionPwd = hash('sha256', $this->_sessionPwd);
-		}
-	}
-	private function setSessionStatus($sessionStatus)
-	{
-		if (is_string($sessionStatus))
-		{
-			$this->_sessionStatus = htmlspecialchars($sessionStatus, ENT_NOQUOTES);
-		}	
 	}
 
 	static function startSession()
@@ -242,7 +201,7 @@ class Authentification
 			$req = $db->prepare("SELECT * FROM `$this->_sessionClassroom` WHERE nickname = :name AND password = :pwd");
 		}
 		$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
-		$req->bindValue(':pwd', $this->_sessionPwd, PDO::PARAM_STR);
+		$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
 		$req->execute();
 		$resultReq = $req->fetch();
 		$req->closeCursor();
@@ -265,7 +224,7 @@ class Authentification
 		// Les données de connexion sont mauvaises
 		else
 		{
-			if ($this->_sessionPwd != '' && $this->_sessionNickname != '')
+			if ($this->_sessionPassword != '' && $this->_sessionNickname != '')
 			{
 				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
 				$_SESSION['nickname'] = '';
