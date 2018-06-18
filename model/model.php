@@ -202,7 +202,7 @@ class Authentification
 	    if($_SESSION['ip']!=$_SERVER['REMOTE_ADDR'])
 	    {
 	        $_SESSION = array();
-	        $_SESSION['smsAlert'] = 'Vous avez été déconnecté pour des raisons de sécurité!';
+	        $_SESSION['smsAlert']['default'] = 'Vous avez été déconnecté pour des raisons de sécurité!';
 	        header('Location: localhost/AC_1TA-connexion/index.php');
 	        exit;
 	    }
@@ -259,7 +259,7 @@ class Authentification
 		{
 			if ($this->_sessionPwd != '' && $this->_sessionNickname != '')
 			{
-				$_SESSION['smsAlert'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
 				$_SESSION['nickname'] = '';
 				$_SESSION['classroom'] = '';
 				$_SESSION['password'] = '';
@@ -273,7 +273,7 @@ class SendMail
 {
 	public function activeAccount($mail, $id, $code)
 	{
-		$_SESSION['smsAlert'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
+		$_SESSION['smsAlert']['default'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
 		$_sujet = "Lien d'Activation du Compte!";
 		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
 		<a href="https://cvm.one/test/index.php?action=activate&id='.$id.'&code='.$code.'">https://cvm.one/test/index.php?action=activate&id='.$id.'&code='.$code.'</a></p>';
@@ -287,7 +287,7 @@ class SendMail
 	}
 	public function resetPwd($mail, $id, $rstpwd)
 	{
-		$_SESSION['smsAuth'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
+		$_SESSION['smsAlert']['default'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
 		$_sujet = "Réinitialisation du Mot de Passe";
 		$_message = '<p>Bienvenue! Cliquer sur le lien suivant pour reinitialiser votre password.
 		<a href="https://cvm.one/test/index.php?action=resetpwd&id='.$id.'&rstpwd='.$rstpwd.'">https://cvm.one/test/index.php?action=activate&resetpwd='.$id.'&rstpwd='.$rstpwd.'</a></p>';
@@ -301,7 +301,7 @@ class SendMail
 	}
 	public function callNickname($mail, $nickname)
 	{
-		$_SESSION['smsAuth'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
+		$_SESSION['smsAlert']['default'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
 		$_sujet = "Votre Nom d'Utilisateur";
 		$_message = "<p>Bienvenue! Votre nom d'utilisateur est le suivant: ".$nickname.".</p>";
 		$_destinataire = $mail;

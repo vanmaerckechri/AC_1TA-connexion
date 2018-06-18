@@ -73,8 +73,8 @@ else
 	// Create admin account
 	if ($_GET['action'] == 'newadminaccount')
 	{
-		$nickname = '""';
-		$email = '""';
+		$keepNickname = '""';
+		$keepEmail = '""';
 		// Check if all inputs are corrects
 		if (isset($_POST['createAdminAccountNickname']) && isset($_POST['createAdminAccountEmail']) && isset($_POST['createAdminAccountPassword']) && isset($_POST['createAdminAccountPassword2']))
 		{
@@ -92,7 +92,7 @@ else
 				}
 				else
 				{
-					$nickname = $_POST['createAdminAccountNickname'];
+					$keepNickname = $_POST['createAdminAccountNickname'];
 				}
 
 				if ($is_email == false)
@@ -101,7 +101,7 @@ else
 				}
 				else
 				{
-					$email = $_POST['createAdminAccountEmail'];
+					$keepEmail = $_POST['createAdminAccountEmail'];
 				}
 
 				if (is_array($filteredPwd))
@@ -119,7 +119,7 @@ else
 			{
 			}
 		}
-		loadCreateAdminAccountView($nickname, $email);
+		loadCreateAdminAccountView($keepNickname, $keepEmail);
 	}
 	// Nickname recovery
 	else if ($_GET['action'] == 'namerecovery')
@@ -137,6 +137,7 @@ else
 	}
 }
 
+$_SESSION['smsAlert'] = array();
 $_SESSION['smsAlert']['default'] = "";
 $_SESSION['smsAlert']['nickname'] = "";
 $_SESSION['smsAlert']['email'] = "";
