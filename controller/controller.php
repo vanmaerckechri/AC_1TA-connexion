@@ -55,7 +55,7 @@ function loadPwdRecoveryView()
 {
 	require('./view/passwordRecoveryView.php');
 }
-function loadCreateAdminAccountView()
+function loadCreateAdminAccountView($nickname, $mail)
 {
 	require('./view/newAdminAccountView.php');
 }

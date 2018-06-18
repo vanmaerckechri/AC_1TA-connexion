@@ -3,9 +3,9 @@
 require('./controller/controller.php');
 
 // ROUTEUR!
+// LOGIN
 if (isset($_POST) && !isset($_GET['action']))
 {
-	// LOGIN
 	// Nickname
 	if (isset($_POST['nickname']))
 	{
@@ -62,48 +62,67 @@ if (isset($_POST) && !isset($_GET['action']))
 			loadPwdView();
 		}
 	}
-	// CREATE NEW ACCOUNT
-	else if (isset($_POST['createAdminAccountNickname']) && isset($_POST['createAdminAccountEmail']) && isset($_POST['createAdminAccountPassword']) && isset($_POST['createAdminAccountPassword2']))
-	{
-		$filteredNickname = filterInputs($_POST['createAdminAccountNickname'], 'a-zA-Z0-9', 4, 20);
-		$is_email = filter_var($_POST['createAdminAccountEmail'], FILTER_VALIDATE_EMAIL);
-		$filteredPwd = filterInputs($_POST['createAdminAccountPassword'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
-		$filteredPwd2 = filterInputs($_POST['createAdminAccountPassword2'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
-
-		if (is_array($filteredNickname) || is_array($filteredPwd) || is_array($filteredPwd2) || $is_email == false || $filteredPwd != $filteredPwd2)
-		{
-
-			if (is_array($filteredNickname))
-			{
-				$_SESSION['smsAlert']['nickname'] = $filteredNickname[0];
-			}
-
-			if ($is_email == false)
-			{
-				$_SESSION['smsAlert']['email'] = "<span class='smsAlert'>Veuillez entrer une adresse email valide!</span>";
-			}
-
-			if (is_array($filteredPwd))
-			{
-				$_SESSION['smsAlert']['password'] = $filteredPwd[0];
-			}
-
-			if ($filteredPwd != $filteredPwd2)
-			{
-				$_SESSION['smsAlert']['password2'] = "<span class='smsAlert'>Les mots de passe ne correspondent pas!</span>";
-			}
-		}
-		loadCreateAdminAccountView();
-	}
 	else
 	{
 		loadHomeView();
 	}
 }
+// CREATE ADMIN ACCOUNT AND RECOVERIES
 else
 {
+	// Create admin account
+	if ($_GET['action'] == 'newadminaccount')
+	{
+		$nickname = '""';
+		$email = '""';
+		// Check if all inputs are corrects
+		if (isset($_POST['createAdminAccountNickname']) && isset($_POST['createAdminAccountEmail']) && isset($_POST['createAdminAccountPassword']) && isset($_POST['createAdminAccountPassword2']))
+		{
+			$filteredNickname = filterInputs($_POST['createAdminAccountNickname'], 'a-zA-Z0-9', 4, 20);
+			$is_email = filter_var($_POST['createAdminAccountEmail'], FILTER_VALIDATE_EMAIL);
+			$filteredPwd = filterInputs($_POST['createAdminAccountPassword'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
+			$filteredPwd2 = filterInputs($_POST['createAdminAccountPassword2'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
+			// If at least one of them is not correct
+			if (is_array($filteredNickname) || is_array($filteredPwd) || is_array($filteredPwd2) || $is_email == false || $filteredPwd != $filteredPwd2)
+			{
+
+				if (is_array($filteredNickname))
+				{
+					$_SESSION['smsAlert']['nickname'] = $filteredNickname[0];
+				}
+				else
+				{
+					$nickname = $_POST['createAdminAccountNickname'];
+				}
+
+				if ($is_email == false)
+				{
+					$_SESSION['smsAlert']['email'] = "<span class='smsAlert'>Veuillez entrer une adresse email valide!</span>";
+				}
+				else
+				{
+					$email = $_POST['createAdminAccountEmail'];
+				}
+
+				if (is_array($filteredPwd))
+				{
+					$_SESSION['smsAlert']['password'] = $filteredPwd[0];
+				}
+
+				if ($filteredPwd != $filteredPwd2)
+				{
+					$_SESSION['smsAlert']['password2'] = "<span class='smsAlert'>Les mots de passe ne correspondent pas!</span>";
+				}
+			}
+			// Every inputs are corrects
+			else
+			{
+			}
+		}
+		loadCreateAdminAccountView($nickname, $email);
+	}
 	// Nickname recovery
-	if ($_GET['action'] == 'namerecovery')
+	else if ($_GET['action'] == 'namerecovery')
 	{
 		loadNicknameRecoveryView();
 	}
@@ -111,11 +130,6 @@ else
 	else if ($_GET['action'] == 'passwordrecovery')
 	{
 		loadPwdRecoveryView();
-	}
-	// Create admin account
-	else if ($_GET['action'] == 'newadminaccount')
-	{
-		loadCreateAdminAccountView();
 	}
 	else
 	{

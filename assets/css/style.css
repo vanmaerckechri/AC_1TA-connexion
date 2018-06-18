@@ -100,7 +100,8 @@ input {
         background-color: #4ab4f1;
         box-shadow: 0px 0px 20px 0px #4ab4f1; }
 #main p {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  width: 100%;
   font-size: .8rem; }
 
 .producer {

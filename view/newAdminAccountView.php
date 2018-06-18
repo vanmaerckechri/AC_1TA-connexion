@@ -1,12 +1,12 @@
 <?php ob_start(); ?>
         <h2>Créer un Compte Administrateur</h2>
-        <form action="index.php" method="post">
+        <form action="index.php?action=newadminaccount" method="post">
             <label for="createAdminAccountnickname">Nom d'utilisateur</label>
-            <input class="formInput" type="text" name="createAdminAccountNickname" autofocus required>
+            <input class="formInput" type="text" name="createAdminAccountNickname" value=<?=$nickname?> autofocus required>
             <p><?=$_SESSION['smsAlert']['nickname']?></p>
 
             <label for="createAdminAccountEmail">Adresse e-mail</label>
-            <input class="formInput" type="email" name="createAdminAccountEmail" required>
+            <input class="formInput" type="email" name="createAdminAccountEmail" value=<?=$mail?> required>
             <p><?=$_SESSION['smsAlert']['email']?></p>
 
             <label for="createAdminAccountPassword">Mot de passe</label>
