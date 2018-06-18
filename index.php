@@ -9,8 +9,8 @@ if (isset($_POST) && !isset($_GET['action']))
 	// Nickname
 	if (isset($_POST['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['nickname'], 'a-zA-Z0-9@', 4, 20);
-		if (!is_array($filteredInput))
+		$filteredInput = filterInputs($_POST['nickname'], 'a-zA-Z0-9@', 4, 20, 'default');
+		if ($filteredInput)
 		{
 			$_SESSION['nickname'] = $filteredInput;
 			$_SESSION['classroom'] = '';
@@ -27,30 +27,28 @@ if (isset($_POST) && !isset($_GET['action']))
 		}
 		else
 		{
-			$_SESSION['smsAlert']['default'] = $filteredInput[0];
 			loadHomeView();
 		}
 	}
 	// Classroom (Student Only)
 	else if (isset($_POST['classroom']) && isset($_SESSION['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['classroom'], 'a-zA-Z0-9À-Ö ._-', 0, 30);
-		if (!is_array($filteredInput))
+		$filteredInput = filterInputs($_POST['classroom'], 'a-zA-Z0-9À-Ö ._-', 0, 30, 'default');
+		if ($filteredInput)
 		{
 			$_SESSION['classroom'] = $filteredInput;
 			loadPwdView();
 		}
 		else 
 		{
-			$_SESSION['smsAlert']['default'] = $filteredInput[0];
 			loadClassroomView();
 		}
 	}
 	// Password
 	else if (isset($_POST['password']) && isset($_SESSION['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
-		if (!is_array($filteredInput))
+		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'default');
+		if ($filteredInput)
 		{
 			$_SESSION['password'] = $filteredInput;
 			checkSession();
@@ -58,7 +56,6 @@ if (isset($_POST) && !isset($_GET['action']))
 		}
 		else
 		{
-			$_SESSION['smsAlert']['default'] = $filteredInput[0];
 			loadPwdView();
 		}
 	}
@@ -78,35 +75,25 @@ else
 		// Check if all inputs are corrects
 		if (isset($_POST['createAdminAccountNickname']) && isset($_POST['createAdminAccountEmail']) && isset($_POST['createAdminAccountPassword']) && isset($_POST['createAdminAccountPassword2']))
 		{
-			$filteredNickname = filterInputs($_POST['createAdminAccountNickname'], 'a-zA-Z0-9', 4, 20);
+			$filteredNickname = filterInputs($_POST['createAdminAccountNickname'], 'a-zA-Z0-9', 4, 20, 'nickname');
 			$is_email = filter_var($_POST['createAdminAccountEmail'], FILTER_VALIDATE_EMAIL);
-			$filteredPwd = filterInputs($_POST['createAdminAccountPassword'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
-			$filteredPwd2 = filterInputs($_POST['createAdminAccountPassword2'], 'a-zA-Z0-9À-Ö ._@', 0, 30);
+			$filteredPwd = filterInputs($_POST['createAdminAccountPassword'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'password');
+			$filteredPwd2 = filterInputs($_POST['createAdminAccountPassword2'], 'a-zA-Z0-9À-Ö ._@', 0, 30, false);
 			// If at least one of them is not correct
-			if (is_array($filteredNickname) || is_array($filteredPwd) || is_array($filteredPwd2) || $is_email == false || $filteredPwd != $filteredPwd2)
+			if ($filteredNickname == false || $filteredPwd == false || $filteredPwd2 == false || $is_email == false || $filteredPwd != $filteredPwd2)
 			{
-
-				if (is_array($filteredNickname))
-				{
-					$_SESSION['smsAlert']['nickname'] = $filteredNickname[0];
-				}
-				else
+				if ($filteredNickname != false)
 				{
 					$keepNickname = $_POST['createAdminAccountNickname'];
 				}
 
-				if ($is_email == false)
-				{
-					$_SESSION['smsAlert']['email'] = "<span class='smsAlert'>Veuillez entrer une adresse email valide!</span>";
-				}
-				else
+				if ($is_email != false)
 				{
 					$keepEmail = $_POST['createAdminAccountEmail'];
 				}
-
-				if (is_array($filteredPwd))
+				else
 				{
-					$_SESSION['smsAlert']['password'] = $filteredPwd[0];
+					$_SESSION['smsAlert']['email'] = "<span class='smsAlert'>Veuillez entrer une adresse email valide!</span>";
 				}
 
 				if ($filteredPwd != $filteredPwd2)

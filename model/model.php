@@ -1,6 +1,6 @@
 <?php
 
-function filterInputs($input, $regEx, $minLength, $maxLength)
+function filterInputs($input, $regEx, $minLength, $maxLength, $smsTitle)
 {
 	$validRegEx = "/^[".$regEx."]*$/i";
 	if (strlen($input) >= $minLength && strlen($input) <= $maxLength)
@@ -102,13 +102,20 @@ function filterInputs($input, $regEx, $minLength, $maxLength)
 			}
 
 			//$_SESSION['smsAlert'] = "Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar;
-			return ["Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar];
+			if ($smsTitle != false)
+			{
+				$_SESSION['smsAlert'][$smsTitle] = "Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar;
+			}
 		}
 	}
 	else
 	{
-		return ["Le nombre de caractères pour ce champ doit être compris entre <span class='smsAlert'>".$minLength."</span> et <span class='smsAlert'>".$maxLength."</span>!"];
+		if ($smsTitle != false)
+		{
+			$_SESSION['smsAlert'][$smsTitle] = "Le nombre de caractères pour ce champ doit être compris entre <span class='smsAlert'>".$minLength."</span> et <span class='smsAlert'>".$maxLength."</span>!";
+		}
 	}
+	return false;
 }
 
 class Authentification
