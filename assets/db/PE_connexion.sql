@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Ven 15 Juin 2018 à 15:51
--- Version du serveur :  5.7.22-0ubuntu18.04.1
--- Version de PHP :  7.2.5-0ubuntu0.18.04.1
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mar. 19 juin 2018 à 16:19
+-- Version du serveur :  5.7.19
+-- Version de PHP :  7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,80 +19,55 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `PE_connexion`
+-- Base de données :  `pe_connexion`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `IATA Arts Plastiques_2ème`
+-- Structure de la table `iata arts plastiques_2ème`
 --
 
-CREATE TABLE `IATA Arts Plastiques_2ème` (
-  `id` int(11) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `iata arts plastiques_2ème`;
+CREATE TABLE IF NOT EXISTS `iata arts plastiques_2ème` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nickname` varchar(20) NOT NULL,
-  `password` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `password` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `IATA Arts Plastiques_2ème`
+-- Déchargement des données de la table `iata arts plastiques_2ème`
 --
 
-INSERT INTO `IATA Arts Plastiques_2ème` (`id`, `nickname`, `password`) VALUES
-(1, 'Chri', '987');
+INSERT INTO `iata arts plastiques_2ème` (`id`, `nickname`, `password`) VALUES
+(1, 'chri', '9adfb0a6d03beb7141d8ec2708d6d9fef9259d12cd230d50f70fb221ae6cabd5');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `PE_adminAccounts`
+-- Structure de la table `pe_adminaccounts`
 --
 
-CREATE TABLE `PE_adminAccounts` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `pe_adminaccounts`;
+CREATE TABLE IF NOT EXISTS `pe_adminaccounts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(20) NOT NULL,
   `password` varchar(64) NOT NULL,
   `mail` varchar(78) NOT NULL,
-  `activationcode` varchar(64) DEFAULT NULL,
-  `activated` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `pwdreset` varchar(64) NOT NULL DEFAULT '0',
+  `activated` varchar(64) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `PE_adminAccounts`
+-- Déchargement des données de la table `pe_adminaccounts`
 --
 
-INSERT INTO `PE_adminAccounts` (`id`, `nickname`, `password`, `mail`, `activationcode`, `activated`) VALUES
-(1, 'admin@Chri', '789', 'vanmaerckechri@gmail.com', NULL, 1);
+INSERT INTO `pe_adminaccounts` (`id`, `nickname`, `password`, `mail`, `pwdreset`, `activated`) VALUES
+(34, 'admin@chri', '9adfb0a6d03beb7141d8ec2708d6d9fef9259d12cd230d50f70fb221ae6cabd5', 'ccc@ccc.com', '0', '1');
+COMMIT;
 
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `IATA Arts Plastiques_2ème`
---
-ALTER TABLE `IATA Arts Plastiques_2ème`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `PE_adminAccounts`
---
-ALTER TABLE `PE_adminAccounts`
-  ADD KEY `id` (`id`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `IATA Arts Plastiques_2ème`
---
-ALTER TABLE `IATA Arts Plastiques_2ème`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `PE_adminAccounts`
---
-ALTER TABLE `PE_adminAccounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
