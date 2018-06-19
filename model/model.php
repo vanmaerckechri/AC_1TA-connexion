@@ -1,5 +1,20 @@
 <?php
 
+// CHARGE LES DONNEES DE LA DB EN FONCTION DU CONTEXTE LOCAL/DISTANT!
+if (file_exists('../model/hum.php'))
+{
+	require('hum.php');
+}
+else
+{
+	function connectDB()
+	{
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		return $db;
+	}
+}
+
+// FILTRES!
 function filterInputs($input, $regEx, $minLength, $maxLength, $smsTitle)
 {
 	$validRegEx = "/^[".$regEx."]*$/i";
@@ -118,19 +133,7 @@ function filterInputs($input, $regEx, $minLength, $maxLength, $smsTitle)
 	return false;
 }
 
-function loadDb()
-{
-	try
-	{
-		$db = new PDO('mysql:host=localhost; dbname=PE_connexion; charset=utf8', "root", "");
-		return $db;
-	} 
-	catch (Exception $e)
-	{
-	    die('Erreur : ' . $e->getMessage());
-	}
-}
-
+// SESSION!
 class Authentification
 {
 	private $sessionNickname;
@@ -182,7 +185,7 @@ class Authentification
 	    if($_SESSION['ip']!=$_SERVER['REMOTE_ADDR'])
 	    {
 	        $_SESSION = array();
-	        $_SESSION['smsAlert']['default'] = 'Vous avez été déconnecté pour des raisons de sécurité!';
+	        $_SESSION['smsAlert']['default'] = '<span class="smsAlert">Vous avez été déconnecté pour des raisons de sécurité!</span>';
 	        header('Location: localhost/AC_1TA-connexion/index.php');
 	        exit;
 	    }
@@ -190,25 +193,38 @@ class Authentification
 
 	public function checkSession()
 	{
-		$db = loadDB();
-
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
-			$req = $db->prepare("SELECT id FROM PE_adminAccounts WHERE nickname = :name AND password = :pwd AND activated = 1");
+			$req = $db->prepare("SELECT id, activated FROM pe_adminaccounts WHERE nickname = :name AND password = :pwd");
 		}
 		else
 		{
 			$req = $db->prepare("SELECT * FROM `$this->_sessionClassroom` WHERE nickname = :name AND password = :pwd");
 		}
-		$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
-		$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
-		$req->execute();
-		$resultReq = $req->fetch();
-		$req->closeCursor();
-		$req = NULL;
-
+		try 
+		{
+			$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
+			$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
+			$req->execute();
+			$resultReq = $req->fetchAll();
+			$req->closeCursor();
+			$req = NULL;
+		}
+		catch (Exception $e)
+		{
+		    $resultReq = false;
+		}
 		// Les données de connexion sont bonnes
-		if ($resultReq != false)
+		if ($resultReq != false && $resultReq[0]["activated"] == 1)
 		{
 		    if (strstr($this->_sessionNickname, 'admin@'))
 		    {
@@ -227,6 +243,11 @@ class Authentification
 			if ($this->_sessionPassword != '' && $this->_sessionNickname != '')
 			{
 				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+				// Les données de connexion sont bonnes MAIS le compte n'a pas encore été activé
+				if ($resultReq != false && $resultReq[0]["activated"] != 1)
+				{
+					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte lors de votre inscription. Veuillez vérifier votre boîte mail!</span>";
+				}
 				$_SESSION['nickname'] = '';
 				$_SESSION['classroom'] = '';
 				$_SESSION['password'] = '';
@@ -236,6 +257,7 @@ class Authentification
 	}
 }
 
+// ENREGISTREMENT!
 class RecordAccount
 {
 	private $nickname;
@@ -263,11 +285,12 @@ class RecordAccount
   	private function setVariable($input, $name)
 	{
 		$this->$name = htmlspecialchars($input, ENT_NOQUOTES);
+
 		if ($name == '_pwd')
 		{
 			$this->_pwd = hash('sha256', $this->_pwd);
 		}
-		else if ($name == '_nickname')
+		if ($name == '_nickname')
 		{
 			$this->_nickname = 'admin@'.$this->_nickname;
 		}
@@ -280,12 +303,19 @@ class RecordAccount
 
 	private function saveInDb()
 	{
-		$db = loadDB();
-
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
 		// Login or mail already exist ?
 		if ($this->_classroom == false)
 		{
-			$req = $db->prepare("SELECT nickname, mail FROM PE_adminAccounts WHERE mail = :email OR nickname = :name");
+			$req = $db->prepare("SELECT nickname, mail FROM pe_adminaccounts WHERE mail = :email OR nickname = :name");
 			$req->bindValue(':email', $this->_mail, PDO::PARAM_STR);
 		}
 		else
@@ -324,66 +354,102 @@ class RecordAccount
 		}
 
 		// Insert new account in DB
+		$activationCode = hash('sha256', $this->_mail);
 		if ($this->_classroom == false)
 		{
-			$req = $db->prepare("INSERT INTO PE_adminAccounts (nickname, mail, password, pwdreset, activated) VALUES (:name, :email, :pwd, :pwdreset, :activated)");
-			$req->bindValue(':pwdreset', 0, PDO::PARAM_INT);
-			$req->bindValue(':activated', 1, PDO::PARAM_INT);
+			$req = $db->prepare("INSERT INTO pe_adminaccounts (nickname, mail, password, activated) VALUES (:name, :email, :pwd, :activeCode)");
+			$req->bindValue(':email', $this->_mail, PDO::PARAM_STR);
+			$req->bindValue(':activeCode', $activationCode, PDO::PARAM_STR);
 		}
 		else
 		{
-			$req = $db->prepare("INSERT INTO `$this->_classroom` (nickname, mail, password) VALUES (:name, :email, :pwd)");
+			$req = $db->prepare("INSERT INTO `$this->_classroom` (nickname, password) VALUES (:name, :pwd)");
 		}
 		$req->bindValue(':name', $this->_nickname, PDO::PARAM_STR);
-		$req->bindValue(':email', $this->_mail, PDO::PARAM_STR);
 		$req->bindValue(':pwd', $this->_pwd, PDO::PARAM_STR);
 
 		$req->execute();
-		$resultReq = $req->fetch();
 		$req->closeCursor();
-		$req = NULL;		
+		$req = NULL;
+
+		$sendActiveCode = new SendMail();
+		$sendActiveCode->activeAccount($this->_mail, $activationCode, $this->_nickname);
 	}
 }
 
+class activateAccount
+{
+	static function testCode($code)
+	{
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
+		$req = $db->prepare("SELECT id FROM pe_adminaccounts WHERE activated = :codeAct");
+		$req->bindValue(':codeAct', $code, PDO::PARAM_STR);
+		$req->execute();
+		$resultReq = $req->fetchAll();
+		if (isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
+		{
+			$req = $db->prepare("UPDATE pe_adminaccounts SET activated=1 WHERE id=:idAccount");
+			$req->bindValue(':idAccount', $resultReq[0]['id'], PDO::PARAM_INT);
+			$req->execute();
+			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Votre compte vient d'être activé</span>";
+		}
+		else
+		{
+			$_SESSION['smsAlert']['default'] = "<span class='alertSms'>Le lien a expiré!</span>";
+		}
+		$req->closeCursor();
+		$req = NULL;
+	}
+}
+
+// MAILS!
 class SendMail
 {
-	public function activeAccount($mail, $id, $code)
+	public function activeAccount($mail, $code, $nickname)
 	{
-		$_SESSION['smsAlert']['default'] = "Vous venez de recevoir un lien de validation dans votre boîte mail!";
+		$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Vous venez de recevoir un lien de validation dans votre boîte mail! Votre nom d'utilisateur est le suivant ".$nickname."!</span>";
 		$_sujet = "Lien d'Activation du Compte!";
 		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
-		<a href="https://cvm.one/test/index.php?action=activate&id='.$id.'&code='.$code.'">https://cvm.one/test/index.php?action=activate&id='.$id.'&code='.$code.'</a></p>';
+		<a href="https://cvm.one/test/index.php?action=activate&code='.$code.'">https://cvm.one/test/index.php?action=activate&code='.$code.'</a></p>';
 		$_destinataire = $mail;
 
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
-		$_headers .= "Reply-To: admin@cvm.one\n";
+		//$_headers .= "Reply-To: admin@cvm.one\n";
 		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
 	}
 	public function resetPwd($mail, $id, $rstpwd)
 	{
-		$_SESSION['smsAlert']['default'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
+		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
 		$_sujet = "Réinitialisation du Mot de Passe";
 		$_message = '<p>Bienvenue! Cliquer sur le lien suivant pour reinitialiser votre password.
 		<a href="https://cvm.one/test/index.php?action=resetpwd&id='.$id.'&rstpwd='.$rstpwd.'">https://cvm.one/test/index.php?action=activate&resetpwd='.$id.'&rstpwd='.$rstpwd.'</a></p>';
 		$_destinataire = $mail;
 
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
-		$_headers .= "Reply-To: admin@cvm.one\n";
+		//$_headers .= "Reply-To: admin@cvm.one\n";
 		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
 	}
 	public function callNickname($mail, $nickname)
 	{
-		$_SESSION['smsAlert']['default'] = "<p class='sms'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
+		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Un mail avec votre nom d'utilisateur vient de vous être envoyé!</p>";
 		$_sujet = "Votre Nom d'Utilisateur";
 		$_message = "<p>Bienvenue! Votre nom d'utilisateur est le suivant: ".$nickname.".</p>";
 		$_destinataire = $mail;
 
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
-		$_headers .= "Reply-To: admin@cvm.one\n";
+		//$_headers .= "Reply-To: admin@cvm.one\n";
 		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);

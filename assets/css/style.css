@@ -40,6 +40,9 @@ input {
 .smsAlert {
   color: #ce1d21; }
 
+.smsInfo {
+  color: #329678; }
+
 #main .connexion {
   border-bottom-right-radius: 10px;
   border-top-right-radius: 10px;

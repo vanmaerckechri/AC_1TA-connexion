@@ -107,3 +107,9 @@ function loadCreateAdminAccountView()
 	}
 	require('./view/newAdminAccountView.php');
 }
+function loadActivateAccountView()
+{
+	$code = htmlspecialchars($_GET['code'], ENT_NOQUOTES);
+	activateAccount::testCode($code);
+	require('./view/loginView.php');
+}

@@ -50,7 +50,7 @@ if (isset($_POST) && !isset($_GET['action']))
 		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'default');
 		if ($filteredInput)
 		{
-			$_SESSION['password'] = $filteredInput;
+			$_SESSION['password'] = hash('sha256', $filteredInput);
 			checkSession();
 			loadPwdView();
 		}
@@ -81,6 +81,11 @@ else
 	else if ($_GET['action'] == 'passwordrecovery')
 	{
 		loadPwdRecoveryView();
+	}
+	// Account activation
+	else if ($_GET['action'] == 'activate' && isset($_GET['code']) && !empty($_GET['code']))
+	{
+		loadActivateAccountView();
 	}
 	else
 	{
