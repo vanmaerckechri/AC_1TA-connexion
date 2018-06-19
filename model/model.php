@@ -5,6 +5,10 @@ if (file_exists('./model/hum.php'))
 {
 	require('./model/hum.php');
 }
+else if (file_exists('./model/hum.php'))
+{
+	require('./model/hum.php');
+}
 else
 {
 	function connectDB()
