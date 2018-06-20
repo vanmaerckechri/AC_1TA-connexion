@@ -382,7 +382,7 @@ class RecordAccount
 	}
 }
 
-class activateAccount
+class ActivateAccount
 {
 	static function testCode($code)
 	{
@@ -412,6 +412,36 @@ class activateAccount
 		}
 		$req->closeCursor();
 		$req = NULL;
+	}
+}
+
+class Recover
+{
+	static function sendMail($email, $type)
+	{
+		if ($type == 'nickname')
+		{
+			try
+			{
+			    $db = connectDB();
+			    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			} 
+			catch (Exception $e)
+			{
+			    die('Erreur : ' . $e->getMessage());
+			}
+			$req = $db->prepare("SELECT nickname FROM pe_adminaccounts WHERE mail = :email");
+			$req->bindValue(':email', $email, PDO::PARAM_STR);
+			$req->execute();
+			$resultReq = $req->fetchAll();
+			if (isset($resultReq[0]['nickname']) && !empty($resultReq[0]['nickname']))
+			{
+				$sendLogin = new SendMail();
+				$sendLogin->callNickname($email, $resultReq[0]['nickname']);
+			}
+			$req->closeCursor();
+			$req = NULL;
+		}
 	}
 }
 
@@ -448,9 +478,9 @@ class SendMail
 	}
 	public function callNickname($mail, $nickname)
 	{
-		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Un mail avec votre nom d'utilisateur vient de vous être envoyé!</p>";
+		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Un mail avec votre nom d'utilisateur vient de vous être envoyé à l'adresse suivante: ".$mail."!</p>";
 		$_sujet = "Votre Nom d'Utilisateur";
-		$_message = "<p>Bienvenue! Votre nom d'utilisateur est le suivant: ".$nickname.".</p>";
+		$_message = "<p>Bienvenue! Votre nom d'utilisateur est le suivant: ".$nickname."!</p>";
 		$_destinataire = $mail;
 
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";

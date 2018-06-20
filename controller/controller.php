@@ -62,8 +62,25 @@ function loadPwdView()
     require('./view/pwdView.php');
 }
 function loadNicknameRecoveryView()
-{
-	require('./view/nnRecoveryView.php');
+{	
+    $decode = testCaptcha();
+    if (isset($_POST['nameRecovery']) && $decode['success'] == true)
+    {
+    	$is_email = filter_var($_POST['nameRecovery'], FILTER_VALIDATE_EMAIL);
+    	if ($is_email == true)
+    	{
+    		Recover::sendMail($_POST['nameRecovery'], 'nickname');
+			require('./view/loginView.php');	
+    	}
+    	else
+    	{
+    		$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Veuillez entrer une adresse email valide!</span>";
+    	}
+    }
+    else
+    {
+		require('./view/nnRecoveryView.php');
+    }
 }
 function loadPwdRecoveryView()
 {
@@ -104,10 +121,6 @@ function loadCreateAdminAccountView()
 				$_SESSION['smsAlert']['password2'] = "<span class='smsAlert'>Les mots de passe ne correspondent pas!</span>";
 			}
 
-			if ($decode['success'] == false)
-		    {
-				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Il semblerait que vous ne soyez un robot!</span>";
-		    }
 		}
 		// Every inputs are corrects
 		else
@@ -133,12 +146,11 @@ function loadActivateAccountView()
     $decode = testCaptcha();
     if ($decode['success'] == true)
     {
-		activateAccount::testCode($code);
+		ActivateAccount::testCode($code);
 		require('./view/loginView.php');
     }
     else
     {
     	require('./view/activateAccountView.php');
-		$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Il semblerait que vous ne soyez un robot!</span>";
     }
 }

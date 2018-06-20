@@ -58,6 +58,7 @@ input {
   #main .connexion form {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: flex-start;
     width: 100%; }
     #main .connexion form label {
