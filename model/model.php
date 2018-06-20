@@ -1,11 +1,7 @@
 <?php
 
-// CHARGE LES DONNEES DE LA DB EN FONCTION DU CONTEXTE LOCAL/DISTANT!
+// CHARGE LES DONNEES DE LA DB ET LA CLEF CAPTCHA EN FONCTION DU CONTEXTE LOCAL/DISTANT!
 if (file_exists('./model/hum.php'))
-{
-	require('./model/hum.php');
-}
-else if (file_exists('./model/hum.php'))
 {
 	require('./model/hum.php');
 }
@@ -13,8 +9,13 @@ else
 {
 	function connectDB()
 	{
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
+	}
+	function getSecretCaptchaKey()
+	{
+		return "";
 	}
 }
 
@@ -407,7 +408,7 @@ class activateAccount
 		}
 		else
 		{
-			$_SESSION['smsAlert']['default'] = "<span class='alertSms'>Le lien a expiré!</span>";
+			$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Le lien a expiré!</span>";
 		}
 		$req->closeCursor();
 		$req = NULL;

@@ -43,6 +43,9 @@ input {
 .smsInfo {
   color: #329678; }
 
+.g-recaptcha {
+  margin-bottom: 10px; }
+
 #main .connexion {
   border-bottom-right-radius: 10px;
   border-top-right-radius: 10px;

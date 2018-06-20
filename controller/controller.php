@@ -36,6 +36,17 @@ checkSession();
 $_SESSION['smsAlert'] = !isset($_SESSION['smsAlert']) ? array() : $_SESSION['smsAlert'];
 $_SESSION['smsAlert']['default'] = !isset($_SESSION['smsAlert']['default']) ? '' : $_SESSION['smsAlert']['default'];
 
+function testCaptcha()
+{
+	$secret = getSecretCaptchaKey();
+    $response = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : false;
+    $remoteip = $_SERVER['REMOTE_ADDR'];
+    $api_url = "https://www.google.com/recaptcha/api/siteverify?secret=" 
+        . $secret
+        . "&response=" . $response
+        . "&remoteip=" . $remoteip ;   
+	return json_decode(file_get_contents($api_url), true);
+}
 
 //VIEWS!
 function loadHomeView()
@@ -62,6 +73,8 @@ function loadCreateAdminAccountView()
 {
 	$keepNickname = '""';
 	$keepEmail = '""';
+	// Captcha google
+    $decode = testCaptcha();
 	// Check if all inputs are corrects
 	if (isset($_POST['createAdminAccountNickname']) && isset($_POST['createAdminAccountEmail']) && isset($_POST['createAdminAccountPassword']) && isset($_POST['createAdminAccountPassword2']))
 	{
@@ -70,7 +83,7 @@ function loadCreateAdminAccountView()
 		$filteredPwd2 = filterInputs($_POST['createAdminAccountPassword2'], 'a-zA-Z0-9À-Ö ._@', 0, 30, false);
 		$is_email = filter_var($_POST['createAdminAccountEmail'], FILTER_VALIDATE_EMAIL);
 		// If at least one of them is not correct
-		if ($filteredNickname == false || $filteredPwd == false || $filteredPwd2 == false || $is_email == false || $filteredPwd != $filteredPwd2)
+		if ($filteredNickname == false || $filteredPwd == false || $filteredPwd2 == false || $is_email == false || $filteredPwd != $filteredPwd2 || $decode['success'] == false)
 		{
 			if ($filteredNickname != false)
 			{
@@ -90,6 +103,11 @@ function loadCreateAdminAccountView()
 			{
 				$_SESSION['smsAlert']['password2'] = "<span class='smsAlert'>Les mots de passe ne correspondent pas!</span>";
 			}
+
+			if ($decode['success'] == false)
+		    {
+				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Il semblerait que vous ne soyez un robot!</span>";
+		    }
 		}
 		// Every inputs are corrects
 		else
@@ -110,6 +128,17 @@ function loadCreateAdminAccountView()
 function loadActivateAccountView()
 {
 	$code = htmlspecialchars($_GET['code'], ENT_NOQUOTES);
-	activateAccount::testCode($code);
-	require('./view/loginView.php');
+
+	// A voir si on a vmt besoin d'un captcha pour cette étape ?
+    $decode = testCaptcha();
+    if ($decode['success'] == true)
+    {
+		activateAccount::testCode($code);
+		require('./view/loginView.php');
+    }
+    else
+    {
+    	require('./view/activateAccountView.php');
+		$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Il semblerait que vous ne soyez un robot!</span>";
+    }
 }
