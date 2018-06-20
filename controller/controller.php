@@ -61,15 +61,17 @@ function loadPwdView()
 {
     require('./view/pwdView.php');
 }
-function loadNicknameRecoveryView()
+
+// Recoveries
+function callRecovery($postName, $type, $require)
 {	
     $decode = testCaptcha();
-    if (isset($_POST['nameRecovery']) && $decode['success'] == true)
+    if (isset($_POST[$postName]) && $decode['success'] == true)
     {
-    	$is_email = filter_var($_POST['nameRecovery'], FILTER_VALIDATE_EMAIL);
+    	$is_email = filter_var($_POST[$postName], FILTER_VALIDATE_EMAIL);
     	if ($is_email == true)
     	{
-    		Recover::sendMail($_POST['nameRecovery'], 'nickname');
+    		Recover::start($_POST[$postName], $type);
 			require('./view/loginView.php');	
     	}
     	else
@@ -79,13 +81,45 @@ function loadNicknameRecoveryView()
     }
     else
     {
-		require('./view/nnRecoveryView.php');
+		require($require);
     }
+}
+function loadNicknameRecoveryView()
+{	
+	callRecovery('nameRecovery', 'nickname', './view/nnRecoveryView.php');
 }
 function loadPwdRecoveryView()
 {
-	require('./view/passwordRecoveryView.php');
+	callRecovery('pwdRecovery', 'pwd', './view/passwordRecoveryView.php');
 }
+function newPasswordView($isPost = false)
+{
+	if ($isPost == true)
+	{
+		$pwd1 = filterInputs($_POST['newPassword'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'default');
+		$pwd2 = filterInputs($_POST['newPassword2'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'default');
+
+		if ($pwd1 && $pwd2)
+		{
+			if ($pwd1 === $pwd2)
+			{
+				$pwd1 = hash('sha256', $pwd1);
+				$pwd2 = hash('sha256', $pwd2);
+				UpdatePassword::start($pwd1, $_SESSION['myId']);
+				unset($_SESSION['myId']);
+				require('./view/loginView.php');
+				exit;
+			}
+			else
+			{
+				$_SESSION['smsAlert']['password2'] = "<span class='smsAlert'>Les mots de passe ne correspondent pas!</span>";
+			}
+
+		}
+	}
+	require('./view/newPasswordView.php');			
+}
+// Create admin account
 function loadCreateAdminAccountView()
 {
 	$keepNickname = '""';
@@ -138,7 +172,7 @@ function loadCreateAdminAccountView()
 	}
 	require('./view/newAdminAccountView.php');
 }
-function loadActivateAccountView()
+function checkCodeView($type)
 {
 	$code = htmlspecialchars($_GET['code'], ENT_NOQUOTES);
 
@@ -146,11 +180,26 @@ function loadActivateAccountView()
     $decode = testCaptcha();
     if ($decode['success'] == true)
     {
-		ActivateAccount::testCode($code);
-		require('./view/loginView.php');
+		$id = checkCode::start($code, $type);
+		if ($type == 'activationAccount')
+		{
+			require('./view/loginView.php');
+		}
+		else if ($type == 'newPassword')
+		{
+			if ($id == false)
+			{
+				require('./view/loginView.php');		
+			}
+			else
+			{
+				$_SESSION['myId'] = $id;
+				require('./view/newPasswordView.php');			
+			}
+		}
     }
     else
     {
-    	require('./view/activateAccountView.php');
+    	require('./view/checkCodeView.php');
     }
 }

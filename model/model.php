@@ -382,9 +382,9 @@ class RecordAccount
 	}
 }
 
-class ActivateAccount
+class checkCode
 {
-	static function testCode($code)
+	static function start($code, $type)
 	{
 		try
 		{
@@ -395,20 +395,44 @@ class ActivateAccount
 		{
 		    die('Erreur : ' . $e->getMessage());
 		}
-		$req = $db->prepare("SELECT id FROM pe_adminaccounts WHERE activated = :codeAct");
-		$req->bindValue(':codeAct', $code, PDO::PARAM_STR);
+		if ($type == 'newPassword')
+		{
+			$req = $db->prepare("SELECT id FROM pe_adminaccounts WHERE pwdreset = :code");		
+		}
+		else if ($type == 'activationAccount')
+		{
+			$req = $db->prepare("SELECT id FROM pe_adminaccounts WHERE activated = :code");
+		}
+		$req->bindValue(':code', $code, PDO::PARAM_INT);
 		$req->execute();
 		$resultReq = $req->fetchAll();
-		if (isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
+		// Le code permettant de changer de pwd est-il valide ?
+		if ($type == 'newPassword')
 		{
-			$req = $db->prepare("UPDATE pe_adminaccounts SET activated=1 WHERE id=:idAccount");
-			$req->bindValue(':idAccount', $resultReq[0]['id'], PDO::PARAM_INT);
-			$req->execute();
-			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Votre compte vient d'être activé</span>";
+			if (isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
+			{
+				return $resultReq[0]['id'];		
+			}
+			else
+			{
+				return false;
+				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Le lien a expiré!</span>";
+			}
 		}
-		else
+		// Le code d'activation du compte est-il valide ?
+		else if ($type == 'activationAccount')
 		{
-			$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Le lien a expiré!</span>";
+			if (isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
+			{
+				$req = $db->prepare("UPDATE pe_adminaccounts SET activated = 1 WHERE id = :idAccount");
+				$req->bindValue(':idAccount', $resultReq[0]['id'], PDO::PARAM_INT);
+				$req->execute();
+				$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Votre compte vient d'être activé</span>";
+			}
+			else
+			{
+				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Le lien a expiré!</span>";
+			}
 		}
 		$req->closeCursor();
 		$req = NULL;
@@ -417,31 +441,67 @@ class ActivateAccount
 
 class Recover
 {
-	static function sendMail($email, $type)
+	static function start($email, $type)
 	{
-		if ($type == 'nickname')
+		try
 		{
-			try
-			{
-			    $db = connectDB();
-			    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			} 
-			catch (Exception $e)
-			{
-			    die('Erreur : ' . $e->getMessage());
-			}
-			$req = $db->prepare("SELECT nickname FROM pe_adminaccounts WHERE mail = :email");
-			$req->bindValue(':email', $email, PDO::PARAM_STR);
-			$req->execute();
-			$resultReq = $req->fetchAll();
-			if (isset($resultReq[0]['nickname']) && !empty($resultReq[0]['nickname']))
-			{
-				$sendLogin = new SendMail();
-				$sendLogin->callNickname($email, $resultReq[0]['nickname']);
-			}
-			$req->closeCursor();
-			$req = NULL;
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
 		}
+		$req = $db->prepare("SELECT id, nickname FROM pe_adminaccounts WHERE mail = :email");
+		$req->bindValue(':email', $email, PDO::PARAM_STR);
+		$req->execute();
+		$resultReq = $req->fetchAll();
+		// Envoyer un lien de réinitialisation pour le mot de passe si l'utilisateur existe
+		if ($type == 'pwd' && isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
+		{
+			$resetLink = $resultReq[0]['nickname'].$email;
+			$resetLink = hash('sha256', $resetLink);
+			$id = $resultReq[0]['id'];
+			$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = :resetLink WHERE id = :idAccount");
+			$req->bindValue(':idAccount', $id, PDO::PARAM_INT);
+			$req->bindValue(':resetLink', $resetLink, PDO::PARAM_STR);
+			$req->execute();
+			$sendLogin = new SendMail();
+			$sendLogin->resetPwd($email, $resetLink);
+		}
+		// Envoyer le nom d'utilisateur si celui-ci existe
+		if ($type == 'nickname' && isset($resultReq[0]['nickname']) && !empty($resultReq[0]['nickname']))
+		{
+			$sendLogin = new SendMail();
+			$sendLogin->callNickname($email, $resultReq[0]['nickname']);
+		}
+		$req->closeCursor();
+		$req = NULL;
+	}
+}
+
+class UpdatePassword
+{
+	static function start($pwd, $id)
+	{
+		$reset = "0";
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
+		$req = $db->prepare("UPDATE pe_adminaccounts SET password = :pwd pwdreset = :reset WHERE id = :idAccount");
+		$req->bindValue(':pwd', $pwd, PDO::PARAM_STR);
+		$req->bindValue(':idAccount', $id, PDO::PARAM_INT);
+		$req->bindValue(':reset', $reset, PDO::PARAM_STR);
+		$req->execute();
+		$req->closeCursor();
+		$req = NULL;
+		$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Votre mot de passe a bien été modifié!</span>";
 	}
 }
 
@@ -462,12 +522,12 @@ class SendMail
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
 	}
-	public function resetPwd($mail, $id, $rstpwd)
+	public function resetPwd($mail, $rstpwd)
 	{
 		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
 		$_sujet = "Réinitialisation du Mot de Passe";
 		$_message = '<p>Bienvenue! Cliquer sur le lien suivant pour reinitialiser votre password.
-		<a href="https://cvm.one/test/index.php?action=resetpwd&id='.$id.'&rstpwd='.$rstpwd.'">https://cvm.one/test/index.php?action=activate&resetpwd='.$id.'&rstpwd='.$rstpwd.'</a></p>';
+		<a href="https://cvm.one/test/index.php?action=resetpwd&code='.$rstpwd.'">https://cvm.one/test/index.php?action=resetpwd&code='.$rstpwd.'</a></p>';
 		$_destinataire = $mail;
 
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";

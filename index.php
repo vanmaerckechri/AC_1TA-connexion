@@ -59,6 +59,11 @@ if (isset($_POST) && !isset($_GET['action']))
 			loadPwdView();
 		}
 	}
+	// New Password
+	else if (isset($_POST['newPassword']) && isset($_SESSION['newPassword2']))
+	{
+		newPasswordView(true);
+	}
 	else
 	{
 		loadHomeView();
@@ -82,10 +87,15 @@ else
 	{
 		loadPwdRecoveryView();
 	}
-	// Account activation
+	// Check password recovery code
+	else if ($_GET['action'] == 'resetpwd' && isset($_GET['code']) && !empty($_GET['code']))
+	{
+		checkCodeView('newPassword');
+	}
+	// Check account activation code
 	else if ($_GET['action'] == 'activate' && isset($_GET['code']) && !empty($_GET['code']))
 	{
-		loadActivateAccountView();
+		checkCodeView('activationAccount');
 	}
 	else
 	{
