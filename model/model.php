@@ -384,9 +384,9 @@ class RecordAccount
 
 		if ($this->_classroom == false)
 		{
-			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Vous venez de recevoir un lien de validation dans votre boîte mail! Votre nom d'utilisateur est le suivant ".$nickname."!</span>";
+			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Vous venez de recevoir un lien de validation dans votre boîte mail! Votre nom d'utilisateur est le suivant ".$this->_nickname."!</span>";
 			$sendActiveCode = new SendMail();
-			$sendActiveCode->activeAccount($this->_mail, $activationCode, $this->_nickname);
+			$sendActiveCode->activeAccount($this->_mail, $activationCode);
 		}
 	}
 }
@@ -543,7 +543,7 @@ class UpdatePassword
 // MAILS!
 class SendMail
 {
-	public function activeAccount($mail, $code, $nickname)
+	public function activeAccount($mail, $code)
 	{
 		$_sujet = "Lien d'Activation du Compte!";
 		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
