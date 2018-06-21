@@ -215,14 +215,13 @@ class Authentification
 		{
 			$req = $db->prepare("SELECT * FROM `$this->_sessionClassroom` WHERE nickname = :name AND password = :pwd");
 		}
+		// Try au cas où la classe en entrée n'existerait pas
 		try 
 		{
 			$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
 			$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
 			$req->execute();
 			$resultReq = $req->fetchAll();
-			$req->closeCursor();
-			$req = NULL;
 		}
 		catch (Exception $e)
 		{
@@ -234,6 +233,10 @@ class Authentification
 		    if (strstr($this->_sessionNickname, 'admin@'))
 		    {
 		    	// Admin
+		    	// Si une demande de reinitialisation du pwd a été faite mais qu'on se connecte entre temps => expiration du lien de reinitialisation
+		    	$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = 0 WHERE id = :idAccount");
+				$req->bindValue(':idAccount', $resultReq[0]['id'], PDO::PARAM_INT);
+				$req->execute();
 		    	return 'admin';
 		    }
 		    else
@@ -241,6 +244,8 @@ class Authentification
 		    	// Student
 		    	return 'student';
 		    }
+		    $req->closeCursor();
+			$req = NULL;
 		}
 		// Les données de connexion sont mauvaises
 		else
