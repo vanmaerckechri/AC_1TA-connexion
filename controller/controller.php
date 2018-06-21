@@ -45,7 +45,9 @@ function testCaptcha()
         . $secret
         . "&response=" . $response
         . "&remoteip=" . $remoteip ;   
-	return json_decode(file_get_contents($api_url), true);
+	$decode = json_decode(file_get_contents($api_url), true);
+	$_SESSION['smsAlert']['default'] = $decode == true ? '<span class="smsAlert">Veuillez cliquer sur "Je ne suis pas un robot" avant de valider!</span>' : $_SESSION['smsAlert']['default'];
+	return $decode;
 }
 
 //VIEWS!
@@ -57,8 +59,14 @@ function loadClassroomView()
 {
     require('./view/classroomView.php');
 }
-function loadPwdView()
+function loadPwdView($pwd = '', $isPost = false)
 {
+	$decode = testCaptcha();
+	if ($isPost == true && $decode['success'] == true)
+	{
+		$_SESSION['password'] = hash('sha256', $pwd);
+		checkSession();
+	}
     require('./view/pwdView.php');
 }
 

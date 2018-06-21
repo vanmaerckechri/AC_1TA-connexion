@@ -221,7 +221,7 @@ class Authentification
 		}
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
-			$req = $db->prepare("SELECT id, activated FROM pe_adminaccounts WHERE nickname = :name AND password = :pwd");
+			$req = $db->prepare("SELECT id, activated, mail FROM pe_adminaccounts WHERE nickname = :name AND password = :pwd");
 		}
 		else
 		{
@@ -239,7 +239,7 @@ class Authentification
 		{
 		    $resultReq = false;
 		}
-		// Les données de connexion sont bonnes
+		// Les données de connexion sont bonnes et le compte a été activé
 		if ($resultReq != false && $resultReq[0]["activated"] == 1)
 		{
 		    if (strstr($this->_sessionNickname, 'admin@'))
@@ -259,21 +259,29 @@ class Authentification
 		    $req->closeCursor();
 			$req = NULL;
 		}
-		// Les données de connexion sont mauvaises
+		// Le compte n'a pas encore été activé OU les données sont mauvaises
 		else
 		{
 			if ($this->_sessionPassword != '' && $this->_sessionNickname != '')
 			{
-				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
-				// Les données de connexion sont bonnes MAIS le compte n'a pas encore été activé
+				// Compte pas encore activé
 				if ($resultReq != false && $resultReq[0]["activated"] != 1)
 				{
-					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte suite à votre inscription. Veuillez vérifier votre boîte mail!</span>";
+					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte suite à votre inscription. Un nouveau lien d'activation vient de vous être envoyé par mail!</span>";
+					$sendActiveCode = new SendMail();
+					$sendActiveCode->activeAccount($resultReq[0]["mail"], $resultReq[0]["activated"]);
+					$return = 'needActivation';
+				}
+				// Données sont mauvaises
+				else if ($resultReq == false)
+				{
+					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+					$return = 'wrong';
 				}
 				$_SESSION['nickname'] = '';
 				$_SESSION['classroom'] = '';
 				$_SESSION['password'] = '';
-				return 'wrong';
+				return $return;
 			}
 		}  
 	}

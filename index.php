@@ -50,9 +50,7 @@ if (isset($_POST) && !isset($_GET['action']))
 		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'default');
 		if ($filteredInput)
 		{
-			$_SESSION['password'] = hash('sha256', $filteredInput);
-			checkSession();
-			loadPwdView();
+			loadPwdView($filteredInput, true);
 		}
 		else
 		{
