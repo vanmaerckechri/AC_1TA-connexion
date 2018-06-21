@@ -441,6 +441,18 @@ class checkCode
 
 class Recover
 {
+	static function generateCode($codeLength = 10)
+	{
+	    $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charLength = strlen($char);
+	    $randCode = '';
+	    for ($i = 0; $i < $length; $i++)
+	    {
+	        $randCode .= $char[rand(0, $charLength - 1)];
+	    }
+	    return $randCode;
+	}
+
 	static function start($email, $type)
 	{
 		try
@@ -459,8 +471,8 @@ class Recover
 		// Envoyer un lien de réinitialisation pour le mot de passe si l'utilisateur existe
 		if ($type == 'pwd' && isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
 		{
-			$resetLink = $resultReq[0]['nickname'].$email;
-			$resetLink = hash('sha256', $resetLink);
+			$code = self::generateCode(20);
+			$resetLink = hash('sha256', $code);
 			$id = $resultReq[0]['id'];
 			$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = :resetLink WHERE id = :idAccount");
 			$req->bindValue(':idAccount', $id, PDO::PARAM_INT);
