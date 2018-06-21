@@ -138,6 +138,18 @@ function filterInputs($input, $regEx, $minLength, $maxLength, $smsTitle)
 	return false;
 }
 
+function generateCode($codeLength = 10)
+{
+    $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charLength = strlen($char);
+    $randCode = '';
+    for ($i = 0; $i < $length; $i++)
+    {
+        $randCode .= $char[rand(0, $charLength - 1)];
+    }
+    return $randCode;
+}
+
 // SESSION!
 class Authentification
 {
@@ -256,7 +268,7 @@ class Authentification
 				// Les données de connexion sont bonnes MAIS le compte n'a pas encore été activé
 				if ($resultReq != false && $resultReq[0]["activated"] != 1)
 				{
-					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte lors de votre inscription. Veuillez vérifier votre boîte mail!</span>";
+					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte suite à votre inscription. Veuillez vérifier votre boîte mail!</span>";
 				}
 				$_SESSION['nickname'] = '';
 				$_SESSION['classroom'] = '';
@@ -364,7 +376,8 @@ class RecordAccount
 		}
 
 		// Insert new account in DB
-		$activationCode = hash('sha256', $this->_mail);
+		$code = generateCode(20);
+		$activationCode = hash('sha256', $code);
 		if ($this->_classroom == false)
 		{
 			$req = $db->prepare("INSERT INTO pe_adminaccounts (nickname, mail, password, activated) VALUES (:name, :email, :pwd, :activeCode)");
@@ -450,17 +463,6 @@ class checkCode
 
 class Recover
 {
-	static function generateCode($codeLength = 10)
-	{
-	    $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	    $charLength = strlen($char);
-	    $randCode = '';
-	    for ($i = 0; $i < $length; $i++)
-	    {
-	        $randCode .= $char[rand(0, $charLength - 1)];
-	    }
-	    return $randCode;
-	}
 
 	static function start($email, $type)
 	{
@@ -484,7 +486,7 @@ class Recover
 			$resultReq = $req->fetchAll();
 			if (isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
 			{
-				$code = self::generateCode(20);
+				$code = generateCode(20);
 				$resetLink = hash('sha256', $code);
 				$id = $resultReq[0]['id'];
 				$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = :resetLink WHERE id = :idAccount");
