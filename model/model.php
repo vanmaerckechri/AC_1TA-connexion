@@ -382,8 +382,12 @@ class RecordAccount
 		$req->closeCursor();
 		$req = NULL;
 
-		$sendActiveCode = new SendMail();
-		$sendActiveCode->activeAccount($this->_mail, $activationCode, $this->_nickname);
+		if ($this->_classroom == false)
+		{
+			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Vous venez de recevoir un lien de validation dans votre boîte mail! Votre nom d'utilisateur est le suivant ".$nickname."!</span>";
+			$sendActiveCode = new SendMail();
+			$sendActiveCode->activeAccount($this->_mail, $activationCode, $this->_nickname);
+		}
 	}
 }
 
@@ -490,6 +494,7 @@ class Recover
 				$sendLogin = new SendMail();
 				$sendLogin->resetPwd($email, $resetLink);
 			}
+			$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Si votre nom d'utilisateur et votre adresse email correspondent à un compte, un lien pour reinitialiser votre mot de passe vient de vous être envoyé!</p>";
 		}
 		// Envoyer le nom d'utilisateur si celui-ci existe
 		if ($type == 'nickname')
@@ -503,6 +508,7 @@ class Recover
 				$sendLogin = new SendMail();
 				$sendLogin->callNickname($email, $resultReq[0]['nickname']);
 			}
+			$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Si l'adresse email que vous avez entrée est liée à un compte, votre nom d'utilisateur vient de vous être envoyé!</p>";
 		}
 		$req->closeCursor();
 		$req = NULL;
@@ -539,7 +545,6 @@ class SendMail
 {
 	public function activeAccount($mail, $code, $nickname)
 	{
-		$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Vous venez de recevoir un lien de validation dans votre boîte mail! Votre nom d'utilisateur est le suivant ".$nickname."!</span>";
 		$_sujet = "Lien d'Activation du Compte!";
 		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
 		<a href="https://cvm.one/test/index.php?action=activate&code='.$code.'">https://cvm.one/test/index.php?action=activate&code='.$code.'</a></p>';
@@ -553,7 +558,6 @@ class SendMail
 	}
 	public function resetPwd($mail, $rstpwd)
 	{
-		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Si votre nom d'utilisateur et votre adresse email correspondent, un lien pour reinitialiser votre mot de passe vient de vous être envoyé!</p>";
 		$_sujet = "Réinitialisation du Mot de Passe";
 		$_message = '<p>Bienvenue! Cliquer sur le lien suivant pour reinitialiser votre password.
 		<a href="https://cvm.one/test/index.php?action=resetpwd&code='.$rstpwd.'">https://cvm.one/test/index.php?action=resetpwd&code='.$rstpwd.'</a></p>';
@@ -567,7 +571,6 @@ class SendMail
 	}
 	public function callNickname($mail, $nickname)
 	{
-		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Un mail avec votre nom d'utilisateur vient de vous être envoyé à l'adresse suivante: ".$mail."!</p>";
 		$_sujet = "Votre Nom d'Utilisateur";
 		$_message = "<p>Bienvenue! Votre nom d'utilisateur est le suivant: ".$nickname."!</p>";
 		$_destinataire = $mail;
