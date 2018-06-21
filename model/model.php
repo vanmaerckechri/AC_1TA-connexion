@@ -469,28 +469,40 @@ class Recover
 		{
 		    die('Erreur : ' . $e->getMessage());
 		}
-		$req = $db->prepare("SELECT id, nickname FROM pe_adminaccounts WHERE mail = :email");
-		$req->bindValue(':email', $email, PDO::PARAM_STR);
-		$req->execute();
-		$resultReq = $req->fetchAll();
-		// Envoyer un lien de réinitialisation pour le mot de passe si l'utilisateur existe
-		if ($type == 'pwd' && isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
+
+		// Envoyer un lien de réinitialisation pour le mot de passe si le nom d'utilisateur et l'adresse mail correspondent
+		if ($type == 'pwd')
 		{
-			$code = self::generateCode(20);
-			$resetLink = hash('sha256', $code);
-			$id = $resultReq[0]['id'];
-			$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = :resetLink WHERE id = :idAccount");
-			$req->bindValue(':idAccount', $id, PDO::PARAM_INT);
-			$req->bindValue(':resetLink', $resetLink, PDO::PARAM_STR);
+			$req = $db->prepare("SELECT id FROM pe_adminaccounts WHERE nickname = :username AND mail = :email");
+			$req->bindValue(':email', $email, PDO::PARAM_STR);
+			$req->bindValue(':username', $_SESSION['nickname'], PDO::PARAM_STR);
 			$req->execute();
-			$sendLogin = new SendMail();
-			$sendLogin->resetPwd($email, $resetLink);
+			$resultReq = $req->fetchAll();
+			if (isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
+			{
+				$code = self::generateCode(20);
+				$resetLink = hash('sha256', $code);
+				$id = $resultReq[0]['id'];
+				$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = :resetLink WHERE id = :idAccount");
+				$req->bindValue(':idAccount', $id, PDO::PARAM_INT);
+				$req->bindValue(':resetLink', $resetLink, PDO::PARAM_STR);
+				$req->execute();
+				$sendLogin = new SendMail();
+				$sendLogin->resetPwd($email, $resetLink);
+			}
 		}
 		// Envoyer le nom d'utilisateur si celui-ci existe
-		if ($type == 'nickname' && isset($resultReq[0]['nickname']) && !empty($resultReq[0]['nickname']))
+		if ($type == 'nickname')
 		{
-			$sendLogin = new SendMail();
-			$sendLogin->callNickname($email, $resultReq[0]['nickname']);
+			$req = $db->prepare("SELECT nickname FROM pe_adminaccounts WHERE mail = :email");
+			$req->bindValue(':email', $email, PDO::PARAM_STR);
+			$req->execute();
+			$resultReq = $req->fetchAll();
+			if (isset($resultReq[0]['nickname']) && !empty($resultReq[0]['nickname']))
+			{
+				$sendLogin = new SendMail();
+				$sendLogin->callNickname($email, $resultReq[0]['nickname']);
+			}
 		}
 		$req->closeCursor();
 		$req = NULL;
@@ -541,7 +553,7 @@ class SendMail
 	}
 	public function resetPwd($mail, $rstpwd)
 	{
-		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Un mail pour reinitialiser votre password vient de vous être envoyé!</p>";
+		$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Si votre nom d'utilisateur et votre adresse email correspondent, un lien pour reinitialiser votre mot de passe vient de vous être envoyé!</p>";
 		$_sujet = "Réinitialisation du Mot de Passe";
 		$_message = '<p>Bienvenue! Cliquer sur le lien suivant pour reinitialiser votre password.
 		<a href="https://cvm.one/test/index.php?action=resetpwd&code='.$rstpwd.'">https://cvm.one/test/index.php?action=resetpwd&code='.$rstpwd.'</a></p>';
