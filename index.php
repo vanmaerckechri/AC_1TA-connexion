@@ -60,7 +60,7 @@ if (isset($_POST) && !isset($_GET['action']))
 		}
 	}
 	// New Password
-	else if (isset($_POST['newPassword']) && isset($_SESSION['newPassword2']))
+	else if (isset($_POST['newPassword']) && isset($_POST['newPassword2']))
 	{
 		newPasswordView(true);
 	}
@@ -90,12 +90,12 @@ else
 	// Check password recovery code
 	else if ($_GET['action'] == 'resetpwd' && isset($_GET['code']) && !empty($_GET['code']))
 	{
-		checkCodeView('newPassword');
+		checkCodeView('resetpwd');
 	}
 	// Check account activation code
 	else if ($_GET['action'] == 'activate' && isset($_GET['code']) && !empty($_GET['code']))
 	{
-		checkCodeView('activationAccount');
+		checkCodeView('activate');
 	}
 	else
 	{

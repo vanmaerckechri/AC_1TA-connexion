@@ -181,11 +181,11 @@ function checkCodeView($type)
     if ($decode['success'] == true)
     {
 		$id = checkCode::start($code, $type);
-		if ($type == 'activationAccount')
+		if ($type == 'activate')
 		{
 			require('./view/loginView.php');
 		}
-		else if ($type == 'newPassword')
+		else if ($type == 'resetpwd')
 		{
 			if ($id == false)
 			{

@@ -395,11 +395,11 @@ class checkCode
 		{
 		    die('Erreur : ' . $e->getMessage());
 		}
-		if ($type == 'newPassword')
+		if ($type == 'resetpwd')
 		{
 			$req = $db->prepare("SELECT id FROM pe_adminaccounts WHERE pwdreset = :code");		
 		}
-		else if ($type == 'activationAccount')
+		else if ($type == 'activate')
 		{
 			$req = $db->prepare("SELECT id FROM pe_adminaccounts WHERE activated = :code");
 		}
@@ -407,7 +407,7 @@ class checkCode
 		$req->execute();
 		$resultReq = $req->fetchAll();
 		// Le code permettant de changer de pwd est-il valide ?
-		if ($type == 'newPassword')
+		if ($type == 'resetpwd')
 		{
 			if (isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
 			{
@@ -420,7 +420,7 @@ class checkCode
 			}
 		}
 		// Le code d'activation du compte est-il valide ?
-		else if ($type == 'activationAccount')
+		else if ($type == 'activate')
 		{
 			if (isset($resultReq[0]['id']) && !empty($resultReq[0]['id']))
 			{
@@ -494,7 +494,7 @@ class UpdatePassword
 		{
 		    die('Erreur : ' . $e->getMessage());
 		}
-		$req = $db->prepare("UPDATE pe_adminaccounts SET password = :pwd pwdreset = :reset WHERE id = :idAccount");
+		$req = $db->prepare("UPDATE pe_adminaccounts SET password = :pwd, pwdreset = :reset WHERE id = :idAccount");
 		$req->bindValue(':pwd', $pwd, PDO::PARAM_STR);
 		$req->bindValue(':idAccount', $id, PDO::PARAM_INT);
 		$req->bindValue(':reset', $reset, PDO::PARAM_STR);
