@@ -38,7 +38,7 @@ class Classrooms
 			$req->execute();
 			$resultReq = $req->fetchAll();
 			// Verifier si l'admin execute bien une requete sur l'une de ses classes
-			if ($resultReq[0]['id_admin'] == $_SESSION['id'])
+			if (isset($resultReq[0]['id_admin']) && $resultReq[0]['id_admin'] == $_SESSION['id'])
 			{
 				// Afficher tous les élèves de la classe
 				$req = $db->prepare("SELECT id, nickname FROM pe_students WHERE id_classroom = :idClassroom");
@@ -61,8 +61,16 @@ class Classrooms
 				$studentsForm = ob_get_clean();
 				return $studentsForm;
 			}
+			else
+			{
+				header('Location: admin.php');	  
+			}
 			$req->closeCursor();
 			$req = NULL;
+		}
+		else
+		{
+			header('Location: admin.php');	  
 		}
 	}
 	public static function displaySelectedStudents($id_st)
@@ -90,10 +98,10 @@ class Classrooms
 			}
 		}
 	}
-	public static function deleteStudents($mySessionId, $studentsId)
+	public static function deleteStudents($mySessionId, $studentsId, $idcr)
 	{
-		// Mon id de session est-elle valide ?
-		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000)
+		// Mon id de session et l'id de la classe sont-elles valides ?
+		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000 && filter_var($idcr, FILTER_VALIDATE_INT) && $idcr >=0 && $idcr < 100000)
 		{
 			$sms = "";
 			// Effacer les étudiants sélectionnés si possible
@@ -119,8 +127,8 @@ class Classrooms
 				}
 			}
 			$_SESSION['smsAlert']['default'] = $sms;
-			header('Location: admin.php?action=manageThisClassroom&idcr='.$resultReq[0]['id_classroom']);	  
-			exit;  	
 		}
+		header('Location: admin.php?action=manageThisClassroom&idcr='.$idcr);	  
+		exit;  	
 	}
 }

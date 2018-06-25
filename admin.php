@@ -48,7 +48,7 @@ if (isset($_GET['action']))
 		loadManageModifyStudents();
 	}
 	// Delete students
-	else if ($_GET['action'] == 'deleteStudents' && isset($_POST['students']))
+	else if ($_GET['action'] == 'deleteStudents')
 	{
 		deleteStudents();
 	}

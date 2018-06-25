@@ -12,11 +12,11 @@
         		let confirmDeleteSelectedStudents = function()
         		{
         			let confirm = prompt('Si vous êtes sûre de vouloir supprimer les élèves sélectionnés, écrivez: "supprimer"');
-        			//if (confirm == "supprimer" || confirm == "SUPPRIMER")
-        			//{
-        				selectedStudents.action = 'admin.php?action=deleteStudents';
+        			if (confirm == "supprimer" || confirm == "SUPPRIMER")
+        			{
+        				selectedStudents.action = 'admin.php?action=deleteStudents&idcr=<?=$_GET['idcr']?>';
         				selectedStudents.submit();
-        			//}
+        			}
         		}
         		deleteStudents.addEventListener('click', confirmDeleteSelectedStudents, false);
         	}, false);

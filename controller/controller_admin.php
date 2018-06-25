@@ -8,7 +8,7 @@ Authentification::startSession();
 // TOOLS!
 function deleteStudents()
 {
-	Classrooms::deleteStudents($_SESSION['id'], $_POST['students']);
+	Classrooms::deleteStudents($_SESSION['id'], $_POST['students'], $_GET['idcr']);
 }
 
 // VIEWS!
