@@ -25,10 +25,10 @@ class Classrooms
 		$req = NULL;
 		foreach ($resultReq  as $row)
 		{
-			echo "<a href='admin.php?action=manageStudents&idcr=".$row['id']."'>".$row['name']."</a>";
+			echo "<a href='admin.php?action=manageThisClassroom&idcr=".$row['id']."'>".$row['name']."</a>";
 		}
 	}
-	public static function displayStudents($id_cr)
+	public static function displayThisRoom($id_cr)
 	{
 		if (filter_var($id_cr, FILTER_VALIDATE_INT) && $id_cr < 100000)
 		{
@@ -45,10 +45,21 @@ class Classrooms
 				$req->bindValue(':idClassroom', $id_cr, PDO::PARAM_INT);
 				$req->execute();
 				$resultReq = $req->fetchAll();
+				ob_start();
+				?>
+				<form action="admin.php" method="post">
+				<?php
 				foreach ($resultReq  as $row)
 				{
-					echo "<a href='admin.php?action=manageModifyStudents&idst=".$row['id']."'>".$row['nickname']."</a></br>";
+					?>
+		           	<div class="students">
+		           		<input class="formInput" type="checkbox" name="students[]" value="<?=$row['nickname']?>">
+		           		<a href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>"><?=$row['nickname']?></a>
+		           	</div>
+					<?php
 				}
+				$studentsForm = ob_get_clean();
+				return $studentsForm;
 			}
 			$req->closeCursor();
 			$req = NULL;
@@ -74,8 +85,8 @@ class Classrooms
 	           	<input class="formInput" type="text" name="nickname" value="<?=$resultReq[0]["nickname"]?>" required>
 	           	<label for="password">Mot de passe</label>
 	            <input class="formInput" type="text" name="password" value="<?=$resultReq[0]['password']?>" required>
-				<?php $studentForm = ob_get_clean();
-				return $studentForm;
+				<?php $modifyStudendsForm = ob_get_clean();
+				return $modifyStudendsForm;
 			}
 		}
 	}

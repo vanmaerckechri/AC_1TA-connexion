@@ -38,9 +38,9 @@ if (isset($_GET['action']))
 		loadManageClassrooms();
 	}
 	// Students management
-	else if ($_GET['action'] == 'manageStudents')
+	else if ($_GET['action'] == 'manageThisClassroom')
 	{
-		loadManageStudents();
+		loadManageThisClassroom();
 	}
 	// Student management
 	else if ($_GET['action'] == 'manageModifyStudents')

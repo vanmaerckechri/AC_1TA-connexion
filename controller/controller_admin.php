@@ -10,10 +10,10 @@ function loadManageClassrooms()
 {
 	require('./view/ad_manageClassroomsView.php');
 }
-function loadManageStudents()
+function loadManageThisClassroom()
 {
 
-	require('./view/ad_manageStudentsView.php');	
+	require('./view/ad_manageThisClassroomView.php');	
 }
 function loadManageModifyStudents()
 {

@@ -106,6 +106,15 @@ input {
         cursor: pointer;
         background-color: #4ab4f1;
         box-shadow: 0px 0px 20px 0px #4ab4f1; }
+#main .admin .students {
+  width: 90px;
+  height: 90px; }
+  #main .admin .students .formInput {
+    width: auto;
+    display: inline-block; }
+  #main .admin .students a {
+    margin-left: 5px;
+    font-size: 1rem; }
 #main p {
   margin-bottom: 10px;
   width: 100%;

@@ -12,7 +12,7 @@
 </head>
 <body>
     <div id="main">
-        <div class="connexion">
+        <div class="connexion admin">
             <h1>Plateforme Éducative</h1>
     		<?=$content?>
         </div>

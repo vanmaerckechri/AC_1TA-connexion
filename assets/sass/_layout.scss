@@ -83,6 +83,24 @@
 			}
 		}
 	}
+	.admin
+	{
+		.students
+		{
+			width: 90px;
+			height: 90px;
+			.formInput
+			{
+				width: auto;
+				display: inline-block;
+			}
+			a
+			{
+				margin-left: 5px;
+				font-size: 1rem;
+			}
+		}
+	}
 	p
 	{
 		margin-bottom: 10px;
