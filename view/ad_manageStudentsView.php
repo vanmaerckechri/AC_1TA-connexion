@@ -1,5 +1,7 @@
-<?php ob_start(); ?>
-        <h2>Gestion de la Classe</h2>
+<?php
+	$pageName = "Gestion de la Classe";
+	ob_start();
+?>
         <button>Ajouter des élèves</button>
         <?=Classrooms::displayThisRoom($_GET['idcr']);?>
 <?php $content = ob_get_clean(); ?>

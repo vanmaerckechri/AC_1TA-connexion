@@ -10,17 +10,25 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
-<body>
+<body class="admin">
+    <header>
+        <?=$_SESSION['nickname']?>
+    </header>
     <div id="main">
-        <div class="connexion admin">
+        <div class="pageName">
             <h1>Plateforme Éducative</h1>
-    		<?=$content?>
+            <h2><?=$pageName?></h2>
         </div>
-        <div class="producer">
-            <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
+    	<div class="container">
+            <?=$content?>
         </div>
         <p><?=$_SESSION['smsAlert']['default']?></p>
     </div>
+    <footer>
+        <div class="producer">
+            <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
+        </div>
+    </footer>
     <script defer src="assets/js/fontawesome-all.min.js"></script>
 </body>
 </html>

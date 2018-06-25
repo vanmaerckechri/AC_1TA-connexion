@@ -1,5 +1,7 @@
-<?php ob_start(); ?>
-        <h2>Gestion de la Classe</h2>
+<?php
+        $pageName = "Gestion de la Classe";
+        ob_start();
+?>
         <button id = "addStudents">Ajouter des élèves</button>
         <button id = "deleteStudents">Effacer les elèves sélectionnés</button>
         <button id = "updateStudents">Modifier les élèves sélectionnés</button>

@@ -83,29 +83,60 @@
 			}
 		}
 	}
-	.admin
-	{
-		.students
-		{
-			width: 90px;
-			height: 90px;
-			.formInput
-			{
-				width: auto;
-				display: inline-block;
-			}
-			a
-			{
-				margin-left: 5px;
-				font-size: 1rem;
-			}
-		}
-	}
 	p
 	{
 		margin-bottom: 10px;
 		width: 100%;
 		font-size: .8rem;
+	}
+}
+.admin
+{
+	#main
+	{
+		max-width: 960px;
+		width: auto;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		.container
+		{
+			.list
+			{
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				.button_listContent
+				{
+					margin: 10px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+				.classroomsAndStudents
+				{
+					padding: 8px;
+					border-radius: 8px;
+					border: 1px solid $ac-blue;
+					margin-left: 5px;
+					font-size: 1rem;
+					&:hover
+					{
+						color: black;
+						background-color: $ac-blue;
+					}
+				}
+			}
+			.formInput
+			{
+				border-radius: 8px;
+				border: 1px solid $ac-blue;
+				width: auto;
+				display: block;
+				text-align: center;
+			}
+		}
 	}
 }
 .producer

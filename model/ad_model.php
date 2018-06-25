@@ -16,23 +16,33 @@ class Classrooms
 	}
 	public static function displayRooms()
 	{
-		$db = self::connect();
+		$db = (new self)->connect();
 		$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id_admin = :idadmin");
 		$req->bindValue(':idadmin', $_SESSION['id'], PDO::PARAM_INT);
 		$req->execute();
 		$resultReq = $req->fetchAll();
 		$req->closeCursor();
 		$req = NULL;
+		ob_start();
+		?>
+		<form class="list" action="" method="post">
+		<?php
 		foreach ($resultReq  as $row)
 		{
-			echo "<a href='admin.php?action=manageThisClassroom&idcr=".$row['id']."'>".$row['name']."</a>";
+			?>
+			<div class="button_listContent">
+				<a class='classroomsAndStudents' href='admin.php?action=manageThisClassroom&idcr=<?=$row['id']?>'><?=$row['name']?></a>
+			</div>
+			<?php
 		}
+		$roomsForm = ob_get_clean();
+		return $roomsForm;
 	}
 	public static function displayThisRoom($id_cr)
 	{
 		if (filter_var($id_cr, FILTER_VALIDATE_INT) && $id_cr < 100000)
 		{
-			$db = self::connect();
+			$db = (new self)->connect();
 			$req = $db->prepare("SELECT id_admin, name FROM pe_classrooms WHERE id = :idClassroom");
 			$req->bindValue(':idClassroom', $id_cr, PDO::PARAM_INT);
 			$req->execute();
@@ -47,14 +57,14 @@ class Classrooms
 				$resultReq = $req->fetchAll();
 				ob_start();
 				?>
-				<form id = "studentsListForm" action="" method="post">
+				<form class="list" action="" method="post">
 				<?php
 				foreach ($resultReq  as $row)
 				{
 					?>
-		           	<div class="students">
+		           	<div class="button_listContent">
 		           		<input class="formInput" type="checkbox" name="students[]" value="<?=$row['id']?>">
-		           		<a href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>"><?=$row['nickname']?></a>
+		           		<a class='classroomsAndStudents' href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>"><?=$row['nickname']?></a>
 		           	</div>
 					<?php
 				}
@@ -77,7 +87,7 @@ class Classrooms
 	{
 		if (filter_var($id_st, FILTER_VALIDATE_INT) && $id_st < 100000)
 		{
-			$db = self::connect();
+			$db = (new self)->connect();
 			$req = $db->prepare("SELECT id_admin, nickname, password FROM pe_students WHERE id = :idStudent");
 			$req->bindValue(':idStudent', $id_st, PDO::PARAM_INT);
 			$req->execute();
@@ -88,11 +98,14 @@ class Classrooms
 			if ($resultReq[0]['id_admin'] == $_SESSION['id'])
 			{
 				ob_start();?>
-	        	<form action="admin.php" method="post">
-	        	<label for="nickname">Nom d'Utilisateur</label>
-	           	<input class="formInput" type="text" name="nickname" value="<?=$resultReq[0]["nickname"]?>" required>
-	           	<label for="password">Mot de passe</label>
-	            <input class="formInput" type="text" name="password" value="<?=$resultReq[0]['password']?>" required>
+	        	<form class="list" action="admin.php" method="post">
+	        		<div>
+			        	<label for="nickname">Nom d'Utilisateur</label>
+			           	<input class="formInput" type="text" name="nickname" value="<?=$resultReq[0]["nickname"]?>" required>
+			           	<label for="password">Mot de passe</label>
+			            <input class="formInput" type="text" name="password" value="<?=$resultReq[0]['password']?>" required>
+			        </div>
+		        </form>
 				<?php $modifyStudendsForm = ob_get_clean();
 				return $modifyStudendsForm;
 			}
@@ -105,7 +118,7 @@ class Classrooms
 		{
 			$sms = "";
 			// Effacer les étudiants sélectionnés si possible
-			$db = self::connect();
+			$db = (new self)->connect();
 			$req = $db->prepare("SELECT nickname, id_classroom FROM pe_students WHERE id = :idStudent AND id_admin = :idAd");
 			foreach ($studentsId as $value)
 			{
