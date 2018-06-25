@@ -1,6 +1,6 @@
 <?php
 
-require('./controller/controller_admin.php');
+require('./controller/ad_controller.php');
 
 // ROUTER!
 // SESSION

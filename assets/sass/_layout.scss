@@ -92,6 +92,21 @@
 }
 .admin
 {
+	button
+	{
+		margin: 5px;
+		border-radius: 4px;
+		border: 1px solid $ac-blue;
+		padding: 4px;
+		color: white;
+		background-color: $ac-blue;
+		&:hover
+		{
+			color: $ac-blue;
+			background-color: white;
+			cursor: pointer;
+		}
+	}
 	#main
 	{
 		max-width: 960px;

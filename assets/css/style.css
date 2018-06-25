@@ -127,6 +127,17 @@ input {
   width: 100%;
   font-size: .8rem; }
 
+.admin button {
+  margin: 5px;
+  border-radius: 4px;
+  border: 1px solid #4ab4f1;
+  padding: 4px;
+  color: white;
+  background-color: #4ab4f1; }
+  .admin button:hover {
+    color: #4ab4f1;
+    background-color: white;
+    cursor: pointer; }
 .admin #main {
   max-width: 960px;
   width: auto;

@@ -10,7 +10,7 @@
         	window.addEventListener('load', function()
         	{
         		let deleteStudents = document.querySelector('#deleteStudents');
-        		let selectedStudents = document.querySelector('#studentsListForm');
+        		let selectedStudents = document.querySelector('.list');
         		let confirmDeleteSelectedStudents = function()
         		{
         			let confirm = prompt('Si vous êtes sûre de vouloir supprimer les élèves sélectionnés, écrivez: "supprimer"');
