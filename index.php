@@ -3,6 +3,47 @@
 require('./controller/controller.php');
 
 // ROUTEUR!
+// SESSION
+// TEMPORAIRE POUR LES TESTS =>
+// ---------------------------
+$_SESSION['nickname'] = "admin@aze";
+$_SESSION['classroom'] = "";
+$_SESSION['password'] = '9adfb0a6d03beb7141d8ec2708d6d9fef9259d12cd230d50f70fb221ae6cabd5';
+$_SESSION['id'] = 31;
+
+
+// ---------------------------
+function checkSession()
+{
+	$auth = new Authentification;
+	$sessionResult = $auth->checkSession();
+
+	if ($sessionResult != null)
+	{
+	    if ($sessionResult == 'admin')
+		{
+			// Admin connexion
+			header('Location: ./admin.php');
+			exit;  		
+		}
+		else if ($sessionResult == 'student')
+		{
+			// Student connexion
+			header('Location: ./platform/index.php');	  
+			exit;  		
+		}
+		else if ($sessionResult == 'wrong')
+		{
+			// Informations de connexion incorrectes
+			header('Location: ./index.php');
+			exit;	    		
+		}
+	}
+}
+checkSession();
+$_SESSION['smsAlert'] = !isset($_SESSION['smsAlert']) ? array() : $_SESSION['smsAlert'];
+$_SESSION['smsAlert']['default'] = !isset($_SESSION['smsAlert']['default']) ? '' : $_SESSION['smsAlert']['default'];
+
 // LOGIN
 if (isset($_POST) && !isset($_GET['action']))
 {

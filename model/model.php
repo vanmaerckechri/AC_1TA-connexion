@@ -195,11 +195,11 @@ class Authentification
 		session_cache_limiter('private_no_expire, must-revalidate');
 	    session_start();
 	    // Petite protection contre l'usurpation d'identité
-	    if(!isset($_SESSION['ip']))
+	    if (!isset($_SESSION['ip']))
 	    {
 	        $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
 	    }
-	    if($_SESSION['ip']!=$_SERVER['REMOTE_ADDR'])
+	    if ($_SESSION['ip'] != $_SERVER['REMOTE_ADDR'])
 	    {
 	        $_SESSION = array();
 	        $_SESSION['smsAlert']['default'] = '<span class="smsAlert">Vous avez été déconnecté pour des raisons de sécurité!</span>';
@@ -242,6 +242,7 @@ class Authentification
 		// Les données de connexion sont bonnes et le compte a été activé
 		if ($resultReq != false && $resultReq[0]["activated"] == 1)
 		{
+			$_SESSION['id'] = $resultReq[0]["id"];
 		    if (strstr($this->_sessionNickname, 'admin@'))
 		    {
 		    	// Admin
@@ -249,15 +250,17 @@ class Authentification
 		    	$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = 0 WHERE id = :idAccount");
 				$req->bindValue(':idAccount', $resultReq[0]['id'], PDO::PARAM_INT);
 				$req->execute();
+				$req->closeCursor();
+				$req = NULL;
 		    	return 'admin';
 		    }
 		    else
 		    {
 		    	// Student
+		    	$req->closeCursor();
+				$req = NULL;
 		    	return 'student';
 		    }
-		    $req->closeCursor();
-			$req = NULL;
 		}
 		// Le compte n'a pas encore été activé OU les données sont mauvaises
 		else
