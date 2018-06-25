@@ -47,13 +47,13 @@ class Classrooms
 				$resultReq = $req->fetchAll();
 				ob_start();
 				?>
-				<form action="admin.php" method="post">
+				<form id = "studentsListForm" action="" method="post">
 				<?php
 				foreach ($resultReq  as $row)
 				{
 					?>
 		           	<div class="students">
-		           		<input class="formInput" type="checkbox" name="students[]" value="<?=$row['nickname']?>">
+		           		<input class="formInput" type="checkbox" name="students[]" value="<?=$row['id']?>">
 		           		<a href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>"><?=$row['nickname']?></a>
 		           	</div>
 					<?php
@@ -88,6 +88,39 @@ class Classrooms
 				<?php $modifyStudendsForm = ob_get_clean();
 				return $modifyStudendsForm;
 			}
+		}
+	}
+	public static function deleteStudents($mySessionId, $studentsId)
+	{
+		// Mon id de session est-elle valide ?
+		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000)
+		{
+			$sms = "";
+			// Effacer les étudiants sélectionnés si possible
+			$db = self::connect();
+			$req = $db->prepare("SELECT nickname, id_classroom FROM pe_students WHERE id = :idStudent AND id_admin = :idAd");
+			foreach ($studentsId as $value)
+			{
+				// Si l'id de l'étudiant est valides => Vérification élève appartient à l'admin faisant le requete
+				if (filter_var($value, FILTER_VALIDATE_INT) && $value >= 0 && $value < 100000)
+				{
+					$req->bindValue(':idStudent', $value, PDO::PARAM_INT);
+					$req->bindValue(':idAd', $mySessionId, PDO::PARAM_INT);
+					$req->execute();
+					$resultReq = $req->fetchAll();
+					// Si l'élèves appartient bien à l'admin => DELETE
+					if (isset($resultReq) && !empty($resultReq))
+					{
+						$del = $db->prepare("DELETE FROM pe_students WHERE id = :idStudent");
+						$del->bindParam(':idStudent', $value, PDO::PARAM_INT);   
+						$del->execute();
+						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s) <span class='smsAlert'>".$resultReq[0]['nickname']."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['nickname']."</span>";
+					}
+				}
+			}
+			$_SESSION['smsAlert']['default'] = $sms;
+			header('Location: admin.php?action=manageThisClassroom&idcr='.$resultReq[0]['id_classroom']);	  
+			exit;  	
 		}
 	}
 }

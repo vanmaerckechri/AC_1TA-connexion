@@ -37,7 +37,7 @@ if (isset($_GET['action']))
 	{
 		loadManageClassrooms();
 	}
-	// Students management
+	// Classroom management
 	else if ($_GET['action'] == 'manageThisClassroom')
 	{
 		loadManageThisClassroom();
@@ -46,6 +46,11 @@ if (isset($_GET['action']))
 	else if ($_GET['action'] == 'manageModifyStudents')
 	{
 		loadManageModifyStudents();
+	}
+	// Delete students
+	else if ($_GET['action'] == 'deleteStudents' && isset($_POST['students']))
+	{
+		deleteStudents();
 	}
 	else
 	{

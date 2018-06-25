@@ -5,6 +5,12 @@ require('./model/ad_model.php');
 // ACTIVATE SESSION!
 Authentification::startSession();
 
+// TOOLS!
+function deleteStudents()
+{
+	Classrooms::deleteStudents($_SESSION['id'], $_POST['students']);
+}
+
 // VIEWS!
 function loadManageClassrooms()
 {
