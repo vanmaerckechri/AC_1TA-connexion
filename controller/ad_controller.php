@@ -36,9 +36,17 @@ function createStudents()
 	$createStudent = true;
 	require('./view/ad_manageThisClassroomView.php');	
 }
+
 function deleteStudents()
 {
 	Classrooms::deleteStudents($_SESSION['id'], $_POST['students'], $_GET['idcr']);
+}
+
+function disconnect()
+{
+	$_SESSION = array();
+	$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Vous êtes bien déconnecté!</span>';
+	header('Location: index.php');	  
 }
 
 // VIEWS!

@@ -67,6 +67,10 @@ if (isset($_GET['action']))
 	{
 		deleteStudents();
 	}
+	else if ($_GET['action'] == 'disco')
+	{
+		disconnect();
+	}
 	else
 	{
 		loadManageClassrooms();

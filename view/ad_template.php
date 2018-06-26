@@ -19,6 +19,7 @@
             </div>
             <div class="headerProfile">
                 <?=$_SESSION['nickname']?>
+                <a href="admin.php?action=disco">X</a>
             </div>
         </div>
     </header>
