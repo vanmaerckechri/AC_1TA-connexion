@@ -57,6 +57,11 @@ if (isset($_GET['action']))
 	{
 		deleteClassrooms();
 	}
+	// Create new students
+	else if ($_GET['action'] == 'addStudents')
+	{
+		createStudents();		
+	}
 	// Delete students
 	else if ($_GET['action'] == 'deleteStudents')
 	{

@@ -112,44 +112,6 @@ class Classrooms
 		$req = NULL;
 	}
 
-	public static function deleteStudents($mySessionId, $studentsId, $idcr)
-	{
-		// Mon id de session et l'id de la classe sont-elles valides ?
-		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000 && filter_var($idcr, FILTER_VALIDATE_INT) && $idcr >=0 && $idcr < 100000)
-		{
-			$sms = "";
-			// Effacer les étudiants sélectionnés si possible
-			$db = (new self)->connect();
-			$req = $db->prepare("SELECT nickname, id_classroom FROM pe_students WHERE id = :idStudent AND id_admin = :idAd");
-			foreach ($studentsId as $value)
-			{
-				// Si l'id de l'étudiant est valides => Vérification élève appartient à l'admin faisant le requete
-				if (filter_var($value, FILTER_VALIDATE_INT) && $value >= 0 && $value < 100000)
-				{
-					$req->bindValue(':idStudent', $value, PDO::PARAM_INT);
-					$req->bindValue(':idAd', $mySessionId, PDO::PARAM_INT);
-					$req->execute();
-					$resultReq = $req->fetchAll();
-					// Si l'élèves appartient bien à l'admin => DELETE
-					$del = $db->prepare("DELETE FROM pe_students WHERE id = :idStudent");
-					if (isset($resultReq) && !empty($resultReq))
-					{
-						$del->bindParam(':idStudent', $value, PDO::PARAM_INT);   
-						$del->execute();
-						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s) <span class='smsAlert'>".$resultReq[0]['nickname']."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['nickname']."</span>";
-					}
-					$del->closeCursor();
-					$del = NULL;
-				}
-			}
-			$req->closeCursor();
-			$req = NULL;
-			$_SESSION['smsAlert']['default'] = $sms;
-		}
-		header('Location: admin.php?action=manageThisClassroom&idcr='.$idcr);	  
-		exit;  	
-	}
-
 	public static function deleteClassrooms($mySessionId, $classroomsId)
 	{
 		// Mon id de session est-elle valide ?
@@ -191,6 +153,86 @@ class Classrooms
 			$_SESSION['smsAlert']['default'] = $sms;
 		}
 		header('Location: admin.php?action=manageThisClassroom');	  
+		exit;  	
+	}
+
+	public static function createStudent($mySessionId, $nickname, $pwd, $idcr)
+	{
+
+		// Mon id de session et l'id de la classe sont-elles valides ?
+		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000 && filter_var($idcr, FILTER_VALIDATE_INT) && $idcr >=0 && $idcr < 100000)
+		{
+			$sms = "";
+			// Ajouter un nouvel étudiant si possible
+			$db = (new self)->connect();
+			$req = $db->prepare("SELECT id FROM pe_classrooms WHERE id = :idcr AND id_admin = :idAd");
+			$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
+			$req->bindValue(':idAd', $mySessionId, PDO::PARAM_INT);
+			$req->execute();
+			$resultReq = $req->fetchAll();
+			// Si la classe appartient à l'admin faisant la requete
+			if (isset($resultReq) && !empty($resultReq))
+			{
+				$req = $db->prepare("SELECT id FROM pe_students WHERE nickname = :nick AND id_classroom = :idcr");
+				$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
+				$req->bindValue(':nick', $nickname, PDO::PARAM_STR);
+				$req->execute();
+				$resultReq = $req->fetchAll();
+				// Si le nom d'utilisateur n'est pas encore occupé dans cette classe
+				if (!isset($resultReq) || empty($resultReq))
+				{
+					$req = $db->prepare("INSERT INTO pe_students (id_admin, id_classroom, nickname, password) VALUES (:idad, :idcr, :nick, :pwd)");
+					$req->bindValue(':idad', $mySessionId, PDO::PARAM_INT);
+					$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
+					$req->bindValue(':nick', $nickname, PDO::PARAM_STR);
+					$req->bindValue(':pwd', $pwd, PDO::PARAM_STR);
+					$req->execute();
+				}
+				else
+				{
+					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Ce nom d'utilisateur est déjà pris dans cette classe!</span>";
+				}
+			}
+			$req->closeCursor();
+			$req = NULL;
+		}
+	}
+
+	public static function deleteStudents($mySessionId, $studentsId, $idcr)
+	{
+		// Mon id de session et l'id de la classe sont-elles valides ?
+		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000 && filter_var($idcr, FILTER_VALIDATE_INT) && $idcr >=0 && $idcr < 100000)
+		{
+			$sms = "";
+			// Effacer les étudiants sélectionnés si possible
+			$db = (new self)->connect();
+			$req = $db->prepare("SELECT nickname, id_classroom FROM pe_students WHERE id = :idStudent AND id_admin = :idAd");
+			foreach ($studentsId as $value)
+			{
+				// Si l'id de l'étudiant est valides => Vérification élève appartient à l'admin faisant le requete
+				if (filter_var($value, FILTER_VALIDATE_INT) && $value >= 0 && $value < 100000)
+				{
+					$req->bindValue(':idStudent', $value, PDO::PARAM_INT);
+					$req->bindValue(':idAd', $mySessionId, PDO::PARAM_INT);
+					$req->execute();
+					$resultReq = $req->fetchAll();
+					// Si l'élèves appartient bien à l'admin => DELETE
+					$del = $db->prepare("DELETE FROM pe_students WHERE id = :idStudent");
+					if (isset($resultReq) && !empty($resultReq))
+					{
+						$del->bindParam(':idStudent', $value, PDO::PARAM_INT);   
+						$del->execute();
+						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s) <span class='smsAlert'>".$resultReq[0]['nickname']."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['nickname']."</span>";
+					}
+					$del->closeCursor();
+					$del = NULL;
+				}
+			}
+			$req->closeCursor();
+			$req = NULL;
+			$_SESSION['smsAlert']['default'] = $sms;
+		}
+		header('Location: admin.php?action=manageThisClassroom&idcr='.$idcr);	  
 		exit;  	
 	}
 }
