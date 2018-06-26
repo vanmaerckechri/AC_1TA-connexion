@@ -16,14 +16,6 @@ body {
   font-family: 'Open Sans', sans-serif;
   background-color: white; }
 
-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80px;
-  width: 100%;
-  border-bottom: 1px solid #4ab4f1; }
-
 footer {
   display: flex;
   justify-content: center;
@@ -127,6 +119,22 @@ input {
   width: 100%;
   font-size: .8rem; }
 
+.admin header {
+  border-bottom: 1px solid #4ab4f1;
+  padding: 20px 50px;
+  width: 100%;
+  min-height: 80px; }
+  .admin header .headerContainer {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .admin header .headerContainer .headerTitle h1, .admin header .headerContainer .headerTitle h2, .admin header .headerContainer .headerProfile h1, .admin header .headerContainer .headerProfile h2 {
+      display: inline-block; }
+    .admin header .headerContainer .headerTitle h1, .admin header .headerContainer .headerProfile h1 {
+      margin-right: 20px; }
+    .admin header .headerContainer .headerTitle h2, .admin header .headerContainer .headerProfile h2 {
+      font-weight: 300; }
 .admin button {
   margin: 5px;
   border-radius: 4px;
@@ -145,25 +153,25 @@ input {
   display: flex;
   flex-direction: column;
   justify-content: space-between; }
-  .admin #main .container .list {
+  .admin #main .list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center; }
-    .admin #main .container .list .button_listContent {
+    .admin #main .list .button_listContent {
       margin: 10px;
       display: flex;
       justify-content: center;
       align-items: center; }
-    .admin #main .container .list .classroomsAndStudents {
+    .admin #main .list .classroomsAndStudents {
       padding: 8px;
       border-radius: 8px;
       border: 1px solid #4ab4f1;
       margin-left: 5px;
       font-size: 1rem; }
-      .admin #main .container .list .classroomsAndStudents:hover {
+      .admin #main .list .classroomsAndStudents:hover {
         color: black;
         background-color: #4ab4f1; }
-  .admin #main .container .formInput {
+  .admin #main .formInput {
     border-radius: 8px;
     border: 1px solid #4ab4f1;
     width: auto;

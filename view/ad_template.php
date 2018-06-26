@@ -12,23 +12,25 @@
 </head>
 <body class="admin">
     <header>
-        <?=$_SESSION['nickname']?>
+        <div class="headerContainer">
+            <div class="headerTitle">
+                <h1>Plateforme Éducative</h1>
+                <h2><?=$pageName?></h2>
+            </div>
+            <div class="headerProfile">
+                <?=$_SESSION['nickname']?>
+            </div>
+        </div>
     </header>
     <div id="main">
-        <div class="pageName">
-            <h1>Plateforme Éducative</h1>
-            <h2><?=$pageName?></h2>
-        </div>
-    	<div class="container">
-            <?=$content?>
-        </div>
-        <p><?=$_SESSION['smsAlert']['default']?></p>
+        <?=$tools?>
+        <?=$content?>
     </div>
     <footer>
         <div class="producer">
             <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
         </div>
     </footer>
-    <script defer src="assets/js/fontawesome-all.min.js"></script>
+    <?=$script?>
 </body>
 </html>

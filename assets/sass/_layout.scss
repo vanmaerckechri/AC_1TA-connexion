@@ -90,8 +90,39 @@
 		font-size: .8rem;
 	}
 }
+// ADMIN!
 .admin
 {
+	header
+	{
+		border-bottom: 1px solid $ac-blue;
+		padding: 20px 50px;
+		width: 100%;
+		min-height: 80px;
+		.headerContainer
+		{
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			//max-width: 1280px;
+			.headerTitle, .headerProfile
+			{
+				h1, h2
+				{
+					display: inline-block;
+				}
+				h1
+				{
+					margin-right: 20px;
+				}
+				h2
+				{
+					font-weight: 300;
+				}
+			}
+		}
+	}
 	button
 	{
 		margin: 5px;
@@ -115,8 +146,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		.container
-		{
+
 			.list
 			{
 				display: flex;
@@ -151,8 +181,7 @@
 				display: block;
 				text-align: center;
 			}
-		}
-	}
+			}
 }
 .producer
 {

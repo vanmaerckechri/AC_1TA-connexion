@@ -55,21 +55,8 @@ class Classrooms
 				$req->bindValue(':idClassroom', $id_cr, PDO::PARAM_INT);
 				$req->execute();
 				$resultReq = $req->fetchAll();
-				ob_start();
-				?>
-				<form class="list" action="" method="post">
-				<?php
-				foreach ($resultReq  as $row)
-				{
-					?>
-		           	<div class="button_listContent">
-		           		<input class="formInput" type="checkbox" name="students[]" value="<?=$row['id']?>">
-		           		<a class='classroomsAndStudents' href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>"><?=$row['nickname']?></a>
-		           	</div>
-					<?php
-				}
-				$studentsForm = ob_get_clean();
-				return $studentsForm;
+
+				return $resultReq;
 			}
 			else
 			{
