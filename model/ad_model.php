@@ -40,7 +40,7 @@ class Classrooms
 			if (isset($resultReq[0]['id_admin']) && $resultReq[0]['id_admin'] == $_SESSION['id'])
 			{
 				// Afficher tous les élèves de la classe
-				$req = $db->prepare("SELECT id, nickname FROM pe_students WHERE id_classroom = :idClassroom");
+				$req = $db->prepare("SELECT id, nickname FROM pe_students WHERE id_classroom = :idClassroom ORDER BY id DESC");
 				$req->bindValue(':idClassroom', $id_cr, PDO::PARAM_INT);
 				$req->execute();
 				$resultReq = $req->fetchAll();
@@ -65,7 +65,7 @@ class Classrooms
 		if (filter_var($id_st, FILTER_VALIDATE_INT) && $id_st < 100000)
 		{
 			$db = (new self)->connect();
-			$req = $db->prepare("SELECT id_admin, nickname, password FROM pe_students WHERE id = :idStudent");
+			$req = $db->prepare("SELECT id_classroom, id_admin, nickname, password FROM pe_students WHERE id = :idStudent");
 			$req->bindValue(':idStudent', $id_st, PDO::PARAM_INT);
 			$req->execute();
 			$resultReq = $req->fetchAll();
@@ -74,17 +74,7 @@ class Classrooms
 			// Verifier si l'admin execute bien une requete sur l'un de ses élèves
 			if ($resultReq[0]['id_admin'] == $_SESSION['id'])
 			{
-				ob_start();?>
-	        	<form class="list" action="admin.php" method="post">
-	        		<div>
-			        	<label for="nickname">Nom d'Utilisateur</label>
-			           	<input class="formInput" type="text" name="nickname" value="<?=$resultReq[0]["nickname"]?>" required>
-			           	<label for="password">Mot de passe</label>
-			            <input class="formInput" type="text" name="password" value="<?=$resultReq[0]['password']?>" required>
-			        </div>
-		        </form>
-				<?php $modifyStudendsForm = ob_get_clean();
-				return $modifyStudendsForm;
+				return $resultReq;
 			}
 		}
 	}

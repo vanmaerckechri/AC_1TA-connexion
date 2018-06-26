@@ -53,6 +53,14 @@ function loadManageThisClassroom()
 }
 function loadManageModifyStudents()
 {
-
+	$filteredInput = filterInputs($_GET['cn'], 'a-zA-Z0-9À-Ö ._-', 0, 30, false);
+	if ($filteredInput)
+	{
+		$className = $_GET['cn'];
+	}
+	else
+	{
+		$className = "classe inconnue?";
+	}
 	require('./view/ad_manageModifyStudentsView.php');	
 }

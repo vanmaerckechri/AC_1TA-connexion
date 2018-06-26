@@ -42,7 +42,7 @@
 	?>
            	<div class="button_listContent">
            		<input class="formInput" type="checkbox" name="students[]" value="<?=$row['id']?>">
-           		<a class='classroomsAndStudents' href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>"><?=$row['nickname']?></a>
+           		<a class='classroomsAndStudents' href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>&cn=<?=$className?>"><?=$row['nickname']?></a>
            	</div>
 	<?php
 	}
