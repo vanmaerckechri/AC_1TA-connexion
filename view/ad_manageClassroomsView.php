@@ -5,7 +5,7 @@
     ob_start();
 	?>
 		<div class="tools">
-	    	<button id = "addStudents">Ajouter une Classe</button>
+	    	<button id = "addClass">Ajouter une Classe</button>
 	    	<button id = "delete">Effacer les Classes Sélectionnées</button>
 	    </div>
 	<?php 
@@ -38,18 +38,32 @@
         <script>
     	window.addEventListener('load', function()
     	{
-    		let deleteStudents = document.querySelector('#delete');
-    		let selectedStudents = document.querySelector('.list');
-    		let confirmDeleteSelectedStudents = function()
+    		let deleteClassrooms = document.querySelector('#delete');
+    		let selectedClassrooms = document.querySelector('.list');
+    		let confirmDeleteSelectedClassrooms = function()
     		{
     			let confirm = prompt('ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi éffacés. Pour valider la suppression, veuillez écrire: "supprimer"!');
     			if (confirm == "supprimer" || confirm == "SUPPRIMER")
     			{
-    				selectedStudents.action = 'admin.php?action=deleteClassrooms';
-    				selectedStudents.submit();
+    				selectedClassrooms.action = 'admin.php?action=deleteClassrooms';
+    				selectedClassrooms.submit();
     			}
     		}
-    		deleteStudents.addEventListener('click', confirmDeleteSelectedStudents, false);
+    		deleteClassrooms.addEventListener('click', confirmDeleteSelectedClassrooms, false);
+
+    		let addClass = document.querySelector('#addClass');
+    		let chooseNewClassName = function()
+    		{
+    			let newname = prompt('Veuillez entrer un nom pour votre nouvelle classe');
+    			if (newname != "")
+    			{
+    				selectedClassrooms.action = 'admin.php?action=createClassroom';
+    				selectedClassrooms.innerHTML += "<input type='text' name='newClassName' value='"+newname+"'>";
+    				selectedClassrooms.submit();
+    			}
+    		}
+    		addClass.addEventListener('click', chooseNewClassName, false);
+
     	}, false);
         </script>
     <?php $script = ob_get_clean();?>

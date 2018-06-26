@@ -6,6 +6,18 @@ require('./model/ad_model.php');
 Authentification::startSession();
 
 // TOOLS!
+function createClassrooms()
+{
+	if (isset($_POST['newClassName']))
+	{
+		$filteredInput = filterInputs($_POST['newClassName'], 'a-zA-Z0-9À-Ö ._-', 0, 30, 'default');
+		if (isset($filteredInput) && !empty($filteredInput))
+		{
+			Classrooms::createClassroom($_SESSION['id'], $_POST['newClassName']);
+		}
+	}
+	require('./view/ad_manageClassroomsView.php');	
+}
 function deleteClassrooms()
 {
 	Classrooms::deleteClassrooms($_SESSION['id'], $_POST['classrooms']);

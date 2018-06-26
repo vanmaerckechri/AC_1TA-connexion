@@ -88,6 +88,30 @@ class Classrooms
 			}
 		}
 	}
+	public static function createClassroom($mySessionId, $newName)
+	{
+		// Vérifier que vous ne disposez pas encore d'une classe de ce nom
+		$db = (new self)->connect();
+		$req = $db->prepare("SELECT name FROM pe_classrooms WHERE id_admin = :idad");	
+		$req->bindValue(':idad', $mySessionId, PDO::PARAM_INT);
+		$req->execute();
+		$resultReq = $req->fetchAll();
+		if ($resultReq[0]['name'] == $newName)
+		{
+			$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous possédez déjà une classe portant de nom!</span>";
+		}
+		else
+		{
+			$req = $db->prepare("INSERT INTO pe_classrooms (name, id_admin) VALUES (:name, :idad)");
+			$req->bindValue(':name', $newName, PDO::PARAM_STR);
+			$req->bindValue(':idad', $mySessionId, PDO::PARAM_INT);
+			$req->execute();
+			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Classe créée avec succes!</span>";
+		}
+		$req->closeCursor();
+		$req = NULL;
+	}
+
 	public static function deleteStudents($mySessionId, $studentsId, $idcr)
 	{
 		// Mon id de session et l'id de la classe sont-elles valides ?
