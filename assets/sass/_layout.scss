@@ -63,24 +63,6 @@
 				width: 100%;
 				text-align: left;
 			}
-			.formButton
-			{
-				margin-left: auto;
-				padding: 6px 12px;
-				border-radius: 8px;
-				height: 35px;
-				font-weight: 700;
-				color: black;
-				background-color: rgba(74, 180, 241, .4);
-				box-shadow: 0px 0px 3px 0px $enabel-grey;
-				transition: background-color .3s, box-shadow .5s;
-				&:hover
-				{
-					cursor: pointer;
-					background-color: $ac-blue;
-					box-shadow: 0px 0px 20px 0px $ac-blue;
-				}
-			}
 		}
 	}
 	p
@@ -95,6 +77,7 @@
 {
 	header
 	{
+		margin-bottom: 20px;
 		border-bottom: 1px solid $ac-blue;
 		padding: 20px 50px;
 		width: 100%;
@@ -123,21 +106,6 @@
 			}
 		}
 	}
-	button
-	{
-		margin: 5px;
-		border-radius: 4px;
-		border: 1px solid $ac-blue;
-		padding: 4px;
-		color: white;
-		background-color: $ac-blue;
-		&:hover
-		{
-			color: $ac-blue;
-			background-color: white;
-			cursor: pointer;
-		}
-	}
 	#main
 	{
 		max-width: 960px;
@@ -146,6 +114,13 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		.tools
+		{
+			button
+			{
+				margin-bottom: 10px;
+			}
+		}
 		.list
 		{
 			display: flex;
@@ -179,6 +154,14 @@
 			width: auto;
 			display: block;
 			text-align: center;
+		}
+		.createStudent
+		{
+			text-align: center;
+			input
+			{
+				margin: 0 auto 10px;
+			}
 		}
 	}
 }

@@ -17,3 +17,31 @@
 	color: $ac-blue;
 	font-size: 1rem;
 }
+.formButton
+{
+	margin-left: auto;
+	padding: 6px 12px;
+	border-radius: 8px;
+	height: 35px;
+	font-weight: 700;
+	color: black;
+	background-color: rgba(74, 180, 241, .4);
+	box-shadow: 0px 0px 3px 0px $enabel-grey;
+	transition: background-color .3s, box-shadow .5s;
+	&:hover
+	{
+		cursor: pointer;
+		background-color: $ac-blue;
+		box-shadow: 0px 0px 20px 0px $ac-blue;
+	}
+}
+.hide
+{
+	display: none;
+	pointer-events: none;
+}
+.toolFocus
+{
+	background-color: $ac-blue;
+	box-shadow: 0px 0px 20px 0px $ac-blue;
+}

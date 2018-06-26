@@ -3,21 +3,32 @@
 	$studentsList = $result[0];
 	$className = $result[1];
 
+    if (isset($createStudent))
+    {
+        $createStudentClass = "createStudent";
+        $buttonStatus = "formButton toolFocus";
+    }
+    else
+    {
+        $createStudentClass = "createStudent hide";
+        $buttonStatus = "formButton";
+    }
+
     $pageName = "Gestion de la Classe: <span class='classname'>".$className."</span>";
 
     ob_start();
 	?>
 		<div class="tools">
-	    	<button id = "addStudents">Ajouter des Élèves</button>
-	        <button id = "delete">Effacer les Élèves Sélectionnés</button>
-	        <button id = "updateStudents">Modifier les Élèves Sélectionnés</button>
+            <button id="create" class="<?=$buttonStatus?>">Ajouter des Élèves</button>
+	        <button id="delete" class="formButton">Effacer les Élèves Sélectionnés</button>
+	        <button id="updateStudents" class="formButton">Modifier les Élèves Sélectionnés</button>
 	    </div>
-        <form class="list" action="admin.php?action=addStudents&idcr=<?=$_GET['idcr']?>" method="post">
-            <label for="nameRecovery">Nom d'utilisateur</label>
+        <form class="<?=$createStudentClass?>" action="admin.php?action=addStudents&idcr=<?=$_GET['idcr']?>" method="post">
+            <label for="newStudentNickname">Nom d'utilisateur</label>
             <input class="newStudentNick formInput" type="text" name="newStudentNickname">
-            <label for="nameRecovery">Mot de Passe</label>
+            <label for="newStudentPassword">Mot de Passe</label>
             <input class="formInput" type="text" name="newStudentPassword">
-            <input class="formButton" type="submit" value="Suivant">
+            <input class="formButton" type="submit" value="Enregistrer">
         </form>
 	<?php 
 	$tools = ob_get_clean();
@@ -59,11 +70,12 @@
     		}
     		deleteStudents.addEventListener('click', confirmDeleteSelectedStudents, false);
 
-            let addStudents = document.querySelector('#addStudents');
-            let main = document.querySelector('#main');
+            let addStudents = document.querySelector('#create');
+            let addStudentsForm = document.querySelector('.createStudent');
             let addStudentsManagement = function()
             {
-   
+                addStudentsForm.classList.toggle("hide");
+                addStudents.classList.toggle("toolFocus");
             }
             addStudents.addEventListener('click', addStudentsManagement, false);
 

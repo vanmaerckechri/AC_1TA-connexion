@@ -5,8 +5,8 @@
     ob_start();
 	?>
 		<div class="tools">
-	    	<button id = "addClass">Ajouter une Classe</button>
-	    	<button id = "delete">Effacer les Classes Sélectionnées</button>
+	    	<button id = "addClass" class="formButton">Ajouter une Classe</button>
+	    	<button id = "delete" class="formButton">Effacer les Classes Sélectionnées</button>
 	    </div>
 	<?php 
 	$tools = ob_get_clean();

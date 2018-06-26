@@ -33,6 +33,7 @@ function createStudents()
 			Classrooms::createStudent($_SESSION['id'], $_POST['newStudentNickname'], $_POST['newStudentPassword'], $_GET['idcr']);
 		}
 	}
+	$createStudent = true;
 	require('./view/ad_manageThisClassroomView.php');	
 }
 function deleteStudents()
