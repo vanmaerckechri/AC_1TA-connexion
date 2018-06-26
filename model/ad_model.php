@@ -107,15 +107,19 @@ class Classrooms
 					$req->execute();
 					$resultReq = $req->fetchAll();
 					// Si l'élèves appartient bien à l'admin => DELETE
+					$del = $db->prepare("DELETE FROM pe_students WHERE id = :idStudent");
 					if (isset($resultReq) && !empty($resultReq))
 					{
-						$del = $db->prepare("DELETE FROM pe_students WHERE id = :idStudent");
 						$del->bindParam(':idStudent', $value, PDO::PARAM_INT);   
 						$del->execute();
 						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s) <span class='smsAlert'>".$resultReq[0]['nickname']."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['nickname']."</span>";
 					}
+					$del->closeCursor();
+					$del = NULL;
 				}
 			}
+			$req->closeCursor();
+			$req = NULL;
 			$_SESSION['smsAlert']['default'] = $sms;
 		}
 		header('Location: admin.php?action=manageThisClassroom&idcr='.$idcr);	  
@@ -128,29 +132,38 @@ class Classrooms
 		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000)
 		{
 			$sms = "";
+			// Effacer les classes sélectionnées si possible
+			$db = (new self)->connect();
+			$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id = :idclass AND id_admin = :idAd");
 			foreach ($classroomsId as $value)
 			{
-				$db = (new self)->connect();
-				// Vérifier que la classe appartient à l'admin
-				$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id = :idclass AND id_admin = :idAd");
-				$req->bindValue(':idclass', $value, PDO::PARAM_INT);
-				$req->bindValue(':idAd', $mySessionId, PDO::PARAM_INT);
-				$req->execute();
-				$resultReq = $req->fetchAll();
-				// Si la classe appartient à l'admin faisant le requete
-				if (isset($resultReq) && !empty($resultReq))
+				// Vérifier qu'il s'agit d'un ID valide
+				if (filter_var($value, FILTER_VALIDATE_INT) && $value >= 0 && $value < 100000)
 				{
-					// Effacer les classes
+					// Vérifier que la classe appartient à l'admin
+					$req->bindValue(':idclass', $value, PDO::PARAM_INT);
+					$req->bindValue(':idAd', $mySessionId, PDO::PARAM_INT);
+					$req->execute();
+					$resultReq = $req->fetchAll();
+					// Si la classe appartient bien à l'admin => DELETE
 					$del = $db->prepare("DELETE FROM pe_classrooms WHERE id = :idclass");
-					$del->bindParam(':idclass', $value, PDO::PARAM_INT);   
-					$del->execute();
-					// Effacer le élèves
-					$del = $db->prepare("DELETE FROM pe_students WHERE id_classroom = :idclass");
-					$del->bindParam(':idclass', $value, PDO::PARAM_INT);   
-					$del->execute();
-					$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s) <span class='smsAlert'>".$resultReq[0]['name']."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['name']."</span>";
+					if (isset($resultReq) && !empty($resultReq))
+					{
+						// Effacer les classes
+						$del->bindParam(':idclass', $value, PDO::PARAM_INT);   
+						$del->execute();
+						// Effacer le élèves
+						$del = $db->prepare("DELETE FROM pe_students WHERE id_classroom = :idclass");
+						$del->bindParam(':idclass', $value, PDO::PARAM_INT);   
+						$del->execute();
+						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s) <span class='smsAlert'>".$resultReq[0]['name']."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['name']."</span>";
+					}
+					$del->closeCursor();
+					$del = NULL;
 				}
 			}
+			$req->closeCursor();
+			$req = NULL;
 			$_SESSION['smsAlert']['default'] = $sms;
 		}
 		header('Location: admin.php?action=manageThisClassroom');	  
