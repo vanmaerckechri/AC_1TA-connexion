@@ -146,42 +146,41 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-
-			.list
+		.list
+		{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			.button_listContent
 			{
+				margin: 10px;
 				display: flex;
-				flex-wrap: wrap;
 				justify-content: center;
-				.button_listContent
-				{
-					margin: 10px;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-				}
-				.classroomsAndStudents
-				{
-					padding: 8px;
-					border-radius: 8px;
-					border: 1px solid $ac-blue;
-					margin-left: 5px;
-					font-size: 1rem;
-					&:hover
-					{
-						color: black;
-						background-color: $ac-blue;
-					}
-				}
+				align-items: center;
 			}
-			.formInput
+			.classroomsAndStudents
 			{
+				padding: 8px;
 				border-radius: 8px;
 				border: 1px solid $ac-blue;
-				width: auto;
-				display: block;
-				text-align: center;
+				margin-left: 5px;
+				font-size: 1rem;
+				&:hover
+				{
+					color: black;
+					background-color: $ac-blue;
+				}
 			}
-			}
+		}
+		.formInput
+		{
+			border-radius: 8px;
+			border: 1px solid $ac-blue;
+			width: auto;
+			display: block;
+			text-align: center;
+		}
+	}
 }
 .producer
 {

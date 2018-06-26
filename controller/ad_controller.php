@@ -6,6 +6,10 @@ require('./model/ad_model.php');
 Authentification::startSession();
 
 // TOOLS!
+function deleteClassrooms()
+{
+	Classrooms::deleteClassrooms($_SESSION['id'], $_POST['classrooms']);
+}
 function deleteStudents()
 {
 	Classrooms::deleteStudents($_SESSION['id'], $_POST['students'], $_GET['idcr']);
