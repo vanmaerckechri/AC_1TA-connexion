@@ -26,8 +26,10 @@
         <form class="<?=$createStudentClass?>" action="admin.php?action=addStudents&idcr=<?=$_GET['idcr']?>" method="post">
             <label for="newStudentNickname">Nom d'utilisateur</label>
             <input class="newStudentNick formInput" type="text" name="newStudentNickname">
+            <p><?=$_SESSION['smsAlert']['nickname']?></p>
             <label for="newStudentPassword">Mot de Passe</label>
             <input class="formInput" type="text" name="newStudentPassword">
+            <p><?=$_SESSION['smsAlert']['password']?></p>
             <input class="formButton" type="submit" value="Enregistrer">
         </form>
 	<?php 

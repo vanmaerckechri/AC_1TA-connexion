@@ -26,8 +26,8 @@ function createStudents()
 {
 	if (isset($_POST['newStudentNickname']) && isset($_POST['newStudentPassword']) && isset($_GET['idcr']))
 	{
-		$filteredNickname = filterInputs($_POST['newStudentNickname'], 'a-zA-Z0-9@', 4, 20, 'default');
-		$filteredPassword = filterInputs($_POST['newStudentPassword'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'default');
+		$filteredNickname = filterInputs($_POST['newStudentNickname'], 'a-zA-Z0-9 @', 4, 30, 'nickname');
+		$filteredPassword = filterInputs($_POST['newStudentPassword'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'password');
 		if (isset($filteredNickname) && !empty($filteredNickname) && isset($filteredPassword) && !empty($filteredPassword))
 		{
 			Classrooms::createStudent($_SESSION['id'], $_POST['newStudentNickname'], $_POST['newStudentPassword'], $_GET['idcr']);

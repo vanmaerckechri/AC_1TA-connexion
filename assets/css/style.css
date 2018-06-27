@@ -163,7 +163,7 @@ input {
       margin-bottom: 10px; }
     .admin #main .list {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       justify-content: center; }
       .admin #main .list .button_listContent {
         margin: 10px;
@@ -171,11 +171,14 @@ input {
         justify-content: center;
         align-items: center; }
       .admin #main .list .classroomsAndStudents {
+        margin-left: 5px;
         padding: 8px;
         border-radius: 8px;
         border: 1px solid #4ab4f1;
-        margin-left: 5px;
-        font-size: 1rem; }
+        width: 300px;
+        font-size: 1rem;
+        color: black;
+        text-decoration: none; }
         .admin #main .list .classroomsAndStudents:hover {
           color: black;
           background-color: #4ab4f1; }

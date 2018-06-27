@@ -6,10 +6,10 @@ require('./controller/controller.php');
 // SESSION
 // TEMPORAIRE POUR LES TESTS =>
 // ---------------------------
-/*$_SESSION['nickname'] = "admin@aze";
+$_SESSION['nickname'] = "admin@aze";
 $_SESSION['classroom'] = "";
 $_SESSION['password'] = '9adfb0a6d03beb7141d8ec2708d6d9fef9259d12cd230d50f70fb221ae6cabd5';
-$_SESSION['id'] = 31;*/
+$_SESSION['id'] = 31;
 
 
 // ---------------------------
@@ -50,7 +50,7 @@ if (isset($_POST) && !isset($_GET['action']))
 	// Nickname
 	if (isset($_POST['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['nickname'], 'a-zA-Z0-9@', 4, 20, 'default');
+		$filteredInput = filterInputs($_POST['nickname'], 'a-zA-Z0-9@', 4, 30, 'default');
 		if ($filteredInput)
 		{
 			$_SESSION['nickname'] = $filteredInput;

@@ -125,7 +125,7 @@
 		.list
 		{
 			display: flex;
-			flex-wrap: wrap;
+			flex-direction: column;
 			justify-content: center;
 			.button_listContent
 			{
@@ -136,11 +136,14 @@
 			}
 			.classroomsAndStudents
 			{
+				margin-left: 5px;
 				padding: 8px;
 				border-radius: 8px;
 				border: 1px solid $ac-blue;
-				margin-left: 5px;
+				width: 300px;
 				font-size: 1rem;
+				color: black;
+				text-decoration: none;
 				&:hover
 				{
 					color: black;
