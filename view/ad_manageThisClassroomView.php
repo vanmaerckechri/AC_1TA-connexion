@@ -31,7 +31,7 @@
 	    </div>
         <form class="<?=$createStudentClass?>" action="admin.php?action=addStudents&idcr=<?=$_GET['idcr']?>" method="post">
             <label for="newStudentNickname">Nom d'utilisateur</label>
-            <input class="newStudentNick formInput" type="text" name="newStudentNickname">
+            <input class="newStudentNick formInput" type="text" name="newStudentNickname" autofocus>
             <p><?=$_SESSION['smsAlert']['nickname']?></p>
             <label for="newStudentPassword">Mot de Passe</label>
             <input class="formInput" type="text" name="newStudentPassword">
@@ -65,6 +65,7 @@
         <script>
     	window.addEventListener('load', function()
     	{
+            // Delete student(s)
     		let deleteStudents = document.querySelector('#delete');
     		let selectedStudents = document.querySelector('#deleteList');
     		let confirmDeleteSelectedStudents = function()
@@ -78,12 +79,19 @@
     		}
     		deleteStudents.addEventListener('click', confirmDeleteSelectedStudents, false);
 
+            // Create Student
             let addStudents = document.querySelector('#create');
             let addStudentsForm = document.querySelector('.createStudent');
             let addStudentsManagement = function()
             {
                 addStudentsForm.classList.toggle("hide");
                 addStudents.classList.toggle("toolFocus");
+                // autofocus
+                if (addStudentsForm.classList != "hide")
+                {
+                    let inputNewStudentNickname = document.querySelector('.newStudentNick');
+                    inputNewStudentNickname.focus();
+                }
             }
             addStudents.addEventListener('click', addStudentsManagement, false);
 
