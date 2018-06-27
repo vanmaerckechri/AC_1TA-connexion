@@ -131,6 +131,12 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
+			align-items: center;
+			label
+			{
+				margin-top: 20px;
+				margin-bottom: 5px;
+			}
 			.button_listContent
 			{
 				margin: 10px;

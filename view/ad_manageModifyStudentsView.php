@@ -5,7 +5,12 @@
     ob_start();
 	?>
 		<div class="tools">
-	    </div>
+            <div>
+                <a href="admin.php" class="formButton">Accueil</a>    
+            </div>
+            <div>
+            </div>
+        </div>
 	<?php 
 	$tools = ob_get_clean();
 
@@ -14,14 +19,12 @@
 	{
 		?>
 		<form class="list" action="admin.php" method="post">
-			<div>
-	        	<label for="nickname">Nom d'Utilisateur</label>
-	           	<input class="formInput" type="text" name="nickname" value="<?=$student[0]["nickname"]?>" required>
-	           	<label for="password">Mot de passe</label>
-	            <input class="formInput" type="text" name="password" value="<?=$student[0]['password']?>" required>
-	        </div>
+        	<label for="nickname">Nom d'Utilisateur</label>
+           	<input class="formInput" type="text" name="nickname" value="<?=$student[0]["nickname"]?>" required>
+           	<label for="password">Mot de passe</label>
+            <input class="formInput" type="text" name="password" value="<?=$student[0]['password']?>" required>
 	    </form>
-			<p><?=$_SESSION['smsAlert']['default']?></p>
+		<p><?=$_SESSION['smsAlert']['default']?></p>
 		<?php
 	}
 	$content = ob_get_clean();
