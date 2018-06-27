@@ -10,7 +10,7 @@
     	    	<button id = "addClass" class="formButton">Ajouter</button>
     	    	<button id = "delete" class="formButton">Effacer</button>
             </div>
-            <div style="width: 60px;"></div>
+            <div style="width: 90px;"></div>
 	    </div>
 	<?php 
 	$tools = ob_get_clean();
@@ -28,12 +28,17 @@
 		<div class="button_listContent">
 			<input class="formInput" type="checkbox" name="classrooms[]" value="<?=$row['id']?>">
 			<a class='classroomsAndStudents' href='admin.php?action=manageThisClassroom&idcr=<?=$row['id']?>'><?=$row['name']?></a>
+            <div class="button_rename">
+                <img src="assets/icons/rename.svg" alt="icone pour renommer une classe">
+                <p><?=$row['id']?></p>
+                <p><?=$row['name']?></p>
+            </div>
 		</div>
 	<?php
 	}
 	?>
-		</form>
-		<p><?=$_SESSION['smsAlert']['default']?></p>
+	</form>
+	<p><?=$_SESSION['smsAlert']['default']?></p>
 	<?php
 	$content = ob_get_clean();
 
@@ -42,10 +47,11 @@
         <script>
     	window.addEventListener('load', function()
     	{
-    		let deleteClassrooms = document.querySelector('#delete');
-    		let selectedClassrooms = document.querySelector('.list');
+            // Delete
+    		let button_deleteClassrooms = document.querySelector('#delete');
     		let confirmDeleteSelectedClassrooms = function()
     		{
+                let selectedClassrooms = document.querySelector('.list');
     			let confirm = prompt('ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi éffacés. Pour valider la suppression, veuillez écrire: "supprimer"!');
     			if (confirm == "supprimer" || confirm == "SUPPRIMER")
     			{
@@ -53,20 +59,45 @@
     				selectedClassrooms.submit();
     			}
     		}
-    		deleteClassrooms.addEventListener('click', confirmDeleteSelectedClassrooms, false);
+    		button_deleteClassrooms.addEventListener('click', confirmDeleteSelectedClassrooms, false);
 
-    		let addClass = document.querySelector('#addClass');
+            // Insert
+    		let button_addClass = document.querySelector('#addClass');
     		let chooseNewClassName = function()
     		{
+                let selectedClassrooms = document.querySelector('.list');
     			let newname = prompt('Veuillez entrer un nom pour votre nouvelle classe');
-    			if (newname != "" && newname != NULL)
+    			if (newname != "" && newname != null)
     			{
     				selectedClassrooms.action = 'admin.php?action=createClassroom';
     				selectedClassrooms.innerHTML += "<input type='text' name='newClassName' value='"+newname+"'>";
     				selectedClassrooms.submit();
     			}
     		}
-    		addClass.addEventListener('click', chooseNewClassName, false);
+    		button_addClass.addEventListener('click', chooseNewClassName, false);
+
+            // Update
+            let button_rename = document.querySelectorAll('.button_rename');
+            let startRenameTool = function(event)
+            {
+                let selectedClassrooms = document.querySelector('.list');
+                let classroomInfos = event.target.querySelectorAll('p');
+                let classroomId = classroomInfos[0].innerHTML;
+                let classroomName = classroomInfos[1].innerHTML;
+
+                let rename = prompt('Veuillez entrer le nouveau nom de votre classe', classroomName);
+                if (rename != "" && rename != null)
+                {
+                    selectedClassrooms.action = 'admin.php?action=renameClassroom';
+                    selectedClassrooms.innerHTML += "<input type='number' name='idClassroom' value='"+classroomId+"'>";
+                    selectedClassrooms.innerHTML += "<input type='text' name='renameClassroom' value='"+rename+"'>";
+                    selectedClassrooms.submit();
+                }
+            }
+            for (let i = button_rename.length - 1; i >= 0; i--)
+            {
+                button_rename[i].addEventListener('click', startRenameTool, true);
+            }
 
     	}, false);
         </script>

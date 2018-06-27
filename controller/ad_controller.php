@@ -18,10 +18,25 @@ function createClassrooms()
 	}
 	require('./view/ad_manageClassroomsView.php');	
 }
+
+function renameClassroom()
+{
+	if (isset($_POST['renameClassroom']) && isset($_POST['idClassroom']))
+	{
+		$filteredName = filterInputs($_POST['renameClassroom'], 'a-zA-Z0-9À-Ö ._-', 0, 30, 'default');
+		if (isset($filteredName) && !empty($filteredName) && $filteredName != "null")
+		{
+			Classrooms::renameClassroom($_SESSION['id'], $_POST['renameClassroom'], $_POST['idClassroom']);
+		}
+	}
+	require('./view/ad_manageClassroomsView.php');	
+}
+
 function deleteClassrooms()
 {
 	Classrooms::deleteClassrooms($_SESSION['id'], $_POST['classrooms']);
 }
+
 function createStudents()
 {
 	if (isset($_POST['newStudentNickname']) && isset($_POST['newStudentPassword']) && isset($_GET['idcr']))

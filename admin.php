@@ -52,6 +52,11 @@ if (isset($_GET['action']))
 	{
 		createClassrooms();		
 	}
+	// Rename classroom
+	else if ($_GET['action'] == 'renameClassroom')
+	{
+		renameClassroom();	
+	}
 	// Delete classrooms
 	else if ($_GET['action'] == 'deleteClassrooms')
 	{

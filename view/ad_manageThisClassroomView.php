@@ -27,7 +27,7 @@
     	        <button id="updateStudents" class="formButton">Modifier</button>
                 <button id="delete" class="formButton">Effacer</button>
             </div>
-            <div style="min-width: 60px;"></div>
+            <div style="min-width: 90px;"></div>
 	    </div>
         <form class="<?=$createStudentClass?>" action="admin.php?action=addStudents&idcr=<?=$_GET['idcr']?>" method="post">
             <label for="newStudentNickname">Nom d'utilisateur</label>

@@ -186,6 +186,17 @@ input {
         display: flex;
         justify-content: center;
         align-items: center; }
+        .admin #main .list .button_listContent .button_rename {
+          margin-left: 5px;
+          width: 32px;
+          height: 32px;
+          background-color: transparent;
+          background-image: url("../icons/rename.svg");
+          cursor: pointer; }
+          .admin #main .list .button_listContent .button_rename:hover {
+            background-image: url("../icons/rename_hover.svg"); }
+          .admin #main .list .button_listContent .button_rename img, .admin #main .list .button_listContent .button_rename p {
+            display: none; }
       .admin #main .list .classroomsAndStudents {
         margin-left: 5px;
         padding: 8px;

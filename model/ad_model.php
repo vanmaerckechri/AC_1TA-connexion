@@ -78,6 +78,7 @@ class Classrooms
 			}
 		}
 	}
+
 	public static function createClassroom($mySessionId, $newName)
 	{
 		// Vérifier que vous ne disposez pas encore d'une classe de ce nom
@@ -101,6 +102,30 @@ class Classrooms
 		}
 		$req->closeCursor();
 		$req = NULL;
+	}
+
+	public static function renameClassroom($mySessionId, $newName, $idcr)
+	{
+		if (filter_var($idcr, FILTER_VALIDATE_INT) && $idcr < 100000)
+		{
+			// Vérifier que la classe existe et qu'elle appartient à l'admin
+			$db = (new self)->connect();
+			$req = $db->prepare("SELECT name FROM pe_classrooms WHERE id_admin = :idad AND id = :idcr");	
+			$req->bindValue(':idad', $mySessionId, PDO::PARAM_INT);
+			$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
+			$req->execute();
+			$resultReq = $req->fetchAll();
+			if (isset($resultReq) && !empty($resultReq))
+			{
+				$req = $db->prepare("UPDATE pe_classrooms SET name = :newName WHERE id = :idcr");
+				$req->bindValue(':newName', $newName, PDO::PARAM_STR);
+				$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
+				$req->execute();
+				$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Classe renommée avec succes!</span>";
+			}
+			$req->closeCursor();
+			$req = NULL;
+		}
 	}
 
 	public static function deleteClassrooms($mySessionId, $classroomsId)
