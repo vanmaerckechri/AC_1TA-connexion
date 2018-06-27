@@ -14,14 +14,20 @@
         $buttonStatus = "formButton";
     }
 
-    $pageName = "Gestion de la Classe: <span class='classname'>".$className."</span>";
+    $pageName = "Gestion des Élèves de la Classe: <span class='classname'>".$className."</span>";
 
     ob_start();
 	?>
 		<div class="tools">
-            <button id="create" class="<?=$buttonStatus?>">Ajouter des Élèves</button>
-	        <button id="delete" class="formButton">Effacer les Élèves Sélectionnés</button>
-	        <button id="updateStudents" class="formButton">Modifier les Élèves Sélectionnés</button>
+            <div>
+                <a href="admin.php" class="formButton">Accueil</a>    
+            </div>
+            <div>
+                <button id="create" class="<?=$buttonStatus?>">Ajouter</button>
+    	        <button id="updateStudents" class="formButton">Modifier</button>
+                <button id="delete" class="formButton">Effacer</button>
+            </div>
+            <div style="min-width: 60px;"></div>
 	    </div>
         <form class="<?=$createStudentClass?>" action="admin.php?action=addStudents&idcr=<?=$_GET['idcr']?>" method="post">
             <label for="newStudentNickname">Nom d'utilisateur</label>

@@ -5,8 +5,12 @@
     ob_start();
 	?>
 		<div class="tools">
-	    	<button id = "addClass" class="formButton">Ajouter une Classe</button>
-	    	<button id = "delete" class="formButton">Effacer les Classes Sélectionnées</button>
+            <div style="width: 90px;"></div>
+            <div>
+    	    	<button id = "addClass" class="formButton">Ajouter</button>
+    	    	<button id = "delete" class="formButton">Effacer</button>
+            </div>
+            <div style="width: 60px;"></div>
 	    </div>
 	<?php 
 	$tools = ob_get_clean();
@@ -55,7 +59,7 @@
     		let chooseNewClassName = function()
     		{
     			let newname = prompt('Veuillez entrer un nom pour votre nouvelle classe');
-    			if (newname != "")
+    			if (newname != "" && newname != NULL)
     			{
     				selectedClassrooms.action = 'admin.php?action=createClassroom';
     				selectedClassrooms.innerHTML += "<input type='text' name='newClassName' value='"+newname+"'>";

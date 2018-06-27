@@ -1,10 +1,22 @@
 @import "variables";
+/*
 @media (max-width: 991px)
 {
 }
 @media (max-width: 767px)
 {
-}
-@media (max-width: 600px)
+}*/
+@media (max-width: 480px)
 {
+	.admin
+	{
+		header
+		{
+			padding: 20px 15px;
+		}
+		#main
+		{
+			padding: 0 15px;
+		}
+	}
 }

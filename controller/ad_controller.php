@@ -11,7 +11,7 @@ function createClassrooms()
 	if (isset($_POST['newClassName']))
 	{
 		$filteredInput = filterInputs($_POST['newClassName'], 'a-zA-Z0-9À-Ö ._-', 0, 30, 'default');
-		if (isset($filteredInput) && !empty($filteredInput))
+		if (isset($filteredInput) && !empty($filteredInput) && $filteredInput != "null")
 		{
 			Classrooms::createClassroom($_SESSION['id'], $_POST['newClassName']);
 		}

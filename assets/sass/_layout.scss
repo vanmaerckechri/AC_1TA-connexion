@@ -88,7 +88,7 @@
 			margin: 0 auto;
 			display: flex;
 			justify-content: space-between;
-			align-items: center;
+			align-items: flex-end;
 			//max-width: 1280px;
 			.headerTitle, .headerProfile
 			{
@@ -109,17 +109,21 @@
 	}
 	#main
 	{
+		padding: 0 50px;
 		max-width: 960px;
-		width: auto;
+		width: 100%;
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		.tools
 		{
-			button
+			display: flex;
+			justify-content: space-between;
+			align-items: baseline;
+			button, a
 			{
-				margin-bottom: 10px;
+				margin: 0 5px 10px;
 			}
 		}
 		.list

@@ -18,8 +18,10 @@
                 <h2><?=$pageName?></h2>
             </div>
             <div class="headerProfile">
-                <?=$_SESSION['nickname']?>
-                <a href="admin.php?action=disco">X</a>
+                <div class="profile">
+                    <?=$_SESSION['nickname']?>
+                    <a href="admin.php?action=disco" class="disconnect">X</a>
+                </div>
             </div>
         </div>
     </header>

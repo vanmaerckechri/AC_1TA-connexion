@@ -6,7 +6,7 @@ require('./controller/controller.php');
 // SESSION
 // TEMPORAIRE POUR LES TESTS =>
 // ---------------------------
-$_SESSION['nickname'] = "admin@aze";
+$_SESSION['nickname'] = "admin@Marie";
 $_SESSION['classroom'] = "";
 $_SESSION['password'] = '9adfb0a6d03beb7141d8ec2708d6d9fef9259d12cd230d50f70fb221ae6cabd5';
 $_SESSION['id'] = 31;
