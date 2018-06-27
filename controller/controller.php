@@ -15,7 +15,7 @@ function testCaptcha()
         . "&response=" . $response
         . "&remoteip=" . $remoteip ;   
 	$decode = json_decode(file_get_contents($api_url), true);
-	$_SESSION['smsAlert']['default'] = $decode == true ? '<span class="smsAlert">Veuillez cliquer sur "Je ne suis pas un robot" avant de valider!</span>' : $_SESSION['smsAlert']['default'];
+	//$_SESSION['smsAlert']['default'] = $decode == true ? '<span class="smsAlert">Veuillez cliquer sur "Je ne suis pas un robot" avant de valider!</span>' : $_SESSION['smsAlert']['default'];
 	return $decode;
 }
 
