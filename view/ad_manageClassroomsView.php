@@ -20,24 +20,22 @@
     ob_start();
 
 	?>
-	<form class="list" action="" method="post">
-	<?php
-	foreach ($classList as $row)
-	{
-		$name = htmlspecialchars($row['name'], ENT_QUOTES);
-	?>
-		<div class="button_listContent">
-			<input class="formInput" type="checkbox" name="classrooms[]" value="<?=$row['id']?>">
-			<a class='classroomsAndStudents' href='admin.php?action=manageThisClassroom&idcr=<?=$row['id']?>'><?=$name?></a>
-            <div class="button_rename">
-                <img src="assets/icons/rename.svg" alt="icone pour renommer une classe">
-                <p><?=$row['id']?></p>
-                <p><?=$name?></p>
-            </div>
-		</div>
-	<?php
-	}
-	?>
+	<form class="list" action="admin.php?action=renameClassroom" method="post">
+		<?php
+		foreach ($classList as $key => $row)
+		{
+			$name = htmlspecialchars($row['name'], ENT_QUOTES);
+		?>
+			<div id="classroom<?=$key?>" class="listElementsContainer">
+				<input class="listElementDeleteCheck" type="checkbox" name="classrooms[]" value="<?=$row['id']?>">
+				<a class='listElementName' href='admin.php?action=manageThisClassroom&idcr=<?=$row['id']?>'><?=$name?></a>
+	            <div class="buttonRename">
+	                <img src="assets/icons/rename.svg" alt="icone pour renommer une classe">
+	            </div>
+			</div>
+		<?php
+		}
+		?>
 	</form>
 	<p><?=$_SESSION['smsAlert']['default']?></p>
 	<?php
@@ -79,28 +77,70 @@
     		}
     		button_addClass.addEventListener('click', chooseNewClassName, false);
 
-            // Update
-            let button_rename = document.querySelectorAll('.button_rename');
-            let startRenameTool = function(event)
+            // Rename
+            let button_rename = document.querySelectorAll('.buttonRename');
+            let openRenameTool = function(event)
             {
-                let selectedClassrooms = document.querySelector('.list');
-                let classroomInfos = event.target.querySelectorAll('p');
-                let classroomId = classroomInfos[0].innerHTML;
-                let classroomName = classroomInfos[1].innerHTML;
+            	let selectedClassrooms = document.querySelector('.list');
+            	// Remove Rename Field if Already Exist
+            	if (document.querySelector('.listElementRename'))
+            	{
+            		let lastElementRename = document.querySelector('.listElementRename');
+            		let lastElementParentRename = lastElementRename.parentElement;
+            		lastElementParentRename.removeChild(lastElementRename);
+            	}
+            	// Remove Submit if Already Exist
+            	if (document.querySelector('#submit'))
+            	{
+            		let lastSubmit = document.querySelector('#submit');
+            		let lastSubmitParent = lastSubmit.parentElement;
+            		lastSubmitParent.removeChild(lastSubmit);
+            	}
+            	// Display Name was Hide
+            	let elementNames = document.querySelectorAll('.list a');
+            	for (let i = elementNames.length - 1; i >= 0; i--)
+            	{
+            		if (elementNames[i].classList.contains('hide'))
+            		{
+            			elementNames[i].classList.remove('hide');
+            			elementNames[i].classList.add('listElementName');
+            		}
+            	}
+            	// Create Rename Field
+            	let buttonRename = event.target;
+            	let classroomContainer = buttonRename.parentElement;
+            	let classroomName = classroomContainer.querySelector('a').innerHTML;
+            	let classroomId = classroomContainer.querySelector(".listElementDeleteCheck").value;
+            		// Name Field
+  				let listElementRenameContainer = document.createElement("div"); 
+  				listElementRenameContainer.setAttribute("class", "listElementRenameContainer");
+  				let listElementRename = document.createElement("input"); 
+				listElementRename.setAttribute("type", "text");
+				listElementRename.setAttribute("name", "renameClassroom");
+				listElementRename.setAttribute("value", classroomName);
+				listElementRename.setAttribute("class", "listElementRename");
+				listElementRenameContainer.appendChild(listElementRename);
+            		// classroomId Field
+  				let listElementId = document.createElement("input"); 
+				listElementId.setAttribute("type", "hidden");
+				listElementId.setAttribute("name", "idClassroom");
+				listElementId.setAttribute("value", classroomId);
+				listElementRenameContainer.appendChild(listElementId);
+				classroomContainer.insertBefore(listElementRenameContainer, buttonRename);
+					// submit
+  				let submit = document.createElement("input"); 
+				submit.setAttribute("type", "submit");
+				submit.setAttribute("value", "Enregistrer");
+				submit.setAttribute("id", "submit");
+				classroomContainer.appendChild(submit);
 
-                let rename = prompt('Veuillez entrer le nouveau nom de votre classe', classroomName);
-                if (rename != "" && rename != null)
-                {
-                    selectedClassrooms.action = 'admin.php?action=renameClassroom';
-                    selectedClassrooms.innerHTML += "<input type='number' name='idClassroom' value="+classroomId+">";
-                    selectedClassrooms.innerHTML += "<input type='text' class='renameClassroom' name='renameClassroom'>";
-                    document.querySelector('.renameClassroom').value = rename;
-                    selectedClassrooms.submit();
-                }
+				let elementName = classroomContainer.querySelector('.listElementName');
+				elementName.classList.toggle("hide");
+				document.querySelector('.listElementRename').focus();
             }
             for (let i = button_rename.length - 1; i >= 0; i--)
             {
-                button_rename[i].addEventListener('click', startRenameTool, true);
+                button_rename[i].addEventListener('click', openRenameTool, false);
             }
 
     	}, false);

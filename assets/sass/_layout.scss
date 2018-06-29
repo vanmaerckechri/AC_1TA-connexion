@@ -115,7 +115,7 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: center;
 		.tools
 		{
 			display: flex;
@@ -132,18 +132,28 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			#submit
+			{
+				width: 100%;
+			}
 			label
 			{
 				margin-top: 20px;
 				margin-bottom: 5px;
 			}
-			.button_listContent
+			.listElementsContainer
 			{
 				margin: 10px;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				.button_rename
+				flex-wrap: wrap;
+				.listElementDeleteCheck
+				{
+					width: 37px;
+					height: 37px;
+				}
+				.buttonRename
 				{
 					margin-left: 5px;
 					width: 32px;
@@ -160,21 +170,38 @@
 						display: none;
 					}
 				}
-			}
-			.classroomsAndStudents
-			{
-				margin-left: 5px;
-				padding: 8px;
-				border-radius: 8px;
-				border: 1px solid $ac-blue;
-				width: 300px;
-				font-size: 1rem;
-				color: black;
-				text-decoration: none;
-				&:hover
+				.listElementName
 				{
+					padding: 8px;
+					border-radius: 8px;
+					border: 1px solid $ac-blue;
+					width: 300px;
+					font-size: 1rem;
 					color: black;
-					background-color: $ac-blue;
+					text-decoration: none;
+					&:hover
+					{
+						color: black;
+						background-color: $ac-blue;
+					}
+				}
+				.listElementRenameContainer
+				{
+					/*display: flex;
+					justify-content: center;
+					width: 100%;*/
+					.listElementRename
+					{
+						//margin-top: 5px;
+						padding: 8px;
+						border-radius: 8px;
+						border: 1px solid $enabel-red;
+						width: 300px;
+						font-size: 1rem;
+						color: black;
+						text-decoration: none;
+						text-align: center;
+					}
 				}
 			}
 		}
