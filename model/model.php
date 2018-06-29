@@ -9,8 +9,8 @@ else
 {
 	function connectDB()
 	{
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
 	}
 	function getSecretCaptchaKey()
@@ -20,122 +20,41 @@ else
 }
 
 // FILTRES!
-function filterInputs($input, $regEx, $minLength, $maxLength, $smsTitle)
+
+function checkInput($input, $field, $smsTitle)
 {
-	$validRegEx = "/^[".$regEx."]*$/i";
-	if (strlen($input) >= $minLength && strlen($input) <= $maxLength)
+	$regex;
+	$smsAlert = "";
+	switch ($field)
 	{
-		if (preg_match($validRegEx, $input))
-		{
-			return $input;
-		}
-		else
-		{
-			// Message dynamique en fonction du regEx
-
-			$validChar = "";
-			// Lettres...
-			if (strstr($regEx, 'a-z') && strstr($regEx, 'A-Z'))
-			{
-				$validChar .= " <span class='smsAlert'>de lettres</span>";
-				$validChar .= ",";
-				$regEx = str_replace("a-z", "", $regEx);
-				$regEx = str_replace("A-Z", "", $regEx);
-			}
-			else if (strstr($regEx, 'a-z') && !strstr($regEx, 'A-Z'))
-			{
-				$validChar .= " <span class='smsAlert'>de lettres minuscules</span>";
-				$validChar .= ",";
-				$regEx = str_replace("a-z", "", $regEx);
-			}
-			else if (strstr($regEx, 'A-Z') && !strstr($regEx, 'a-z'))
-			{
-				$validChar .= " <span class='smsAlert'>de lettres majuscules</span>";
-				$validChar .= ",";
-				$regEx = str_replace("A-Z", "", $regEx);
-			}
-			// Lettres accentuées...
-			if (strstr($regEx, 'À-Ö'))
-			{
-				$validChar .= " <span class='smsAlert'>de lettres accentuées</span>";
-				$validChar .= ",";
-				$regEx = str_replace("À-Ö", "", $regEx);
-			}
-			else if (strstr($regEx, 'à-ö') && !strstr($regEx, 'À-Ö'))
-			{
-				$validChar .= " <span class='smsAlert'>de lettres minuscules pouvant être accentuées</span>";
-				$validChar .= ",";
-				$regEx = str_replace("à-ö", "", $regEx);
-			}
-			else if (strstr($regEx, 'À-Ö') && !strstr($regEx, 'à-ö'))
-			{
-				$validChar .= " <span class='smsAlert'>de lettres majuscules pouvant être accentuées</span>";
-				$validChar .= ",";
-				$regEx = str_replace("À-Ö", "", $regEx);
-			}
-			// Chiffres...
-			if (strstr($regEx, '0-9'))
-			{
-				$validChar .= " <span class='smsAlert'>de chiffres</span>";
-				$validChar .= ",";
-				$regEx = str_replace("0-9", "", $regEx);
-			}
-			// Espaces...
-			if (strstr($regEx, ' '))
-			{
-				$validChar .= " <span class='smsAlert'>d'espaces</span>";
-				$validChar .= ",";
-				$regEx = str_replace(" ", "", $regEx);
-			}
-
-			// Autres caractères...
-			$regExLength = strlen($regEx);
-			if ($regExLength > 0)
-			{
-				$validChar .= $regExLength == 1 ? " du caractère suivant:" : " des caractères suivants:";
-
-				for ($i = $regExLength - 1; $i >= 0; $i--)
-				{
-					if (strstr($regEx, $regEx[$i]))
-					{
-						$validChar .= " <span class='smsAlert'>".$regEx[$i]."</span> ";
-						$regEx = str_replace($regEx[$i], "", $regEx);
-					}
-				}
-				$validChar .= ",";
-			}
-			// Améliorer la formulation et la ponctuation du message
-			for ($validCharLength = strlen($validChar) - 1, $i = $validCharLength; $i >= 0; $i--)
-			{
-				if ($validChar[$i] == ",")
-				{
-					if ($i == $validCharLength)
-					{
-						$validChar = substr_replace($validChar, "!", $i, 1);
-					}
-					else
-					{
-						$validChar = substr_replace($validChar, " et", $i, 1);
-						break;
-					}
-				}
-			}
-
-			//$_SESSION['smsAlert'] = "Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar;
-			if ($smsTitle != false)
-			{
-				$_SESSION['smsAlert'][$smsTitle] = "Ce champ ne peut être composé <span class='smsAlert'>QUE</span>".$validChar;
-			}
-		}
+	    case "nickname":
+	    	$regex = "/^[a-z@\d\s]{3,30}$/i";
+	    	$smsAlert = "<span class='smsAlert'>Ce champ doit être composé de 3 à 30 caractères! Hormis le \"@\", les caractères spéciaux ne sont pas acceptés!</span>";
+	    	break;
+	    case "password":
+	    	$regex = "/^.{5,30}$/";
+	    	$smsAlert = "<span class='smsAlert'>Ce champ doit être composé de 8 à 30 caractères!</span>";
+	    	break;
+	    case "classroom":
+	    	$regex = "/^.{5,30}$/";
+	    	$smsAlert = "<span class='smsAlert'>Ce champ doit être composé de 5 à 30 caractères!</span>";
+	    	break;
+	    case "loginRecord":
+	    	$regex = "/^[a-z\d\s]{3,24}$/i";
+	    	$smsAlert = "<span class='smsAlert'>Ce champ doit être composé de 3 à 30 caractères! Les caractères spéciaux ne sont pas acceptés!</span>";
+	    	break;
+	    default:
+			return false;
+	}
+	if (preg_match($regex, $input) === 1)
+	{
+		return $input;
 	}
 	else
 	{
-		if ($smsTitle != false)
-		{
-			$_SESSION['smsAlert'][$smsTitle] = "Le nombre de caractères pour ce champ doit être compris entre <span class='smsAlert'>".$minLength."</span> et <span class='smsAlert'>".$maxLength."</span>!";
-		}
+		$_SESSION['smsAlert'][$smsTitle] = $smsAlert;
+		return false;
 	}
-	return false;
 }
 
 function generateCode($codeLength = 10)

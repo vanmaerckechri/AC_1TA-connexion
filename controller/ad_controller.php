@@ -10,10 +10,10 @@ function createClassrooms()
 {
 	if (isset($_POST['newClassName']))
 	{
-		$filteredInput = filterInputs($_POST['newClassName'], 'a-zA-Z0-9À-Ö ._-', 0, 30, 'default');
-		if (isset($filteredInput) && !empty($filteredInput) && $filteredInput != "null")
+		$filteredClassroom = checkInput($_POST['newClassName'], 'classroom', 'default');
+		if ($filteredClassroom != false)
 		{
-			Classrooms::createClassroom($_SESSION['id'], $_POST['newClassName']);
+			Classrooms::createClassroom($_SESSION['id'], $filteredClassroom);
 		}
 	}
 	require('./view/ad_manageClassroomsView.php');	
@@ -23,10 +23,10 @@ function renameClassroom()
 {
 	if (isset($_POST['renameClassroom']) && isset($_POST['idClassroom']))
 	{
-		$filteredName = filterInputs($_POST['renameClassroom'], 'a-zA-Z0-9À-Ö ._-', 0, 30, 'default');
-		if (isset($filteredName) && !empty($filteredName) && $filteredName != "null")
+		$filteredClassroom = checkInput($_POST['renameClassroom'], 'classroom', 'default');
+		if ($filteredClassroom != false)
 		{
-			Classrooms::renameClassroom($_SESSION['id'], $_POST['renameClassroom'], $_POST['idClassroom']);
+			Classrooms::renameClassroom($_SESSION['id'], $filteredClassroom, $_POST['idClassroom']);
 		}
 	}
 	require('./view/ad_manageClassroomsView.php');	
@@ -41,11 +41,11 @@ function createStudents()
 {
 	if (isset($_POST['newStudentNickname']) && isset($_POST['newStudentPassword']) && isset($_GET['idcr']))
 	{
-		$filteredNickname = filterInputs($_POST['newStudentNickname'], 'a-zA-Z0-9 @', 4, 30, 'nickname');
-		$filteredPassword = filterInputs($_POST['newStudentPassword'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'password');
-		if (isset($filteredNickname) && !empty($filteredNickname) && isset($filteredPassword) && !empty($filteredPassword))
+		$filteredNickname = checkInput($_POST['newStudentNickname'], 'nickname', 'nickname');
+		$filteredPassword = checkInput($_POST['newStudentPassword'], 'password', 'password');
+		if ($filteredNickname != false && $filteredPassword != false)
 		{
-			Classrooms::createStudent($_SESSION['id'], $_POST['newStudentNickname'], $_POST['newStudentPassword'], $_GET['idcr']);
+			Classrooms::createStudent($_SESSION['id'], $filteredNickname, $filteredPassword, $_GET['idcr']);
 		}
 	}
 	$createStudent = true;
@@ -76,10 +76,10 @@ function loadManageThisClassroom()
 }
 function loadManageModifyStudents()
 {
-	$filteredInput = filterInputs($_GET['cn'], 'a-zA-Z0-9À-Ö ._-', 0, 30, false);
-	if ($filteredInput)
+	$filteredClassroom = checkInput($_GET['cn'], 'classroom', false);
+	if ($filteredClassroom != false)
 	{
-		$className = $_GET['cn'];
+		$className = $filteredClassroom;
 	}
 	else
 	{

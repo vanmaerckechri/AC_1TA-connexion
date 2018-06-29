@@ -24,14 +24,15 @@
 	<?php
 	foreach ($classList as $row)
 	{
+		$name = htmlspecialchars($row['name'], ENT_QUOTES);
 	?>
 		<div class="button_listContent">
 			<input class="formInput" type="checkbox" name="classrooms[]" value="<?=$row['id']?>">
-			<a class='classroomsAndStudents' href='admin.php?action=manageThisClassroom&idcr=<?=$row['id']?>'><?=$row['name']?></a>
+			<a class='classroomsAndStudents' href='admin.php?action=manageThisClassroom&idcr=<?=$row['id']?>'><?=$name?></a>
             <div class="button_rename">
                 <img src="assets/icons/rename.svg" alt="icone pour renommer une classe">
                 <p><?=$row['id']?></p>
-                <p><?=$row['name']?></p>
+                <p><?=$name?></p>
             </div>
 		</div>
 	<?php
@@ -52,7 +53,7 @@
     		let confirmDeleteSelectedClassrooms = function()
     		{
                 let selectedClassrooms = document.querySelector('.list');
-    			let confirm = prompt('ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi éffacés. Pour valider la suppression, veuillez écrire: "supprimer"!');
+    			let confirm = prompt('ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi effacés. Pour valider la suppression, veuillez écrire: "supprimer"!');
     			if (confirm == "supprimer" || confirm == "SUPPRIMER")
     			{
     				selectedClassrooms.action = 'admin.php?action=deleteClassrooms';
@@ -66,11 +67,13 @@
     		let chooseNewClassName = function()
     		{
                 let selectedClassrooms = document.querySelector('.list');
-    			let newname = prompt('Veuillez entrer un nom pour votre nouvelle classe');
+    			let newname = prompt("Veuillez entrer un nom pour votre nouvelle classe");
+    			console.log(newname);
     			if (newname != "" && newname != null)
     			{
     				selectedClassrooms.action = 'admin.php?action=createClassroom';
-    				selectedClassrooms.innerHTML += "<input type='text' name='newClassName' value='"+newname+"'>";
+    				selectedClassrooms.innerHTML += "<input type='text' class='newClassName' name='newClassName'>";
+    				document.querySelector('.newClassName').value = newname;
     				selectedClassrooms.submit();
     			}
     		}
@@ -89,8 +92,9 @@
                 if (rename != "" && rename != null)
                 {
                     selectedClassrooms.action = 'admin.php?action=renameClassroom';
-                    selectedClassrooms.innerHTML += "<input type='number' name='idClassroom' value='"+classroomId+"'>";
-                    selectedClassrooms.innerHTML += "<input type='text' name='renameClassroom' value='"+rename+"'>";
+                    selectedClassrooms.innerHTML += "<input type='number' name='idClassroom' value="+classroomId+">";
+                    selectedClassrooms.innerHTML += "<input type='text' class='renameClassroom' name='renameClassroom'>";
+                    document.querySelector('.renameClassroom').value = rename;
                     selectedClassrooms.submit();
                 }
             }
