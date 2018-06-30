@@ -49,7 +49,7 @@ function createStudents()
 			Classrooms::createStudent($_SESSION['id'], $filteredNickname, $filteredPassword, $_GET['idcr']);
 		}
 	}
-	$createStudent = true;
+	$form_createOpen = true;
 	require('./view/ad_manageThisClassroomView.php');	
 }
 

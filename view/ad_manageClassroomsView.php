@@ -55,6 +55,10 @@
 
     ob_start();
 	?>
+	    <script>
+            let detectDeleteElement = "classroom";
+            let deleteElementPartofLink = "";
+        </script>
         <script src="scripts/admin_tools.js"></script>
     <?php $script = ob_get_clean();?>
 

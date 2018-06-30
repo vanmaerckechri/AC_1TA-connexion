@@ -99,7 +99,14 @@ window.addEventListener('load', function()
         {
         	if (listElementsContainer[i].checked == true)
         	{
-        		validate(selectedClassrooms, 'deleteClassrooms', '<span class="smsAlert"> ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi effacés!</span>');
+        		if (detectDeleteElement == "students")
+        		{
+        			validate(selectedClassrooms, 'deleteStudents&idcr='+deleteElementPartofLink, '<span class="smsAlert"> ATTENTION! Cette opération est irréversible! Etes-vous sûre de vouloir effacer le(s) élèves(s) sélectionné(s)?</span>');
+        		}
+        		else
+        		{
+        			validate(selectedClassrooms, 'deleteClassrooms', '<span class="smsAlert"> ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi effacés! Etes-vous sûre de vouloir effacer la/les classe(s) sélectionnée(s)?</span>');
+        		}
    				return;
         	}
         }

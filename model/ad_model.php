@@ -39,6 +39,7 @@ class Classrooms
 			// Verifier si l'admin execute bien une requete sur l'une de ses classes
 			if (isset($resultReq[0]['id_admin']) && $resultReq[0]['id_admin'] == $_SESSION['id'])
 			{
+				$_SESSION['idcr'] = $id_cr;
 				// Afficher tous les élèves de la classe
 				$req = $db->prepare("SELECT id, nickname FROM pe_students WHERE id_classroom = :idClassroom ORDER BY id DESC");
 				$req->bindValue(':idClassroom', $id_cr, PDO::PARAM_INT);
@@ -121,7 +122,7 @@ class Classrooms
 				$req->bindValue(':newName', $newName, PDO::PARAM_STR);
 				$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
 				$req->execute();
-				$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Classe renommée avec succes!</span>";
+				$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Classe renommée avec succès!</span>";
 			}
 			else
 			{
@@ -207,6 +208,7 @@ class Classrooms
 					$req->bindValue(':nick', $nickname, PDO::PARAM_STR);
 					$req->bindValue(':pwd', $pwd, PDO::PARAM_STR);
 					$req->execute();
+					$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Élève créé avec succès!</span>";
 				}
 				else
 				{

@@ -2,102 +2,70 @@
     $result = Classrooms::displayThisRoom($_GET['idcr']);
     $studentsList = $result[0];
     $className = htmlspecialchars($result[1], ENT_QUOTES);
-
-    if (isset($createStudent))
+    $pageName = "Gestion des Élèves de la Classe: <span class='classname'>".$className."</span>";
+    // CREATE!
+    if (isset($form_createOpen))
     {
-        $createStudentClass = "createStudent";
+        $form_createOpen = "form_create";
         $buttonStatus = "formButton toolFocus";
     }
     else
     {
-        $createStudentClass = "createStudent hide";
+        $form_createOpen = "form_create hide";
         $buttonStatus = "formButton";
     }
-
-    $pageName = "Gestion des Élèves de la Classe: <span class='classname'>".$className."</span>";
-
     ob_start();
-	?>
-	<div class="tools">
+    ?>
+        <div class="tools">
+            <div style="width: 90px;"></div>
             <div>
-                <a href="admin.php" class="formButton">Accueil</a>    
-            </div>
-            <div>
-                <button id="create" class="<?=$buttonStatus?>">Ajouter</button>
-    	        <button id="updateStudents" class="formButton">Modifier</button>
+                <button id="button_create" class="<?=$buttonStatus?>">Ajouter</button>
                 <button id="delete" class="formButton">Effacer</button>
             </div>
-            <div style="min-width: 90px;"></div>
-	</div>
-        <form class="<?=$createStudentClass?>" action="admin.php?action=addStudents&idcr=<?=$_GET['idcr']?>" method="post">
+            <div style="width: 90px;"></div>
+        </div>
+        <form class="<?=$form_createOpen?>" action="admin.php?action=addStudents&idcr=<?=$_GET['idcr']?>" method="post">
             <label for="newStudentNickname">Nom d'utilisateur</label>
             <input class="newStudentNick formInput" type="text" name="newStudentNickname" autofocus>
             <p><?=$_SESSION['smsAlert']['nickname']?></p>
-            <label for="newStudentPassword">Mot de Passe</label>
-            <input class="formInput" type="text" name="newStudentPassword">
+            <label for="newStudentNickname">Mot de Passe</label>
+            <input class="newStudentNick formInput" type="text" name="newStudentPassword">
             <p><?=$_SESSION['smsAlert']['password']?></p>
             <input class="formButton" type="submit" value="Enregistrer">
         </form>
-	<?php 
-	$tools = ob_get_clean();
+    <?php 
+    $tools = ob_get_clean();
+    // STUDENTS LIST!
+    ob_start();
+    ?>
+    <p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
+    <form class="list" action="admin.php?action=renameClassroom" method="post">
+    <?php
+    foreach ($studentsList as $key => $row)
+    {
+        $name = htmlspecialchars($row['nickname'], ENT_QUOTES);
+    ?>
+        <div id="classroom<?=$key?>" class="listElementsContainer">
+            <input class="listElementDeleteCheck" type="checkbox" name="students[]" value="<?=$row['id']?>">
+            <a class='listElementName' href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>&cn=<?=$className?>"><?=$name?></a>
+            <div class="buttonRename">
+                <img src="assets/icons/rename.svg" alt="icone pour renommer une classe">
+            </div>
+        </div>
+    <?php
+    }
+    ?>
+    </form>
+    <?php
+    $content = ob_get_clean();
 
     ob_start();
-	?>
-	<form id="deleteList" class="list" action="" method="post">
-	<?php
-	foreach ($studentsList  as $row)
-	{
-                $nickname = htmlspecialchars($row['nickname'], ENT_QUOTES);
-	?>
-           	<div class="button_listContent">
-           		<input class="formInput" type="checkbox" name="students[]" value="<?=$row['id']?>">
-           		<a class='classroomsAndStudents' href="admin.php?action=manageModifyStudents&idst=<?=$row['id']?>&cn=<?=$className?>"><?=$nickname?></a>
-           	</div>
-	<?php
-	}
-	?>
-	</form>
-        <p><?=$_SESSION['smsAlert']['default']?></p>
-	<?php
-	$content = ob_get_clean();
-
-    ob_start();
-	?>
+    ?>
         <script>
-    	window.addEventListener('load', function()
-    	{
-            // Delete student(s)
-    		let deleteStudents = document.querySelector('#delete');
-    		let selectedStudents = document.querySelector('#deleteList');
-    		let confirmDeleteSelectedStudents = function()
-    		{
-    			let confirm = prompt('ATTENTION! Cette opération est irréversible! Pour valider la suppression, veuillez écrire: "supprimer"!');
-    			if (confirm == "supprimer" || confirm == "SUPPRIMER")
-    			{
-    				selectedStudents.action = 'admin.php?action=deleteStudents&idcr=<?=$_GET['idcr']?>';
-    				selectedStudents.submit();
-    			}
-    		}
-    		deleteStudents.addEventListener('click', confirmDeleteSelectedStudents, false);
-
-            // Create Student
-            let addStudents = document.querySelector('#create');
-            let addStudentsForm = document.querySelector('.createStudent');
-            let addStudentsManagement = function()
-            {
-                addStudentsForm.classList.toggle("hide");
-                addStudents.classList.toggle("toolFocus");
-                // autofocus
-                if (addStudentsForm.classList != "hide")
-                {
-                    let inputNewStudentNickname = document.querySelector('.newStudentNick');
-                    inputNewStudentNickname.focus();
-                }
-            }
-            addStudents.addEventListener('click', addStudentsManagement, false);
-
-    	}, false);
+            let detectDeleteElement = "students";
+            let deleteElementPartofLink = "deleteStudents&idcr="+<?=$_GET['idcr']?>;
         </script>
+        <script src="scripts/admin_tools.js"></script>
     <?php $script = ob_get_clean();?>
 
 <?php require('./view/ad_template.php'); ?>
