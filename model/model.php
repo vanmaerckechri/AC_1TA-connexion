@@ -29,19 +29,19 @@ function checkInput($input, $field, $smsTitle)
 	{
 	    case "nickname":
 	    	$regex = "/^[a-z@\d\s]{3,30}$/i";
-	    	$smsAlert = "<span class='smsAlert'>Ce champ doit être composé de 3 à 30 caractères! Hormis le \"@\", les caractères spéciaux ne sont pas acceptés!</span>";
+	    	$smsAlert = "<span class='smsAlert'>Le nom d'utilisateur doit être composé de 3 à 30 caractères! Hormis le \"@\", les caractères spéciaux ne sont pas acceptés!</span>";
 	    	break;
 	    case "password":
 	    	$regex = "/^.{5,30}$/";
-	    	$smsAlert = "<span class='smsAlert'>Ce champ doit être composé de 8 à 30 caractères!</span>";
+	    	$smsAlert = "<span class='smsAlert'>Le mot de passe doit être composé de 8 à 30 caractères!</span>";
 	    	break;
 	    case "classroom":
 	    	$regex = "/^.{5,30}$/";
-	    	$smsAlert = "<span class='smsAlert'>Ce champ doit être composé de 5 à 30 caractères!</span>";
+	    	$smsAlert = "<span class='smsAlert'>Le nom de la classe doit être composé de 5 à 30 caractères!</span>";
 	    	break;
 	    case "loginRecord":
 	    	$regex = "/^[a-z\d\s]{3,24}$/i";
-	    	$smsAlert = "<span class='smsAlert'>Ce champ doit être composé de 3 à 30 caractères! Les caractères spéciaux ne sont pas acceptés!</span>";
+	    	$smsAlert = "<span class='smsAlert'>Le nom d'utilisateur doit être composé de 3 à 30 caractères! Les caractères spéciaux ne sont pas acceptés!</span>";
 	    	break;
 	    default:
 			return false;

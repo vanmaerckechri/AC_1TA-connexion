@@ -32,12 +32,6 @@ function checkSession()
 			header('Location: ./platform/index.php');	  
 			exit;  		
 		}
-		else if ($sessionResult == 'wrong')
-		{
-			// Informations de connexion incorrectes
-			header('Location: ./index.php');
-			exit;	    		
-		}
 	}
 }
 checkSession();

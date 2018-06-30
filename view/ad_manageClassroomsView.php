@@ -1,25 +1,38 @@
 <?php
 	$classList = Classrooms::displayRooms();
     $pageName = "Gestion des Classes";
-
+    // CREATE!
+    if (isset($form_createOpen))
+    {
+        $form_createOpen = "form_create";
+        $buttonStatus = "formButton toolFocus";
+    }
+    else
+    {
+        $form_createOpen = "form_create hide";
+        $buttonStatus = "formButton";
+    }
     ob_start();
 	?>
 		<div class="tools">
             <div style="width: 90px;"></div>
             <div>
-    	    	<button id = "addClass" class="formButton">Ajouter</button>
-    	    	<button id = "delete" class="formButton">Effacer</button>
+    	    	<button id="button_create" class="formButton">Ajouter</button>
+    	    	<button id="delete" class="formButton">Effacer</button>
             </div>
             <div style="width: 90px;"></div>
 	    </div>
+	    <form class="<?=$form_createOpen?>" action="admin.php?action=createClassroom" method="post">
+            <label for="newStudentNickname">Nom d'utilisateur</label>
+            <input class="newStudentNick formInput" type="text" name="newClassName" autofocus>
+            <input class="formButton" type="submit" value="Enregistrer">
+        </form>
 	<?php 
 	$tools = ob_get_clean();
-
+	// CLASSROOMS LIST!
 	ob_start();
-
-    ob_start();
-
 	?>
+	<p><?=$_SESSION['smsAlert']['default']?></p>
 	<form class="list" action="admin.php?action=renameClassroom" method="post">
 		<?php
 		foreach ($classList as $key => $row)
@@ -37,7 +50,6 @@
 		}
 		?>
 	</form>
-	<p><?=$_SESSION['smsAlert']['default']?></p>
 	<?php
 	$content = ob_get_clean();
 
@@ -46,7 +58,7 @@
         <script>
     	window.addEventListener('load', function()
     	{
-            // Delete
+            // DELETE SCRIPT!
     		let button_deleteClassrooms = document.querySelector('#delete');
     		let confirmDeleteSelectedClassrooms = function()
     		{
@@ -60,24 +72,23 @@
     		}
     		button_deleteClassrooms.addEventListener('click', confirmDeleteSelectedClassrooms, false);
 
-            // Insert
-    		let button_addClass = document.querySelector('#addClass');
-    		let chooseNewClassName = function()
-    		{
-                let selectedClassrooms = document.querySelector('.list');
-    			let newname = prompt("Veuillez entrer un nom pour votre nouvelle classe");
-    			console.log(newname);
-    			if (newname != "" && newname != null)
-    			{
-    				selectedClassrooms.action = 'admin.php?action=createClassroom';
-    				selectedClassrooms.innerHTML += "<input type='text' class='newClassName' name='newClassName'>";
-    				document.querySelector('.newClassName').value = newname;
-    				selectedClassrooms.submit();
-    			}
-    		}
-    		button_addClass.addEventListener('click', chooseNewClassName, false);
+    		// CREATE SCRIPT!
+            let createButton = document.querySelector('#button_create');
+            let createForm = document.querySelector('.form_create');
+            let openCreateTool = function()
+            {
+                createForm.classList.toggle("hide");
+                createButton.classList.toggle("toolFocus");
+                // autofocus
+                if (createForm.classList != "hide")
+                {
+                    let inputNewStudentNickname = document.querySelector('.newStudentNick');
+                    inputNewStudentNickname.focus();
+                }
+            }
+            createButton.addEventListener('click', openCreateTool, false);
 
-            // Rename
+            // RENAME SCRIPT!
             let button_rename = document.querySelectorAll('.buttonRename');
             let openRenameTool = function(event)
             {
@@ -109,8 +120,8 @@
             			elementNames[i].classList.add('listElementName');
             		}
             	}
+            	
             	// Create Rename Field
-
             	let buttonRename = event.target;
             	let classroomContainer = buttonRename.parentElement;
             	if (lastClassroomContainer != classroomContainer)

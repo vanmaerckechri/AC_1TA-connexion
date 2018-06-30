@@ -237,9 +237,9 @@ input {
       width: auto;
       display: block;
       text-align: center; }
-    .admin #main .createStudent {
+    .admin #main .form_create {
       text-align: center; }
-      .admin #main .createStudent input {
+      .admin #main .form_create input {
         margin: 0 auto 10px; }
 
 .producer {

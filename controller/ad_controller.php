@@ -16,6 +16,7 @@ function createClassrooms()
 			Classrooms::createClassroom($_SESSION['id'], $filteredClassroom);
 		}
 	}
+	$form_createOpen = true;
 	require('./view/ad_manageClassroomsView.php');	
 }
 
@@ -71,7 +72,6 @@ function loadManageClassrooms()
 }
 function loadManageThisClassroom()
 {
-
 	require('./view/ad_manageThisClassroomView.php');	
 }
 function loadManageModifyStudents()

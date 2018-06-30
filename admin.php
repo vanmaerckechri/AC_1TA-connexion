@@ -24,6 +24,13 @@ function checkSession()
 			exit;	    		
 		}
 	}
+	else
+	{
+		// Informations de connexion incorrectes
+		header('Location: ./index.php');
+		exit;
+	}
+
 }
 checkSession();
 $_SESSION['smsAlert'] = !isset($_SESSION['smsAlert']) ? array() : $_SESSION['smsAlert'];

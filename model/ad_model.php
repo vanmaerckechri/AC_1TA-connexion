@@ -17,7 +17,7 @@ class Classrooms
 	public static function displayRooms()
 	{
 		$db = (new self)->connect();
-		$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id_admin = :idadmin");
+		$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id_admin = :idadmin ORDER BY id DESC");
 		$req->bindValue(':idadmin', $_SESSION['id'], PDO::PARAM_INT);
 		$req->execute();
 		$resultReq = $req->fetchAll();
