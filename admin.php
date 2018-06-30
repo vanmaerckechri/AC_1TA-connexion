@@ -49,11 +49,6 @@ if (isset($_GET['action']))
 	{
 		loadManageThisClassroom();
 	}
-	// Student management
-	else if ($_GET['action'] == 'manageModifyStudents')
-	{
-		loadManageModifyStudents();
-	}
 	// Create new classroom
 	else if ($_GET['action'] == 'createClassroom')
 	{
@@ -73,6 +68,11 @@ if (isset($_GET['action']))
 	else if ($_GET['action'] == 'addStudents')
 	{
 		createStudents();		
+	}
+	// Student management
+	else if ($_GET['action'] == 'editStudent')
+	{
+		editStudent();
 	}
 	// Delete students
 	else if ($_GET['action'] == 'deleteStudents')

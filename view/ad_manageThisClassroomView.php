@@ -39,7 +39,7 @@
     ob_start();
     ?>
     <p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
-    <form class="list" action="admin.php?action=renameClassroom" method="post">
+    <form class="list" action="admin.php?action=editStudent&idcr=<?=$_GET['idcr']?>" method="post">
     <?php
     foreach ($studentsList as $key => $row)
     {

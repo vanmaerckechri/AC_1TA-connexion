@@ -36,6 +36,7 @@ function renameClassroom()
 function deleteClassrooms()
 {
 	Classrooms::deleteClassrooms($_SESSION['id'], $_POST['classrooms']);
+	require('./view/ad_manageClassroomsView.php');	
 }
 
 function createStudents()
@@ -50,6 +51,20 @@ function createStudents()
 		}
 	}
 	$form_createOpen = true;
+	require('./view/ad_manageThisClassroomView.php');	
+}
+
+function editStudent()
+{
+	if (isset($_POST['rename']) && isset($_POST['newPassword']) && isset($_POST['idClassroom']))
+	{
+		$filteredNickname = checkInput($_POST['rename'], 'nickname', 'default');
+		$filteredPassword = checkInput($_POST['newPassword'], 'password', 'default');
+		if ($filteredNickname != false && $filteredPassword != false)
+		{
+			Classrooms::editStudent($_SESSION['id'], $filteredNickname, $filteredPassword, $_POST['idClassroom']);
+		}
+	}
 	require('./view/ad_manageThisClassroomView.php');	
 }
 

@@ -173,8 +173,6 @@ class Classrooms
 			$req = NULL;
 			$_SESSION['smsAlert']['default'] = $sms;
 		}
-		header('Location: admin.php?action=manageThisClassroom');	  
-		exit;  	
 	}
 
 	public static function createStudent($mySessionId, $nickname, $pwd, $idcr)
@@ -214,6 +212,35 @@ class Classrooms
 				{
 					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Ce nom d'utilisateur est déjà pris dans cette classe!</span>";
 				}
+			}
+			$req->closeCursor();
+			$req = NULL;
+		}
+	}
+
+	public static function editStudent($mySessionId, $newName, $newPwd, $idcr)
+	{
+		if (filter_var($idcr, FILTER_VALIDATE_INT) && $idcr < 100000)
+		{
+			// Vérifier que le nom de l'élève n'est pas encore utilisé par l'admin!
+			$db = (new self)->connect();
+			$req = $db->prepare("SELECT nickname FROM pe_students WHERE id_admin = :idad AND nickname = :name");	
+			$req->bindValue(':idad', $mySessionId, PDO::PARAM_INT);
+			$req->bindValue(':name', $newName, PDO::PARAM_STR);
+			$req->execute();
+			$resultReq = $req->fetchAll();
+			if (empty($resultReq))
+			{
+				$req = $db->prepare("UPDATE pe_students SET nickname = :newName, password = :newPwd WHERE id = :idcr");
+				$req->bindValue(':newName', $newName, PDO::PARAM_STR);
+				$req->bindValue(':newPwd', $newPwd, PDO::PARAM_STR);
+				$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
+				$req->execute();
+				$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Les informations de l'élève ont été mise à jour avec succès!</span>";
+			}
+			else
+			{
+				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Un élève portant ce nom d'utilisateur existe déjà dans cette classe!</span>";
 			}
 			$req->closeCursor();
 			$req = NULL;
