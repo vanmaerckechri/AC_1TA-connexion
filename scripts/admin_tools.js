@@ -75,7 +75,7 @@ window.addEventListener('load', function()
         		lastSubmitParent.removeChild(lastSubmit);
         	}
         	// Display Static Name
-        	let elementNames = document.querySelectorAll('.list a');
+        	let elementNames = document.querySelectorAll('.list .listElementName');
         	for (let i = elementNames.length - 1; i >= 0; i--)
         	{
         		if (elementNames[i].classList.contains('hide'))
@@ -141,7 +141,7 @@ window.addEventListener('load', function()
     	let classroomContainer = buttonRename.parentElement;
     	if (lastClassroomContainer != classroomContainer)
     	{
-        	let classroomName = classroomContainer.querySelector('a').innerHTML;
+        	let classroomName = classroomContainer.querySelector('.listElementName').innerHTML;
         	let classroomId = classroomContainer.querySelector(".listElementDeleteCheck").value;
         		// Name Field
 			let listElementRenameContainer = document.createElement("div"); 

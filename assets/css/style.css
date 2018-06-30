@@ -233,7 +233,7 @@ input {
             background-image: url("../icons/rename_hover.svg"); }
           .admin #main .list .listElementsContainer .buttonRename img, .admin #main .list .listElementsContainer .buttonRename p {
             display: none; }
-        .admin #main .list .listElementsContainer .listElementName {
+        .admin #main .list .listElementsContainer a.listElementName, .admin #main .list .listElementsContainer p.listElementName {
           padding: 8px;
           border-radius: 8px;
           border: 1px solid #4ab4f1;
@@ -241,9 +241,11 @@ input {
           font-size: 1rem;
           color: black;
           text-decoration: none; }
-          .admin #main .list .listElementsContainer .listElementName:hover {
-            color: black;
-            background-color: #4ab4f1; }
+        .admin #main .list .listElementsContainer a.listElementName:hover {
+          color: black;
+          background-color: #4ab4f1; }
+        .admin #main .list .listElementsContainer p.listElementName {
+          margin-bottom: 0; }
         .admin #main .list .listElementsContainer .listElementRenameContainer {
           /*display: flex;
           justify-content: center;

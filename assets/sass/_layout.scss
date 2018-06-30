@@ -170,7 +170,7 @@
 						display: none;
 					}
 				}
-				.listElementName
+				a.listElementName, p.listElementName
 				{
 					padding: 8px;
 					border-radius: 8px;
@@ -179,11 +179,18 @@
 					font-size: 1rem;
 					color: black;
 					text-decoration: none;
+				}
+				a.listElementName
+				{
 					&:hover
 					{
 						color: black;
 						background-color: $ac-blue;
 					}
+				}
+				p.listElementName
+				{
+					margin-bottom: 0;
 				}
 				.listElementRenameContainer
 				{
