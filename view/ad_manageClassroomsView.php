@@ -17,7 +17,7 @@
 		<div class="tools">
             <div style="width: 90px;"></div>
             <div>
-    	    	<button id="button_create" class="formButton">Ajouter</button>
+    	    	<button id="button_create" class="<?=$buttonStatus?>">Ajouter</button>
     	    	<button id="delete" class="formButton">Effacer</button>
             </div>
             <div style="width: 90px;"></div>
@@ -58,10 +58,55 @@
         <script>
     	window.addEventListener('load', function()
     	{
+    		// CLOSE TOOLS!
+    		let closeTools = function(close)
+    		{
+    			let lastClassroomContainerResult;
+    			if (close == "create")
+    			{
+	    			// Hide Create Form
+					if (!createForm.classList.contains('hide'))
+					{
+					    createForm.classList.toggle("hide");
+					    createButton.classList.toggle("toolFocus");	
+					}
+				}
+				if (close == "rename" || close == "create")
+				{
+	            	// Remove Rename Field if Already Exist
+	            	if (document.querySelector('.listElementRename'))
+	            	{
+	            		let lastElementRename = document.querySelector('.listElementRename');
+	            		lastElementParentRename = lastElementRename.parentElement;
+	            		lastClassroomContainer = lastElementParentRename.parentElement;
+	            		lastElementParentRename.removeChild(lastElementRename);
+	            		lastClassroomContainerResult = lastClassroomContainer;
+	            	}
+	            	// Remove Submit if Already Exist
+	            	if (document.querySelector('#submit'))
+	            	{
+	            		let lastSubmit = document.querySelector('#submit');
+	            		let lastSubmitParent = lastSubmit.parentElement;
+	            		lastSubmitParent.removeChild(lastSubmit);
+	            	}
+	            	// Display Static Name
+	            	let elementNames = document.querySelectorAll('.list a');
+	            	for (let i = elementNames.length - 1; i >= 0; i--)
+	            	{
+	            		if (elementNames[i].classList.contains('hide'))
+	            		{
+	            			elementNames[i].classList.remove('hide');
+	            			elementNames[i].classList.add('listElementName');
+	            		}
+	            	}
+	            }
+	            return lastClassroomContainerResult;
+    		}
             // DELETE SCRIPT!
     		let button_deleteClassrooms = document.querySelector('#delete');
     		let confirmDeleteSelectedClassrooms = function()
     		{
+    			closeTools("rename");
                 let selectedClassrooms = document.querySelector('.list');
     			let confirm = prompt('ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi effacés. Pour valider la suppression, veuillez écrire: "supprimer"!');
     			if (confirm == "supprimer" || confirm == "SUPPRIMER")
@@ -76,7 +121,8 @@
             let createButton = document.querySelector('#button_create');
             let createForm = document.querySelector('.form_create');
             let openCreateTool = function()
-            {
+            {            	
+            	closeTools("rename");
                 createForm.classList.toggle("hide");
                 createButton.classList.toggle("toolFocus");
                 // autofocus
@@ -92,35 +138,7 @@
             let button_rename = document.querySelectorAll('.buttonRename');
             let openRenameTool = function(event)
             {
-            	let selectedClassrooms = document.querySelector('.list');
-            	let lastClassroomContainer;
-            	// Return to Normal Last Open Field
-            		// Remove Rename Field if Already Exist
-            	if (document.querySelector('.listElementRename'))
-            	{
-            		let lastElementRename = document.querySelector('.listElementRename');
-            		lastElementParentRename = lastElementRename.parentElement;
-            		lastClassroomContainer = lastElementParentRename.parentElement;
-            		lastElementParentRename.removeChild(lastElementRename);
-            	}
-            		// Remove Submit if Already Exist
-            	if (document.querySelector('#submit'))
-            	{
-            		let lastSubmit = document.querySelector('#submit');
-            		let lastSubmitParent = lastSubmit.parentElement;
-            		lastSubmitParent.removeChild(lastSubmit);
-            	}
-            		// Display Static Name
-            	let elementNames = document.querySelectorAll('.list a');
-            	for (let i = elementNames.length - 1; i >= 0; i--)
-            	{
-            		if (elementNames[i].classList.contains('hide'))
-            		{
-            			elementNames[i].classList.remove('hide');
-            			elementNames[i].classList.add('listElementName');
-            		}
-            	}
-            	
+            	let lastClassroomContainer = closeTools("create");
             	// Create Rename Field
             	let buttonRename = event.target;
             	let classroomContainer = buttonRename.parentElement;
