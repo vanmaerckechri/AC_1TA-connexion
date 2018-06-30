@@ -41,7 +41,7 @@ class Classrooms
 			{
 				$_SESSION['idcr'] = $id_cr;
 				// Afficher tous les élèves de la classe
-				$req = $db->prepare("SELECT id, nickname FROM pe_students WHERE id_classroom = :idClassroom ORDER BY id DESC");
+				$req = $db->prepare("SELECT id, nickname, password FROM pe_students WHERE id_classroom = :idClassroom ORDER BY id DESC");
 				$req->bindValue(':idClassroom', $id_cr, PDO::PARAM_INT);
 				$req->execute();
 				$resultReq = $req->fetchAll();

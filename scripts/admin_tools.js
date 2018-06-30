@@ -60,13 +60,12 @@ window.addEventListener('load', function()
 		if (close == "rename" || close == "create")
 		{
         	// Remove Rename Field if Already Exist
-        	if (document.querySelector('.listElementRename'))
+        	if (document.querySelector('.listElementRenameContainer'))
         	{
-        		let lastElementRename = document.querySelector('.listElementRename');
+        		let lastElementRename = document.querySelector('.listElementRenameContainer');
         		lastElementParentRename = lastElementRename.parentElement;
-        		lastClassroomContainer = lastElementParentRename.parentElement;
         		lastElementParentRename.removeChild(lastElementRename);
-        		lastClassroomContainerResult = lastClassroomContainer;
+        		lastClassroomContainerResult = lastElementParentRename;
         	}
         	// Remove Submit if Already Exist
         	if (document.querySelector('#submit'))
@@ -149,10 +148,21 @@ window.addEventListener('load', function()
 			listElementRenameContainer.setAttribute("class", "listElementRenameContainer");
 			let listElementRename = document.createElement("input"); 
 			listElementRename.setAttribute("type", "text");
-			listElementRename.setAttribute("name", "renameClassroom");
+			listElementRename.setAttribute("name", "rename");
 			listElementRename.setAttribute("value", classroomName);
 			listElementRename.setAttribute("class", "listElementRename");
 			listElementRenameContainer.appendChild(listElementRename);
+			if (detectDeleteElement == "students")
+			{
+				// Password Field
+				let password = classroomContainer.querySelector('.pwd').innerHTML;
+				let listElementPassword = document.createElement("input"); 
+				listElementPassword.setAttribute("type", "text");
+				listElementPassword.setAttribute("name", "newPassword");
+				listElementPassword.setAttribute("value", password);
+				listElementPassword.setAttribute("class", "listElementRename");
+				listElementRenameContainer.appendChild(listElementPassword);
+			}
         		// classroomId Field
 			let listElementId = document.createElement("input"); 
 			listElementId.setAttribute("type", "hidden");

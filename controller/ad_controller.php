@@ -22,9 +22,9 @@ function createClassrooms()
 
 function renameClassroom()
 {
-	if (isset($_POST['renameClassroom']) && isset($_POST['idClassroom']))
+	if (isset($_POST['rename']) && isset($_POST['idClassroom']))
 	{
-		$filteredClassroom = checkInput($_POST['renameClassroom'], 'classroom', 'default');
+		$filteredClassroom = checkInput($_POST['rename'], 'classroom', 'default');
 		if ($filteredClassroom != false)
 		{
 			Classrooms::renameClassroom($_SESSION['id'], $filteredClassroom, $_POST['idClassroom']);
