@@ -81,7 +81,7 @@ class Classrooms
 
 	public static function createClassroom($mySessionId, $newName)
 	{
-		// Vérifier que vous ne disposez pas encore d'une classe de ce nom
+		// Vérifier que le nom de la classe n'est pas encore pris!
 		$db = (new self)->connect();
 		$req = $db->prepare("SELECT name FROM pe_classrooms WHERE id_admin = :idad AND name = :name");	
 		$req->bindValue(':idad', $mySessionId, PDO::PARAM_INT);
@@ -98,7 +98,7 @@ class Classrooms
 		}
 		else
 		{
-			$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous possédez déjà une classe portant de nom!</span>";
+			$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous possédez déjà une classe portant ce nom!</span>";
 		}
 		$req->closeCursor();
 		$req = NULL;
@@ -108,20 +108,24 @@ class Classrooms
 	{
 		if (filter_var($idcr, FILTER_VALIDATE_INT) && $idcr < 100000)
 		{
-			// Vérifier que la classe existe et qu'elle appartient à l'admin
+			// Vérifier que le nom de la classe n'est pas encore pris!
 			$db = (new self)->connect();
-			$req = $db->prepare("SELECT name FROM pe_classrooms WHERE id_admin = :idad AND id = :idcr");	
+			$req = $db->prepare("SELECT name FROM pe_classrooms WHERE id_admin = :idad AND name = :name");	
 			$req->bindValue(':idad', $mySessionId, PDO::PARAM_INT);
-			$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
+			$req->bindValue(':name', $newName, PDO::PARAM_STR);
 			$req->execute();
 			$resultReq = $req->fetchAll();
-			if (isset($resultReq) && !empty($resultReq))
+			if (empty($resultReq))
 			{
 				$req = $db->prepare("UPDATE pe_classrooms SET name = :newName WHERE id = :idcr");
 				$req->bindValue(':newName', $newName, PDO::PARAM_STR);
 				$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
 				$req->execute();
 				$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Classe renommée avec succes!</span>";
+			}
+			else
+			{
+				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous possédez déjà une classe portant ce nom!</span>";
 			}
 			$req->closeCursor();
 			$req = NULL;

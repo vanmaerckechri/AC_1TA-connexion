@@ -32,7 +32,7 @@
 	// CLASSROOMS LIST!
 	ob_start();
 	?>
-	<p><?=$_SESSION['smsAlert']['default']?></p>
+	<p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
 	<form class="list" action="admin.php?action=renameClassroom" method="post">
 		<?php
 		foreach ($classList as $key => $row)
@@ -106,14 +106,24 @@
     		let button_deleteClassrooms = document.querySelector('#delete');
     		let confirmDeleteSelectedClassrooms = function()
     		{
-    			closeTools("rename");
+    			closeTools("create");
                 let selectedClassrooms = document.querySelector('.list');
-    			let confirm = prompt('ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi effacés. Pour valider la suppression, veuillez écrire: "supprimer"!');
-    			if (confirm == "supprimer" || confirm == "SUPPRIMER")
-    			{
-    				selectedClassrooms.action = 'admin.php?action=deleteClassrooms';
-    				selectedClassrooms.submit();
-    			}
+                let listElementsContainer = document.querySelectorAll('.listElementDeleteCheck');
+                for (let i = listElementsContainer.length - 1; i >= 0; i--)
+                {
+                	if (listElementsContainer[i].checked == true)
+                	{
+		    			let confirm = prompt('ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi effacés. Pour valider la suppression, veuillez écrire: "supprimer"!');
+		    			if (confirm == "supprimer" || confirm == "SUPPRIMER")
+		    			{
+		    				selectedClassrooms.action = 'admin.php?action=deleteClassrooms';
+		    				selectedClassrooms.submit();
+		    			}
+		   				return;
+                	}
+                }
+                let smsContainer = document.querySelector('.sms');
+                smsContainer.innerHTML = '<span class="smsAlert">Vous n\'avez rien Sélectionné!</span>';
     		}
     		button_deleteClassrooms.addEventListener('click', confirmDeleteSelectedClassrooms, false);
 
