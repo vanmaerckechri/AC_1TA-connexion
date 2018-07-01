@@ -22,12 +22,12 @@ function createClassrooms()
 
 function renameClassroom()
 {
-	if (isset($_POST['rename']) && isset($_POST['idClassroom']))
+	if (isset($_POST['rename']) && isset($_POST['idElem']))
 	{
 		$filteredClassroom = checkInput($_POST['rename'], 'classroom', 'default');
 		if ($filteredClassroom != false)
 		{
-			Classrooms::renameClassroom($_SESSION['id'], $filteredClassroom, $_POST['idClassroom']);
+			Classrooms::renameClassroom($_SESSION['id'], $filteredClassroom, $_POST['idElem']);
 		}
 	}
 	require('./view/ad_manageClassroomsView.php');	
@@ -56,13 +56,13 @@ function createStudents()
 
 function editStudent()
 {
-	if (isset($_POST['rename']) && isset($_POST['newPassword']) && isset($_POST['idClassroom']))
+	if (isset($_POST['rename']) && isset($_POST['newPassword']) && isset($_POST['idElem']))
 	{
 		$filteredNickname = checkInput($_POST['rename'], 'nickname', 'default');
 		$filteredPassword = checkInput($_POST['newPassword'], 'password', 'default');
 		if ($filteredNickname != false && $filteredPassword != false)
 		{
-			Classrooms::editStudent($_SESSION['id'], $filteredNickname, $filteredPassword, $_POST['idClassroom']);
+			Classrooms::editStudent($_SESSION['id'], $filteredNickname, $filteredPassword, $_POST['idElem']);
 		}
 	}
 	require('./view/ad_manageThisClassroomView.php');	

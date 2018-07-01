@@ -166,7 +166,7 @@ window.addEventListener('load', function()
         		// classroomId Field
 			let listElementId = document.createElement("input"); 
 			listElementId.setAttribute("type", "hidden");
-			listElementId.setAttribute("name", "idClassroom");
+			listElementId.setAttribute("name", "idElem");
 			listElementId.setAttribute("value", classroomId);
 			listElementRenameContainer.appendChild(listElementId);
 			classroomContainer.insertBefore(listElementRenameContainer, buttonRename);

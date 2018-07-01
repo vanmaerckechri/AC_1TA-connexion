@@ -6,10 +6,10 @@ require('./controller/controller.php');
 // SESSION
 // TEMPORAIRE POUR LES TESTS =>
 // ---------------------------
-$_SESSION['nickname'] = "admin@Chri";
+/*$_SESSION['nickname'] = "admin@Chri";
 $_SESSION['classroom'] = "";
 $_SESSION['password'] = '9adfb0a6d03beb7141d8ec2708d6d9fef9259d12cd230d50f70fb221ae6cabd5';
-$_SESSION['id'] = 31;
+$_SESSION['id'] = 31;*/
 
 
 // ---------------------------
@@ -44,7 +44,7 @@ if (isset($_POST) && !isset($_GET['action']))
 	// Nickname
 	if (isset($_POST['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['nickname'], 'a-zA-Z0-9@', 4, 30, 'default');
+		$filteredInput = checkInput($_POST['nickname'], 'nickname', 'default');;
 		if ($filteredInput)
 		{
 			$_SESSION['nickname'] = $filteredInput;
@@ -68,7 +68,7 @@ if (isset($_POST) && !isset($_GET['action']))
 	// Classroom (Student Only)
 	else if (isset($_POST['classroom']) && isset($_SESSION['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['classroom'], 'a-zA-Z0-9À-Ö ._-', 0, 30, 'default');
+		$filteredInput = checkInput($_POST['classroom'], 'classroom', 'default');
 		if ($filteredInput)
 		{
 			$_SESSION['classroom'] = $filteredInput;
@@ -82,7 +82,7 @@ if (isset($_POST) && !isset($_GET['action']))
 	// Password
 	else if (isset($_POST['password']) && isset($_SESSION['nickname']))
 	{
-		$filteredInput = filterInputs($_POST['password'], 'a-zA-Z0-9À-Ö ._@', 0, 30, 'default');
+		$filteredInput = checkInput($_POST['password'], 'password', 'default');
 		if ($filteredInput)
 		{
 			loadPwdView($filteredInput, true);

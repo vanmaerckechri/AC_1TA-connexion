@@ -39,7 +39,6 @@ class Classrooms
 			// Verifier si l'admin execute bien une requete sur l'une de ses classes
 			if (isset($resultReq[0]['id_admin']) && $resultReq[0]['id_admin'] == $_SESSION['id'])
 			{
-				$_SESSION['idcr'] = $id_cr;
 				// Afficher tous les élèves de la classe
 				$req = $db->prepare("SELECT id, nickname, password FROM pe_students WHERE id_classroom = :idClassroom ORDER BY id DESC");
 				$req->bindValue(':idClassroom', $id_cr, PDO::PARAM_INT);
@@ -163,7 +162,7 @@ class Classrooms
 						$del = $db->prepare("DELETE FROM pe_students WHERE id_classroom = :idclass");
 						$del->bindParam(':idclass', $value, PDO::PARAM_INT);   
 						$del->execute();
-						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s) <span class='smsAlert'>".$resultReq[0]['name']."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['name']."</span>";
+						$sms = $sms == "" ? "Le(s) classe(s) suivante(s) a/ont été supprimée(s): <span class='smsAlert'>".htmlspecialchars($resultReq[0]['name'], ENT_QUOTES)."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['name']."</span>";
 					}
 					$del->closeCursor();
 					$del = NULL;
@@ -218,23 +217,24 @@ class Classrooms
 		}
 	}
 
-	public static function editStudent($mySessionId, $newName, $newPwd, $idcr)
+	public static function editStudent($mySessionId, $newName, $newPwd, $idst)
 	{
-		if (filter_var($idcr, FILTER_VALIDATE_INT) && $idcr < 100000)
+		if (filter_var($idst, FILTER_VALIDATE_INT) && $idst < 100000)
 		{
 			// Vérifier que le nom de l'élève n'est pas encore utilisé par l'admin!
 			$db = (new self)->connect();
-			$req = $db->prepare("SELECT nickname FROM pe_students WHERE id_admin = :idad AND nickname = :name");	
+			$req = $db->prepare("SELECT nickname FROM pe_students WHERE id_admin = :idad AND nickname = :name AND id != :idst");	
 			$req->bindValue(':idad', $mySessionId, PDO::PARAM_INT);
 			$req->bindValue(':name', $newName, PDO::PARAM_STR);
+			$req->bindValue(':idst', $idst, PDO::PARAM_INT);
 			$req->execute();
 			$resultReq = $req->fetchAll();
 			if (empty($resultReq))
 			{
-				$req = $db->prepare("UPDATE pe_students SET nickname = :newName, password = :newPwd WHERE id = :idcr");
+				$req = $db->prepare("UPDATE pe_students SET nickname = :newName, password = :newPwd WHERE id = :idst");
 				$req->bindValue(':newName', $newName, PDO::PARAM_STR);
 				$req->bindValue(':newPwd', $newPwd, PDO::PARAM_STR);
-				$req->bindValue(':idcr', $idcr, PDO::PARAM_INT);
+				$req->bindValue(':idst', $idst, PDO::PARAM_INT);
 				$req->execute();
 				$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Les informations de l'élève ont été mise à jour avec succès!</span>";
 			}
@@ -271,7 +271,7 @@ class Classrooms
 					{
 						$del->bindParam(':idStudent', $value, PDO::PARAM_INT);   
 						$del->execute();
-						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s) <span class='smsAlert'>".$resultReq[0]['nickname']."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['nickname']."</span>";
+						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s): <span class='smsAlert'>".htmlspecialchars($resultReq[0]['nickname'], ENT_QUOTES)."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['nickname']."</span>";
 					}
 					$del->closeCursor();
 					$del = NULL;

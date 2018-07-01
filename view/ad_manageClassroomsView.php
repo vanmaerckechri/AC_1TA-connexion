@@ -23,7 +23,7 @@
             <div style="width: 90px;"></div>
 	    </div>
 	    <form class="<?=$form_createOpen?>" action="admin.php?action=createClassroom" method="post">
-            <label for="newStudentNickname">Nom d'utilisateur</label>
+            <label for="newStudentNickname">Nom de la Classe</label>
             <input class="newStudentNick formInput" type="text" name="newClassName" autofocus>
             <input class="formButton" type="submit" value="Enregistrer">
         </form>
