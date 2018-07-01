@@ -141,7 +141,7 @@ window.addEventListener('load', function()
     	let classroomContainer = buttonRename.parentElement;
     	if (lastClassroomContainer != classroomContainer)
     	{
-        	let classroomName = classroomContainer.querySelector('.listElementName').innerHTML;
+        	let classroomName = classroomContainer.querySelector('.listElementName').innerText;
         	let classroomId = classroomContainer.querySelector(".listElementDeleteCheck").value;
         		// Name Field
 			let listElementRenameContainer = document.createElement("div"); 
@@ -155,7 +155,7 @@ window.addEventListener('load', function()
 			if (detectDeleteElement == "students")
 			{
 				// Password Field
-				let password = classroomContainer.querySelector('.pwd').innerHTML;
+				let password = classroomContainer.querySelector('.pwd').innerText;
 				let listElementPassword = document.createElement("input"); 
 				listElementPassword.setAttribute("type", "text");
 				listElementPassword.setAttribute("name", "newPassword");
@@ -164,7 +164,7 @@ window.addEventListener('load', function()
 				listElementRenameContainer.appendChild(listElementPassword);
 			}
         		// classroomId Field
-			let listElementId = document.createElement("input"); 
+			let listElementId = document.createElement("input");
 			listElementId.setAttribute("type", "hidden");
 			listElementId.setAttribute("name", "idElem");
 			listElementId.setAttribute("value", classroomId);
