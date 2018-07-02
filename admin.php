@@ -14,7 +14,7 @@ function checkSession()
 		if ($sessionResult == 'student')
 		{
 			// Student connexion
-			header('Location: ./platform/index.php');	  
+			header('Location: ./library.php');	  
 			exit;  		
 		}
 		else if ($sessionResult == 'wrong')

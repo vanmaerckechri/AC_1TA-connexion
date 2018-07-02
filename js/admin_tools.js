@@ -104,11 +104,11 @@ window.addEventListener('load', function()
         	{
         		if (detectDeleteElement == "students")
         		{
-        			validate(selectedClassrooms, 'deleteStudents&idcr='+deleteElementPartofLink, '<span class="smsAlert"> ATTENTION! Cette opération est irréversible! Etes-vous sûre de vouloir effacer le(s) élèves(s) sélectionné(s)?</span>');
+        			validate(selectedClassrooms, 'deleteStudents&idcr='+deleteElementPartofLink, '<span class="smsAlert"> ATTENTION! Cette opération est irréversible! Êtes-vous sûr de vouloir effacer le(s) élèves(s) sélectionné(s)?</span>');
         		}
         		else
         		{
-        			validate(selectedClassrooms, 'deleteClassrooms', '<span class="smsAlert"> ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi effacés! Etes-vous sûre de vouloir effacer la/les classe(s) sélectionnée(s)?</span>');
+        			validate(selectedClassrooms, 'deleteClassrooms', '<span class="smsAlert"> ATTENTION! Cette opération est irréversible! Tous les élèves appartenant à la classe seront eux aussi effacés! Êtes-vous sûr de vouloir effacer la/les classe(s) sélectionnée(s)?</span>');
         		}
    				return;
         	}
@@ -164,7 +164,7 @@ window.addEventListener('load', function()
 			listElementRenameContainer.appendChild(listElementId);
 			classroomContainer.insertBefore(listElementRenameContainer, buttonRename);
 				// submit
-    		let submit = createDomElem("input", [["type", "value", "id"], ["submit", "Enregistrer", "submit"]]);
+    		let submit = createDomElem("input", [["type", "value", "id", "class"], ["submit", "Enregistrer", "submit", "formButton"]]);
 			classroomContainer.appendChild(submit);
 
 			let elementName = classroomContainer.querySelector('.listElementName');

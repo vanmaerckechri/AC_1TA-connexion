@@ -27,8 +27,8 @@
     <div class="navBar">
         <h2><?=$pageName?></h2>
         <div class="navBar_buttonsContainer">
-            <a class="navBar_button" href="admin.php">Accueil</a>
-            <a class="navBar_button" href="library.php">Applications</a>
+            <a class="formButton navBar_button" href="admin.php">Accueil</a>
+            <a class="formButton navBar_button" href="library.php">Applications</a>
         </div>
     </div>
     <div id="main">
