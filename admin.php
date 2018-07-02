@@ -19,14 +19,14 @@ function checkSession()
 		}
 		else if ($sessionResult == 'wrong')
 		{
-			// Informations de connexion incorrectes
+			// Incorrect login information
 			header('Location: ./index.php');
 			exit;	    		
 		}
 	}
 	else
 	{
-		// Informations de connexion incorrectes
+		// Incorrect login information
 		header('Location: ./index.php');
 		exit;
 	}

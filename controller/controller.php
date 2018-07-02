@@ -2,7 +2,7 @@
 
 require('./model/model.php');
 
-// ACTIVATE SESSION!
+// -- ACTIVATE SESSION --
 Authentification::startSession();
 
 function testCaptcha()
@@ -19,7 +19,8 @@ function testCaptcha()
 	return $decode;
 }
 
-//VIEWS!
+// -- VIEWS --
+// Connexion
 function loadHomeView()
 {
     require('./view/loginView.php');
@@ -135,8 +136,6 @@ function loadCreateAdminAccountView()
 		// Every inputs are corrects
 		else
 		{
-			$keepNickname = htmlspecialchars($filteredNickname, ENT_NOQUOTES);
-			$keepEmail = htmlspecialchars($_POST['createAdminAccountEmail'], ENT_NOQUOTES);
 			$newAdminAccount = new RecordAccount($filteredNickname, $_POST['createAdminAccountEmail'], false, $filteredPwd);
 			$alreadyExist = $newAdminAccount->getAlreadyExist();
 			if ($alreadyExist != true)
@@ -148,11 +147,12 @@ function loadCreateAdminAccountView()
 	}
 	require('./view/newAdminAccountView.php');
 }
+// Activation code and reset password code
 function checkCodeView($type)
 {
 	$code = htmlspecialchars($_GET['code'], ENT_NOQUOTES);
 
-	// A voir si on a vmt besoin d'un captcha pour cette étape ?
+	// do we really need a captcha for this step ?
     $decode = testCaptcha();
     if ($decode['success'] == true)
     {

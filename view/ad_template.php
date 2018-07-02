@@ -15,7 +15,6 @@
         <div class="headerContainer">
             <div class="headerTitle">
                 <h1>Plateforme Éducative</h1>
-                <h2><?=$pageName?></h2>
             </div>
             <div class="headerProfile">
                 <div class="profile">
@@ -25,6 +24,13 @@
             </div>
         </div>
     </header>
+    <div class="navBar">
+        <h2><?=$pageName?></h2>
+        <div class="navBar_buttonsContainer">
+            <a class="navBar_button" href="admin.php">Accueil</a>
+            <a class="navBar_button" href="library.php">Applications</a>
+        </div>
+    </div>
     <div id="main">
         <?=$tools?>
         <?=$content?>

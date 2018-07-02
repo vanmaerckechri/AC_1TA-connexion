@@ -1,7 +1,10 @@
 <?php
+	/*
+	 * output: array [x][name, id] from pe_classroom table
+	 */
 	$classList = Classrooms::displayRooms();
     $pageName = "Gestion des Classes";
-    // CREATE!
+    // -- CREATE --
     if (isset($form_createOpen))
     {
         $form_createOpen = "form_create";
@@ -29,7 +32,7 @@
         </form>
 	<?php 
 	$tools = ob_get_clean();
-	// CLASSROOMS LIST!
+	// -- CLASSROOMS LIST --
 	ob_start();
 	?>
 	<p class="sms"><?=$_SESSION['smsAlert']['default']?></p>

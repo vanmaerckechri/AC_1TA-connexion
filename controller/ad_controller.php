@@ -16,6 +16,7 @@ function createClassrooms()
 			Classrooms::createClassroom($_SESSION['id'], $filteredClassroom);
 		}
 	}
+	// form_creatOpen = true to leave the creation menu open after adding a new class
 	$form_createOpen = true;
 	require('./view/ad_manageClassroomsView.php');	
 }
