@@ -38,7 +38,7 @@ checkSession();
 $_SESSION['smsAlert'] = !isset($_SESSION['smsAlert']) ? array() : $_SESSION['smsAlert'];
 $_SESSION['smsAlert']['default'] = !isset($_SESSION['smsAlert']['default']) ? '' : $_SESSION['smsAlert']['default'];
 
-// LOGIN
+// -- LOGIN --
 if (isset($_POST) && !isset($_GET['action']))
 {
 	// Nickname
@@ -102,7 +102,7 @@ if (isset($_POST) && !isset($_GET['action']))
 		loadHomeView();
 	}
 }
-// CREATE ADMIN ACCOUNT AND RECOVERIES
+// -- CREATE ADMIN ACCOUNT AND RECOVERIES --
 else
 {
 	// Create admin account

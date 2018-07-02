@@ -1,25 +1,29 @@
 window.addEventListener('load', function()
 {	
-	// VALIDATION WINDOW!
+	// -- CREATE DOM ELEMENTS --
+	let createDomElem = function (type, attributes)
+    {
+    	let newElem = document.createElement(type);
+    	for (let i = attributes[0].length - 1; i >= 0; i--)
+    	{
+    		newElem.setAttribute(attributes[0][i], attributes[1][i]);
+    	}
+    	return newElem;
+    }
+
+	// -- VALIDATION WINDOW --
 	let validate = function(form, action, text)
 	{
 		// Create Modal
-		let modalContainer = document.createElement("div"); 
-		modalContainer.setAttribute("class", "modalContainer");
-
-		let validationBox = document.createElement("div");
-		validationBox.setAttribute("class", "validationBox");
+		let modalContainer = createDomElem("div", [["class"], ["modalContainer"]]);
+		let validationBox = createDomElem("div", [["class"], ["validationBox"]]);
 
 		let textContainer = document.createElement("p");
 
-		let buttonYes = document.createElement("button");
-		buttonYes.setAttribute("id", "validationYes");
-		buttonYes.setAttribute("class", "formButton");
+		let buttonYes = createDomElem("button", [["id", "class"], ["validationYes", "formButton"]]);
 		buttonYes.appendChild(document.createTextNode("OUI"));
 
-		let buttonNo = document.createElement("button");
-		buttonNo.setAttribute("id", "validationNo");
-		buttonNo.setAttribute("class", "formButton");
+		let buttonNo = createDomElem("button", [["id", "class"], ["validationNo", "formButton"]]);
 		buttonNo.appendChild(document.createTextNode("NON"));
 
 		validationBox.appendChild(textContainer);
@@ -44,7 +48,7 @@ window.addEventListener('load', function()
 		buttonYes.addEventListener('click', validateYes, false);
 		buttonNo.addEventListener('click', validateNo, false);
 	}
-	// CLOSE TOOLS!
+	// -- CLOSE TOOLS --
 	let closeTools = function(close)
 	{
 		let lastClassroomContainerResult;
@@ -87,7 +91,7 @@ window.addEventListener('load', function()
         }
         return lastClassroomContainerResult;
 	}
-    // DELETE SCRIPT!
+    // -- DELETE SCRIPT --
 	let button_deleteClassrooms = document.querySelector('#delete');
 	let confirmDeleteSelectedClassrooms = function()
 	{
@@ -114,7 +118,7 @@ window.addEventListener('load', function()
 	}
 	button_deleteClassrooms.addEventListener('click', confirmDeleteSelectedClassrooms, false);
 
-	// CREATE SCRIPT!
+	// -- CREATE SCRIPT --
     let createButton = document.querySelector('#button_create');
     let createForm = document.querySelector('.form_create');
     let openCreateTool = function()
@@ -131,7 +135,7 @@ window.addEventListener('load', function()
     }
     createButton.addEventListener('click', openCreateTool, false);
 
-    // RENAME SCRIPT!
+    // -- RENAME SCRIPT --
     let button_rename = document.querySelectorAll('.buttonRename');
     let openRenameTool = function(event)
     {
@@ -144,37 +148,23 @@ window.addEventListener('load', function()
         	let classroomName = classroomContainer.querySelector('.listElementName').innerText;
         	let classroomId = classroomContainer.querySelector(".listElementDeleteCheck").value;
         		// Name Field
-			let listElementRenameContainer = document.createElement("div"); 
-			listElementRenameContainer.setAttribute("class", "listElementRenameContainer");
-			let listElementRename = document.createElement("input"); 
-			listElementRename.setAttribute("type", "text");
-			listElementRename.setAttribute("name", "rename");
-			listElementRename.setAttribute("value", classroomName);
-			listElementRename.setAttribute("class", "listElementRename");
+        	// Name Field
+			let listElementRenameContainer = createDomElem("div", [["class"], ["listElementRenameContainer"]]);
+    		let listElementRename = createDomElem("input", [["type", "name", "value", "class"], ["text", "rename", classroomName, "listElementRename"]]);
 			listElementRenameContainer.appendChild(listElementRename);
 			if (detectDeleteElement == "students")
 			{
 				// Password Field
 				let password = classroomContainer.querySelector('.pwd').innerText;
-				let listElementPassword = document.createElement("input"); 
-				listElementPassword.setAttribute("type", "text");
-				listElementPassword.setAttribute("name", "newPassword");
-				listElementPassword.setAttribute("value", password);
-				listElementPassword.setAttribute("class", "listElementRename");
+    			let listElementPassword = createDomElem("input", [["type", "name", "value", "class"], ["text", "newPassword", password, "listElementRename"]]);
 				listElementRenameContainer.appendChild(listElementPassword);
 			}
         		// classroomId Field
-			let listElementId = document.createElement("input");
-			listElementId.setAttribute("type", "hidden");
-			listElementId.setAttribute("name", "idElem");
-			listElementId.setAttribute("value", classroomId);
+    		let listElementId = createDomElem("input", [["type", "name", "value"], ["hidden", "idElem", classroomId]]);
 			listElementRenameContainer.appendChild(listElementId);
 			classroomContainer.insertBefore(listElementRenameContainer, buttonRename);
 				// submit
-			let submit = document.createElement("input"); 
-			submit.setAttribute("type", "submit");
-			submit.setAttribute("value", "Enregistrer");
-			submit.setAttribute("id", "submit");
+    		let submit = createDomElem("input", [["type", "value", "id"], ["submit", "Enregistrer", "submit"]]);
 			classroomContainer.appendChild(submit);
 
 			let elementName = classroomContainer.querySelector('.listElementName');

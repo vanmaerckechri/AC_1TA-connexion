@@ -67,7 +67,7 @@
             let detectDeleteElement = "students";
             let deleteElementPartofLink = "deleteStudents&idcr="+<?=$_GET['idcr']?>;
         </script>
-        <script src="scripts/admin_tools.js"></script>
+        <script src="js/admin_tools.js"></script>
     <?php $script = ob_get_clean();?>
 
 <?php require('./view/ad_template.php'); ?>

@@ -42,7 +42,7 @@
 		{
 			$name = htmlspecialchars($row['name'], ENT_QUOTES);
 		?>
-			<div id="classroom<?=$key?>" class="listElementsContainer">
+			<div class="listElementsContainer">
 				<input class="listElementDeleteCheck" type="checkbox" name="classrooms[]" value="<?=$row['id']?>">
 				<a class='listElementName' href='admin.php?action=manageThisClassroom&idcr=<?=$row['id']?>'><?=$name?></a>
 	            <div class="buttonRename">
@@ -62,7 +62,7 @@
             let detectDeleteElement = "classroom";
             let deleteElementPartofLink = "";
         </script>
-        <script src="scripts/admin_tools.js"></script>
+        <script src="js/admin_tools.js"></script>
     <?php $script = ob_get_clean();?>
 
 <?php require('./view/ad_template.php'); ?>
