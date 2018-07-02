@@ -6,10 +6,10 @@ require('./controller/controller.php');
 // SESSION
 // TEMPORAIRE POUR LES TESTS =>
 // ---------------------------
-$_SESSION['nickname'] = "admin@Chri";
+/*$_SESSION['nickname'] = "admin@Chri";
 $_SESSION['classroom'] = "";
 $_SESSION['password'] = '9adfb0a6d03beb7141d8ec2708d6d9fef9259d12cd230d50f70fb221ae6cabd5';
-$_SESSION['id'] = 31;
+$_SESSION['id'] = 31;*/
 
 
 // ---------------------------
@@ -17,7 +17,6 @@ function checkSession()
 {
 	$auth = new Authentification;
 	$sessionResult = $auth->checkSession();
-
 	if ($sessionResult != null)
 	{
 	    if ($sessionResult == 'admin')
@@ -30,6 +29,12 @@ function checkSession()
 		{
 			// Student connexion
 			header('Location: ./library.php');	  
+			exit;  		
+		}
+		else if ($sessionResult == 'wrong')
+		{
+			// Student connexion
+			header('Location: ./index.php');	  
 			exit;  		
 		}
 	}
@@ -92,6 +97,7 @@ if (isset($_POST) && !isset($_GET['action']))
 			loadPwdView();
 		}
 	}
+// -- CREATE ADMIN ACCOUNT AND RECOVERIES --
 	// New Password
 	else if (isset($_POST['newPassword']) && isset($_POST['newPassword2']))
 	{
@@ -102,7 +108,6 @@ if (isset($_POST) && !isset($_GET['action']))
 		loadHomeView();
 	}
 }
-// -- CREATE ADMIN ACCOUNT AND RECOVERIES --
 else
 {
 	// Create admin account

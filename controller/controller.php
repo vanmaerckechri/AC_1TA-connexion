@@ -34,7 +34,16 @@ function loadPwdView($pwd = '', $isPost = false)
 	$decode = testCaptcha();
 	if ($isPost == true && $decode['success'] == true)
 	{
-		$_SESSION['password'] = hash('sha256', $pwd);
+		// admin
+		if ($_SESSION['classroom'] == "")
+		{	
+			$_SESSION['password'] = hash('sha256', $pwd);
+		}
+		// student
+		else
+		{
+			$_SESSION['password'] = $pwd;
+		}
 		checkSession();
 	}
     require('./view/pwdView.php');
@@ -140,7 +149,7 @@ function loadCreateAdminAccountView()
 			$alreadyExist = $newAdminAccount->getAlreadyExist();
 			if ($alreadyExist != true)
 			{
-				header('Location: ./admin/index.php');
+				header('Location: ./admin.php');
 				exit;
 			}
 		}

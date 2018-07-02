@@ -138,74 +138,90 @@ class Authentification
 		{
 		    die('Erreur : ' . $e->getMessage());
 		}
+		// admin
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
-			$req = $db->prepare("SELECT id, activated, mail FROM pe_adminaccounts WHERE nickname = :name AND password = :pwd");
-		}
-		else
-		{
-			$req = $db->prepare("SELECT * FROM `$this->_sessionClassroom` WHERE nickname = :name AND password = :pwd");
-		}
-		// Try au cas où la classe en entrée n'existerait pas
-		try 
-		{
-			$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
-			$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
-			$req->execute();
-			$resultReq = $req->fetchAll();
-		}
-		catch (Exception $e)
-		{
-		    $resultReq = false;
-		}
-		// Les données de connexion sont bonnes et le compte a été activé
-		if ($resultReq != false && $resultReq[0]["activated"] == 1)
-		{
-			$_SESSION['id'] = $resultReq[0]["id"];
-		    if (strstr($this->_sessionNickname, 'admin@'))
-		    {
-		    	// Admin
-		    	// Si une demande de reinitialisation du pwd a été faite mais qu'on se connecte entre temps => expiration du lien de reinitialisation
-		    	$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = 0 WHERE id = :idAccount");
-				$req->bindValue(':idAccount', $resultReq[0]['id'], PDO::PARAM_INT);
+			if (!empty($this->_sessionNickname) && !empty($this->_sessionPassword))
+			{
+				$req = $db->prepare("SELECT id, activated, mail FROM pe_adminaccounts WHERE nickname = :name AND password = :pwd");
+				$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
+				$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
 				$req->execute();
+				$resultReq = $req->fetchAll();
 				$req->closeCursor();
 				$req = NULL;
-		    	return 'admin';
-		    }
-		    else
-		    {
-		    	// Student
-		    	$req->closeCursor();
-				$req = NULL;
-		    	return 'student';
-		    }
-		}
-		// Le compte n'a pas encore été activé OU les données sont mauvaises
-		else
-		{
-			if ($this->_sessionPassword != '' && $this->_sessionNickname != '')
-			{
-				// Compte pas encore activé
-				if ($resultReq != false && $resultReq[0]["activated"] != 1)
+				// Les données de connexion sont bonnes et le compte a été activé
+				if (isset($resultReq) && !empty($resultReq) && $resultReq[0]["activated"] == 1)
 				{
-					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte suite à votre inscription. Un nouveau lien d'activation vient de vous être envoyé par mail!</span>";
-					$sendActiveCode = new SendMail();
-					$sendActiveCode->activeAccount($resultReq[0]["mail"], $resultReq[0]["activated"]);
-					$return = 'needActivation';
+					$_SESSION['id'] = $resultReq[0]["id"];
+			    	// Si une demande de reinitialisation du pwd a été faite mais qu'on se connecte entre temps => expiration du lien de reinitialisation
+			    	$req = $db->prepare("UPDATE pe_adminaccounts SET pwdreset = 0 WHERE id = :idAccount");
+					$req->bindValue(':idAccount', $resultReq[0]['id'], PDO::PARAM_INT);
+					$req->execute();
+					$req->closeCursor();
+					$req = NULL;
+			    	return 'admin';
 				}
-				// Données sont mauvaises
-				else if ($resultReq == false)
+				// Le compte n'a pas encore été activé OU les données sont mauvaises
+				else
 				{
-					$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
-					$return = 'wrong';
+					if ($this->_sessionPassword != '' && $this->_sessionNickname != '')
+					{
+						// Compte pas encore activé
+						if (isset($resultReq) && !empty($resultReq) && $resultReq[0]["activated"] != 1)
+						{
+							$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte suite à votre inscription. Un nouveau lien d'activation vient de vous être envoyé par mail!</span>";
+							$sendActiveCode = new SendMail();
+							$sendActiveCode->activeAccount($resultReq[0]["mail"], $resultReq[0]["activated"]);
+							$return = 'needActivation';
+						}
+						// Données sont mauvaises
+						else if (!isset($resultReq)|| empty($resultReq))
+						{
+							$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+							$return = 'wrong';
+						}
+						return $return;
+					}
 				}
-				$_SESSION['nickname'] = '';
-				$_SESSION['classroom'] = '';
-				$_SESSION['password'] = '';
-				return $return;
 			}
 		}  
+		// student
+		else
+		{
+			if (!empty($this->_sessionNickname) && !empty($this->_sessionPassword) && !empty($this->_sessionClassroom))
+			{
+				// Récuperer l'id de la classe
+				$req = $db->prepare("SELECT id FROM pe_classrooms WHERE name = :name");
+				$req->bindValue(':name', $this->_sessionClassroom, PDO::PARAM_STR);
+				$req->execute();
+				$resultReq = $req->fetchAll();
+				$req->closeCursor();
+				$req = NULL;
+				// Si la classe existe, vérifier si les données entrées par l'étudiant sont correctes
+				if (!empty($resultReq))
+				{
+					$req = $db->prepare("SELECT id FROM pe_students WHERE nickname = :name AND password = :pwd AND id_classroom = :idcr");
+					$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
+					$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
+					$req->bindValue(':idcr', $resultReq[0]['id'], PDO::PARAM_INT);
+					$req->execute();
+					$resultReq = $req->fetchAll();
+					$req->closeCursor();
+					$req = NULL;
+					if (!empty($resultReq))
+					{
+						$_SESSION['id'] = $resultReq[0]["id"];
+						return 'student';
+					}
+				}
+				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+				$_SESSION['nickname'] = "";
+				$_SESSION['password'] = "";
+				$_SESSION['classroom'] = "";
+				return 'wrong';
+			}
+		}
 	}
 }
 
@@ -426,7 +442,7 @@ class Recover
 				$sendLogin = new SendMail();
 				$sendLogin->resetPwd($email, $resetLink);
 			}
-			$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Si votre nom d'utilisateur et votre adresse email correspondent à un compte, un lien pour reinitialiser votre mot de passe vient de vous être envoyé!</p>";
+			$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Si votre nom d'utilisateur et votre adresse email correspondent à un compte, un lien pour reinitialiser votre mot de passe vous sera envoyé dans quelques instants!</p>";
 		}
 		// Envoyer le nom d'utilisateur si celui-ci existe
 		if ($type == 'nickname')
@@ -440,7 +456,7 @@ class Recover
 				$sendLogin = new SendMail();
 				$sendLogin->callNickname($email, $resultReq[0]['nickname']);
 			}
-			$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Si l'adresse email que vous avez entrée est liée à un compte, votre nom d'utilisateur vient de vous être envoyé!</p>";
+			$_SESSION['smsAlert']['default'] = "<p class='smsInfo'>Si l'adresse email que vous avez entrée est liée à un compte, votre nom d'utilisateur vous sera envoyé dans quelques instants!</p>";
 		}
 		$req->closeCursor();
 		$req = NULL;
