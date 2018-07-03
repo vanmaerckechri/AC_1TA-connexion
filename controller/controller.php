@@ -35,7 +35,7 @@ function loadPwdView($pwd = '', $isPost = false)
 	if ($isPost == true && $decode['success'] == true)
 	{
 		// admin
-		if ($_SESSION['classroom'] == "")
+		if (strstr($_SESSION['password'], 'admin@'))
 		{	
 			$_SESSION['password'] = hash('sha256', $pwd);
 		}
