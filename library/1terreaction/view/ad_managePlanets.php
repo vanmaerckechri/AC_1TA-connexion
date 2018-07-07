@@ -8,7 +8,6 @@ ob_start();
         <div class="freeClassroomsList">
             <h3 class="freeClassroomsTitle">
                 Veuillez choisissez l'une de vos classes!
-                <span class="close">X</span>
             </h3>
         <?php
         foreach ($freeClassrooms as $freeCr)

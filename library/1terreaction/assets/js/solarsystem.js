@@ -320,6 +320,7 @@ let init = function()
             {
                 planetName.classList.remove("planetNameSphereHover");
             }
+            document.body.style.cursor = "auto";
             document.onclick = null;
         }
         if (intersects != "" && scene.children[0].busy == false && intersects[0].object.name == planetNameText)
@@ -336,6 +337,7 @@ let init = function()
             {
                 planetName.classList.add("planetNameSphereHover");
             }
+            document.body.style.cursor = "pointer";
             // Select Planet
             document.onclick = function()
             {
@@ -373,7 +375,16 @@ let init = function()
     }
     animate();
     updatePlanetName();
+    let adaptUi = function()
+    {
+        let planetName = document.querySelector('.planetName');
+        let freeClassroomsList = document.querySelector('.freeClassroomsList');
+        freeClassroomsList.style.bottom = planetName.offsetHeight+"px";
+   }
+    window.addEventListener("resize", adaptUi, false);
+    adaptUi();
 }
+
 
 window.addEventListener('load', function()
 {

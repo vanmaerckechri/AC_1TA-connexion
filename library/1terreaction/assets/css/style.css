@@ -27,23 +27,6 @@ body {
   background-image: url("../img/stars.jpg");
   background-repeat: repeat-x repeat-y; }
 
-.close {
-  margin-left: .5rem;
-  border: 1px solid white;
-  border-radius: 50%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 1.3rem;
-  width: 1.3rem;
-  color: white;
-  background-color: #003c78;
-  cursor: pointer; }
-  .close:hover {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #003c78;
-    background-color: white; }
-
 #container {
   position: fixed; }
 
@@ -69,20 +52,24 @@ body {
   box-shadow: 0px 0px 12px rgba(0, 40, 80, 0.75); }
 
 .ui .freeClassroomsList {
+  margin: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1rem 0;
   max-width: 512px;
   position: absolute;
-  left: 0;
-  bottom: 50%;
+  right: 0;
+  bottom: 0;
   color: white;
-  background-color: rgba(0, 40, 80, 0.2); }
+  overflow: auto;
+  background-color: rgba(0, 60, 120, 0.4); }
   .ui .freeClassroomsList .freeClassroomsTitle {
+    font-family: 'Orbitron', sans-serif;
     margin-bottom: 1rem;
     padding: 0 1rem;
     font-size: 1.3rem; }
   .ui .freeClassroomsList .freeClassroom .freeClassroomName {
     padding: .5rem 1rem;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1rem; }
   .ui .freeClassroomsList .freeClassroom .freeClassroomId {
     display: none; }
