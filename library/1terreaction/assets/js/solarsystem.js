@@ -1,7 +1,7 @@
 let init = function()
 {
     let renderer, scene, camera, camera2, mesh_earthClouds;
-    let planetNamesList = ["5ème A", "5ème B", "5ème C", "6ème A", "Créer une Nouvelle Planète"];
+   // let planetNamesList = ["5ème A", "5ème B", "5ème C", "6ème A", "Créer une Nouvelle Planète"];
     let planetsLength = planetNamesList.length;
     let planetListIndex = 0;
     let angle = 360 / planetsLength;
@@ -118,7 +118,15 @@ let init = function()
                     transparent: true
                 })
                 planet = new THREE.Mesh(geometry, material);
-                planet.position.set(planetCoordinates[0], 0, planetCoordinates[1]);
+                if (planetNamesList.length == 1)
+                {
+                    ray = 1250;
+                    planet.position.set(0, -500, 0);
+                }
+                else
+                {
+                    planet.position.set(planetCoordinates[0], 0, planetCoordinates[1]);
+                }
                 planet.geometry.computeVertexNormals();
                 //pivot_planets.add(mesh_earth);
                 pivotPoint = new THREE.Object3D();
@@ -142,11 +150,11 @@ let init = function()
 
     
     // -- CAMERA --
-    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, ray * 3 );
+    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, ray * 3.5 );
 
-    let cameraCoordinates = givePlanetCoordinates(0, 0, ray*2, convertAngleToRadians(0));
+    let cameraCoordinates = givePlanetCoordinates(0, 0, ray * 2.5, convertAngleToRadians(0));
 
-    camera.position.set(cameraCoordinates[0], ray / 2, cameraCoordinates[1]);
+    camera.position.set(cameraCoordinates[0], ray, cameraCoordinates[1]);
     camera.lookAt(0, -500, 0);
     //renderer.setSize( 800, 600 );
     scene.add(camera);
@@ -218,16 +226,15 @@ let init = function()
     let mouse = new THREE.Vector2();
     mouse.oldX = 0;
     let callMouseAxisPlanet = function(event)
-    {        
-        mouse.x = (event.clientX / window.innerWidth ) * 2 - 1 || (event.touches[0].clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight ) * 2 + 1 || -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+    {
+        mouse.x = event.touches != undefined ? (event.touches[0].clientX / window.innerWidth) * 2 - 1 : (event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = event.touches != undefined ? -(event.touches[0].clientY / window.innerHeight) * 2 + 1 : -(event.clientY / window.innerHeight ) * 2 + 1;
     }
 
     // -- DETECT CLICK ON PLANET --
     scene.children[0].busy = false;
     let openRotationPlanet = function(event) 
     {
-
         let rotatePlanet = function(event)
         {
             if (scene.children[0].busy == false)
@@ -293,7 +300,7 @@ let init = function()
         document.addEventListener("touchend", closeRotationPlanet, false) || document.addEventListener("mouseup", closeRotationPlanet, false);
     }
 
-    let selectPlanet = function(event)
+    let hoverPlanet = function(event)
     {
         // Detect if mouse||finger position is on front object
         callMouseAxisPlanet(event);
@@ -313,6 +320,7 @@ let init = function()
             {
                 planetName.classList.remove("planetNameSphereHover");
             }
+            document.onclick = null;
         }
         if (intersects != "" && scene.children[0].busy == false && intersects[0].object.name == planetNameText)
         {
@@ -328,11 +336,30 @@ let init = function()
             {
                 planetName.classList.add("planetNameSphereHover");
             }
+            // Select Planet
+            document.onclick = function()
+            {
+                console.log('ok');
+            }
         }
     }
+
+    let selectPlanet = function()
+    {
+        // Detect if mouse||finger position is on front object
+        callMouseAxisPlanet(event);
+        let raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
+        let intersects = raycaster.intersectObjects(scene.children[0].children);
+        let planetName = document.querySelector('.planetName');
+        let planetNameText = planetName.innerText;
+    }
     
-    document.addEventListener("touchstart", openRotationPlanet, false) || document.addEventListener("mousedown", openRotationPlanet, false);
-    document.addEventListener("touchmove", selectPlanet, false) || document.addEventListener("mousemove", selectPlanet, false);
+    if (planetNamesList.length > 1)
+    {
+        document.addEventListener("touchstart", openRotationPlanet, false) || document.addEventListener("mousedown", openRotationPlanet, false);
+    }
+    document.addEventListener("touchmove", hoverPlanet, false) || document.addEventListener("mousemove", hoverPlanet, false);
 
     // -- ANIMATION LOOP --
     let animate = function()

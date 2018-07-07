@@ -13,7 +13,7 @@ ob_start();
 foreach ($libraryList as $libElem)
 {
 ?>
-    <a class="libElemLink" href="library/<?=$libElem['folder']?>/index.html">
+    <a class="libElemLink" href="library/<?=$libElem['folder']?>/admin.php?action=main">
         <h3 class="libElemTitle">
             <?=$libElem['name']?>
         </h3>

@@ -30,3 +30,46 @@
 		box-shadow: 0px 0px 12px rgba(0, 40, 80, 0.75);
 	}
 }
+
+// -- ADMIN --
+// Free Classrooms List
+.ui
+{
+	.freeClassroomsList
+	{
+		border: 1px solid rgba(255, 255, 255, .1);
+		padding: 1rem 0;
+		max-width: 512px;
+		position: absolute;
+		left: 0;
+		bottom: 50%;
+		color: white;
+		background-color: rgba(0, 40, 80, .2);
+		.freeClassroomsTitle
+		{
+			margin-bottom: 1rem;
+			padding: 0 1rem;
+			font-size: 1.3rem;
+		}
+		.freeClassroom
+		{
+			.freeClassroomName
+			{
+				padding: .5rem 1rem;
+				font-size: 1rem;
+			}
+			.freeClassroomId
+			{
+				display: none;
+			}
+			&:hover
+			{
+				color: rgba(255, 255, 255, 1);
+				text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.75);
+				background-color: rgba(0, 60, 120, .4);
+				box-shadow: 0px 0px 12px rgba(0, 40, 80, 0.75);
+				cursor: pointer;
+			}
+		}
+	}
+}
