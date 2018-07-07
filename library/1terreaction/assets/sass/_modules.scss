@@ -1,0 +1,13 @@
+@import "variables";
+#container
+{
+    background-image: url("../img/stars.jpg");
+    background-repeat: repeat-x repeat-y;
+}
+.planetName
+{
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	color: white;
+}

@@ -1,0 +1,12 @@
+@import "variables";
+@keyframes nextPage
+{
+    from
+    {
+        bottom: 0;
+    }
+    to
+    {
+        bottom: 10px;
+    }
+}

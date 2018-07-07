@@ -74,13 +74,6 @@ function deleteStudents()
 	Classrooms::deleteStudents($_SESSION['id'], $_POST['students'], $_GET['idcr']);
 }
 
-function disconnect()
-{
-	$_SESSION = array();
-	$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Vous êtes bien déconnecté!</span>';
-	header('Location: index.php');	  
-}
-
 // VIEWS!
 function loadManageClassrooms()
 {
@@ -90,16 +83,15 @@ function loadManageThisClassroom()
 {
 	require('./view/ad_manageThisClassroomView.php');	
 }
-function loadManageModifyStudents()
+function loadLibrary()
 {
-	$filteredClassroom = checkInput($_GET['cn'], 'classroom', false);
-	if ($filteredClassroom != false)
-	{
-		$className = $filteredClassroom;
-	}
-	else
-	{
-		$className = "classe inconnue?";
-	}
-	require('./view/ad_manageModifyStudentsView.php');	
+	$libraryList = Library::load($_SESSION['nickname']);
+	require('./view/libraryView.php');	
+}
+
+function disconnect()
+{
+	$_SESSION = array();
+	$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Vous êtes bien déconnecté!</span>';
+	header('Location: index.php');	  
 }

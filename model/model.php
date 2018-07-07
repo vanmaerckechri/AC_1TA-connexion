@@ -9,8 +9,8 @@ else
 {
 	function connectDB()
 	{
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
 	}
 	function getSecretCaptchaKey()
@@ -528,5 +528,38 @@ class SendMail
 		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
+	}
+}
+
+// Library
+
+class Library
+{
+	public static function load($user)
+	{
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
+		// admin
+		if (strstr($user, 'admin@'))
+		{
+			$req = $db->prepare("SELECT * FROM pe_library");
+			$req->execute();
+			$resultReq = $req->fetchAll();
+			$req->closeCursor();
+			$req = NULL;
+			return $resultReq;
+		}
+		// student
+		else
+		{
+
+		}
 	}
 }

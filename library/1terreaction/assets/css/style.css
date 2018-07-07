@@ -1,0 +1,60 @@
+html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, fieldset, label, legend {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-weight: normal; }
+
+@keyframes nextPage {
+  from {
+    bottom: 0; }
+  to {
+    bottom: 10px; } }
+html {
+  background-color: #e3e9ea;
+  font-family: 'Oswald', sans-serif; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh; }
+
+#container {
+  background-image: url("../img/stars.jpg");
+  background-repeat: repeat-x repeat-y; }
+
+.planetName {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  color: white; }
+
+#container {
+  position: fixed; }
+
+.ui .planetName {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 50px;
+  text-align: center;
+  letter-spacing: 1.05rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 40, 80, 0.2);
+  transition: color .2s, background-color .2s, text-shadow .3s, box-shadow .4s; }
+.ui .planetNameSphereHover {
+  color: white;
+  text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.75);
+  background-color: rgba(0, 60, 120, 0.4);
+  box-shadow: 0px 0px 12px rgba(0, 40, 80, 0.75); }
+
+/*# sourceMappingURL=style.css.map */

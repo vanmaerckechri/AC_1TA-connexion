@@ -79,6 +79,11 @@ if (isset($_GET['action']))
 	{
 		deleteStudents();
 	}
+	// Library
+	else if ($_GET['action'] == 'library')
+	{
+		loadLibrary();
+	}
 	else if ($_GET['action'] == 'disco')
 	{
 		disconnect();

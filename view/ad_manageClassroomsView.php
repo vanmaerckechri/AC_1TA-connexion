@@ -22,7 +22,7 @@
             <div>
     	    	<button id="button_create" class="<?=$buttonStatus?>">Ajouter</button>
     	    	<button id="delete" class="formButton">Effacer</button>
-            </div>
+            </div>			
             <div style="width: 90px;"></div>
 	    </div>
 	    <form class="<?=$form_createOpen?>" action="admin.php?action=createClassroom" method="post">
