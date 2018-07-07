@@ -42,14 +42,14 @@
 		padding: 1rem 0;
 		max-width: 512px;
 		position: absolute;
-		right: 0;
+		left: 50%;
 		bottom: 0;
 		color: white;
 		overflow: auto;
 		background-color: rgba(0, 60, 120, .4);
 		.freeClassroomsTitle
-		{    	font-family: 'Orbitron', sans-serif;
-
+		{    	
+			font-family: 'Orbitron', sans-serif;
 			margin-bottom: 1rem;
 			padding: 0 1rem;
 			font-size: 1.3rem;
@@ -59,8 +59,11 @@
 			.freeClassroomName
 			{
 				padding: .5rem 1rem;
+				display: block;
     			font-family: 'Open Sans', sans-serif;
 				font-size: 1rem;
+				color: white;
+				text-decoration: none;
 			}
 			.freeClassroomId
 			{

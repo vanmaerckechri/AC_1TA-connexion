@@ -13,3 +13,15 @@ function loadMainView()
 	$freeClassrooms = ManagePlanets::callFreeClassroomsList($_SESSION['id']);
 	require('./view/ad_managePlanets.php');
 }
+
+function createPlanetView($idCr)
+{
+	if ($idCr >= 0)
+	{
+		ManagePlanets::create($_SESSION['id'], $idCr);
+	}
+	else
+	{
+		loadMainView();
+	}
+}

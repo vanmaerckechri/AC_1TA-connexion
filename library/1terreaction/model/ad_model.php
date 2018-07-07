@@ -53,20 +53,29 @@ class ManagePlanets
 		$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
 		$req->execute();
 		$classroomsBusy = $req->fetchAll();
+		var_dump($classroomsBusy);
 		// Free Classroom for futur planet
 			// if at least one of classrooms is used for a planet
 		if (!empty($classroomsBusy))
 		{
-			$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id_classroom != :idCr AND id_admin = :idAd");
-			foreach ($classroomsBusy as $classroomBusy)
+			$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id_admin = :idAd");
+			$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+			$req->execute();
+			$classrooms = $req->fetchAll();
+			foreach ($classrooms as $classroom)
 			{
-				$req->bindValue(':idCr', $classroomBusy['id_classroom'], PDO::PARAM_INT);
-				$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
-				$req->execute();
-				$classroomsInfo = $req->fetchAll();
-				if (!empty($result))
+				$classroomInfo;
+				$alreadyPlanet = false;
+				foreach ($classroomsBusy as $classroomBusy)
 				{
-					array_push($classroomsInfo, $result);
+					if ($classroomBusy['id_classroom'] == $classroom['id'])
+					{
+						$alreadyPlanet = true;
+					}
+				}
+				if ($alreadyPlanet == false)
+				{
+					array_push($classroomsInfo, $classroom);
 				}
 			}
 		}
@@ -81,5 +90,42 @@ class ManagePlanets
 		$req->closeCursor();
 		$req = NULL;
 		return $classroomsInfo;
+	}
+	public static function create($idAd, $idCr)
+	{
+		$classroomsInfo = [];
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
+		// Check if classroom belongs to this admin
+		$req = $db->prepare("SELECT id FROM pe_classrooms WHERE id_admin = :idAd AND id = :idCr");
+		$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+		$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+		$req->execute();
+		$classroom = $req->fetchAll();
+		if (!empty($classroom))
+		{
+			// Check classroom doesn t already have a planet
+			$req = $db->prepare("SELECT id FROM 1ta_planets WHERE id_admin = :idAd AND id_classroom = :idCr");
+			$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+			$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+			$req->execute();
+			$classroom = $req->fetchAll();
+			if (empty($classroom))
+			{
+				$req = $db->prepare("INSERT INTO 1ta_planets (id_classroom, id_admin) VALUES (:idCr, :idAd)");
+				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+				$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+				$req->execute();
+			}
+		}
+		$req->closeCursor();
+		$req = NULL;
 	}
 }

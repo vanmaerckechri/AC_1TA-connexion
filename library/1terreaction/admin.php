@@ -23,9 +23,15 @@ $_SESSION['smsAlert']['default'] = !isset($_SESSION['smsAlert']['default']) ? ''
 // -- VIEW --
 if (isset($_GET['action']))
 {
-	// Classrooms management
+	// Planets management
 	if ($_GET['action'] == 'main')
 	{
+		loadMainView();
+	}
+	// Create planet
+	else if ($_GET['action'] == 'createplanet' && isset($_GET['idcr']))
+	{
+		createPlanetView($_GET['idcr']);
 		loadMainView();
 	}
 }

@@ -383,6 +383,19 @@ let init = function()
    }
     window.addEventListener("resize", adaptUi, false);
     adaptUi();
+
+/*
+    let closeClassroomsList = function(event)
+    {
+        let freeClassroomsList = document.querySelector('.freeClassroomsList');
+        if (event.clientX < freeClassroomsList.offsetLeft || event.clientX > (freeClassroomsList.offsetLeft + freeClassroomsList.offsetWidth) || event.clientY < freeClassroomsList.offsetTop || event.clientY > (freeClassroomsList.offsetTop + freeClassroomsList.offsetHeight))
+        {
+
+            freeClassroomsList.style.display = "none";
+        }
+    }
+    document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);
+*/
 }
 
 

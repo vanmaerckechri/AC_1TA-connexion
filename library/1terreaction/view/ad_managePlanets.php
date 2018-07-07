@@ -14,8 +14,7 @@ ob_start();
         {
             ?>
             <div class="freeClassroom">
-                <p class="freeClassroomName"><?=$freeCr['name']?></p>
-                <p class="freeClassroomId"><?=$freeCr['id']?></p>
+                <a class="freeClassroomName" href="admin.php?action=createplanet&idcr=<?=$freeCr['id']?>"><?=$freeCr['name']?></a>
             </div>
             <?php
         }
