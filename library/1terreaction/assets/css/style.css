@@ -27,6 +27,10 @@ body {
   background-image: url("../img/stars.jpg");
   background-repeat: repeat-x repeat-y; }
 
+.disabled {
+  display: none;
+  pointer-events: none; }
+
 #container {
   position: fixed; }
 

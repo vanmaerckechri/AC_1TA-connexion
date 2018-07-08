@@ -341,7 +341,21 @@ let init = function()
             // Select Planet
             document.onclick = function()
             {
-                console.log('ok');
+                let freeClassroomsList = document.querySelector('.freeClassroomsList');
+                if (planetNameText == "Créer une Nouvelle Planète" && freeClassroomsList.classList.contains("disabled"))
+                {
+                    freeClassroomsList.classList.remove("disabled");
+                    let closeClassroomsList = function(event)
+                    {
+                        let freeClassroomsList = document.querySelector('.freeClassroomsList');
+                        if (event.clientX < freeClassroomsList.offsetLeft || event.clientX > (freeClassroomsList.offsetLeft + freeClassroomsList.offsetWidth) || event.clientY < freeClassroomsList.offsetTop || event.clientY > (freeClassroomsList.offsetTop + freeClassroomsList.offsetHeight))
+                        {
+                            freeClassroomsList.classList.add("disabled");
+                            document.body.removeEventListener("touchstart", closeClassroomsList, false) || document.removeEventListener("mousedown", closeClassroomsList, false);
+                        }
+                    }
+                    document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);
+                }
             }
         }
     }

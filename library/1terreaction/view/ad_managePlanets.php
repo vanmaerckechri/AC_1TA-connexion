@@ -1,13 +1,22 @@
 <?php
 
+if (count($freeClassrooms) > 0)
+{
+    $freeClassroomsTitle = "Veuillez choisir l'une de vos classes!";
+}
+else
+{
+    $freeClassroomsTitle = "Aucune classe disponible!"; 
+}
+
 $title = "1TerreAction - Gestion des Planètes";
 
 ob_start();
 ?>
     <div class="ui">
-        <div class="freeClassroomsList">
+        <div class="freeClassroomsList disabled">
             <h3 class="freeClassroomsTitle">
-                Veuillez choisissez l'une de vos classes!
+                <?=$freeClassroomsTitle?>
             </h3>
         <?php
         foreach ($freeClassrooms as $freeCr)

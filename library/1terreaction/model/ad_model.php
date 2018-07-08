@@ -53,7 +53,6 @@ class ManagePlanets
 		$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
 		$req->execute();
 		$classroomsBusy = $req->fetchAll();
-		var_dump($classroomsBusy);
 		// Free Classroom for futur planet
 			// if at least one of classrooms is used for a planet
 		if (!empty($classroomsBusy))
