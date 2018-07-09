@@ -235,91 +235,91 @@ let init = function()
     let closePlanetInfos = function(event)
     {
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
-        if (event.clientX < planetInfosContainer.offsetLeft || event.clientX > (planetInfosContainer.offsetLeft + planetInfosContainer.offsetWidth) || event.clientY < planetInfosContainer.offsetTop || event.clientY > (planetInfosContainer.offsetTop + planetInfosContainer.offsetHeight))
+        // close planet infos
+        if (document.querySelector('.populationContainer'))
         {
-            // close planet infos
-            if (document.querySelector('.populationContainer'))
-            {
-                document.querySelector('.populationContainer').remove();
-                document.querySelector('.delete').remove();
-                planetInfosContainer.classList.add("disabled");
-                document.body.removeEventListener("touchstart", closePlanetInfos, false) || document.removeEventListener("mousedown", closePlanetInfos, false);
-            }
-            else if (!planetInfosContainer.classList.contains("disabled"))
-            {
-                planetInfosContainer.classList.add("disabled");
-                document.querySelector('.freeClassroomsContainer').classList.add("disabled");
-                document.body.removeEventListener("touchstart", closePlanetInfos, false) || document.removeEventListener("mousedown", closePlanetInfos, false);
-            }
+            document.querySelector('.populationContainer').remove();
+            document.querySelector('.deleteButton').remove();
+            planetInfosContainer.classList.add("disabled");
         }
+        else if (!planetInfosContainer.classList.contains("disabled"))
+        {
+            planetInfosContainer.classList.add("disabled");
+            document.querySelector('.freeClassroomsContainer').classList.add("disabled");
+        }
+        hoverPlanet(event);
     }
     // -- DETECT CLICK ON PLANET --
     scene.children[0].busy = false;
     let openRotationPlanet = function(event) 
     {
-        let rotatePlanet = function(event)
+        let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        if (planetInfosContainer.classList.contains("disabled"))
         {
-            if (scene.children[0].busy == false)
+            let rotatePlanet = function(event)
             {
-                scene.children[0].busy = true;
-                let pathToReachToTheLeft = scene.children[0].rotation.y - convertAngleToRadians(360 / planetsLength);
-                let pathToReachToTheRight = scene.children[0].rotation.y + convertAngleToRadians(360 / planetsLength);
-
-                // Current mouse||finger position;
-                callMouseAxisPlanet(event);
-                // Planet rotation           
-                if (mouse.x < mouse.oldX)
+                if (scene.children[0].busy == false)
                 {
-                    // to the left
-                    planetsMouvTempo = setInterval(function()
-                    { 
-                        scene.children[0].rotation.y -= .1;
-                        randPlanetNameLetters();
+                    scene.children[0].busy = true;
+                    let pathToReachToTheLeft = scene.children[0].rotation.y - convertAngleToRadians(360 / planetsLength);
+                    let pathToReachToTheRight = scene.children[0].rotation.y + convertAngleToRadians(360 / planetsLength);
 
-                        if (scene.children[0].rotation.y <= pathToReachToTheLeft)
-                        {
-                            updatePlanetName("right");
-                            scene.children[0].busy = false;
-                            scene.children[0].rotation.y = pathToReachToTheLeft;
-                            if (convertRadiansToAngle(scene.children[0].rotation.y) == -360)
-                            {
-                                scene.children[0].rotation.y = 0;
-                            }
-                            clearInterval(planetsMouvTempo);
-                        }
-                    }, 16);
-                }
-                else
-                {
-                    // to the right
-                    planetsMouvTempo = setInterval(function()
-                    { 
-                        scene.children[0].rotation.y += .1;
-                        randPlanetNameLetters();
+                    // Current mouse||finger position;
+                    callMouseAxisPlanet(event);
+                    // Planet rotation           
+                    if (mouse.x < mouse.oldX)
+                    {
+                        // to the left
+                        planetsMouvTempo = setInterval(function()
+                        { 
+                            scene.children[0].rotation.y -= .1;
+                            randPlanetNameLetters();
 
-                        if (scene.children[0].rotation.y >= pathToReachToTheRight)
-                        {
-                            updatePlanetName("left");
-                            scene.children[0].busy = false;
-                            scene.children[0].rotation.y = pathToReachToTheRight;
-                            if (convertRadiansToAngle(scene.children[0].rotation.y) == 360)
+                            if (scene.children[0].rotation.y <= pathToReachToTheLeft)
                             {
-                                scene.children[0].rotation.y = 0;
+                                updatePlanetName("right");
+                                scene.children[0].busy = false;
+                                scene.children[0].rotation.y = pathToReachToTheLeft;
+                                if (convertRadiansToAngle(scene.children[0].rotation.y) == -360)
+                                {
+                                    scene.children[0].rotation.y = 0;
+                                }
+                                clearInterval(planetsMouvTempo);
                             }
-                            clearInterval(planetsMouvTempo);
-                        }
-                    }, 16);
+                        }, 16);
+                    }
+                    else
+                    {
+                        // to the right
+                        planetsMouvTempo = setInterval(function()
+                        { 
+                            scene.children[0].rotation.y += .1;
+                            randPlanetNameLetters();
+
+                            if (scene.children[0].rotation.y >= pathToReachToTheRight)
+                            {
+                                updatePlanetName("left");
+                                scene.children[0].busy = false;
+                                scene.children[0].rotation.y = pathToReachToTheRight;
+                                if (convertRadiansToAngle(scene.children[0].rotation.y) == 360)
+                                {
+                                    scene.children[0].rotation.y = 0;
+                                }
+                                clearInterval(planetsMouvTempo);
+                            }
+                        }, 16);
+                    }
                 }
             }
+            callMouseAxisPlanet(event);
+            mouse.oldX = mouse.x;
+            let closeRotationPlanet = function()
+            {
+                document.removeEventListener("touchmove", rotatePlanet, false) || document.removeEventListener("mousemove", rotatePlanet, false);
+            }
+            document.addEventListener("touchmove", rotatePlanet, false) || document.addEventListener("mousemove", rotatePlanet, false);
+            document.addEventListener("touchend", closeRotationPlanet, false) || document.addEventListener("mouseup", closeRotationPlanet, false);
         }
-        callMouseAxisPlanet(event);
-        mouse.oldX = mouse.x;
-        let closeRotationPlanet = function()
-        {
-            document.removeEventListener("touchmove", rotatePlanet, false) || document.removeEventListener("mousemove", rotatePlanet, false);
-        }
-        document.addEventListener("touchmove", rotatePlanet, false) || document.addEventListener("mousemove", rotatePlanet, false);
-        document.addEventListener("touchend", closeRotationPlanet, false) || document.addEventListener("mouseup", closeRotationPlanet, false);
     }
 
     let hoverPlanet = function(event)
@@ -331,89 +331,125 @@ let init = function()
         let intersects = raycaster.intersectObjects(scene.children[0].children);
         let planetName = document.querySelector('.planetName');
         let planetNameText = planetName.innerText;
-        if (!intersects[0])
+        let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        if (planetInfosContainer.classList.contains("disabled"))
         {
-            for (let i = 1; i < planetsLength; i++)
-            {            
-                scene.children[0].children[i].children[2].material.opacity = 0.08;
-            }
-            scene.children[0].children[0].material.opacity = 0.5;
-            if (planetName.classList.contains("planetNameSphereHover"))
+            if (!intersects[0])
             {
-                planetName.classList.remove("planetNameSphereHover");
-            }
-            document.body.style.cursor = "auto";
-            document.onclick = null;
-        }
-        if (intersects != "" && scene.children[0].busy == false && intersects[0].object.name == planetNameText)
-        {
-            if (planetNameText != "Créer une Nouvelle Planète")
-            {
-                intersects[0].object.children[2].material.opacity = 0.25;
-            }
-            else
-            {
-                intersects[0].object.material.opacity = 0.80;
-            }
-            if (!planetName.classList.contains("planetNameSphereHover"))
-            {
-                planetName.classList.add("planetNameSphereHover");
-            }
-            document.body.style.cursor = "pointer";
-            // Select Planet
-            document.onclick = function()
-            {
-                let planetInfosContainer = document.querySelector('.planetInfosContainer');
-                let planetInfosTitle = document.querySelector('.planetInfosTitle');
-                let uiBackground = document.querySelector('.uiBackground');
-                // Display free classrooms list to create a planet
-                if (planetNameText == "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
-                {
-                    let freeClassroomsContainer = document.querySelector('.freeClassroomsContainer');
-                    planetInfosContainer.classList.remove("disabled");
-                    freeClassroomsContainer.classList.remove("disabled");
-
-                    if (freeClassroomLength > 0)
-                    {
-                        planetInfosTitle.innerText = "Veuillez choisir l'une de vos classes!";
-                    }
-                    else
-                    {
-                        planetInfosTitle.innerText = "Aucune classe disponible!"; 
-                    }
-
-                    document.body.addEventListener("touchstart", closePlanetInfos, false) || document.addEventListener("mousedown", closePlanetInfos, false);
+                for (let i = 1; i < planetsLength; i++)
+                {            
+                    scene.children[0].children[i].children[2].material.opacity = 0.08;
                 }
-                // Display free classrooms list to create a planet
-                else if (planetNameText != "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
+                scene.children[0].children[0].material.opacity = 0.5;
+                if (planetName.classList.contains("planetNameSphereHover"))
                 {
-                    // delete tool
-                    let deleteContainer = document.createElement('a');
-                    deleteContainer.setAttribute("class", "delete");
-                    deleteContainer.setAttribute("href", "admin.php?action=delplan&idcr="+intersects[0].object.idCr);
-                    let deleteImg = document.createElement('img');
-                    deleteImg.setAttribute("src", "assets/img/delete.svg");
-                    deleteContainer.appendChild(deleteImg);
-                    planetInfosContainer.insertBefore(deleteContainer, planetInfosTitle);
-                    // title
-                    planetInfosTitle.innerText = "Habitants";
-                    // population
-                    let studentsContainer = document.createElement("ul");
-                    studentsContainer.setAttribute("class", "populationContainer")
-                    for (let i = studentsList[intersects[0].object.idCr].length - 1; i >= 0; i--)
-                    {
-                        let student = document.createElement("li");
-                        student.innerText = studentsList[intersects[0].object.idCr][i].nickname;
-                        studentsContainer.appendChild(student);
-                    }
-                    planetInfosContainer.appendChild(studentsContainer);
-                    planetInfosContainer.classList.remove("disabled");
+                    planetName.classList.remove("planetNameSphereHover");
+                }
+                document.body.style.cursor = "auto";
+                document.onclick = null;
+            }
+            if (intersects != "" && scene.children[0].busy == false && intersects[0].object.name == planetNameText && planetInfosContainer.classList.contains("disabled"))
+            {
+                if (planetNameText != "Créer une Nouvelle Planète")
+                {
+                    intersects[0].object.children[2].material.opacity = 0.25;
+                }
+                else
+                {
+                    intersects[0].object.material.opacity = 0.80;
+                }
+                if (!planetName.classList.contains("planetNameSphereHover"))
+                {
+                    planetName.classList.add("planetNameSphereHover");
+                }
+                document.body.style.cursor = "pointer";
+                // Select Planet
+                document.onclick = function()
+                {                document.body.style.cursor = "auto";
 
-                    document.body.addEventListener("touchstart", closePlanetInfos, false) || document.addEventListener("mousedown", closePlanetInfos, false);
+                    let planetInfosTitle = document.querySelector('.planetInfosTitle');
+                    let uiBackground = document.querySelector('.uiBackground');
+                    // Display free classrooms list to create a planet
+                    if (planetNameText == "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
+                    {
+                        let freeClassroomsContainer = document.querySelector('.freeClassroomsContainer');
+                        planetInfosContainer.classList.remove("disabled");
+                        freeClassroomsContainer.classList.remove("disabled");
+
+                        if (freeClassroomLength > 0)
+                        {
+                            planetInfosTitle.innerText = "Veuillez choisir l'une de vos classes!";
+                        }
+                        else
+                        {
+                            planetInfosTitle.innerText = "Aucune classe disponible!"; 
+                        }
+
+                    }
+                    // Display free classrooms list to create a planet
+                    else if (planetNameText != "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
+                    {
+                        // delete tool
+                        let deleteContainer = document.querySelector('.planetDeleteContainer');
+                        let deleteImg = document.createElement('img');
+                        deleteImg.setAttribute("class", "deleteButton");
+                        deleteImg.setAttribute("src", "assets/img/delete.svg");
+                        deleteContainer.appendChild(deleteImg);
+                        planetInfosContainer.insertBefore(deleteContainer, planetInfosTitle);
+                        document.querySelector('.deleteButton').onclick = function()
+                        {
+                            if (!document.querySelector('.deleteValidationContainer'))
+                            {
+                                // delete validation container
+                                let deleteValidationContainer = document.createElement('div');
+                                deleteValidationContainer.setAttribute("class", "deleteValidationContainer");
+                                // text
+                                let deleteValidationText = document.createElement('p');
+                                deleteValidationText.innerText = "Êtes-vous sûr de vouloir effacer la planète \""+intersects[0].object.name+"\" ?";
+                                deleteValidationContainer.appendChild(deleteValidationText);
+                                // button yes
+                                let deleteValidationYes = document.createElement('a');
+                                deleteValidationYes.setAttribute("class", "deleteValidationYes");
+                                deleteValidationYes.setAttribute("href", "admin.php?action=delplan&idcr="+intersects[0].object.idCr);
+                                deleteValidationYes.innerText = "OUI?"
+                                deleteValidationContainer.appendChild(deleteValidationYes);
+                                // button no
+                                let deleteValidationNo = document.createElement('a');
+                                deleteValidationNo.setAttribute("class", "deleteValidationNo");
+                                deleteValidationNo.setAttribute("href", "#");
+                                deleteValidationNo.innerText = "NON?"
+                                deleteValidationContainer.appendChild(deleteValidationNo);
+                                deleteContainer.appendChild(deleteValidationContainer);
+                                deleteValidationNo.onclick = function(event)
+                                {
+                                    event.preventDefault();
+                                    deleteValidationContainer.remove();
+                                }
+                            }
+                            else
+                            {
+                                document.querySelector('.deleteValidationContainer').remove();
+                            }
+                        }
+                        // title
+                        planetInfosTitle.innerText = "Habitants";
+                        // population
+                        let studentsContainer = document.createElement("ul");
+                        studentsContainer.setAttribute("class", "populationContainer")
+                        for (let i = studentsList[intersects[0].object.idCr].length - 1; i >= 0; i--)
+                        {
+                            let student = document.createElement("li");
+                            student.innerText = studentsList[intersects[0].object.idCr][i].nickname;
+                            studentsContainer.appendChild(student);
+                        }
+                        planetInfosContainer.appendChild(studentsContainer);
+                        planetInfosContainer.classList.remove("disabled");
+                    }
                 }
             }
         }
     }
+    document.querySelector('.previous').addEventListener("touchstart", closePlanetInfos, false) || document.querySelector('.previous').addEventListener("mousedown", closePlanetInfos, false);
 
     /*let selectPlanet = function()
     {

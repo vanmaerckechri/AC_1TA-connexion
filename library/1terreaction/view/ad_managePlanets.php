@@ -7,6 +7,9 @@ ob_start();
 ?>
     <div class="ui">
         <div class="planetInfosContainer disabled">
+            <div class="planetDeleteContainer">
+                <img class="previous" src="assets/img/previous.svg" alt="retour à l'écran précédent">
+            </div>
             <h3 class="planetInfosTitle">
             </h3>
             <div class="freeClassroomsContainer disabled">
