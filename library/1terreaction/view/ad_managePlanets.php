@@ -11,6 +11,7 @@ else
 
 $title = "1TerreAction - Gestion des Planètes";
 
+// Free Classroom List
 ob_start();
 ?>
     <div class="ui">
@@ -33,20 +34,16 @@ ob_start();
     </div>
 <?php
 $content = ob_get_clean();
-
+// JAVASCRIPT
+    // transmit information from planets to javascript
+$planetList = json_encode($planetList);
+$studentsList = json_encode($studentsList);
 ob_start();
 ?>
     <script>
-        let planetNamesList = [];
-    <?php
-    foreach ($planetList as $planet) 
-    {
-    ?>
-        planetNamesList.push("<?=$planet['name']?>");
-    <?php
-    }
-    ?>
-        planetNamesList.push("Créer une Nouvelle Planète");
+        let planetsList = <?=$planetList?>;
+        let studentsList = <?=$studentsList?>;
+        planetsList.push({name: "Créer une Nouvelle Planète"});
     </script>
     <script src="assets/library/three.js"></script>
     <script src="assets/library/OrbitControls.js"></script>                     

@@ -2,7 +2,7 @@ let init = function()
 {
     let renderer, scene, camera, camera2, mesh_earthClouds;
    // let planetNamesList = ["5ème A", "5ème B", "5ème C", "6ème A", "Créer une Nouvelle Planète"];
-    let planetsLength = planetNamesList.length;
+    let planetsLength = planetsList.length;
     let planetListIndex = 0;
     let angle = 360 / planetsLength;
     let ray = (planetsLength / 1.8) * 1000;
@@ -118,7 +118,7 @@ let init = function()
                     transparent: true
                 })
                 planet = new THREE.Mesh(geometry, material);
-                if (planetNamesList.length == 1)
+                if (planetsList.length == 1)
                 {
                     ray = 1250;
                     planet.position.set(0, -500, 0);
@@ -133,7 +133,8 @@ let init = function()
                 planet.add(pivotPoint);
                 pivot_planets.add(planet);
             }
-            planet.name = planetNamesList[i];
+            planet.name = planetsList[i].name;
+            planet.idCr = planetsList[i].id;
         }
         scene.add(pivot_planets);
     }
@@ -206,7 +207,7 @@ let init = function()
             planetListIndex = planetListIndex < planetsLength - 1 ? planetListIndex + 1 : 0;
         }
         let planetName = document.querySelector('.planetName');
-        planetName.innerText = planetNamesList[planetListIndex];
+        planetName.innerText = planetsList[planetListIndex].name;
     }
 
     let randPlanetNameLetters = function()
@@ -342,6 +343,7 @@ let init = function()
             document.onclick = function()
             {
                 let freeClassroomsList = document.querySelector('.freeClassroomsList');
+                // Display free classrooms list to create a planet
                 if (planetNameText == "Créer une Nouvelle Planète" && freeClassroomsList.classList.contains("disabled"))
                 {
                     freeClassroomsList.classList.remove("disabled");
@@ -356,11 +358,27 @@ let init = function()
                     }
                     document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);
                 }
+                // Display free classrooms list to create a planet
+                else
+                {
+                    console.log(intersects[0].object.idCr);
+                    /*freeClassroomsList.classList.remove("disabled");
+                    let closeClassroomsList = function(event)
+                    {
+                        let freeClassroomsList = document.querySelector('.freeClassroomsList');
+                        if (event.clientX < freeClassroomsList.offsetLeft || event.clientX > (freeClassroomsList.offsetLeft + freeClassroomsList.offsetWidth) || event.clientY < freeClassroomsList.offsetTop || event.clientY > (freeClassroomsList.offsetTop + freeClassroomsList.offsetHeight))
+                        {
+                            freeClassroomsList.classList.add("disabled");
+                            document.body.removeEventListener("touchstart", closeClassroomsList, false) || document.removeEventListener("mousedown", closeClassroomsList, false);
+                        }
+                    }
+                    document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);*/
+                }
             }
         }
     }
 
-    let selectPlanet = function()
+    /*let selectPlanet = function()
     {
         // Detect if mouse||finger position is on front object
         callMouseAxisPlanet(event);
@@ -369,9 +387,9 @@ let init = function()
         let intersects = raycaster.intersectObjects(scene.children[0].children);
         let planetName = document.querySelector('.planetName');
         let planetNameText = planetName.innerText;
-    }
+    }*/
     
-    if (planetNamesList.length > 1)
+    if (planetsList.length > 1)
     {
         document.addEventListener("touchstart", openRotationPlanet, false) || document.addEventListener("mousedown", openRotationPlanet, false);
     }

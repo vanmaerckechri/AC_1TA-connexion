@@ -9,7 +9,8 @@ Authentification::startSession();
 
 function loadMainView()
 {
-	$planetList = ManagePlanets::callList($_SESSION['id']);
+	$planetList = ManagePlanets::callPlanetList($_SESSION['id']);
+	$studentsList = ManagePlanets::callStudentsList($planetList);
 	$freeClassrooms = ManagePlanets::callFreeClassroomsList($_SESSION['id']);
 	require('./view/ad_managePlanets.php');
 }

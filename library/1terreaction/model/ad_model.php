@@ -1,7 +1,7 @@
 <?php
 class ManagePlanets
 {
-	public static function callList($idAd)
+	public static function callPlanetList($idAd)
 	{
 		$planetsInfo = [];
 		try
@@ -34,6 +34,32 @@ class ManagePlanets
 		$req->closeCursor();
 		$req = NULL;
 		return $planetsInfo;
+	}
+
+	public static function callStudentsList($classroomsInfos)
+	{
+		$studentsList = [];
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
+		$req = $db->prepare("SELECT nickname, id FROM pe_students WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		foreach ($classroomsInfos as $crInfo)
+		{
+			$req->bindValue(':idCr', $crInfo['id'], PDO::PARAM_INT);
+			$req->execute();
+			$result = $req->fetchAll();
+			array_push($studentsList, $result);
+		}
+		$req->closeCursor();
+		$req = NULL;
+		return $studentsList;
 	}
 
 	public static function callFreeClassroomsList($idAd)
