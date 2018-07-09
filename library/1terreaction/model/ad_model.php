@@ -55,7 +55,7 @@ class ManagePlanets
 			$req->bindValue(':idCr', $crInfo['id'], PDO::PARAM_INT);
 			$req->execute();
 			$result = $req->fetchAll();
-			array_push($studentsList, $result);
+			$studentsList[$crInfo['id']] = $result;
 		}
 		$req->closeCursor();
 		$req = NULL;

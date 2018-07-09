@@ -361,7 +361,10 @@ let init = function()
                 // Display free classrooms list to create a planet
                 else
                 {
-                    console.log(intersects[0].object.idCr);
+                    for (let i = studentsList[intersects[0].object.idCr].length - 1; i >= 0; i--)
+                    {
+                        console.log(studentsList[intersects[0].object.idCr][i].nickname);
+                    }
                     /*freeClassroomsList.classList.remove("disabled");
                     let closeClassroomsList = function(event)
                     {
