@@ -1,34 +1,26 @@
 <?php
 
-if (count($freeClassrooms) > 0)
-{
-    $freeClassroomsTitle = "Veuillez choisir l'une de vos classes!";
-}
-else
-{
-    $freeClassroomsTitle = "Aucune classe disponible!"; 
-}
-
 $title = "1TerreAction - Gestion des Planètes";
 
 // Free Classroom List
 ob_start();
 ?>
     <div class="ui">
-        <div class="freeClassroomsList disabled">
-            <h3 class="freeClassroomsTitle">
-                <?=$freeClassroomsTitle?>
+        <div class="planetInfosContainer disabled">
+            <h3 class="planetInfosTitle">
             </h3>
-        <?php
-        foreach ($freeClassrooms as $freeCr)
-        {
-            ?>
-            <div class="freeClassroom">
-                <a class="freeClassroomName" href="admin.php?action=createplanet&idcr=<?=$freeCr['id']?>"><?=$freeCr['name']?></a>
-            </div>
+            <div class="freeClassroomsContainer disabled">
             <?php
-        }
-        ?>
+            foreach ($freeClassrooms as $freeCr)
+            {
+                ?>
+                <div class="freeClassroom">
+                    <a class="freeClassroomName" href="admin.php?action=createplanet&idcr=<?=$freeCr['id']?>"><?=$freeCr['name']?></a>
+                </div>
+                <?php
+            }
+            ?>
+            </div>
         </div>
         <p class="planetName"></p>
     </div>
@@ -43,6 +35,7 @@ ob_start();
     <script>
         let planetsList = <?=$planetList?>;
         let studentsList = <?=$studentsList?>;
+        let freeClassroomLength = <?=count($freeClassrooms)?>;
         planetsList.push({name: "Créer une Nouvelle Planète"});
     </script>
     <script src="assets/library/three.js"></script>

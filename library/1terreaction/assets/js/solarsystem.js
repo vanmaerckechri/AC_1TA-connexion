@@ -232,6 +232,27 @@ let init = function()
         mouse.y = event.touches != undefined ? -(event.touches[0].clientY / window.innerHeight) * 2 + 1 : -(event.clientY / window.innerHeight ) * 2 + 1;
     }
 
+    let closePlanetInfos = function(event)
+    {
+        let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        if (event.clientX < planetInfosContainer.offsetLeft || event.clientX > (planetInfosContainer.offsetLeft + planetInfosContainer.offsetWidth) || event.clientY < planetInfosContainer.offsetTop || event.clientY > (planetInfosContainer.offsetTop + planetInfosContainer.offsetHeight))
+        {
+            // close planet infos
+            if (document.querySelector('.populationContainer'))
+            {
+                document.querySelector('.populationContainer').remove();
+                document.querySelector('.delete').remove();
+                planetInfosContainer.classList.add("disabled");
+                document.body.removeEventListener("touchstart", closePlanetInfos, false) || document.removeEventListener("mousedown", closePlanetInfos, false);
+            }
+            else if (!planetInfosContainer.classList.contains("disabled"))
+            {
+                planetInfosContainer.classList.add("disabled");
+                document.querySelector('.freeClassroomsContainer').classList.add("disabled");
+                document.body.removeEventListener("touchstart", closePlanetInfos, false) || document.removeEventListener("mousedown", closePlanetInfos, false);
+            }
+        }
+    }
     // -- DETECT CLICK ON PLANET --
     scene.children[0].busy = false;
     let openRotationPlanet = function(event) 
@@ -342,40 +363,53 @@ let init = function()
             // Select Planet
             document.onclick = function()
             {
-                let freeClassroomsList = document.querySelector('.freeClassroomsList');
+                let planetInfosContainer = document.querySelector('.planetInfosContainer');
+                let planetInfosTitle = document.querySelector('.planetInfosTitle');
+                let uiBackground = document.querySelector('.uiBackground');
                 // Display free classrooms list to create a planet
-                if (planetNameText == "Créer une Nouvelle Planète" && freeClassroomsList.classList.contains("disabled"))
+                if (planetNameText == "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
                 {
-                    freeClassroomsList.classList.remove("disabled");
-                    let closeClassroomsList = function(event)
+                    let freeClassroomsContainer = document.querySelector('.freeClassroomsContainer');
+                    planetInfosContainer.classList.remove("disabled");
+                    freeClassroomsContainer.classList.remove("disabled");
+
+                    if (freeClassroomLength > 0)
                     {
-                        let freeClassroomsList = document.querySelector('.freeClassroomsList');
-                        if (event.clientX < freeClassroomsList.offsetLeft || event.clientX > (freeClassroomsList.offsetLeft + freeClassroomsList.offsetWidth) || event.clientY < freeClassroomsList.offsetTop || event.clientY > (freeClassroomsList.offsetTop + freeClassroomsList.offsetHeight))
-                        {
-                            freeClassroomsList.classList.add("disabled");
-                            document.body.removeEventListener("touchstart", closeClassroomsList, false) || document.removeEventListener("mousedown", closeClassroomsList, false);
-                        }
+                        planetInfosTitle.innerText = "Veuillez choisir l'une de vos classes!";
                     }
-                    document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);
+                    else
+                    {
+                        planetInfosTitle.innerText = "Aucune classe disponible!"; 
+                    }
+
+                    document.body.addEventListener("touchstart", closePlanetInfos, false) || document.addEventListener("mousedown", closePlanetInfos, false);
                 }
                 // Display free classrooms list to create a planet
-                else
+                else if (planetNameText != "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
                 {
+                    // delete tool
+                    let deleteContainer = document.createElement('a');
+                    deleteContainer.setAttribute("class", "delete");
+                    deleteContainer.setAttribute("href", "admin.php?action=delplan&idcr="+intersects[0].object.idCr);
+                    let deleteImg = document.createElement('img');
+                    deleteImg.setAttribute("src", "assets/img/delete.svg");
+                    deleteContainer.appendChild(deleteImg);
+                    planetInfosContainer.insertBefore(deleteContainer, planetInfosTitle);
+                    // title
+                    planetInfosTitle.innerText = "Habitants";
+                    // population
+                    let studentsContainer = document.createElement("ul");
+                    studentsContainer.setAttribute("class", "populationContainer")
                     for (let i = studentsList[intersects[0].object.idCr].length - 1; i >= 0; i--)
                     {
-                        console.log(studentsList[intersects[0].object.idCr][i].nickname);
+                        let student = document.createElement("li");
+                        student.innerText = studentsList[intersects[0].object.idCr][i].nickname;
+                        studentsContainer.appendChild(student);
                     }
-                    /*freeClassroomsList.classList.remove("disabled");
-                    let closeClassroomsList = function(event)
-                    {
-                        let freeClassroomsList = document.querySelector('.freeClassroomsList');
-                        if (event.clientX < freeClassroomsList.offsetLeft || event.clientX > (freeClassroomsList.offsetLeft + freeClassroomsList.offsetWidth) || event.clientY < freeClassroomsList.offsetTop || event.clientY > (freeClassroomsList.offsetTop + freeClassroomsList.offsetHeight))
-                        {
-                            freeClassroomsList.classList.add("disabled");
-                            document.body.removeEventListener("touchstart", closeClassroomsList, false) || document.removeEventListener("mousedown", closeClassroomsList, false);
-                        }
-                    }
-                    document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);*/
+                    planetInfosContainer.appendChild(studentsContainer);
+                    planetInfosContainer.classList.remove("disabled");
+
+                    document.body.addEventListener("touchstart", closePlanetInfos, false) || document.addEventListener("mousedown", closePlanetInfos, false);
                 }
             }
         }
@@ -413,8 +447,8 @@ let init = function()
     let adaptUi = function()
     {
         let planetName = document.querySelector('.planetName');
-        let freeClassroomsList = document.querySelector('.freeClassroomsList');
-        freeClassroomsList.style.bottom = planetName.offsetHeight+"px";
+        let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        planetInfosContainer.style.bottom = planetName.offsetHeight+"px";
    }
     window.addEventListener("resize", adaptUi, false);
     adaptUi();
@@ -422,11 +456,11 @@ let init = function()
 /*
     let closeClassroomsList = function(event)
     {
-        let freeClassroomsList = document.querySelector('.freeClassroomsList');
-        if (event.clientX < freeClassroomsList.offsetLeft || event.clientX > (freeClassroomsList.offsetLeft + freeClassroomsList.offsetWidth) || event.clientY < freeClassroomsList.offsetTop || event.clientY > (freeClassroomsList.offsetTop + freeClassroomsList.offsetHeight))
+        let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        if (event.clientX < planetInfosContainer.offsetLeft || event.clientX > (planetInfosContainer.offsetLeft + planetInfosContainer.offsetWidth) || event.clientY < planetInfosContainer.offsetTop || event.clientY > (planetInfosContainer.offsetTop + planetInfosContainer.offsetHeight))
         {
 
-            freeClassroomsList.style.display = "none";
+            planetInfosContainer.style.display = "none";
         }
     }
     document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);

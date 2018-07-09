@@ -34,6 +34,12 @@ if (isset($_GET['action']))
 		createPlanetView($_GET['idcr']);
 		loadMainView();
 	}
+	// Delete planet
+	else if ($_GET['action'] == 'delplan' && isset($_GET['idcr']))
+	{
+		deletePlanetView($_GET['idcr']);
+		loadMainView();
+	}
 }
 else
 {

@@ -40,6 +40,9 @@ body {
   position: absolute;
   left: 0;
   bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   min-height: 50px;
   text-align: center;
@@ -55,10 +58,9 @@ body {
   background-color: rgba(0, 60, 120, 0.4);
   box-shadow: 0px 0px 12px rgba(0, 40, 80, 0.75); }
 
-.ui .freeClassroomsList {
+.ui .planetInfosContainer {
   margin: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1rem 0;
   max-width: 512px;
   position: absolute;
   left: 50%;
@@ -66,25 +68,41 @@ body {
   color: white;
   overflow: auto;
   background-color: rgba(0, 60, 120, 0.4); }
-  .ui .freeClassroomsList .freeClassroomsTitle {
+  .ui .planetInfosContainer .delete {
+    display: inline-block;
+    width: 100%;
+    text-align: right; }
+    .ui .planetInfosContainer .delete img {
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      background-color: red; }
+  .ui .planetInfosContainer .planetInfosTitle {
+    margin: 1rem;
     font-family: 'Orbitron', sans-serif;
-    margin-bottom: 1rem;
-    padding: 0 1rem;
     font-size: 1.3rem; }
-  .ui .freeClassroomsList .freeClassroom .freeClassroomName {
+  .ui .planetInfosContainer .freeClassroom {
+    padding: .5rem 1rem; }
+    .ui .planetInfosContainer .freeClassroom .freeClassroomName {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      color: white;
+      text-decoration: none; }
+    .ui .planetInfosContainer .freeClassroom .freeClassroomId {
+      display: none; }
+    .ui .planetInfosContainer .freeClassroom:hover {
+      color: white;
+      text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.75);
+      background-color: rgba(0, 60, 120, 0.4);
+      box-shadow: 0px 0px 12px rgba(0, 40, 80, 0.75);
+      cursor: pointer; }
+  .ui .planetInfosContainer .populationContainer {
     padding: .5rem 1rem;
     display: block;
     font-family: 'Open Sans', sans-serif;
     font-size: 1rem;
     color: white;
-    text-decoration: none; }
-  .ui .freeClassroomsList .freeClassroom .freeClassroomId {
-    display: none; }
-  .ui .freeClassroomsList .freeClassroom:hover {
-    color: white;
-    text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.75);
-    background-color: rgba(0, 60, 120, 0.4);
-    box-shadow: 0px 0px 12px rgba(0, 40, 80, 0.75);
-    cursor: pointer; }
+    list-style: none; }
 
 /*# sourceMappingURL=style.css.map */

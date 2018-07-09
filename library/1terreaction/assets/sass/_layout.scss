@@ -12,6 +12,9 @@
 		position: absolute;
 		left: 0;
 		bottom: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		width: 100%;
 		min-height: 50px;
 		text-align: center;
@@ -32,14 +35,12 @@
 }
 
 // -- ADMIN --
-// Free Classrooms List
 .ui
 {
-	.freeClassroomsList
+	.planetInfosContainer
 	{
 		margin: 1rem;
 		border: 1px solid rgba(255, 255, 255, .1);
-		padding: 1rem 0;
 		max-width: 512px;
 		position: absolute;
 		left: 50%;
@@ -47,18 +48,30 @@
 		color: white;
 		overflow: auto;
 		background-color: rgba(0, 60, 120, .4);
-		.freeClassroomsTitle
+		.delete
+		{
+			display: inline-block;
+			width: 100%;
+			text-align: right;
+			img
+			{
+				border-radius: 50%;
+				width: 32px;
+				height: 32px;
+				background-color: red;
+			}
+		}
+		.planetInfosTitle
 		{    	
+			margin: 1rem;
 			font-family: 'Orbitron', sans-serif;
-			margin-bottom: 1rem;
-			padding: 0 1rem;
 			font-size: 1.3rem;
 		}
 		.freeClassroom
 		{
+			padding: .5rem 1rem;
 			.freeClassroomName
 			{
-				padding: .5rem 1rem;
 				display: block;
     			font-family: 'Open Sans', sans-serif;
 				font-size: 1rem;
@@ -77,6 +90,15 @@
 				box-shadow: 0px 0px 12px rgba(0, 40, 80, 0.75);
 				cursor: pointer;
 			}
+		}
+		.populationContainer
+		{
+			padding: .5rem 1rem;
+			display: block;
+			font-family: 'Open Sans', sans-serif;
+			font-size: 1rem;
+			color: white;
+			list-style: none;
 		}
 	}
 }

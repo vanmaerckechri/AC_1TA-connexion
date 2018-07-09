@@ -116,7 +116,7 @@ class ManagePlanets
 		$req = NULL;
 		return $classroomsInfo;
 	}
-	public static function create($idAd, $idCr)
+	public static function create($idCr)
 	{
 		$classroomsInfo = [];
 		try
@@ -130,7 +130,7 @@ class ManagePlanets
 		}
 		// Check if classroom belongs to this admin
 		$req = $db->prepare("SELECT id FROM pe_classrooms WHERE id_admin = :idAd AND id = :idCr");
-		$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
 		$req->execute();
 		$classroom = $req->fetchAll();
@@ -138,7 +138,7 @@ class ManagePlanets
 		{
 			// Check classroom doesn t already have a planet
 			$req = $db->prepare("SELECT id FROM 1ta_planets WHERE id_admin = :idAd AND id_classroom = :idCr");
-			$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+			$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 			$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
 			$req->execute();
 			$classroom = $req->fetchAll();
@@ -146,11 +146,29 @@ class ManagePlanets
 			{
 				$req = $db->prepare("INSERT INTO 1ta_planets (id_classroom, id_admin) VALUES (:idCr, :idAd)");
 				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
-				$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 				$req->execute();
 			}
 		}
 		$req->closeCursor();
 		$req = NULL;
+	}
+	public static function deletePlanet($idCr)
+	{
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
+		$del = $db->prepare("DELETE FROM 1ta_planets WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+		$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
+		$del->execute();
+		$del->closeCursor();
+		$del = NULL;
 	}
 }

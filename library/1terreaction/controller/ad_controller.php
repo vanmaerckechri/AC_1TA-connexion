@@ -19,7 +19,19 @@ function createPlanetView($idCr)
 {
 	if ($idCr >= 0)
 	{
-		ManagePlanets::create($_SESSION['id'], $idCr);
+		ManagePlanets::create($idCr);
+	}
+	else
+	{
+		loadMainView();
+	}
+}
+
+function deletePlanetView($idCr)
+{
+	if ($idCr >= 0)
+	{
+		ManagePlanets::deletePlanet($idCr);
 	}
 	else
 	{
