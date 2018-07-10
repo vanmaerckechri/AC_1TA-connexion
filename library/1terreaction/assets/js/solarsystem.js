@@ -326,6 +326,66 @@ let init = function()
         }
     }
 
+    let loadStatsPannel = function(studentsList)
+    {
+        // Population Infos
+        let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        let planetInfosTitle = document.querySelector('.planetInfosTitle');
+        planetInfosTitle.innerText = "Statistiques";
+        let studentsContainer = document.createElement("ul");
+        studentsContainer.setAttribute("class", "populationContainer");
+
+        let refresh = function(row)
+        {
+            studentsContainer.remove();
+            let order = convertObjectsPropertyToArray(studentsList, row);
+            sortObjectsByProperty(studentsList, order, row);
+            loadStatsPannel(studentsList);
+        }
+
+        for (let i = studentsList.length; i >= 0; i--)
+        {
+            let statsDbTitle = ["stats_water", "stats_air", "stats_forest", "stats_average"];
+            let statsTitle = ["Eau", "Air", "Forêt", "Moyenne"];
+            let student = document.createElement("li");
+            let studentName = document.createElement("p");
+            let statsContainer = createDomElem("span", [["class"], ["statsContainer"]]);
+            if (i == studentsList.length)
+            {
+                // Nickname Title
+                studentName.innerText = "Habitants";
+                studentName.onclick = function() {refresh("nickname");};
+            }
+            else
+            {
+                // Nickname
+                studentName.innerText = studentsList[i].nickname
+            }
+            for (let j = 0; j < 4; j++)
+            {
+                let stats = document.createElement("span");
+                stats.setAttribute("class", "stats");
+                if (i == studentsList.length)
+                {
+                    // Stats Title
+                    stats.innerText = statsTitle[j];
+                    stats.onclick = function() {refresh(statsDbTitle[j]);};
+                }
+                else
+                {
+                    // Stats
+                    stats.innerText = studentsList[i][statsDbTitle[j]];
+                }
+                statsContainer.appendChild(stats);
+            }
+            student.appendChild(studentName);
+            student.appendChild(statsContainer);
+            studentsContainer.appendChild(student);
+        }
+        planetInfosContainer.appendChild(studentsContainer);
+        planetInfosContainer.classList.remove("disabled");
+    }
+
     let hoverPlanet = function(event)
     {
         // Detect if mouse||finger position is on front object
@@ -393,7 +453,7 @@ let init = function()
                     // Display Planet Infos (population, stats, etc)
                     else if (planetNameText != "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
                     {
-                        // delete tool
+                        // Delete Pannel
                         let deleteContainer = document.querySelector('.planetDeleteContainer');
                         let deleteImg = createDomElem("img", [["class", "src"], ["deleteButton", "assets/img/delete.svg"]]);
                         deleteContainer.appendChild(deleteImg);
@@ -428,37 +488,7 @@ let init = function()
                                 document.querySelector('.deleteValidationContainer').remove();
                             }
                         }
-                        // title
-                        planetInfosTitle.innerText = "Statistiques";
-                        // population
-                        let studentsContainer = document.createElement("ul");
-                        studentsContainer.setAttribute("class", "populationContainer")
-
-                        let order = convertObjectsPropertyToArray(studentsList[intersects[0].object.idCr], "stats_water");
-                        sortObjectsByProperty(studentsList[intersects[0].object.idCr], order, "stats_water");
-
-
-                        for (let i = -1, length = studentsList[intersects[0].object.idCr].length; i < length; i++)
-                        {
-                            let statsDbTitle = ["stats_water", "stats_air", "stats_forest", "stats_average"];
-                            let statsTitle = ["Eau", "Air", "Forêt", "Moyenne"];
-                            let student = document.createElement("li");
-                            let studentName = document.createElement("p");
-                            let statsContainer = createDomElem("span", [["class"], ["statsContainer"]]);
-                            studentName.innerText = studentsList[intersects[0].object.idCr][i] ? studentsList[intersects[0].object.idCr][i].nickname : "Habitants";
-                            for (let j = 0; j < 4; j++)
-                            {
-                                let stats = document.createElement("span");
-                                stats.setAttribute("class", "stats");
-                                stats.innerText = studentsList[intersects[0].object.idCr][i] ? studentsList[intersects[0].object.idCr][i][statsDbTitle[j]] : statsTitle[j];
-                                statsContainer.appendChild(stats);
-                            }
-                            student.appendChild(studentName);
-                            student.appendChild(statsContainer);
-                            studentsContainer.appendChild(student);
-                        }
-                        planetInfosContainer.appendChild(studentsContainer);
-                        planetInfosContainer.classList.remove("disabled");
+                        loadStatsPannel(studentsList[intersects[0].object.idCr]);
                     }
                 }
             }

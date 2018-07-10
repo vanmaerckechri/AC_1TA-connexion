@@ -9,6 +9,7 @@ let convertObjectsPropertyToArray = function(objs, key)
     {
         array.push(objs[i][key]);
     }
+    console.log(array);
     array.sort();
     return array;
 }
@@ -16,22 +17,26 @@ let convertObjectsPropertyToArray = function(objs, key)
 // change array order who contain objects
 function sortObjectsByProperty (array, order, key)
 {
-
+    let revert = false;
     array.sort(function (a, b)
     {
-      let propValueA = a[key], propValueB = b[key];
-      //console.log(b[key]);
-      if (order.indexOf(propValueA) > order.indexOf(propValueB))
-      {
-          return 1;
-      }
-      else
-      {
-          return -1;
-      }
-      
+        let propValueA = a[key], propValueB = b[key];
+        //console.log(b[key]);
+        if (order.indexOf(propValueA) > order.indexOf(propValueB))
+        {
+            return 1;
+        }
+        else
+        {
+            revert = true;
+            return -1;
+        }
     });
-    array.reverse();
+
+    if (revert == true)
+    {
+        array.reverse();
+    }
 };
 
 // -- CREATE DOM ELEMENTS --
