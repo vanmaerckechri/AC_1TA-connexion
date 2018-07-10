@@ -40,6 +40,15 @@ if (isset($_GET['action']))
 		deletePlanetView($_GET['idcr']);
 		loadMainView();
 	}
+	// Disconnect
+	else if ($_GET['action'] == 'disco')
+	{
+		disconnect();
+	}
+	else
+	{
+		loadMainView();
+	}
 }
 else
 {

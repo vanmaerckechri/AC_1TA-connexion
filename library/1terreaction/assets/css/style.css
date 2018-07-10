@@ -31,6 +31,25 @@ body {
   display: none;
   pointer-events: none; }
 
+.headerProfile {
+  margin: 0 auto;
+  padding: 1rem;
+  position: relative;
+  left: 0;
+  top: 0;
+  max-width: 1280px;
+  width: 100%;
+  text-align: right; }
+  .headerProfile .profile {
+    white-space: nowrap;
+    color: white;
+    font-family: 'Open Sans', sans-serif; }
+    .headerProfile .profile .disconnect {
+      font-size: 1.5;
+      font-weight: 700;
+      color: red;
+      text-decoration: none; }
+
 #container {
   position: fixed; }
 

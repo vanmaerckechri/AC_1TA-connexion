@@ -23,16 +23,35 @@ class ManagePlanets
 			// Check planets for this admin account
 			$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id = :idCr AND id_admin = :idAd");
 			$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+			$delInPop = $db->prepare("DELETE FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
+			$delInPop->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+			$delInPlanet = $db->prepare("DELETE FROM 1ta_planets WHERE id_classroom = :idCr AND id_admin = :idAd");
+			$delInPlanet->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 			foreach ($classroomLinkedToPlanet as $classroom)
 			{
 				$req->bindValue(':idCr', $classroom['id_classroom'], PDO::PARAM_INT);
 				$req->execute();
 				$result = $req->fetchAll();
-				array_push($planetsInfo, $result[0]);
+				if (!empty($result[0]))
+				{
+					array_push($planetsInfo, $result[0]);
+				}
+				// Classroom no longer exists
+				else
+				{
+					$delInPop->bindParam(':idCr', $classroom['id_classroom'], PDO::PARAM_INT);
+					$delInPop->execute();
+					$delInPlanet->bindParam(':idCr', $classroom['id_classroom'], PDO::PARAM_INT);
+					$delInPlanet->execute();
+				}
 			}
 		}
 		$req->closeCursor();
 		$req = NULL;
+		$delInPop->closeCursor();
+		$delInPop = NULL;
+		$delInPlanet->closeCursor();
+		$delInPlanet = NULL;
 		return $planetsInfo;
 	}
 
@@ -72,7 +91,10 @@ class ManagePlanets
 			// merge array(id and name from students) with their stats
 			foreach ($studentsListStats as $keyStats => $studentStats)
 			{
-				array_push($studentsListTemp, array_merge($studentsNameList[$crInfo['id']][$keyStats], $studentStats));
+				if (!empty($studentsNameList[$crInfo['id']][$keyStats]))
+				{
+					array_push($studentsListTemp, array_merge($studentsNameList[$crInfo['id']][$keyStats], $studentStats));
+				}
 			}
 			$studentsList[$crInfo['id']] = $studentsListTemp;
 		}
@@ -190,7 +212,7 @@ class ManagePlanets
 		$req->closeCursor();
 		$req = NULL;
 	}
-	public static function addStudents()
+	public static function refreshPopulationWithClassroom()
 	{
 		try
 		{
@@ -238,7 +260,20 @@ class ManagePlanets
 			foreach ($PlanetStudents as $key => $value) 
 			{
 				$newStudents[$key] = array_diff($classroomsStudents[$key], $PlanetStudents[$key]);
+				$studentsDeletedFromClassroom[$key] = array_diff($PlanetStudents[$key], $classroomsStudents[$key]);
 			}
+			// Erase students who are no longer in the classroom
+			$del = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt AND id_admin = :idAd");
+			$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
+			foreach ($studentsDeletedFromClassroom as $idStudents)
+			{
+				foreach ($idStudents as $idSt)
+				{	
+					$del->bindParam(':idSt', $idSt, PDO::PARAM_INT);
+					$del->execute();
+				}
+			}
+
 			// Record new students into planet
 			$req2 = $db->prepare("INSERT INTO 1ta_populations (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
 			$req2->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
@@ -253,6 +288,7 @@ class ManagePlanets
 			}
 			$req2->closeCursor();
 			$req2 = NULL;
+
 		}
 	}
 	public static function deletePlanet($idCr)

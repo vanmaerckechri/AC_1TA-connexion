@@ -9,10 +9,10 @@ Authentification::startSession();
 
 function loadMainView()
 {
+	ManagePlanets::refreshPopulationWithClassroom();
 	$planetList = ManagePlanets::callPlanetList($_SESSION['id']);
 	$studentsList = ManagePlanets::callStudentsList($planetList);
 	$freeClassrooms = ManagePlanets::callFreeClassroomsList($_SESSION['id']);
-	ManagePlanets::addStudents();
 	require('./view/ad_managePlanets.php');
 }
 
@@ -38,4 +38,11 @@ function deletePlanetView($idCr)
 	{
 		loadMainView();
 	}
+}
+
+function disconnect()
+{
+	$_SESSION = array();
+	$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Vous êtes bien déconnecté!</span>';
+	header('Location: admin.php');	  
 }

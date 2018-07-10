@@ -10,8 +10,14 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="admin">
-	<div id="container">
-  	</div>
+  	<div id="container">
+    </div>
+    <div class="headerProfile">
+        <div class="profile">
+            <?=$_SESSION['nickname']?>
+            <a href="admin.php?action=disco" class="disconnect">X</a>
+        </div>
+    </div>
   	<?=$content?>
     <?=$script?>
 </body>
