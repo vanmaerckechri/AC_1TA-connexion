@@ -42,7 +42,8 @@ ob_start();
         planetsList.push({name: "Créer une Nouvelle Planète"});
     </script>
     <script src="assets/library/three.js"></script>
-    <script src="assets/library/OrbitControls.js"></script>                     
+    <script src="assets/library/OrbitControls.js"></script>
+    <script src="assets/js/tools.js"></script>                  
     <script src="assets/js/solarsystem.js"></script>
 <?php
 $script = ob_get_clean();

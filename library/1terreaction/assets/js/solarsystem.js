@@ -248,6 +248,10 @@ let init = function()
             document.querySelector('.freeClassroomsContainer').classList.add("disabled");
         }
         hoverPlanet(event);
+        if (document.querySelector('.deleteValidationContainer'))
+        {
+            document.querySelector('.deleteValidationContainer').remove();
+        }
     }
     // -- DETECT CLICK ON PLANET --
     scene.children[0].busy = false;
@@ -391,9 +395,7 @@ let init = function()
                     {
                         // delete tool
                         let deleteContainer = document.querySelector('.planetDeleteContainer');
-                        let deleteImg = document.createElement('img');
-                        deleteImg.setAttribute("class", "deleteButton");
-                        deleteImg.setAttribute("src", "assets/img/delete.svg");
+                        let deleteImg = createDomElem("img", [["class", "src"], ["deleteButton", "assets/img/delete.svg"]]);
                         deleteContainer.appendChild(deleteImg);
                         planetInfosContainer.insertBefore(deleteContainer, planetInfosTitle);
                         document.querySelector('.deleteButton').onclick = function()
@@ -401,22 +403,17 @@ let init = function()
                             if (!document.querySelector('.deleteValidationContainer'))
                             {
                                 // delete validation container
-                                let deleteValidationContainer = document.createElement('div');
-                                deleteValidationContainer.setAttribute("class", "deleteValidationContainer");
-                                // text
+                                let deleteValidationContainer = createDomElem("div", [["class"], ["deleteValidationContainer"]]);
+                                // text                              
                                 let deleteValidationText = document.createElement('p');
                                 deleteValidationText.innerText = "Êtes-vous sûr de vouloir effacer la planète \""+intersects[0].object.name+"\" ?";
                                 deleteValidationContainer.appendChild(deleteValidationText);
                                 // button yes
-                                let deleteValidationYes = document.createElement('a');
-                                deleteValidationYes.setAttribute("class", "deleteValidationYes");
-                                deleteValidationYes.setAttribute("href", "admin.php?action=delplan&idcr="+intersects[0].object.idCr);
+                                let deleteValidationYes = createDomElem("a", [["class", "href"], ["deleteValidationYes", "admin.php?action=delplan&idcr="+intersects[0].object.idCr]]);
                                 deleteValidationYes.innerText = "OUI?"
                                 deleteValidationContainer.appendChild(deleteValidationYes);
                                 // button no
-                                let deleteValidationNo = document.createElement('a');
-                                deleteValidationNo.setAttribute("class", "deleteValidationNo");
-                                deleteValidationNo.setAttribute("href", "#");
+                                let deleteValidationNo = createDomElem("a", [["class", "href"], ["deleteValidationNo", "#"]]);
                                 deleteValidationNo.innerText = "NON?"
                                 deleteValidationContainer.appendChild(deleteValidationNo);
                                 deleteContainer.insertBefore(deleteValidationContainer, deleteImg);
@@ -436,14 +433,18 @@ let init = function()
                         // population
                         let studentsContainer = document.createElement("ul");
                         studentsContainer.setAttribute("class", "populationContainer")
-                        for (let i = studentsList[intersects[0].object.idCr].length; i >= 0; i--)
+
+                        let order = convertObjectsPropertyToArray(studentsList[intersects[0].object.idCr], "stats_water");
+                        sortObjectsByProperty(studentsList[intersects[0].object.idCr], order, "stats_water");
+
+
+                        for (let i = -1, length = studentsList[intersects[0].object.idCr].length; i < length; i++)
                         {
                             let statsDbTitle = ["stats_water", "stats_air", "stats_forest", "stats_average"];
                             let statsTitle = ["Eau", "Air", "Forêt", "Moyenne"];
                             let student = document.createElement("li");
                             let studentName = document.createElement("p");
-                            let statsContainer = document.createElement("span");
-                            statsContainer.setAttribute("class", "statsContainer");
+                            let statsContainer = createDomElem("span", [["class"], ["statsContainer"]]);
                             studentName.innerText = studentsList[intersects[0].object.idCr][i] ? studentsList[intersects[0].object.idCr][i].nickname : "Habitants";
                             for (let j = 0; j < 4; j++)
                             {
