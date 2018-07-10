@@ -66,9 +66,11 @@
 				width: 32px;
 				height: 32px;
 				background-color: red;
+				transition: box-shadow .3s;
 				&:hover
 				{
 					cursor: pointer;
+					box-shadow: 0px 0px 24px rgba(255, 40, 80, 1);
 				}
 			}
 			.deleteValidationContainer
@@ -96,7 +98,8 @@
 			}
 		}
 		.planetInfosTitle
-		{    	
+		{    
+			margin-bottom: 1rem;
 			font-family: 'Orbitron', sans-serif;
 			font-size: 1.3rem;
 		}
@@ -126,20 +129,54 @@
 		}
 		.populationContainer
 		{
+			margin: 0 auto;
 			padding: .5rem 1rem;
 			display: block;
+			max-width: 720px;
 			font-family: 'Open Sans', sans-serif;
 			font-size: 1rem;
 			color: white;
 			list-style: none;
+			li
+			{
+				&:first-of-type
+				{
+					margin-bottom: .5rem;
+					p, span
+					{
+						font-size: 1rem;
+						font-weight: bold;
+					}
+				}
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				p
+				{
+					flex: 1;
+					text-align: left;
+				}
+				.statsContainer
+				{
+					display: flex;
+					flex: 2;
+					.stats
+					{
+						margin: 0 .2rem;
+						flex: 2;
+					}
+				}
+			}
 		}
 		.previous
 		{
 			width: 32px;
 			height: 32px;
+			transition: transform .5s;
 			&:hover
 			{
 				cursor: pointer;
+				transform: translate(-10px);
 			}
 		}
 	}

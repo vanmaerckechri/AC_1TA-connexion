@@ -38,6 +38,7 @@ class ManagePlanets
 
 	public static function callStudentsList($classroomsInfos)
 	{
+		$studentsNameList = [];
 		$studentsList = [];
 		try
 		{
@@ -48,6 +49,7 @@ class ManagePlanets
 		{
 		    die('Erreur : ' . $e->getMessage());
 		}
+		// students name and id
 		$req = $db->prepare("SELECT nickname, id FROM pe_students WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		foreach ($classroomsInfos as $crInfo)
@@ -55,10 +57,28 @@ class ManagePlanets
 			$req->bindValue(':idCr', $crInfo['id'], PDO::PARAM_INT);
 			$req->execute();
 			$result = $req->fetchAll();
-			$studentsList[$crInfo['id']] = $result;
+			// index of array = id of the classroom
+			$studentsNameList[$crInfo['id']] = $result;
+		}
+		// students stats
+		$req = $db->prepare("SELECT stats_water, stats_air, stats_forest, stats_average, openanswer FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		foreach ($classroomsInfos as $crInfo)
+		{
+			$req->bindValue(':idCr', $crInfo['id'], PDO::PARAM_INT);
+			$req->execute();
+			$studentsListStats = $req->fetchAll();
+			$studentsListTemp = [];
+			// merge array(id and name from students) with their stats
+			foreach ($studentsListStats as $keyStats => $studentStats)
+			{
+				array_push($studentsListTemp, array_merge($studentsNameList[$crInfo['id']][$keyStats], $studentStats));
+			}
+			$studentsList[$crInfo['id']] = $studentsListTemp;
 		}
 		$req->closeCursor();
 		$req = NULL;
+
 		return $studentsList;
 	}
 

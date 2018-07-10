@@ -386,7 +386,7 @@ let init = function()
                         }
 
                     }
-                    // Display free classrooms list to create a planet
+                    // Display Planet Infos (population, stats, etc)
                     else if (planetNameText != "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
                     {
                         // delete tool
@@ -432,14 +432,28 @@ let init = function()
                             }
                         }
                         // title
-                        planetInfosTitle.innerText = "Habitants";
+                        planetInfosTitle.innerText = "Statistiques";
                         // population
                         let studentsContainer = document.createElement("ul");
                         studentsContainer.setAttribute("class", "populationContainer")
-                        for (let i = studentsList[intersects[0].object.idCr].length - 1; i >= 0; i--)
+                        for (let i = studentsList[intersects[0].object.idCr].length; i >= 0; i--)
                         {
+                            let statsDbTitle = ["stats_water", "stats_air", "stats_forest", "stats_average"];
+                            let statsTitle = ["Eau", "Air", "Forêt", "Moyenne"];
                             let student = document.createElement("li");
-                            student.innerText = studentsList[intersects[0].object.idCr][i].nickname;
+                            let studentName = document.createElement("p");
+                            let statsContainer = document.createElement("span");
+                            statsContainer.setAttribute("class", "statsContainer");
+                            studentName.innerText = studentsList[intersects[0].object.idCr][i] ? studentsList[intersects[0].object.idCr][i].nickname : "Habitants";
+                            for (let j = 0; j < 4; j++)
+                            {
+                                let stats = document.createElement("span");
+                                stats.setAttribute("class", "stats");
+                                stats.innerText = studentsList[intersects[0].object.idCr][i] ? studentsList[intersects[0].object.idCr][i][statsDbTitle[j]] : statsTitle[j];
+                                statsContainer.appendChild(stats);
+                            }
+                            student.appendChild(studentName);
+                            student.appendChild(statsContainer);
                             studentsContainer.appendChild(student);
                         }
                         planetInfosContainer.appendChild(studentsContainer);
@@ -485,6 +499,7 @@ let init = function()
         let planetName = document.querySelector('.planetName');
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
         planetInfosContainer.style.bottom = planetName.offsetHeight+"px";
+        planetInfosContainer.style.height = "calc(100vh - "+planetName.offsetHeight+"px)";        
    }
     window.addEventListener("resize", adaptUi, false);
     adaptUi();
