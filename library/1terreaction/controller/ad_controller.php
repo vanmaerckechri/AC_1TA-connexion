@@ -12,6 +12,7 @@ function loadMainView()
 	$planetList = ManagePlanets::callPlanetList($_SESSION['id']);
 	$studentsList = ManagePlanets::callStudentsList($planetList);
 	$freeClassrooms = ManagePlanets::callFreeClassroomsList($_SESSION['id']);
+	ManagePlanets::addStudents();
 	require('./view/ad_managePlanets.php');
 }
 

@@ -190,6 +190,71 @@ class ManagePlanets
 		$req->closeCursor();
 		$req = NULL;
 	}
+	public static function addStudents()
+	{
+		try
+		{
+		    $db = connectDB();
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} 
+		catch (Exception $e)
+		{
+		    die('Erreur : ' . $e->getMessage());
+		}
+		// Check planets exist for this admin
+		$req = $db->prepare("SELECT id_classroom FROM 1ta_planets WHERE id_admin = :idAd");
+		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		$req->execute();
+		$classroomsId = $req->fetchAll();
+
+		if (!empty($classroomsId))
+		{
+			$classroomsStudents = [];
+			foreach ($classroomsId as $cr)
+			{
+				// Student from classroom
+				$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
+				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+				$req->bindValue(':idCr', $cr['id_classroom'], PDO::PARAM_INT);
+				$req->execute();
+				$students = $req->fetchAll(PDO::FETCH_COLUMN, 0);
+				$classroomsStudents[$cr['id_classroom']] = $students;
+			}
+			$PlanetStudents = [];
+			foreach ($classroomsId as $cr)
+			{
+				// Students from admin planets
+				$req = $db->prepare("SELECT id_student FROM 1ta_populations WHERE id_admin = :idAd AND id_classroom = :idCr");
+				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+				$req->bindValue(':idCr', $cr['id_classroom'], PDO::PARAM_INT);
+				$req->execute();
+				$students = $req->fetchAll(PDO::FETCH_COLUMN, 0);
+				$PlanetStudents[$cr['id_classroom']] = $students;
+			}
+			$req->closeCursor();
+			$req = NULL;
+			// Remove students who alreay have a planet
+			$newStudents = [];
+			foreach ($PlanetStudents as $key => $value) 
+			{
+				$newStudents[$key] = array_diff($classroomsStudents[$key], $PlanetStudents[$key]);
+			}
+			// Record new students into planet
+			$req2 = $db->prepare("INSERT INTO 1ta_populations (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
+			$req2->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+			foreach ($newStudents as $idCr => $idStudents)
+			{
+				foreach ($idStudents as $idSt)
+				{	
+					$req2->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+					$req2->bindParam(':idSt', $idSt, PDO::PARAM_INT); 
+					$req2->execute();
+				}
+			}
+			$req2->closeCursor();
+			$req2 = NULL;
+		}
+	}
 	public static function deletePlanet($idCr)
 	{
 		try
