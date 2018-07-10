@@ -309,7 +309,7 @@ input {
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 256px;
     height: 256px;
@@ -317,10 +317,12 @@ input {
     background-color: black; }
     #main .libElemContainer .libElemLink .libElemTitle {
       margin: 0 .5rem;
+      position: absolute;
       font-size: 1.2rem;
       font-weight: 700;
       letter-spacing: .5rem;
-      color: white; }
+      color: white;
+      background-color: rgba(0, 0, 0, 0.5); }
     #main .libElemContainer .libElemLink .libElemCover {
       border-radius: 12px;
       width: 128px;
@@ -329,7 +331,7 @@ input {
       margin: 0 0 .5rem 0;
       border: 1px solid grey;
       padding: 0 .5rem;
-      display: flex;
+      display: none;
       height: auto;
       overflow: auto; }
       #main .libElemContainer .libElemLink .libElemDescription p {

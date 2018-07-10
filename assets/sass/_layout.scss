@@ -294,7 +294,7 @@
 			border-radius: 12px;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-between;
+			justify-content: center;
 			align-items: center;
 			width: 256px;
 			height: 256px;
@@ -303,10 +303,12 @@
 			.libElemTitle
 			{
 				margin: 0 .5rem;
+				position: absolute;
 				font-size: 1.2rem;
 				font-weight: 700;
 				letter-spacing: .5rem;
 				color: white;
+				background-color: rgba(0, 0, 0, .5);
 			}
 			.libElemCover
 			{
@@ -319,7 +321,8 @@
 				margin: 0 0 .5rem 0;
 				border: 1px solid grey;
 				padding: 0 .5rem;
-				display: flex;
+				display: none;
+				//display: flex;
 				height: auto;
 				overflow: auto;
 				p
