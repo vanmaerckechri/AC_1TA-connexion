@@ -419,7 +419,7 @@ let init = function()
                                 deleteValidationNo.setAttribute("href", "#");
                                 deleteValidationNo.innerText = "NON?"
                                 deleteValidationContainer.appendChild(deleteValidationNo);
-                                deleteContainer.appendChild(deleteValidationContainer);
+                                deleteContainer.insertBefore(deleteValidationContainer, deleteImg);
                                 deleteValidationNo.onclick = function(event)
                                 {
                                     event.preventDefault();
