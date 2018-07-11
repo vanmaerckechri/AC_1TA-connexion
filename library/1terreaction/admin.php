@@ -9,7 +9,7 @@ function checkSession()
 	$auth = new Authentification;
 	$sessionResult = $auth->checkSession();
 
-	if ($sessionResult == null && $sessionResult != 'admin')
+	if ($sessionResult == null || $sessionResult != 'admin')
 	{
 		header('Location: ../../index.php');
 		exit;

@@ -1,4 +1,4 @@
-let init = function()
+window.addEventListener('load', function()
 {
     let renderer, scene, camera, camera2, mesh_earthClouds;
    // let planetNamesList = ["5ème A", "5ème B", "5ème C", "6ème A", "Créer une Nouvelle Planète"];
@@ -581,10 +581,4 @@ let init = function()
     }
     document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);
 */
-}
-
-
-window.addEventListener('load', function()
-{
-    init();
 });

@@ -9,8 +9,8 @@ else
 {
 	function connectDB()
 	{
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
 	}
 	function getSecretCaptchaKey()
@@ -33,7 +33,7 @@ function checkInput($input, $field, $smsTitle)
 	    	break;
 	    case "password":
 	    	$regex = "/^.{5,30}$/";
-	    	$smsAlert = "<span class='smsAlert'>Le mot de passe doit être composé de 8 à 30 caractères!</span>";
+	    	$smsAlert = "<span class='smsAlert'>Le mot de passe doit être composé de 5 à 30 caractères!</span>";
 	    	break;
 	    case "classroom":
 	    	$regex = "/^.{5,30}$/";
@@ -538,7 +538,7 @@ class SendMail
 
 class Library
 {
-	public static function load($user)
+	public static function load()
 	{
 		try
 		{
@@ -550,7 +550,7 @@ class Library
 		    die('Erreur : ' . $e->getMessage());
 		}
 		// admin
-		if (strstr($user, 'admin@'))
+		if (strstr($_SESSION['nickname'], 'admin@'))
 		{
 			$req = $db->prepare("SELECT * FROM pe_library");
 			$req->execute();
@@ -562,7 +562,47 @@ class Library
 		// student
 		else
 		{
-
+			$req = $db->prepare("SELECT id_classroom FROM pe_students WHERE id = :idSt AND nickname = :nickname AND password = :password");
+			$req->bindValue(':idSt', $_SESSION['id'], PDO::PARAM_INT);
+			$req->bindValue(':nickname', $_SESSION['nickname'], PDO::PARAM_STR);
+			$req->bindValue(':password', $_SESSION['password'], PDO::PARAM_STR);
+			$req->execute();
+			$resultReq = $req->fetchAll(PDO::FETCH_COLUMN, 0);
+			if (!empty($resultReq))
+			{
+				$req = $db->prepare("SELECT id_library FROM pe_rel_cr_library WHERE id_classroom = :idCr");
+				$req->bindValue(':idCr', $resultReq[0], PDO::PARAM_INT);
+				$req->execute();
+				$resultReq = $req->fetchAll(PDO::FETCH_COLUMN, 0);
+				if (!empty($resultReq))
+				{
+					$libraryList = [];
+					$req = $db->prepare("SELECT * FROM pe_library WHERE id = :idLib");
+					foreach ($resultReq as $idLib)
+					{
+						$idLib = intval($idLib);
+						$req->bindValue(':idLib', $idLib, PDO::PARAM_INT);
+						$req->execute();
+					    array_push($libraryList, $req->fetch());
+					}
+					$req->closeCursor();
+					$req = NULL;
+					return $libraryList;
+				}
+				else
+				{
+					$req->closeCursor();
+					$req = NULL;
+					$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Aucune application n'a été activée pour le moment!</span>";
+					return array();
+				}
+			}
+			else
+			{
+				$req->closeCursor();
+				$req = NULL;
+				return array();
+			}
 		}
 	}
 }

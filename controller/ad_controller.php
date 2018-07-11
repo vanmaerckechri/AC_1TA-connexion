@@ -85,8 +85,7 @@ function loadManageThisClassroom()
 }
 function loadLibrary()
 {
-	$libraryList = Library::load($_SESSION['nickname']);
-	require('./view/libraryView.php');	
+	header('Location: ./library.php');	
 }
 
 function disconnect()

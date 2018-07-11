@@ -183,10 +183,21 @@ class ManagePlanets
 			$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 			$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
 			$req->execute();
-			$classroom = $req->fetchAll();
-			if (empty($classroom))
+			$idPlanet = $req->fetchAll();
+			if (empty($idPlanet))
 			{
 				// link classroom to planet
+				$req = $db->prepare("SELECT id FROM pe_library WHERE name = :name");
+				$name = "1TerreAction";
+				$req->bindValue(':name', $name, PDO::PARAM_INT);
+				$req->execute();
+				$idLib = $req->fetch(PDO::FETCH_COLUMN, 0);
+
+				$req = $db->prepare("INSERT INTO pe_rel_cr_library (id_classroom, id_library) VALUES (:idCr, :idLib)");
+				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+				$req->bindValue(':idLib', $idLib, PDO::PARAM_INT);
+				$req->execute();
+
 				$req = $db->prepare("INSERT INTO 1ta_planets (id_classroom, id_admin) VALUES (:idCr, :idAd)");
 				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
 				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
@@ -306,9 +317,22 @@ class ManagePlanets
 		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
 		$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
 		$del->execute();
+
 		$del = $db->prepare("DELETE FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
 		$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
 		$del->execute();
+
+		$del = $db->prepare("SELECT id FROM pe_library WHERE name = :name");
+		$name = "1TerreAction";
+		$del->bindValue(':name', $name, PDO::PARAM_INT);
+		$del->execute();
+		$idLib = $del->fetch(PDO::FETCH_COLUMN, 0);
+		$del = $db->prepare("DELETE FROM pe_rel_cr_library WHERE id_classroom = :idCr AND id_library = :idLib");
+		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+		$del->bindParam(':idLib', $idLib, PDO::PARAM_INT);   
+		$del->execute();
+		$del->closeCursor();
+		$del = NULL;
 	}
 }
