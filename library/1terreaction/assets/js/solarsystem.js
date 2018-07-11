@@ -343,6 +343,14 @@ let init = function()
             loadStatsPannel(studentsList);
         }
 
+        // statsPlanetAverage Temporaire (php qui s'en occupera)
+        let statsPlanetAverage = 
+        {
+            stats_water: 0,
+            stats_air: 0,
+            stats_forest: 0,
+            stats_average: 0
+        };
         for (let i = studentsList.length; i >= 0; i--)
         {
             let statsDbTitle = ["stats_water", "stats_air", "stats_forest", "stats_average"];
@@ -350,6 +358,7 @@ let init = function()
             let student = document.createElement("li");
             let studentName = document.createElement("p");
             let statsContainer = createDomElem("span", [["class"], ["statsContainer"]]);
+            let statsStudentAverage = 0;
             if (i == studentsList.length)
             {
                 // Nickname Title
@@ -361,7 +370,7 @@ let init = function()
                 // Nickname
                 studentName.innerText = studentsList[i].nickname
             }
-            for (let j = 0; j < 4; j++)
+            for (let j = 0, statsLength = statsDbTitle.length; j < statsLength; j++)
             {
                 let stats = document.createElement("span");
                 stats.setAttribute("class", "stats");
@@ -373,11 +382,36 @@ let init = function()
                 }
                 else
                 {
-                    // Stats
-                    stats.innerText = studentsList[i][statsDbTitle[j]];
+                    // Stats (! tout ce qui est average est temporaire, ça sera fait côté php)
+                    if (j < statsLength - 1)//TEMP
+                    {
+                        // students stats
+                        stats.innerText = studentsList[i][statsDbTitle[j]];
+                        statsStudentAverage += parseInt(studentsList[i][statsDbTitle[j]]);//TEMP
+                        // planet stats
+                        statsPlanetAverage[statsDbTitle[j]] += parseInt(studentsList[i][statsDbTitle[j]]);//TEMP
+                    }
+                    else
+                    {
+                        // student average
+                        stats.innerText = Math.round(statsStudentAverage / (statsLength -1));//TEMP
+                    }
                 }
                 statsContainer.appendChild(stats);
             }
+            // planet stats (students average)
+            if (i == 0)//TEMP ==>
+            {
+                let statsLength = statsDbTitle.length - 1;
+                for (let j = 0, studentsLength = studentsList.length; j < statsLength; j++)
+                {
+                    statsPlanetAverage[statsDbTitle[j]] = Math.round(statsPlanetAverage[statsDbTitle[j]] / studentsLength);
+                    statsPlanetAverage['stats_average'] += statsPlanetAverage[statsDbTitle[j]];
+                }
+                statsPlanetAverage['stats_average'] = Math.round(statsPlanetAverage['stats_average'] / statsLength);
+                console.log(statsPlanetAverage);
+            }// <== fin du temp
+
             student.appendChild(studentName);
             student.appendChild(statsContainer);
             studentsContainer.appendChild(student);
