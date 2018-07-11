@@ -335,11 +335,11 @@ let init = function()
         let studentsContainer = document.createElement("ul");
         studentsContainer.setAttribute("class", "populationContainer");
 
-        let refresh = function(row)
+        let refresh = function(col)
         {
             studentsContainer.remove();
-            let order = convertObjectsPropertyToArray(studentsList, row);
-            sortObjectsByProperty(studentsList, order, row);
+            let order = convertObjectsPropertyToArray(studentsList, col);
+            sortObjectsByProperty(studentsList, order, col);
             loadStatsPannel(studentsList);
         }
 

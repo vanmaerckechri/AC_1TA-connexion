@@ -2,6 +2,8 @@
  *  in = array with objects
  *  out = array
  */
+
+let reverse = 1;
 let convertObjectsPropertyToArray = function(objs, key)
 {
     let array = [];
@@ -9,34 +11,25 @@ let convertObjectsPropertyToArray = function(objs, key)
     {
         array.push(objs[i][key]);
     }
-    console.log(array);
     array.sort();
+    if (reverse == 1)
+    {
+        array.reverse();
+    }
+    reverse *= -1;
+
     return array;
 }
 
 // change array order who contain objects
 function sortObjectsByProperty (array, order, key)
 {
-    let revert = false;
     array.sort(function (a, b)
     {
-        let propValueA = a[key], propValueB = b[key];
         //console.log(b[key]);
-        if (order.indexOf(propValueA) > order.indexOf(propValueB))
-        {
-            return 1;
-        }
-        else
-        {
-            revert = true;
-            return -1;
-        }
+        return order.indexOf(a[key]) - order.indexOf(b[key])
     });
 
-    if (revert == true)
-    {
-        array.reverse();
-    }
 };
 
 // -- CREATE DOM ELEMENTS --

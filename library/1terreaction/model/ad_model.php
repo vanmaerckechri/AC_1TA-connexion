@@ -45,13 +45,13 @@ class ManagePlanets
 					$delInPlanet->execute();
 				}
 			}
+			$delInPop->closeCursor();
+			$delInPop = NULL;
+			$delInPlanet->closeCursor();
+			$delInPlanet = NULL;
 		}
 		$req->closeCursor();
 		$req = NULL;
-		$delInPop->closeCursor();
-		$delInPop = NULL;
-		$delInPlanet->closeCursor();
-		$delInPlanet = NULL;
 		return $planetsInfo;
 	}
 
