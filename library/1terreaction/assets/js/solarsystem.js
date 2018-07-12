@@ -34,11 +34,14 @@ window.addEventListener('load', function()
                 let geometry = new THREE.SphereGeometry(600, 16, 16);
                 let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse.jpg');
                 let normalMap = new THREE.TextureLoader().load('assets/img/earth_normalmap.tif');
+                let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump.jpg');
                 let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular.tif');
-                let material = new THREE.MeshLambertMaterial
+                let material = new THREE.MeshPhongMaterial
                 ({
                     color: 0xffffff,
                     map: diffuseMap,
+                    bumpMap: bumpMap,
+                    bumpScale: 20,
                     //normalMap: normalMap,
                     specularMap: specularMap,
                     //specular: 0x666666,
@@ -49,30 +52,30 @@ window.addEventListener('load', function()
                 planet.geometry.computeVertexNormals();
                 planet.receiveShadow = true;
                 //pivot_planets.add(mesh_earth);
-                pivotPoint = new THREE.Object3D();
-                planet.add(pivotPoint);
+
                 pivot_planets.add(planet);
 
                 // Clouds
-                geometry = new THREE.SphereGeometry(610, 16, 16);
-                diffuseMap = new THREE.TextureLoader().load('assets/img/earth_clouds.jpg');
+                geometry = new THREE.SphereGeometry(620, 16, 16);
+                diffuseMap = new THREE.TextureLoader().load('assets/img/earth_clouds_diffuse.jpg');
+                alphaMap = new THREE.TextureLoader().load('assets/img/earth_clouds_mask.jpg');
                 material = new THREE.MeshLambertMaterial
                 ({
                     color: 'rgb(255, 255, 255)',
                     map: diffuseMap,
-                    alphaMap: diffuseMap,
+                    alphaMap: alphaMap,
                     transparent: true
                 })
                 let mesh_earthClouds = new THREE.Mesh(geometry, material);
                 mesh_earthClouds.castShadow = true;
-                planet.add( mesh_earthClouds );
+                planet.add(mesh_earthClouds);
 
                 // Atmosphere
-                geometry = new THREE.SphereGeometry(620, 16, 16);
+                geometry = new THREE.SphereGeometry(640, 16, 16);
                 material = new THREE.MeshBasicMaterial
                 ({
                     color: 'blue',
-                    opacity: 0.08,
+                    opacity: 0.15,
                     //side: THREE.DoubleSide,
                     //side: THREE.BackSide,
                     transparent: true
@@ -104,14 +107,14 @@ window.addEventListener('load', function()
                 }
                 planet.geometry.computeVertexNormals();
                 //pivot_planets.add(mesh_earth);
-                pivotPoint = new THREE.Object3D();
-                planet.add(pivotPoint);
+
                 pivot_planets.add(planet);
             }
             planet.name = planetsList[i].name;
             planet.idCr = planetsList[i].id;
         }
         scene.add(pivot_planets);
+        console.log(scene);
     }
     createPlanets();
     
@@ -124,19 +127,19 @@ window.addEventListener('load', function()
 
 // -- LIGHT --
     // Frontlight
-    let directLightCoordinates = givePlanetCoordinates(0, 0, ray*2, convertAngleToRadians(45));
+    let directLightCoordinates = givePlanetCoordinates(0, 0, ray * 2, convertAngleToRadians(45));
     let directLight = new THREE.DirectionalLight(0xffffff, 1.5);
     directLight.position.set(directLightCoordinates[0], 1000, directLightCoordinates[1]);
     directLight.target.position.set(0, 0, 0);
     directLight.castShadow = true;
-    scene.add( directLight );
+    scene.add(directLight);
 
     // BackLight
-    let backLightCoordinates = givePlanetCoordinates(0, 0, ray*2, convertAngleToRadians(200));
-    let backLight = new THREE.DirectionalLight( 0xffffff, 10 );
+    let backLightCoordinates = givePlanetCoordinates(0, 0, ray * 2, convertAngleToRadians(200));
+    let backLight = new THREE.DirectionalLight( 0xffffff, 5 );
     backLight.position.set(backLightCoordinates[0], -500, backLightCoordinates[1]);
     backLight.target.position.set(0, 0, 0);
-    scene.add( backLight );
+    scene.add(backLight);
 
 // -- MOUSE --
     let mouse = new THREE.Vector2();
@@ -379,7 +382,7 @@ window.addEventListener('load', function()
             {
                 for (let i = 1; i < planetsLength; i++)
                 {            
-                    scene.children[0].children[i].children[2].material.opacity = 0.08;
+                    scene.children[0].children[i].children[1].material.opacity = 0.15;
                 }
                 scene.children[0].children[0].material.opacity = 0.5;
                 if (planetName.classList.contains("planetNameSphereHover"))
@@ -393,7 +396,7 @@ window.addEventListener('load', function()
             {
                 if (planetNameText != "Créer une Nouvelle Planète")
                 {
-                    intersects[0].object.children[2].material.opacity = 0.25;
+                    intersects[0].object.children[1].material.opacity = 0.25;
                 }
                 else
                 {
@@ -485,7 +488,11 @@ window.addEventListener('load', function()
     {
         for (let i = planetsLength - 1; i >= 0; i--)
         {
-            scene.children[0].children[i].rotation.y += 0.001;
+            scene.children[0].children[i].rotation.y += 0.0005;
+            if (i > 0)
+            {
+                scene.children[0].children[i].children[0].rotation.y += 0.0001;
+            }
         }
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
