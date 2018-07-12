@@ -1,53 +1,28 @@
 window.addEventListener('load', function()
 {
-    let renderer, scene, camera, camera2, mesh_earthClouds;
-   // let planetNamesList = ["5ème A", "5ème B", "5ème C", "6ème A", "Créer une Nouvelle Planète"];
-    let planetsLength = planetsList.length;
-    let planetListIndex = 0;
-    let angle = 360 / planetsLength;
-    let ray = (planetsLength / 1.8) * 1000;
-    // initialize the rendering engine
-    // renderer = new THREE.WebGLRenderer();
-    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
-    // renderer.setSize( 800, 600 );
-    // renderer.setClearColor(0x000000, 0);
+// -- INIT --
+    let renderer, scene, camera, cameraCoordinates, planetsLength, planetListIndex, angle, ray;
 
+    planetsLength = planetsList.length;
+    planetListIndex = 0;
+    angle = 360 / planetsLength;
+    ray = (planetsLength / 1.8) * 1000;
+
+    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    // If WebGL does not work on your browser you can use the Canvas rendering engine
-    // renderer = new THREE.CanvasRenderer();
+    // If WebGL does not work on your browser you can use the Canvas rendering engine => renderer = new THREE.CanvasRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.getElementById('container').appendChild(renderer.domElement);
 
-    // Init Scene
     scene = new THREE.Scene();
 
-    // -- Dummy Pivot --
+// -- DUMMY PIVOT --
     pivot_planets = new THREE.Object3D();
     pivot_planets.position.set(0, 0, 0);
     pivot_planets.name = "pivotPlanets";
 
-    // -- EARTHS --
-    // Calcul angles between each planets
-    let convertAngleToRadians = function(angle)
-    {
-      return angle * (Math.PI / 180);
-    }
-    let convertRadiansToAngle = function(radians)
-    {
-      return radians * (180 / Math.PI);
-    }
-    let givePythagoreSide = function(hypotenuse, side)
-    {
-        return (Math.sqrt((hypoLong * hypoLong) - (side * side)));
-    }
-    let givePlanetCoordinates = function(pivotX, pivotY, ray, radians)
-    {
-        let posX = pivotX + (ray * Math.cos(radians));
-        let posY = pivotY + (ray * Math.sin(radians));
-        planetCoordinates = [posX, posY];
-        return planetCoordinates
-    }
+// -- EARTHS --
     let createPlanets = function()
     {
         for (let planetsLengthIndex = planetsLength - 1, i = planetsLengthIndex; i >= 0; i--)
@@ -138,55 +113,23 @@ window.addEventListener('load', function()
         }
         scene.add(pivot_planets);
     }
-
     createPlanets();
     
-   /* // Nouvel objet 3D qui a pour point de pivot la première sphère
-    pivotPoint = new THREE.Object3D();
-    mesh_earth.add(pivotPoint);
-    // Position from pivot point to sphere 2
-    //mesh_earth2.position.set(1000, 1000, 1000);
-    // make the pivotpoint the sphere's parent
-    pivotPoint.add(mesh_earth2);*/
-
-    
-    // -- CAMERA --
+// -- CAMERA --
     camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, ray * 3.5 );
-
-    let cameraCoordinates = givePlanetCoordinates(0, 0, ray * 2.5, convertAngleToRadians(0));
-
+    cameraCoordinates = givePlanetCoordinates(0, 0, ray * 2.5, convertAngleToRadians(0));
     camera.position.set(cameraCoordinates[0], ray, cameraCoordinates[1]);
     camera.lookAt(0, -500, 0);
-    //renderer.setSize( 800, 600 );
     scene.add(camera);
 
-    //controle de la camera autour du centre de la scene
-    /*let controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.center =  new THREE.Vector3
-    (
-        mesh_earth.position.x,
-        mesh_earth.position.y,
-        mesh_earth.position.z
-    );*/
-
-    //
-    // LIGHTS
-
-    // -- LIGHT --
+// -- LIGHT --
+    // Frontlight
     let directLightCoordinates = givePlanetCoordinates(0, 0, ray*2, convertAngleToRadians(45));
-
     let directLight = new THREE.DirectionalLight(0xffffff, 1.5);
     directLight.position.set(directLightCoordinates[0], 1000, directLightCoordinates[1]);
     directLight.target.position.set(0, 0, 0);
     directLight.castShadow = true;
     scene.add( directLight );
-
-    /*// HemiLight
-    hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.1 );
-    hemiLight.color.setHSL( 0.6, 1, 0.6 );
-    hemiLight.groundColor.setHSL( 0.095, 0.5, 0.5 );
-    hemiLight.position.set( 750, 750, 2000 );
-    scene.add( hemiLight );*/
 
     // BackLight
     let backLightCoordinates = givePlanetCoordinates(0, 0, ray*2, convertAngleToRadians(200));
@@ -195,7 +138,16 @@ window.addEventListener('load', function()
     backLight.target.position.set(0, 0, 0);
     scene.add( backLight );
 
-    // -- UI --
+// -- MOUSE --
+    let mouse = new THREE.Vector2();
+    mouse.oldX = 0;
+    let callMouseAxisPlanet = function(event)
+    {
+        mouse.x = event.touches != undefined ? (event.touches[0].clientX / window.innerWidth) * 2 - 1 : (event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = event.touches != undefined ? -(event.touches[0].clientY / window.innerHeight) * 2 + 1 : -(event.clientY / window.innerHeight ) * 2 + 1;
+    }
+
+// -- UI --
     let updatePlanetName = function(direction = false)
     {
         if (direction == "left")
@@ -223,15 +175,6 @@ window.addEventListener('load', function()
         planetName.innerText = randText;
     }
 
-    // Capture mouse||finger position
-    let mouse = new THREE.Vector2();
-    mouse.oldX = 0;
-    let callMouseAxisPlanet = function(event)
-    {
-        mouse.x = event.touches != undefined ? (event.touches[0].clientX / window.innerWidth) * 2 - 1 : (event.clientX / window.innerWidth ) * 2 - 1;
-        mouse.y = event.touches != undefined ? -(event.touches[0].clientY / window.innerHeight) * 2 + 1 : -(event.clientY / window.innerHeight ) * 2 + 1;
-    }
-
     let closePlanetInfos = function(event)
     {
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
@@ -253,7 +196,7 @@ window.addEventListener('load', function()
             document.querySelector('.deleteValidationContainer').remove();
         }
     }
-    // -- DETECT CLICK ON PLANET --
+    // Detect Click on Planet
     scene.children[0].busy = false;
     let openRotationPlanet = function(event) 
     {
@@ -528,24 +471,14 @@ window.addEventListener('load', function()
             }
         }
     }
-    document.querySelector('.previous').addEventListener("touchstart", closePlanetInfos, false) || document.querySelector('.previous').addEventListener("mousedown", closePlanetInfos, false);
 
-    /*let selectPlanet = function()
+    let adaptUi = function()
     {
-        // Detect if mouse||finger position is on front object
-        callMouseAxisPlanet(event);
-        let raycaster = new THREE.Raycaster();
-        raycaster.setFromCamera(mouse, camera);
-        let intersects = raycaster.intersectObjects(scene.children[0].children);
         let planetName = document.querySelector('.planetName');
-        let planetNameText = planetName.innerText;
-    }*/
-    
-    if (planetsList.length > 1)
-    {
-        document.addEventListener("touchstart", openRotationPlanet, false) || document.addEventListener("mousedown", openRotationPlanet, false);
-    }
-    document.addEventListener("touchmove", hoverPlanet, false) || document.addEventListener("mousemove", hoverPlanet, false);
+        let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        planetInfosContainer.style.bottom = planetName.offsetHeight+"px";
+        planetInfosContainer.style.height = "calc(100vh - "+planetName.offsetHeight+"px)";        
+   }
 
     // -- ANIMATION LOOP --
     let animate = function()
@@ -557,19 +490,30 @@ window.addEventListener('load', function()
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
     }
-    animate();
-    updatePlanetName();
-    let adaptUi = function()
+
+    if (planetsList.length > 1)
     {
-        let planetName = document.querySelector('.planetName');
-        let planetInfosContainer = document.querySelector('.planetInfosContainer');
-        planetInfosContainer.style.bottom = planetName.offsetHeight+"px";
-        planetInfosContainer.style.height = "calc(100vh - "+planetName.offsetHeight+"px)";        
-   }
+        document.addEventListener("touchstart", openRotationPlanet, false) || document.addEventListener("mousedown", openRotationPlanet, false);
+    }
+    document.addEventListener("touchmove", hoverPlanet, false) || document.addEventListener("mousemove", hoverPlanet, false);
+    document.querySelector('.previous').addEventListener("touchstart", closePlanetInfos, false) || document.querySelector('.previous').addEventListener("mousedown", closePlanetInfos, false);
     window.addEventListener("resize", adaptUi, false);
+
     adaptUi();
+    updatePlanetName();
+    animate();
+
+});
 
 /*
+    // Nouvel objet 3D qui a pour point de pivot la première sphère
+    pivotPoint = new THREE.Object3D();
+    mesh_earth.add(pivotPoint);
+    // Position from pivot point to sphere 2
+    //mesh_earth2.position.set(1000, 1000, 1000);
+    // make the pivotpoint the sphere's parent
+    pivotPoint.add(mesh_earth2);
+
     let closeClassroomsList = function(event)
     {
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
@@ -580,5 +524,24 @@ window.addEventListener('load', function()
         }
     }
     document.body.addEventListener("touchstart", closeClassroomsList, false) || document.addEventListener("mousedown", closeClassroomsList, false);
+
+    let selectPlanet = function()
+    {
+        // Detect if mouse||finger position is on front object
+        callMouseAxisPlanet(event);
+        let raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
+        let intersects = raycaster.intersectObjects(scene.children[0].children);
+        let planetName = document.querySelector('.planetName');
+        let planetNameText = planetName.innerText;
+    }
+
+    // Move camera around the scene
+    let controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.center =  new THREE.Vector3
+    (
+        mesh_earth.position.x,
+        mesh_earth.position.y,
+        mesh_earth.position.z
+    );
 */
-});
