@@ -1,0 +1,74 @@
+@import "variables";
+#main
+{
+	.avatarCustomContainer
+	{
+		display: flex;
+		justify-content: center;
+		.avatarCustomPreview
+		{
+			width: 256px;
+			img
+			{
+				position: absolute;
+				width: 256px;
+				height: auto;
+			}
+			#av_prev_tete
+			{
+				z-index: -5;
+			}
+			#av_prev_yeux
+			{
+				z-index: -4;
+			}
+			#av_prev_lunettes
+			{
+				z-index: -3;
+			}
+			#av_prev_cheveux
+			{
+				z-index: -2;
+			}
+		}
+		.avatarCustomElementsContainer
+		{
+			display: flex;
+			justify-content: center;
+			.avatarCustomElementsButton
+			{
+				list-style: none;
+				li
+				{
+					margin: 2px;
+					border: 1px solid black;
+					padding: 8px;
+				}
+			}
+			.avatarCustomElementsCat
+			{
+				list-style: none;
+				width: 384px;
+				li
+				{
+					flex-wrap: wrap;
+					justify-content: flex-start;
+					img
+					{
+						display: block;
+						width: 128px;
+						height: auto;
+					}
+					.avatarCustomElementsBg
+					{
+						position: absolute;
+					}
+				}
+			}
+		}
+	}
+}
+#av_prev_tete
+{
+	fill: red;
+}

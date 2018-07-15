@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div id="main">
+  	<object id="test" data="assets/img/av_tete01.svg" type="image/svg+xml" ></object>
+	<script>
+		let test = document.querySelector("#test").contentDocument;
+		console.log(test.querySelector("svg g circle"));
+		test.querySelector("svg g circle").style.fill = "red"
+	</script>
+  	<div id="avatarCustomContainer" class="avatarCustomContainer">
+  		<div id="avatarCustomPreview" class="avatarCustomPreview">
+  		</div>
+  		<div id="avatarCustomElementsContainer" class="avatarCustomElementsContainer">
+  			<ul class="avatarCustomElementsButton">
+  				<li id="av_button_tete">tête</li>
+  				<li id="av_button_yeux">yeux</li>
+  				<li id="av_button_lunettes">lunettes</li>
+  				<li id="av_button_bouche">bouche</li>
+  				<li id="av_button_cheveux">cheveux</li>
+  				<li id="av_button_chapeau">chapeau</li>
+  			</ul>
+			<ul id="avatarCustomElementsCat" class="avatarCustomElementsCat">
+			</ul>
+  		</div>
+  	</div>
+  </div>
+</body>
+<script>
+	window.addEventListener('load', function()
+	{
+		let avatarCustomElementsLength =
+		{
+			av_tete: "01",
+			av_yeux: "03",
+			av_lunettes: "02",
+			av_bouche: "03",
+			av_cheveux: "05",
+			av_chapeau: "01"
+		};
+
+		let avatar = 
+		{
+			tete: "01",
+			yeux: "01",
+			lunettes: "02",
+			bouche: "01",
+			cheveux: "01",
+			chapeau: "01"
+		};
+
+		let init = function()
+		{
+			let avatarCustomElementsCat = document.querySelector("#avatarCustomElementsCat");
+			let avatarCustomPreview = document.querySelector('#avatarCustomPreview');
+
+			// load all elements
+			for (let properyName in avatarCustomElementsLength)
+			{
+				// categories
+				let li = document.createElement("li");
+				li.setAttribute("id", properyName);
+				li.setAttribute("class", "disabled");
+				// element from cat
+				let loopLength = avatarCustomElementsLength[properyName] - 1;
+				for (let i = loopLength; i >= 0; i--)
+				{
+					// accessory => button to remove it
+					if ((properyName == "av_lunettes" || properyName == "av_chapeau" || properyName == "av_cheveux") && i == loopLength)
+					{
+						let img = document.createElement("img");
+						img.setAttribute("id", properyName+"_aucun");
+						img.setAttribute("src", "assets/img/av_aucun.svg");
+						li.appendChild(img);
+						img.addEventListener("click", function()
+						{
+							let parent = this.parentElement;
+							let elementPreviewToChangeId = parent.id.replace('av_', 'av_prev_');
+							document.querySelector("#"+elementPreviewToChangeId).src = "";
+						});
+					}
+					let img = document.createElement("img");
+					let j = i < 10 ? "0" + (i + 1) : i + 1;
+					img.setAttribute("id", properyName+j);
+					img.setAttribute("src", "assets/img/"+properyName+j+".svg");
+					li.appendChild(img);
+					img.addEventListener("click", function()
+					{
+						let parent = this.parentElement;
+						let elementPreviewToChangeId = parent.id.replace('av_', 'av_prev_');
+						document.querySelector("#"+elementPreviewToChangeId).src = "assets/img/"+this.id+".svg";
+						if (elementPreviewToChangeId == "av_prev_chapeau")
+						{
+							document.querySelector("#av_prev_cheveux").src = "";
+						}
+						else if (elementPreviewToChangeId == "av_prev_cheveux")
+						{
+							document.querySelector("#av_prev_chapeau").src = "";
+						}
+					});
+				}
+				avatarCustomElementsCat.appendChild(li);
+			}
+
+			for (let properyName in avatar)
+			{
+				// load avatar preview
+				let img = document.createElement("img");
+				img.setAttribute("src", "assets/img/av_"+properyName+avatar[properyName]+".svg");
+				img.setAttribute("id", "av_prev_"+properyName);
+				avatarCustomPreview.appendChild(img);
+				// add event on buttons (display/hide elements by cat)
+				document.querySelector("#av_button_"+properyName).addEventListener("click", function()
+				{
+					let elements = document.querySelectorAll("#avatarCustomElementsCat li");
+					for (let i = elements.length - 1; i >= 0; i--)
+					{
+						if (!elements[i].classList.contains("disabled"))
+						{
+							elements[i].classList.add("disabled");
+							elements[i].classList.remove("flex");
+						}
+					}
+					document.querySelector("#av_"+properyName).classList.remove("disabled");
+					document.querySelector("#av_"+properyName).classList.add("flex");
+					//document.querySelector("#av_prev_"+properyName).src = "assets/img/"+properyName+j+".svg";
+				});
+  			}
+		};
+
+		init();
+	});
+</script>
+</html>
