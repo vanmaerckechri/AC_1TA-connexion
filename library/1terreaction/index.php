@@ -1,7 +1,7 @@
 <?php
-require('./model/model.php');
-Authentification::startSession();
+require('./controller/controller.php');
 
+// -- ROUTEUR --
 // SESSION
 function checkSession()
 {
@@ -19,20 +19,22 @@ function checkSession()
 	return $sessionResult;
 }
 $sessionResult = checkSession();
+
+// -- VIEW --
+if (isset($_GET['action']))
+{
+	// Planets management
+	if ($_GET['action'] == 'main')
+	{
+		loadMainView();
+	}
+	else
+	{
+		loadMainView();
+	}
+}
+else
+{
+	loadMainView();
+}
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--<meta name="description" content="">-->
-    <title>1TerreAction</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body style="justify-content: center; align-items: center;">
-    <h1 style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem;">1TerreAction</h1>
-    <h2 style="font-family: 'Open Sans', sans-serif; font-size: 1rem;">En cours de développement!</h2>
-</body>
-</html>
