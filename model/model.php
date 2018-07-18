@@ -9,8 +9,8 @@ else
 {
 	function connectDB()
 	{
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
 	}
 	function getSecretCaptchaKey()
@@ -204,10 +204,11 @@ class Authentification
 				// Si la classe existe, vérifier si les données entrées par l'étudiant sont correctes
 				if (!empty($resultReq))
 				{
-					$req = $db->prepare("SELECT id FROM pe_students WHERE nickname = :name AND password = :pwd AND id_classroom = :idcr");
+					$req = $db->prepare("SELECT id FROM pe_students WHERE nickname = :name AND password = :pwd AND id_classroom = :idcr AND id = :idSt");
 					$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
 					$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
 					$req->bindValue(':idcr', $resultReq[0]['id'], PDO::PARAM_INT);
+					$req->bindValue(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 					$req->execute();
 					$resultReq = $req->fetchAll();
 					$req->closeCursor();

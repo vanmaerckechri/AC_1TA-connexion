@@ -80,7 +80,7 @@ class ManagePlanets
 			$studentsNameList[$crInfo['id']] = $result;
 		}
 		// students stats
-		$req = $db->prepare("SELECT stats_water, stats_air, stats_forest, stats_average, openanswer FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$req = $db->prepare("SELECT stats_water, stats_air, stats_forest, stats_average FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		foreach ($classroomsInfos as $crInfo)
 		{
@@ -186,36 +186,36 @@ class ManagePlanets
 			$idPlanet = $req->fetchAll();
 			if (empty($idPlanet))
 			{
-				// link classroom to planet
+				// take id of this application
 				$req = $db->prepare("SELECT id FROM pe_library WHERE name = :name");
 				$name = "1TerreAction";
 				$req->bindValue(':name', $name, PDO::PARAM_INT);
 				$req->execute();
 				$idLib = $req->fetch(PDO::FETCH_COLUMN, 0);
-
+				// link classroom to application
 				$req = $db->prepare("INSERT INTO pe_rel_cr_library (id_classroom, id_library) VALUES (:idCr, :idLib)");
 				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
 				$req->bindValue(':idLib', $idLib, PDO::PARAM_INT);
 				$req->execute();
-
+				// link classroom to planet
 				$req = $db->prepare("INSERT INTO 1ta_planets (id_classroom, id_admin) VALUES (:idCr, :idAd)");
 				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
 				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 				$req->execute();
-				// insert students into populations
+				// select all students of this classroom
 				$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
 				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
 				$req->execute();
-
+				// insert students into populations
 				$req2 = $db->prepare("INSERT INTO 1ta_populations (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
 				$req2->bindValue(':idCr', $idCr, PDO::PARAM_INT);
 				$req2->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
 				while($row = $req->fetch())
 				{
 					$req2->bindValue(':idSt', $row['id'], PDO::PARAM_INT);
-					$req2->execute();
 				}
+				$req2->execute();
 				$req2->closeCursor();
 				$req2 = NULL;
 			}
@@ -243,16 +243,16 @@ class ManagePlanets
 		if (!empty($classroomsId))
 		{
 			$classroomsStudents = [];
+			// Student from classroom
+			$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
 			foreach ($classroomsId as $cr)
 			{
-				// Student from classroom
-				$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
 				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 				$req->bindValue(':idCr', $cr['id_classroom'], PDO::PARAM_INT);
-				$req->execute();
-				$students = $req->fetchAll(PDO::FETCH_COLUMN, 0);
-				$classroomsStudents[$cr['id_classroom']] = $students;
 			}
+			$req->execute();
+			$students = $req->fetchAll(PDO::FETCH_COLUMN, 0);
+			$classroomsStudents[$cr['id_classroom']] = $students;
 			$PlanetStudents = [];
 			foreach ($classroomsId as $cr)
 			{
