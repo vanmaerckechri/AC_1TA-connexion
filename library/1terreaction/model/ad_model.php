@@ -189,35 +189,19 @@ class ManagePlanets
 				// take id of this application
 				$req = $db->prepare("SELECT id FROM pe_library WHERE name = :name");
 				$name = "1TerreAction";
-				$req->bindValue(':name', $name, PDO::PARAM_INT);
+				$req->bindParam(':name', $name, PDO::PARAM_INT);
 				$req->execute();
 				$idLib = $req->fetch(PDO::FETCH_COLUMN, 0);
 				// link classroom to application
 				$req = $db->prepare("INSERT INTO pe_rel_cr_library (id_classroom, id_library) VALUES (:idCr, :idLib)");
-				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
-				$req->bindValue(':idLib', $idLib, PDO::PARAM_INT);
+				$req->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+				$req->bindParam(':idLib', $idLib, PDO::PARAM_INT);
 				$req->execute();
 				// link classroom to planet
 				$req = $db->prepare("INSERT INTO 1ta_planets (id_classroom, id_admin) VALUES (:idCr, :idAd)");
-				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
-				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+				$req->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+				$req->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 				$req->execute();
-				// select all students of this classroom
-				$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
-				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
-				$req->execute();
-				// insert students into populations
-				$req2 = $db->prepare("INSERT INTO 1ta_populations (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
-				$req2->bindValue(':idCr', $idCr, PDO::PARAM_INT);
-				$req2->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
-				while($row = $req->fetch())
-				{
-					$req2->bindValue(':idSt', $row['id'], PDO::PARAM_INT);
-				}
-				$req2->execute();
-				$req2->closeCursor();
-				$req2 = NULL;
 			}
 		}
 		$req->closeCursor();
@@ -275,30 +259,44 @@ class ManagePlanets
 			}
 			// Erase students who are no longer in the classroom
 			$del = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt AND id_admin = :idAd");
-			$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
+			$del2 = $db->prepare("DELETE FROM 1ta_themes WHERE id_student = :idSt AND id_admin = :idAd");
+			$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+			$del2->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);           
 			foreach ($studentsDeletedFromClassroom as $idStudents)
 			{
 				foreach ($idStudents as $idSt)
 				{	
 					$del->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 					$del->execute();
+					$del2->bindParam(':idSt', $idSt, PDO::PARAM_INT);
+					$del2->execute();
 				}
 			}
-
+			$del->closeCursor();
+			$del = NULL;
+			$del2->closeCursor();
+			$del2 = NULL;
 			// Record new students into planet
 			$req2 = $db->prepare("INSERT INTO 1ta_populations (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
+			$req3 = $db->prepare("INSERT INTO 1ta_themes (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
 			$req2->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+			$req3->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 			foreach ($newStudents as $idCr => $idStudents)
 			{
 				foreach ($idStudents as $idSt)
 				{	
-					$req2->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+					$req2->bindParam(':idCr', $idCr, PDO::PARAM_INT);
 					$req2->bindParam(':idSt', $idSt, PDO::PARAM_INT); 
 					$req2->execute();
+					$req3->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+					$req3->bindParam(':idSt', $idSt, PDO::PARAM_INT); 
+					$req3->execute();
 				}
 			}
 			$req2->closeCursor();
 			$req2 = NULL;
+			$req3->closeCursor();
+			$req3 = NULL;
 
 		}
 	}
@@ -323,11 +321,17 @@ class ManagePlanets
 		$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
 		$del->execute();
 
+		$del = $db->prepare("DELETE FROM 1ta_themes WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+		$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
+		$del->execute();
+
 		$del = $db->prepare("SELECT id FROM pe_library WHERE name = :name");
 		$name = "1TerreAction";
 		$del->bindValue(':name', $name, PDO::PARAM_INT);
 		$del->execute();
 		$idLib = $del->fetch(PDO::FETCH_COLUMN, 0);
+
 		$del = $db->prepare("DELETE FROM pe_rel_cr_library WHERE id_classroom = :idCr AND id_library = :idLib");
 		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
 		$del->bindParam(':idLib', $idLib, PDO::PARAM_INT);   

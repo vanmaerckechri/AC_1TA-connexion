@@ -3,6 +3,8 @@
 {
 	position: fixed;
 }
+
+// -- ADMIN --
 .ui
 {
 	.planetName
@@ -34,7 +36,6 @@
 	}
 }
 
-// -- ADMIN --
 .ui
 {
 	.planetInfosContainer
@@ -179,6 +180,23 @@
 				cursor: pointer;
 				transform: translate(-10px);
 			}
+		}
+	}
+}
+
+// -- GAME(player) --
+#main
+{
+	max-width: 100vw;
+	.localBgContainer
+	{
+		width: 100%;
+		.localBg
+		{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
 		}
 	}
 }

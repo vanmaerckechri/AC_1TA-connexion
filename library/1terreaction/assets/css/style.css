@@ -176,4 +176,14 @@ body {
       cursor: pointer;
       transform: translate(-10px); }
 
+#main {
+  max-width: 100vw; }
+  #main .localBgContainer {
+    width: 100%; }
+    #main .localBgContainer .localBg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%; }
+
 /*# sourceMappingURL=style.css.map */

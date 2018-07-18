@@ -23,10 +23,15 @@ $sessionResult = checkSession();
 // -- VIEW --
 if (isset($_GET['action']))
 {
-	// Planets management
+	// Main Menu
 	if ($_GET['action'] == 'main')
 	{
 		loadMainView();
+	}
+	// Launch Game
+	else if ($_GET['action'] == 'game')
+	{
+		loadGameView();
 	}
 	else
 	{
