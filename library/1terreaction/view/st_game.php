@@ -12,10 +12,31 @@ ob_start();
         </div>
     </div>
     <div id="main">
-        <div class="localBgContainer">
+        <div id="step_localBackground" class="localBgContainer">
             <img class="localBg localBgWater" src="<?=$localBgWater_imgSrc?>" alt="eau faisant partie du parallax">
             <img class="localBg localBgForest" src="<?=$localBgForest_imgSrc?>" alt="arbres faisant partis du parallax">
             <img class="localBg localBgAir" src="<?=$localBgAir_imgSrc?>" alt="ciel faisant parti du parallax">
+        </div>
+        </div>
+        <div id="step_chooseTheme" class="themesContainer">
+        <?php
+            foreach ($allThemes as $key => $theme)
+            {
+                $lockedClass = "";
+                if ($key >= $gameInfos['unlocked_theme'])
+                {
+                    $lockedClass = "locked";
+                    $theme = "veroullé";
+                }
+            ?>
+                <div class="theme <?=$lockedClass?>"><?=$theme?></div>
+            <?php
+            }
+        ?>
+        </div>
+        <div id="step_questions">
+        </div>
+        <div id="step_breakGame">
         </div>
     </div>
 <?php
