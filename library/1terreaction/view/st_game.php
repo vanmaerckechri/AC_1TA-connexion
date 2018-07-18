@@ -13,9 +13,10 @@ ob_start();
     </div>
     <div id="main">
         <div id="step_localBackground" class="localBgContainer">
+            <img class="localBg localBgAir" src="<?=$localBgAir_imgSrc?>" alt="ciel faisant parti du parallax">
             <img class="localBg localBgWater" src="<?=$localBgWater_imgSrc?>" alt="eau faisant partie du parallax">
             <img class="localBg localBgForest" src="<?=$localBgForest_imgSrc?>" alt="arbres faisant partis du parallax">
-            <img class="localBg localBgAir" src="<?=$localBgAir_imgSrc?>" alt="ciel faisant parti du parallax">
+            <img class="localBg localBgAirFilter" src="<?=$localBgAirFilter_imgSrc?>" alt="air filtre faisant parti du parallax">
         </div>
         </div>
         <div id="step_chooseTheme" class="themesContainer">
