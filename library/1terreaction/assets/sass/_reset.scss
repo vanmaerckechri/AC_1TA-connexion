@@ -11,3 +11,11 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
 	-moz-user-select : -moz-none;
 	user-select: none;
 }
+button::-moz-focus-inner
+{ 
+  border: 0; 
+}
+button
+{
+	outline: 0;
+}

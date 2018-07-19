@@ -196,28 +196,34 @@
 	.menu
 	{
 		margin: 0 auto;
-		padding: 2rem 8rem;
+		padding: 2rem 4rem;
 	    max-width: 1920px;
 	    width: 100%;
 		position: absolute;
-		top: 25%;
+		top: 15%;
 		left: 50%;
 		transform: translate(-50%, 0);
-		.borderEffectButton
+		.menuButtonContainer
 		{
+			margin-bottom: 8px;
 			border: 1px solid transparent;
+			border-radius: 50%;
+			position: absolute;
 			perspective: 800px;
 		    perspective-origin: center center;
 		    width: 122px;
+		    height: 122px;
 		    background-color: rgba(0, 60, 120, 0);
 		    transition: all .5s;
-			.launchThemesMenuButton
-			{
+			.menuButton
+			{			
+				border-radius: 50%;
 				border: none;
 				padding: 1rem 0;
 				width: 120px;
+				height: 120px;
 				font-family: 'Orbitron', sans-serif;
-				font-size: 1.2rem;
+				font-size: 1rem;
 				letter-spacing: .2rem;
 				color: rgba(0, 60, 120, 1);
 				background-color: rgba(255, 255, 255, .8);
@@ -227,13 +233,29 @@
 			{
 				border: 1px solid rgba(255, 255, 255, .5);
 				background-color: rgba(0, 60, 120, .2);
-				.launchThemesMenuButton
+				.menuButton
 				{
 					transform: translateZ(-100px);
 					color: rgba(0, 60, 120, 1);
 					background-color: white;
 					cursor: pointer;
 				}
+			}
+		}
+		.menuButtonContainerOpen
+		{
+			position: relative;
+		}
+		.menuMainButtonOpen
+		{
+			border: 1px solid rgba(255, 255, 255, .5);
+			background-color: rgba(0, 60, 120, .2);
+			.menuButton
+			{
+				transform: translateZ(-100px);
+				color: rgba(0, 60, 120, 1);
+				background-color: white;
+				cursor: pointer;
 			}
 		}
 	}

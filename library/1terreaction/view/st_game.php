@@ -21,8 +21,14 @@ ob_start();
                 <img class="localBg localBgAirFilter" src="<?=$localBgAirFilter_imgSrc?>" alt="air filtre faisant parti du parallax">
             </div>
             <div class="menu">
-                <div class="borderEffectButton">
-                    <button id="launchThemesMenuButton" class="launchThemesMenuButton">Jouer</button>
+                <div class="menuButtonContainer">
+                     <button id="mainMenuButton" class="menuButton">Menu</button>
+                </div>
+                <div class="menuButtonContainer disabled">
+                     <button id="backToSolarSystem" class="menuButton">Système Solaire</button>
+                </div>
+                <div class="menuButtonContainer disabled">
+                    <button id="launchThemesMenuButton" class="menuButton">Jouer</button>
                 </div>
             </div>
         </div>
@@ -43,7 +49,7 @@ ob_start();
                 <?php
                 }
             ?>
-                <div id="backToLocalBg" class="previousContainer"><img class="previous" src="assets/img/previous_dark.svg" alt="boutton page précédente"></div>
+                <div class="previousContainer"><img id="backToLocalBg" class="previous" src="assets/img/previous_dark.svg" alt="boutton page précédente"></div>
             </div>
         </div>
         <div id="step_questions">

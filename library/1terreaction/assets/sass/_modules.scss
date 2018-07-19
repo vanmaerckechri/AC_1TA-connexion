@@ -48,9 +48,10 @@
 {
 	width: 32px;
 	height: 32px;
-	transition: transform .5s;
+	transition: all .5s;
 	&:hover
 	{
+		width: 42px;
 		cursor: pointer;
 		transform: translate(-10px);
 	}

@@ -10,6 +10,12 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
   -moz-user-select: -moz-none;
   user-select: none; }
 
+button::-moz-focus-inner {
+  border: 0; }
+
+button {
+  outline: 0; }
+
 @keyframes nextPage {
   from {
     bottom: 0; }
@@ -65,8 +71,9 @@ body {
 .previous {
   width: 32px;
   height: 32px;
-  transition: transform .5s; }
+  transition: all .5s; }
   .previous:hover {
+    width: 42px;
     cursor: pointer;
     transform: translate(-10px); }
 
@@ -203,38 +210,54 @@ body {
       object-fit: cover; }
   #main .menu {
     margin: 0 auto;
-    padding: 2rem 8rem;
+    padding: 2rem 4rem;
     max-width: 1920px;
     width: 100%;
     position: absolute;
-    top: 25%;
+    top: 15%;
     left: 50%;
     transform: translate(-50%, 0); }
-    #main .menu .borderEffectButton {
+    #main .menu .menuButtonContainer {
+      margin-bottom: 8px;
       border: 1px solid transparent;
+      border-radius: 50%;
+      position: absolute;
       perspective: 800px;
       perspective-origin: center center;
       width: 122px;
+      height: 122px;
       background-color: rgba(0, 60, 120, 0);
       transition: all .5s; }
-      #main .menu .borderEffectButton .launchThemesMenuButton {
+      #main .menu .menuButtonContainer .menuButton {
+        border-radius: 50%;
         border: none;
         padding: 1rem 0;
         width: 120px;
+        height: 120px;
         font-family: 'Orbitron', sans-serif;
-        font-size: 1.2rem;
+        font-size: 1rem;
         letter-spacing: .2rem;
         color: #003c78;
         background-color: rgba(255, 255, 255, 0.8);
         transition: all .5s; }
-      #main .menu .borderEffectButton:hover {
+      #main .menu .menuButtonContainer:hover {
         border: 1px solid rgba(255, 255, 255, 0.5);
         background-color: rgba(0, 60, 120, 0.2); }
-        #main .menu .borderEffectButton:hover .launchThemesMenuButton {
+        #main .menu .menuButtonContainer:hover .menuButton {
           transform: translateZ(-100px);
           color: #003c78;
           background-color: white;
           cursor: pointer; }
+    #main .menu .menuButtonContainerOpen {
+      position: relative; }
+    #main .menu .menuMainButtonOpen {
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      background-color: rgba(0, 60, 120, 0.2); }
+      #main .menu .menuMainButtonOpen .menuButton {
+        transform: translateZ(-100px);
+        color: #003c78;
+        background-color: white;
+        cursor: pointer; }
   #main #step_chooseTheme {
     position: fixed;
     top: 0;
