@@ -127,7 +127,7 @@ window.addEventListener('load', function()
         }
     }
 
-    // -- ANIMATION LOOP --
+// -- ANIMATION LOOP --
     let animate = function()
     {
         renderer.render(scene, camera);
@@ -138,4 +138,6 @@ window.addEventListener('load', function()
 
     animate();
     document.addEventListener("mousemove", hoverPlanetToLaunchGame, false);
+
+// -- NEXT MENU(LOCAL BACKGROUND) --
 });

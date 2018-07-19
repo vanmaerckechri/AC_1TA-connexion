@@ -60,5 +60,5 @@ let givePlanetCoordinates = function(pivotX, pivotY, ray, radians)
     let posX = pivotX + (ray * Math.cos(radians));
     let posY = pivotY + (ray * Math.sin(radians));
     planetCoordinates = [posX, posY];
-    return planetCoordinates
+    return planetCoordinates;
 }

@@ -8,4 +8,6 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
 	font: inherit;
 	vertical-align: baseline;
 	font-weight: normal;
+	-moz-user-select : -moz-none;
+	user-select: none;
 }

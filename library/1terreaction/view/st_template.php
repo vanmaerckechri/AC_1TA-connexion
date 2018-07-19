@@ -9,7 +9,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="admin">
+<body>
   	<?=$content?>
     <?=$script?>
 </body>

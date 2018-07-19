@@ -8,6 +8,7 @@ ob_start();
     <div id="container">
     </div>
     <div class="headerProfile">
+        <div class="appTitle">1TerreAction</div>
         <div class="profile">
             <?=$_SESSION['nickname']?>
             <a href="admin.php?action=disco" class="disconnect">X</a>

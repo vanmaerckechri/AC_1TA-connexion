@@ -114,7 +114,6 @@ window.addEventListener('load', function()
             planet.idCr = planetsList[i].id;
         }
         scene.add(pivot_planets);
-        console.log(scene);
     }
     createPlanets();
     
@@ -355,7 +354,6 @@ window.addEventListener('load', function()
                     statsPlanetAverage['stats_average'] += statsPlanetAverage[statsDbTitle[j]];
                 }
                 statsPlanetAverage['stats_average'] = Math.round(statsPlanetAverage['stats_average'] / statsLength);
-                console.log(statsPlanetAverage);
             }// <== fin du temp
 
             student.appendChild(studentName);
@@ -409,8 +407,8 @@ window.addEventListener('load', function()
                 document.body.style.cursor = "pointer";
                 // Select Planet
                 document.onclick = function()
-                {                document.body.style.cursor = "auto";
-
+                {                
+                    document.body.style.cursor = "auto";
                     let planetInfosTitle = document.querySelector('.planetInfosTitle');
                     let uiBackground = document.querySelector('.uiBackground');
                     // Display free classrooms list to create a planet
@@ -479,7 +477,7 @@ window.addEventListener('load', function()
     {
         let planetName = document.querySelector('.planetName');
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
-        planetInfosContainer.style.bottom = planetName.offsetHeight+"px";
+        planetInfosContainer.style.top = 0;
         planetInfosContainer.style.height = "calc(100vh - "+planetName.offsetHeight+"px)";        
    }
 
@@ -506,10 +504,9 @@ window.addEventListener('load', function()
     document.querySelector('.previous').addEventListener("touchstart", closePlanetInfos, false) || document.querySelector('.previous').addEventListener("mousedown", closePlanetInfos, false);
     window.addEventListener("resize", adaptUi, false);
 
-    adaptUi();
     updatePlanetName();
     animate();
-
+    adaptUi();
 });
 
 /*

@@ -20,6 +20,6 @@ function loadGameView()
 	$localBgWater_imgSrc = "assets/img/local_background_water0".$gameInfos['stats_water'].".png";
 	$localBgForest_imgSrc = "assets/img/local_background_forest0".$gameInfos['stats_forest'].".png";
 	// load unlocked themes
-	$allThemes = ["Repas", "Thème 2", "Thème 3", "Thème 4", "Thème 5"];
+	$allThemes = ["Repas", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
 	require('./view/st_game.php');
 }
