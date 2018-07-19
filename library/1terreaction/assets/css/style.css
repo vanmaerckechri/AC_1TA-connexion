@@ -16,11 +16,16 @@ button::-moz-focus-inner {
 button {
   outline: 0; }
 
-@keyframes nextPage {
-  from {
-    bottom: 0; }
-  to {
-    bottom: 10px; } }
+@keyframes mainMenuOpenButton01 {
+  0% {
+    transform: translateY(0px); }
+  100% {
+    transform: translateY(128px); } }
+@keyframes mainMenuOpenButton02 {
+  0% {
+    transform: translateY(0px); }
+  100% {
+    transform: translateY(256px); } }
 html {
   background-color: #e3e9ea;
   font-family: 'Oswald', sans-serif; }
@@ -248,8 +253,10 @@ body {
           color: #003c78;
           background-color: white;
           cursor: pointer; }
-    #main .menu .menuButtonContainerOpen {
-      position: relative; }
+    #main .menu .mainMenuOpenButton01 {
+      animation: mainMenuOpenButton01 2s alternate; }
+    #main .menu .mainMenuOpenButton02 {
+      animation: mainMenuOpenButton02 2s alternate; }
     #main .menu .menuMainButtonOpen {
       border: 1px solid rgba(255, 255, 255, 0.5);
       background-color: rgba(0, 60, 120, 0.2); }

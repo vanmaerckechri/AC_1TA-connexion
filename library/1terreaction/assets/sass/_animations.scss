@@ -1,12 +1,23 @@
 @import "variables";
-@keyframes nextPage
+@keyframes mainMenuOpenButton01
 {
-    from
+    0%
     {
-        bottom: 0;
+        transform: translateY(0px);
     }
-    to
+    100%
     {
-        bottom: 10px;
+        transform: translateY(128px);
+    }
+}
+@keyframes mainMenuOpenButton02
+{
+    0%
+    {
+        transform: translateY(0px);
+    }
+    100%
+    {
+        transform: translateY(256px);
     }
 }

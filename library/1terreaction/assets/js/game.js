@@ -62,7 +62,7 @@ window.addEventListener('load', function()
                 {
                     launchThemesMenuButtonList[i].classList.remove("disabled");
                 }
-                launchThemesMenuButtonList[i].classList.add("menuButtonContainerOpen");
+                launchThemesMenuButtonList[i].classList.add("mainMenuOpenButton0"+i);
             }
         }
         else

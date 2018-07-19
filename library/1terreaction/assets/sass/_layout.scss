@@ -242,9 +242,13 @@
 				}
 			}
 		}
-		.menuButtonContainerOpen
+		.mainMenuOpenButton01
 		{
-			position: relative;
+			animation: mainMenuOpenButton01 2s alternate;
+		}
+		.mainMenuOpenButton02
+		{
+			animation: mainMenuOpenButton02 2s alternate;
 		}
 		.menuMainButtonOpen
 		{
