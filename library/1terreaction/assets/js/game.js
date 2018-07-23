@@ -1,5 +1,8 @@
 window.addEventListener('load', function()
 {
+    let indexBackground = 0;
+    let indexQuestion = 0;
+    let indexPropo = 0;
     // -- DISPLAY THEMES MENU --
     // Hide
 	let closeThemesMenu = function()
@@ -8,6 +11,34 @@ window.addEventListener('load', function()
         step_chooseThemeContainer.classList.add("disabled");		
         document.body.onclick = null;
 	}
+    // Load Questions and Propositions
+    let loadQuestion = function()
+    {
+        let themeBackgroundImg = document.querySelector("#themeBackground");
+        let propositions = document.querySelectorAll("#propositionsContainer img");
+        let question = document.querySelector("#question");
+
+        themeBackgroundImg.src = "assets/img/" + gameInfos["questions"][indexBackground]["src_img"] + ".jpg";
+        question.innerText = gameInfos["questions"][indexQuestion]["question"];
+        for (let i = 0, length = propositions.length; i < length; i++)
+        {
+            propositions[i].src = "assets/img/" + gameInfos["propositions"][indexPropo]["src_img"] + ".png";
+            propositions[i].alt = gameInfos["propositions"][indexPropo]["propositions"];
+            indexPropo = indexPropo + 1;
+        }
+    }
+    // Launch Game
+    let launchGame = function(themePosition)
+    {
+        // load firstQuestion
+        indexBackground = themePosition * 3;
+        indexQuestion = themePosition * 3;
+        indexPropo = 9 * themePosition;
+        loadQuestion();
+        closeThemesMenu();
+        document.querySelector("#step_questions").classList.remove('disabled');
+        document.querySelector(".headerProfile").style.backgroundColor = "black";
+    }
     // Display
     let launchThemesMenu = function(event)
     {
@@ -26,7 +57,17 @@ window.addEventListener('load', function()
         		closeThemesMenu();
         	}
         }
+        // Active Theme Buttons
+        let themeButtons = document.querySelectorAll(".theme");
+        for (let i = themeButtons.length - 1; i >= 0; i--)
+        {
+            if (themeButtons[i].classList.contains("unlocked"))
+            {
+                themeButtons[i].addEventListener("click", launchGame.bind(this, i), false);
+            }
+        }
     }
+
     // -- MAIN MENU --
     let hideMainMenu = function()
     {

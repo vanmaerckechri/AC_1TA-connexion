@@ -52,14 +52,14 @@ ob_start();
                 <div class="previousContainer"><img id="backToLocalBg" class="previous" src="assets/img/previous_dark.svg" alt="boutton page précédente"></div>
             </div>
         </div>
-        <div id="step_questions">
-            <img src="assets/img/<?=$gameInfos->questions[0]['src_img']?>.jpg">
+        <div id="step_questions" class="disabled">
+            <img id="themeBackground" src="">
             <div class="questionContainer">
-                <p class="question"><?=$gameInfos->questions[0]['question']?></p>
-                <div class="propositionsContainer">
-                    <img src="assets/img/<?=$gameInfos->propositions[0]['src_img']?>.png" alt="<?=$gameInfos->propositions[0]['propositions']?>">
-                    <img src="assets/img/<?=$gameInfos->propositions[1]['src_img']?>.png" alt="<?=$gameInfos->propositions[1]['propositions']?>">
-                    <img src="assets/img/<?=$gameInfos->propositions[2]['src_img']?>.png" alt="<?=$gameInfos->propositions[2]['propositions']?>">
+                <p id="question"></p>
+                <div id="propositionsContainer">
+                    <img id="proposition_1" src="" alt="">
+                    <img id="proposition_2" src="" alt="">
+                    <img id="proposition_3" src="" alt="">
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@ $content = ob_get_clean();
 ob_start();
 ?>
     <script>
-        let test = <?=json_encode($gameInfos)?>;
+        let gameInfos = <?=json_encode($gameInfos)?>;
 
     </script>
 
