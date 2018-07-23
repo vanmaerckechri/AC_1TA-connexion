@@ -4,10 +4,17 @@
     0%
     {
         transform: translateY(0px);
+        pointer-events: none;
+    }
+    99%
+    {
+    	transform: translateY(128px);
+    	pointer-events: none;
     }
     100%
     {
-        transform: translateY(128px);
+    	transform: translateY(128px);
+    	pointer-events: auto;
     }
 }
 @keyframes mainMenuOpenButton02
@@ -15,9 +22,16 @@
     0%
     {
         transform: translateY(0px);
+        pointer-events: none;
+    }
+    99%
+    {
+    	transform: translateY(256px);
+    	pointer-events: none;
     }
     100%
     {
-        transform: translateY(256px);
+    	transform: translateY(256px);
+    	pointer-events: auto;
     }
 }

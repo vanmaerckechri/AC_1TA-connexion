@@ -40,9 +40,9 @@ window.addEventListener('load', function()
             }
             else
             {
-                launchThemesMenuButtonList[i].classList.add("disabled");
+               launchThemesMenuButtonList[i].classList.add("disabled");
             }
-            launchThemesMenuButtonList[i].classList.remove("menuButtonContainerOpen");
+            launchThemesMenuButtonList[i].classList.remove("mainMenuOpenButton0"+i);
         }   
     }
     let displayMainMenu = function()
@@ -51,7 +51,6 @@ window.addEventListener('load', function()
         let mainMenuButton = document.querySelector("#mainMenuButton");
         if (!mainMenuButton.parentElement.classList.contains("menuMainButtonOpen"))
         {
-            console.log(mainMenuButton.parentElement)
             for (let i = launchThemesMenuButtonList.length - 1; i >= 0; i--)
             {
                 if (launchThemesMenuButtonList[i] == mainMenuButton.parentElement)

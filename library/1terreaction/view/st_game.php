@@ -39,7 +39,7 @@ ob_start();
                 foreach ($allThemes as $key => $theme)
                 {
                     $unLockedClass = "unlocked";
-                    if ($key >= $gameInfos['unlocked_theme'])
+                    if ($key >= $gameInfos->playerStats['unlocked_theme'])
                     {
                         $unLockedClass = "";
                         $theme = "<img src='assets/img/locked.png'>";
@@ -61,6 +61,10 @@ ob_start();
 $content = ob_get_clean();
 ob_start();
 ?>
+    <script>
+        let test = <?=json_encode($gameInfos)?>;        
+    </script>
+
     <script src="assets/js/game.js"></script>
 <?php
 $script = ob_get_clean();
