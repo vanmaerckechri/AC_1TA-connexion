@@ -24,6 +24,7 @@ window.addEventListener('load', function()
         {
             propositions[i].src = "assets/img/" + gameInfos["propositions"][indexPropo]["src_img"] + ".png";
             propositions[i].alt = gameInfos["propositions"][indexPropo]["propositions"];
+            propositions[i].id = gameInfos["propositions"][indexPropo]["id"];
             indexPropo = indexPropo + 1;
         }
     }

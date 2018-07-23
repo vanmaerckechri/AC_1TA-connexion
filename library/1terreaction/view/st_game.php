@@ -57,9 +57,9 @@ ob_start();
             <div class="questionContainer">
                 <p id="question"></p>
                 <div id="propositionsContainer">
-                    <img id="proposition_1" src="" alt="">
-                    <img id="proposition_2" src="" alt="">
-                    <img id="proposition_3" src="" alt="">
+                    <img id="" src="" alt="">
+                    <img id="" src="" alt="">
+                    <img id="" src="" alt="">
                 </div>
             </div>
         </div>
