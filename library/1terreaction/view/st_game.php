@@ -53,6 +53,15 @@ ob_start();
             </div>
         </div>
         <div id="step_questions">
+            <img src="assets/img/<?=$gameInfos->questions[0]['src_img']?>.jpg">
+            <div class="questionContainer">
+                <p class="question"><?=$gameInfos->questions[0]['question']?></p>
+                <div class="propositionsContainer">
+                    <img src="assets/img/<?=$gameInfos->propositions[0]['src_img']?>.png" alt="<?=$gameInfos->propositions[0]['propositions']?>">
+                    <img src="assets/img/<?=$gameInfos->propositions[1]['src_img']?>.png" alt="<?=$gameInfos->propositions[1]['propositions']?>">
+                    <img src="assets/img/<?=$gameInfos->propositions[2]['src_img']?>.png" alt="<?=$gameInfos->propositions[2]['propositions']?>">
+                </div>
+            </div>
         </div>
         <div id="step_breakGame">
         </div>
@@ -62,7 +71,8 @@ $content = ob_get_clean();
 ob_start();
 ?>
     <script>
-        let test = <?=json_encode($gameInfos)?>;        
+        let test = <?=json_encode($gameInfos)?>;
+
     </script>
 
     <script src="assets/js/game.js"></script>
