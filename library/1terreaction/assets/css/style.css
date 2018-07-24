@@ -54,6 +54,10 @@ body {
   display: none !important;
   pointer-events: none !important; }
 
+.disabled_v2 {
+  opacity: 0;
+  pointer-events: none; }
+
 .headerProfile {
   margin: 0 auto;
   padding: 2rem 4rem;
@@ -242,7 +246,7 @@ body {
       width: 122px;
       height: 122px;
       background-color: rgba(0, 60, 120, 0);
-      transition: all .5s; }
+      transition: transform .5s, opacity .2s; }
       #main .menu .menuButtonContainer .menuButton {
         border-radius: 50%;
         border: none;
@@ -263,10 +267,12 @@ body {
           color: #003c78;
           background-color: white;
           cursor: pointer; }
+    #main .menu .mainMenuOpenButton00 {
+      transform: translateY(130px) rotateZ(360deg);
+      opacity: 1; }
     #main .menu .mainMenuOpenButton01 {
-      animation: mainMenuOpenButton01 .5s forwards; }
-    #main .menu .mainMenuOpenButton02 {
-      animation: mainMenuOpenButton02 .5s forwards; }
+      transform: translateY(260px) rotateZ(360deg);
+      opacity: 1; }
     #main .menu .menuMainButtonOpen {
       border: 1px solid rgba(255, 255, 255, 0.5);
       background-color: rgba(0, 60, 120, 0.2); }
@@ -304,19 +310,33 @@ body {
         font-size: 1.5rem;
         letter-spacing: 0.2rem;
         text-align: center; }
-      #main #step_chooseTheme .themesContainer .theme {
+      #main #step_chooseTheme .themesContainer .themeButton {
+        border: 1px solid transparent;
+        perspective: 800px;
+        perspective-origin: center center;
         border: 1px solid black;
         border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         width: 40%;
-        height: 64px;
-        font-size: 1.2rem;
-        background-color: #c8c8c8; }
+        height: 64px; }
+        #main #step_chooseTheme .themesContainer .themeButton .theme {
+          border-radius: 8px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          font-size: 1.2rem;
+          background-color: #c8c8c8;
+          transition: all .5s; }
       #main #step_chooseTheme .themesContainer .unlocked {
-        background-color: white; }
-        #main #step_chooseTheme .themesContainer .unlocked:hover {
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background-color: rgba(0, 60, 120, 0.2); }
+        #main #step_chooseTheme .themesContainer .unlocked .theme {
+          background-color: white; }
+        #main #step_chooseTheme .themesContainer .unlocked:hover .theme {
+          transform: translateZ(-100px);
+          color: #003c78;
+          background-color: white;
           cursor: pointer; }
       #main #step_chooseTheme .themesContainer .previousContainer {
         padding: .2rem .4rem;

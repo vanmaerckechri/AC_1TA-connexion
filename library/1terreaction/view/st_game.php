@@ -22,13 +22,13 @@ ob_start();
             </div>
             <div class="menu">
                 <div class="menuButtonContainer">
+                     <button id="backToSolarSystem" class="menuButton disabled_v2">Système Solaire</button>
+                </div>
+                <div class="menuButtonContainer">
+                    <button id="launchThemesMenuButton" class="menuButton disabled_v2">Jouer</button>
+                </div>
+                <div class="menuButtonContainer">
                      <button id="mainMenuButton" class="menuButton">Menu</button>
-                </div>
-                <div class="menuButtonContainer disabled">
-                     <button id="backToSolarSystem" class="menuButton">Système Solaire</button>
-                </div>
-                <div class="menuButtonContainer disabled">
-                    <button id="launchThemesMenuButton" class="menuButton">Jouer</button>
                 </div>
             </div>
         </div>
@@ -45,7 +45,9 @@ ob_start();
                         $theme = "<img src='assets/img/locked.png'>";
                     }
                 ?>
-                    <div class="theme <?=$unLockedClass?>"><?=$theme?></div>
+                    <div class="themeButton <?=$unLockedClass?>">
+                        <div class="theme"><?=$theme?></div>
+                    </div>
                 <?php
                 }
             ?>

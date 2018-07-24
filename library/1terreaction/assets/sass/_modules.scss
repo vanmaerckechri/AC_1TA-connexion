@@ -9,6 +9,11 @@
 	display: none!important;
 	pointer-events: none!important;
 }
+.disabled_v2
+{
+	opacity: 0;
+	pointer-events: none;
+}
 .headerProfile
 {
 	margin: 0 auto;
