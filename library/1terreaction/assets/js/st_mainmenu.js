@@ -74,7 +74,7 @@ window.addEventListener('load', function()
             color: "grey",
             map: diffuseMap,
             bumpMap: bumpMap,
-            bumpScale: 1,
+            bumpScale: .5,
             specularMap: bumpMap,
             transparent: false
         })
@@ -154,7 +154,7 @@ window.addEventListener('load', function()
     {
         renderer.render(scene, camera);
         scene.children[0].rotation.y += 0.0001;
-        scene.children[0].children[0].rotation.y += 0.0001;
+        scene.children[0].children[0].rotation.y += 0.0002;
 
         scene.children[1].rotation.y += 0.0001;
 
