@@ -12,9 +12,10 @@ window.addEventListener('load', function()
 
     scene = new THREE.Scene();
 
-// -- EARTHS --
+// -- EARTH AND MOON --
     let createPlanets = function()
     {
+        // Earth
         let planet;
         let geometry = new THREE.SphereGeometry(100, 64, 64);
         let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_hd_diffuse.png');
@@ -63,26 +64,47 @@ window.addEventListener('load', function()
         mesh_earthAtmo = new THREE.Mesh(geometry, material);
         planet.add(mesh_earthAtmo);
         scene.add(planet);
+
+        // Moon
+        geometry = new THREE.SphereGeometry(50, 64, 64);
+        diffuseMap = new THREE.TextureLoader().load('assets/img/moon_diffuse.jpg');
+        bumpMap = new THREE.TextureLoader().load('assets/img/moon_bump.jpg');
+        material = new THREE.MeshPhongMaterial
+        ({
+            color: "grey",
+            map: diffuseMap,
+            bumpMap: bumpMap,
+            bumpScale: 1,
+            specularMap: bumpMap,
+            transparent: false
+        })
+        let moon = new THREE.Mesh(geometry, material);
+        moon.position.set(-75, 50, -200);
+        moon.geometry.computeVertexNormals();
+        moon.receiveShadow = true;
+        moon.castShadow = false;
+        scene.add(moon);
+        console.log(scene)
     }
     createPlanets();
     
 // -- CAMERA --
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 250);
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 2500);
     camera.position.set(100, 0, 100);
     camera.lookAt(0, 0, 0);
     scene.add(camera);
 
 // -- LIGHT --
     // Frontlight
-    let directLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    directLight.position.set(-100, 50, 100);
+    let directLight = new THREE.DirectionalLight(0xffffff, 2);
+    directLight.position.set(-50, 50, 100);
     directLight.target.position.set(0, 0, 0);
     directLight.castShadow = true;
     scene.add(directLight);
 
     // BackLight
-    let backLight = new THREE.DirectionalLight( 0xffffff, 5 );
-    backLight.position.set(0, -50, 0);
+    let backLight = new THREE.DirectionalLight("rgba(225, 225, 255)", 20);
+    backLight.position.set(-600, -50, -2000);
     backLight.target.position.set(0, 0, 0);
     scene.add(backLight);
 
@@ -131,8 +153,11 @@ window.addEventListener('load', function()
     let animate = function()
     {
         renderer.render(scene, camera);
-        scene.children[0].rotation.y += 0.0002;
+        scene.children[0].rotation.y += 0.0001;
         scene.children[0].children[0].rotation.y += 0.0001;
+
+        scene.children[1].rotation.y += 0.0001;
+
         requestAnimationFrame(animate);
     }
 
