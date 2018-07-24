@@ -54,12 +54,12 @@ ob_start();
         </div>
         <div id="step_questions" class="disabled">
             <img id="themeBackground" src="">
-            <div class="questionContainer">
-                <p id="question"></p>
-                <div id="propositionsContainer">
-                    <img id="" src="" alt="">
-                    <img id="" src="" alt="">
-                    <img id="" src="" alt="">
+            <div id="questionContainer" class="questionContainer">
+                <p id="question" class="question"></p>
+                <div id="propositionsContainer" class="propositionsContainer">
+                    <button class="proposition"><img id="" src="" alt=""></button>
+                    <button class="proposition"><img id="" src="" alt=""></button>
+                    <button class="proposition"><img id="" src="" alt=""></button>
                 </div>
             </div>
         </div>

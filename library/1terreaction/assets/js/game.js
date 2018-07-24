@@ -1,6 +1,7 @@
 window.addEventListener('load', function()
 {
-    let indexBackground = 0;
+    let answersId = [];
+    let questionPosition = 1;
     let indexQuestion = 0;
     let indexPropo = 0;
     // -- DISPLAY THEMES MENU --
@@ -11,6 +12,7 @@ window.addEventListener('load', function()
         step_chooseThemeContainer.classList.add("disabled");		
         document.body.onclick = null;
 	}
+    // Load Next Question
     // Load Questions and Propositions
     let loadQuestion = function()
     {
@@ -18,21 +20,23 @@ window.addEventListener('load', function()
         let propositions = document.querySelectorAll("#propositionsContainer img");
         let question = document.querySelector("#question");
 
-        themeBackgroundImg.src = "assets/img/" + gameInfos["questions"][indexBackground]["src_img"] + ".jpg";
+        themeBackgroundImg.src = "assets/img/" + gameInfos["questions"][indexQuestion]["src_img"] + ".jpg";
         question.innerText = gameInfos["questions"][indexQuestion]["question"];
         for (let i = 0, length = propositions.length; i < length; i++)
         {
             propositions[i].src = "assets/img/" + gameInfos["propositions"][indexPropo]["src_img"] + ".png";
             propositions[i].alt = gameInfos["propositions"][indexPropo]["propositions"];
             propositions[i].id = gameInfos["propositions"][indexPropo]["id"];
+            propositions[i].parentNode.addEventListener("click", loadQuestion, false);
             indexPropo = indexPropo + 1;
         }
+        questionPosition = questionPosition + 1;
+        indexQuestion = indexQuestion + 1;
     }
     // Launch Game
     let launchGame = function(themePosition)
     {
         // load firstQuestion
-        indexBackground = themePosition * 3;
         indexQuestion = themePosition * 3;
         indexPropo = 9 * themePosition;
         loadQuestion();

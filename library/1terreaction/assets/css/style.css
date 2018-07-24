@@ -336,5 +336,31 @@ body {
       object-fit: contain;
       width: 100%;
       height: 100%; }
+    #main #step_questions .questionContainer {
+      border: 2px solid #003c78;
+      border-radius: 12px;
+      padding: 10px 10px 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 60, 120, 0.8); }
+      #main #step_questions .questionContainer .question {
+        margin-bottom: 10px;
+        padding: 10px;
+        text-align: center;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.2rem;
+        color: white;
+        background-color: rgba(0, 60, 120, 0.8); }
+      #main #step_questions .questionContainer .propositionsContainer {
+        text-align: center; }
+        #main #step_questions .questionContainer .propositionsContainer .proposition {
+          margin: 0 10px;
+          border: none;
+          border-radius: 12px; }
+          #main #step_questions .questionContainer .propositionsContainer .proposition:hover {
+            background-color: #a1dd19;
+            cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */
