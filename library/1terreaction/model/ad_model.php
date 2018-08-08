@@ -80,7 +80,7 @@ class ManagePlanets
 			$studentsNameList[$crInfo['id']] = $result;
 		}
 		// students stats
-		$req = $db->prepare("SELECT stats_water, stats_air, stats_forest, stats_average FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$req = $db->prepare("SELECT stats_environnement, stats_sante, stats_social, stats_average FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		foreach ($classroomsInfos as $crInfo)
 		{

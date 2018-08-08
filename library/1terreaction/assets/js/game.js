@@ -21,6 +21,7 @@ window.addEventListener('load', function()
         let question = document.querySelector("#question");
 
         themeBackgroundImg.src = "assets/img/" + gameInfos["questions"][indexQuestion]["src_img"] + ".jpg";
+
         question.innerText = gameInfos["questions"][indexQuestion]["question"];
         for (let i = 0, length = propositions.length; i < length; i++)
         {

@@ -18,7 +18,7 @@ class GameInfos
 	{
 		$db = self::loadDb();
 		// player stats
-		$req = $db->prepare("SELECT stats_water, stats_air, stats_forest, stats_average, unlocked_theme FROM 1ta_populations WHERE id_student = :idSt");
+		$req = $db->prepare("SELECT stats_environnement, stats_sante, stats_social, stats_average, unlocked_theme FROM 1ta_populations WHERE id_student = :idSt");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->execute();
 		$stats = $req->fetch(PDO::FETCH_ASSOC);
