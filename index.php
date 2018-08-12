@@ -6,10 +6,10 @@ require('./controller/controller.php');
 // SESSION
 
 //TEMP POUR TESTS
-$_SESSION['nickname'] = "Philippe";
-$_SESSION['password'] = '98745612';
-$_SESSION['classroom'] = "IATA Arts Plastiques";
-$_SESSION['id'] = 2;
+$_SESSION['nickname'] = "Martin";
+$_SESSION['password'] = '12345678';
+$_SESSION['classroom'] = "Classe de Test 01";
+$_SESSION['id'] = 19;
 
 function checkSession()
 {
