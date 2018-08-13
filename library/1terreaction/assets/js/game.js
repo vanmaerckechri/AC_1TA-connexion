@@ -1,4 +1,4 @@
-window.addEventListener('load', function()
+window.addEventListener('DOMContentLoaded', function()
 {
     let answersId = [];
     let questionPosition = 1;
@@ -21,7 +21,7 @@ window.addEventListener('load', function()
         let question = document.querySelector("#question");
 
         themeBackgroundImg.src = "assets/img/" + gameInfos["questions"][indexQuestion]["src_img"] + ".jpg";
-
+/*
         question.innerText = gameInfos["questions"][indexQuestion]["question"];
         for (let i = 0, length = propositions.length; i < length; i++)
         {
@@ -32,7 +32,7 @@ window.addEventListener('load', function()
             indexPropo = indexPropo + 1;
         }
         questionPosition = questionPosition + 1;
-        indexQuestion = indexQuestion + 1;
+        indexQuestion = indexQuestion + 1;*/
     }
     // Launch Game
     let launchGame = function(themePosition)
@@ -112,6 +112,43 @@ window.addEventListener('load', function()
             hideMainMenu();
         }
     }
+    let fitBackgroundQuestions = function()
+    {
+        let headerProfile = document.getElementById("headerProfile");
+        let themeBackgroundContainer = document.getElementById("themeBackgroundContainer");
+        let themeBackground = document.getElementById("themeBackground");
+
+        let ratioBG = themeBackground.offsetWidth / themeBackground.offsetHeight;
+        let ratioWindow = window.innerWidth / window.innerHeight;
+        let ratioBgWindow;  
+        if (ratioWindow < ratioBG)
+        {
+            ratioBgWindow = (window.innerWidth - themeBackground.offsetWidth) / themeBackground.offsetWidth;
+            themeBackground.style.height = themeBackground.height + (themeBackground.height * ratioBgWindow);
+            themeBackground.style.width = window.innerWidth;
+        }
+        else
+        {
+            ratioBgWindow = (window.innerHeight - themeBackground.offsetHeight) / themeBackground.offsetHeight;
+            themeBackground.style.width = themeBackground.width + (themeBackground.width * ratioBgWindow);
+            themeBackground.style.height = window.innerHeight;
+        }
+        for(let question in quiz) 
+        { 
+        quiz[question]["tag"].style.left = ((themeBackground.offsetWidth / 100) * quiz[question]["xOrigin"]) + (quiz[question]["xOrigin"] * ratioBgWindow) + themeBackground.offsetLeft + "px";
+        quiz[question]["tag"].style.top = ((themeBackground.offsetHeight / 100) * quiz[question]["yOrigin"]) + (quiz[question]["yOrigin"] * ratioBgWindow) + themeBackground.offsetTop + "px";
+        quiz[question]["tag"].style.width = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
+        quiz[question]["tag"].style.height = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
+
+        themeBackgroundContainer.style.left = (window.innerWidth / 2) - (themeBackground.offsetWidth / 2) + "px";
+        themeBackgroundContainer.style.top = headerProfile.offsetHeight + "px";
+        }
+    }
+    document.getElementById("themeBackground").onload = function()
+    {
+        fitBackgroundQuestions();
+    }
+    window.addEventListener("resize", fitBackgroundQuestions, false);
 
     // -- DISPLAY THEMES MENU --
     let launchThemesMenuButton = document.querySelector("#launchThemesMenuButton");

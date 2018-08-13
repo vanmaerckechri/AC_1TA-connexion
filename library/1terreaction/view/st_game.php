@@ -5,7 +5,7 @@ $title = "1TerreAction - En Jeu";
 // Free Classroom List
 ob_start();
 ?>
-    <div class="headerProfile">
+    <div id="headerProfile" class="headerProfile">
         <div class="appTitle">1TerreAction</div>
         <div class="profile">
             <?=$_SESSION['nickname']?>
@@ -52,8 +52,13 @@ ob_start();
             </div>
         </div>
         <div id="step_questions" class="disabled">
-            <img id="themeBackground" src="">
-            <div id="questionContainer" class="questionContainer">
+            <div id="themeBackgroundContainer" class="themeBackgroundContainer">
+                <img id="themeBackground" class="themeBackground" src="">
+                <div id="questionButton01" class="questionButton"></div>
+                <div id="questionButton02" class="questionButton"></div>
+                <div id="questionButton03" class="questionButton"></div>
+            </div>
+            <div id="questionContainer" class="questionContainer disabled">
                 <p id="question" class="question"></p>
                 <div id="propositionsContainer" class="propositionsContainer">
                     <button class="proposition"><img id="" src="" alt=""></button>
@@ -74,6 +79,7 @@ ob_start();
 
     </script>
 
+    <script src="assets/js/questions.js"></script>
     <script src="assets/js/game.js"></script>
 <?php
 $script = ob_get_clean();
