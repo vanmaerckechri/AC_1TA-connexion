@@ -361,8 +361,10 @@ body {
         max-height: 100%; }
       #main #step_questions .themeBackgroundContainer .questionButton {
         border-radius: 50%;
-        background-color: red;
+        background-color: green;
         position: absolute; }
+      #main #step_questions .themeBackgroundContainer .questionButtonClosed {
+        background-color: red; }
     #main #step_questions .questionContainer {
       border: 2px solid #003c78;
       border-radius: 12px;

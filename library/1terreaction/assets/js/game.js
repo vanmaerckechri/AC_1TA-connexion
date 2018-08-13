@@ -12,35 +12,84 @@ window.addEventListener('DOMContentLoaded', function()
         step_chooseThemeContainer.classList.add("disabled");		
         document.body.onclick = null;
 	}
-    // Load Next Question
-    // Load Questions and Propositions
-    let loadQuestion = function()
+    // Save Answer
+    let saveAnswer = function(answerIndex)
     {
-        let themeBackgroundImg = document.querySelector("#themeBackground");
-        let propositions = document.querySelectorAll("#propositionsContainer img");
-        let question = document.querySelector("#question");
-
-        themeBackgroundImg.src = "assets/img/" + gameInfos["questions"][indexQuestion]["src_img"] + ".jpg";
-/*
-        question.innerText = gameInfos["questions"][indexQuestion]["question"];
-        for (let i = 0, length = propositions.length; i < length; i++)
+        document.getElementById("questionContainer").classList.toggle("disabled");
+        answerList.push(answerIndex + 1);
+        waitForAnswer = false;
+        // check the answers to find out what to do next
+        if (answerList.length == 3)
         {
-            propositions[i].src = "assets/img/" + gameInfos["propositions"][indexPropo]["src_img"] + ".png";
-            propositions[i].alt = gameInfos["propositions"][indexPropo]["propositions"];
-            propositions[i].id = gameInfos["propositions"][indexPropo]["id"];
-            propositions[i].parentNode.addEventListener("click", loadQuestion, false);
-            indexPropo = indexPropo + 1;
+            // launch Pacman
         }
-        questionPosition = questionPosition + 1;
-        indexQuestion = indexQuestion + 1;*/
+        else if (answerList.length == 6)
+        {
+            // launch Fruit Ninja
+        }
+        else if (answerList.length == 9)
+        {
+            // send results in db and display stats
+        }
     }
+
+    // Load Questions and Propositions
+    let loadQuestion = function(questionIndex, event)
+    {
+        if (waitForAnswer == false && !event.target.classList.contains("questionButtonClosed"))
+        {
+            let currentQuestion = {};
+            let questionContainer = document.getElementById("questionContainer");
+            let questionParagraph = document.getElementById("question");
+            let propositions = document.querySelectorAll("#propositionsContainer img");
+            waitForAnswer = true;
+            questionList.push(questionIndex);
+            questionContainer.classList.toggle("disabled");
+            event.target.classList.add("questionButtonClosed")
+            for(let question in quiz) 
+            {
+                if (event.target == quiz[question]["tag"])
+                {
+                    currentQuestion = quiz[question];
+                }
+            }    
+     
+            questionParagraph.innerText = currentQuestion["question"];
+            for (let i = propositions.length - 1; i >= 0; i--)
+            {
+                let proposition = "proposition0" + (i + 1)
+                propositions[i].src = currentQuestion[proposition]["imageSrc"];
+                propositions[i].alt = currentQuestion[proposition]["proposition"];
+                propositions[i].id = currentQuestion[proposition]["proposition"];
+            }
+        }
+    }
+
     // Launch Game
     let launchGame = function(themePosition)
     {
-        // load firstQuestion
-        indexQuestion = themePosition * 3;
-        indexPropo = 9 * themePosition;
-        loadQuestion();
+        switch(themePosition)
+        {
+            case "A1":
+                quiz = quizA1;
+                break;
+            case "A2":
+                quiz = quizA2;
+                break;
+            case "A3":
+                quiz = quizA3;
+                break;
+            case "B1":
+                quiz = quizB1;
+                break;
+            case "B2":
+                quiz = quizB2;
+                break;
+            case "B3":
+                quiz = quizB3;
+                break;
+        } 
+        document.querySelector("#themeBackground").src = quiz["question01"]["imageSrc"];
         closeThemesMenu();
         document.querySelector("#step_questions").classList.remove('disabled');
         document.querySelector(".headerProfile").style.backgroundColor = "black";
@@ -65,11 +114,12 @@ window.addEventListener('DOMContentLoaded', function()
         }
         // Active Theme Buttons
         let themeButtons = document.querySelectorAll(".themeButton");
+        let buttonQuizList = ["A1", "B1"];
         for (let i = themeButtons.length - 1; i >= 0; i--)
         {
             if (themeButtons[i].classList.contains("unlocked"))
             {
-                themeButtons[i].addEventListener("click", launchGame.bind(this, i), false);
+                themeButtons[i].addEventListener("click", launchGame.bind(this, buttonQuizList[i]), false);
             }
         }
     }
@@ -134,14 +184,14 @@ window.addEventListener('DOMContentLoaded', function()
             themeBackground.style.height = window.innerHeight;
         }
         for(let question in quiz) 
-        { 
-        quiz[question]["tag"].style.left = ((themeBackground.offsetWidth / 100) * quiz[question]["xOrigin"]) + (quiz[question]["xOrigin"] * ratioBgWindow) + themeBackground.offsetLeft + "px";
-        quiz[question]["tag"].style.top = ((themeBackground.offsetHeight / 100) * quiz[question]["yOrigin"]) + (quiz[question]["yOrigin"] * ratioBgWindow) + themeBackground.offsetTop + "px";
-        quiz[question]["tag"].style.width = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
-        quiz[question]["tag"].style.height = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
+        {
+            quiz[question]["tag"].style.left = ((themeBackground.offsetWidth / 100) * quiz[question]["xOrigin"]) + (quiz[question]["xOrigin"] * ratioBgWindow) + themeBackground.offsetLeft + "px";
+            quiz[question]["tag"].style.top = ((themeBackground.offsetHeight / 100) * quiz[question]["yOrigin"]) + (quiz[question]["yOrigin"] * ratioBgWindow) + themeBackground.offsetTop + "px";
+            quiz[question]["tag"].style.width = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
+            quiz[question]["tag"].style.height = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
 
-        themeBackgroundContainer.style.left = (window.innerWidth / 2) - (themeBackground.offsetWidth / 2) + "px";
-        themeBackgroundContainer.style.top = headerProfile.offsetHeight + "px";
+            themeBackgroundContainer.style.left = (window.innerWidth / 2) - (themeBackground.offsetWidth / 2) + "px";
+            themeBackgroundContainer.style.top = headerProfile.offsetHeight + "px";
         }
     }
     document.getElementById("themeBackground").onload = function()
@@ -149,6 +199,11 @@ window.addEventListener('DOMContentLoaded', function()
         fitBackgroundQuestions();
     }
     window.addEventListener("resize", fitBackgroundQuestions, false);
+
+    document.getElementById("questionButton01").addEventListener("click", loadQuestion.bind(this, 1), false);
+    document.getElementById("questionButton02").addEventListener("click", loadQuestion.bind(this, 2), false);
+    document.getElementById("questionButton03").addEventListener("click", loadQuestion.bind(this, 3), false);
+
 
     // -- DISPLAY THEMES MENU --
     let launchThemesMenuButton = document.querySelector("#launchThemesMenuButton");
@@ -165,4 +220,11 @@ window.addEventListener('DOMContentLoaded', function()
     // -- MAIN MENU --
     let mainMenuButton = document.querySelector("#mainMenuButton");
     mainMenuButton.addEventListener("click", displayMainMenu, false);
+
+    // -- PROPOSITION BUTTON TO RECORD ANSWERS --
+    let propositionButtons = document.querySelectorAll(".proposition");
+    for (let i = propositionButtons.length - 1; i >=0; i--)
+    {
+        propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i), false);
+    }
 });

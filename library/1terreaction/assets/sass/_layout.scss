@@ -373,8 +373,12 @@
 			.questionButton
 			{
 				border-radius: 50%;
-				background-color: red;
+				background-color: green;
 				position: absolute;
+			}
+			.questionButtonClosed
+			{
+				background-color: red;
 			}
 		}
 		.questionContainer

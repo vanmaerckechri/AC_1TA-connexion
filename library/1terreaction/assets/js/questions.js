@@ -1,8 +1,14 @@
-const quiz001 = 
+let quiz;
+let waitForAnswer = false;
+let questionList = [];
+let answerList = [];
+let currentQuestion = "01";
+const quizA1 = 
 {
-	questionA01: 
+	question01: 
 	{
 		// number in % from background size
+		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
 	    xOrigin: 30,
 	    yOrigin: 30,
@@ -11,6 +17,7 @@ const quiz001 =
 	    proposition01: 
 	    {
 	    	proposition: "pomme",
+	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 3,
 	    	stats_sante: 3,
 	    	stats_social: 3
@@ -18,6 +25,7 @@ const quiz001 =
 	    proposition02: 
 	    {
 	    	proposition: "banane",
+	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
@@ -25,14 +33,16 @@ const quiz001 =
 	    proposition03: 
 	    {
 	    	proposition: "kiwi",
+	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 2
 	    }
 	},
-	questionA02: 
+	question02: 
 	{
 		// number in % from background size
+		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
 	    xOrigin: 50,
 	    yOrigin: 75,
@@ -41,6 +51,7 @@ const quiz001 =
 	    proposition01: 
 	    {
 	    	proposition: "kiwi",
+	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 2
@@ -48,6 +59,7 @@ const quiz001 =
 	    proposition02: 
 	    {
 	    	proposition: "banane",
+	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
@@ -55,14 +67,16 @@ const quiz001 =
 	    proposition03: 
 	    {
 	    	proposition: "pomme",
+	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 3,
 	    	stats_sante: 3,
 	    	stats_social: 3
 	    }
 	},
-	questionA03: 
+	question03: 
 	{
 		// number in % from background size
+		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
 	    xOrigin: 60,
 	    yOrigin: 20,
@@ -71,6 +85,7 @@ const quiz001 =
 	    proposition01: 
 	    {
 	    	proposition: "banane",
+	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
@@ -78,6 +93,7 @@ const quiz001 =
 	    proposition02: 
 	    {
 	    	proposition: "kiwi",
+	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 2
@@ -85,11 +101,10 @@ const quiz001 =
 	    proposition03: 
 	    {
 	    	proposition: "pomme",
+	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 3,
 	    	stats_sante: 3,
 	    	stats_social: 3
 	    }
 	}
-};	
-
-let quiz = quiz001;
+};
