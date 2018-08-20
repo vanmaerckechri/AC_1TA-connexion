@@ -8,6 +8,7 @@
     <title><?=$title?></title>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/ecoman_style.css">
 </head>
 <body>
   	<?=$content?>

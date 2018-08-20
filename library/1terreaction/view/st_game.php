@@ -67,7 +67,7 @@ ob_start();
                 </div>
             </div>
         </div>
-        <div id="step_breakGame">
+        <div id="pacmanContainer" class="pacmanContainer disabled">
         </div>
     </div>
 <?php
@@ -76,11 +76,15 @@ ob_start();
 ?>
     <script>
         let gameInfos = <?=json_encode($gameInfos)?>;
-
     </script>
-
-    <script src="assets/js/questions.js"></script>
-    <script src="assets/js/game.js"></script>
+    
+    <script type= "text/javascript" src="assets/js/questions.js"></script>
+    <script type= "text/javascript" src="assets/js/game.js"></script>
+    <script type= "text/javascript" src="assets/js/ecoman_game-maps.js"></script>
+    <script type= "text/javascript" src="assets/js/ecoman_game-player.js"></script>
+    <script type= "text/javascript" src="assets/js/ecoman_game-ghosts.js"></script>
+    <script type= "text/javascript" src="assets/js/ecoman_game-pathfinder.js"></script>
+    <script type= "text/javascript" src="assets/js/ecoman_game-engine.js"></script>
 <?php
 $script = ob_get_clean();
 
