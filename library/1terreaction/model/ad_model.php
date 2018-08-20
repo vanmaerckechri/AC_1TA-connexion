@@ -259,7 +259,7 @@ class ManagePlanets
 			}
 			// Erase students who are no longer in the classroom
 			$del = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt AND id_admin = :idAd");
-			$del2 = $db->prepare("DELETE FROM 1ta_themes WHERE id_student = :idSt AND id_admin = :idAd");
+			$del2 = $db->prepare("DELETE FROM 1ta_replies WHERE id_student = :idSt AND id_admin = :idAd");
 			$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 			$del2->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);           
 			foreach ($studentsDeletedFromClassroom as $idStudents)
@@ -278,7 +278,7 @@ class ManagePlanets
 			$del2 = NULL;
 			// Record new students into planet
 			$req2 = $db->prepare("INSERT INTO 1ta_populations (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
-			$req3 = $db->prepare("INSERT INTO 1ta_themes (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
+			$req3 = $db->prepare("INSERT INTO 1ta_replies (id_student, id_classroom, id_admin) VALUES (:idSt, :idCr, :idAd)");
 			$req2->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 			$req3->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 			foreach ($newStudents as $idCr => $idStudents)
@@ -321,7 +321,7 @@ class ManagePlanets
 		$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
 		$del->execute();
 
-		$del = $db->prepare("DELETE FROM 1ta_themes WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$del = $db->prepare("DELETE FROM 1ta_replies WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
 		$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
 		$del->execute();

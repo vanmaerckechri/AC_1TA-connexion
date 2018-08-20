@@ -372,6 +372,8 @@ body {
       position: absolute;
       top: 50%;
       left: 50%;
+      max-width: 100%;
+      text-align: right;
       transform: translate(-50%, -50%);
       background-color: rgba(0, 60, 120, 0.8); }
       #main #step_questions .questionContainer .question {
@@ -382,6 +384,13 @@ body {
         font-size: 1.2rem;
         color: white;
         background-color: rgba(0, 60, 120, 0.8); }
+      #main #step_questions .questionContainer .openQuestionTextArea {
+        min-width: 50vw;
+        max-width: 100%;
+        min-height: 33vh;
+        max-height: 66vh;
+        width: 75vw;
+        height: 50vh; }
       #main #step_questions .questionContainer .propositionsContainer {
         text-align: center; }
         #main #step_questions .questionContainer .propositionsContainer .proposition {
@@ -391,5 +400,20 @@ body {
           #main #step_questions .questionContainer .propositionsContainer .proposition:hover {
             background-color: #a1dd19;
             cursor: pointer; }
+      #main #step_questions .questionContainer .sendAnswersToDbButton {
+        margin-top: 20px;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 10px;
+        color: rgba(0, 60, 120, 0.8);
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: white;
+        transition: all .5s; }
+        #main #step_questions .questionContainer .sendAnswersToDbButton:hover {
+          cursor: pointer;
+          background-color: rgba(0, 60, 120, 0.8);
+          color: white; }
 
 /*# sourceMappingURL=style.css.map */

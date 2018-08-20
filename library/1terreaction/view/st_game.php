@@ -60,6 +60,7 @@ ob_start();
             </div>
             <div id="questionContainer" class="questionContainer disabled">
                 <p id="question" class="question"></p>
+                <textarea id="openQuestionTextArea" class="openQuestionTextArea disabled"></textarea> 
                 <div id="propositionsContainer" class="propositionsContainer">
                     <button class="proposition"><img id="" src="" alt=""></button>
                     <button class="proposition"><img id="" src="" alt=""></button>

@@ -8,9 +8,15 @@ let closeThemesMenu = function()
     document.body.onclick = null;
 }
 // Save Answer
+let sendToDb = function()
+{
+    alert("envoyé à la db");
+}
+
 let saveAnswer = function(answerIndex)
 {
-    document.getElementById("questionContainer").classList.toggle("disabled");
+    let questionContainer = document.getElementById("questionContainer");
+    questionContainer.classList.toggle("disabled");
     answerList.push(answerIndex + 1);
     waitForAnswer = false;
     // check the answers to find out what to do next
@@ -28,7 +34,22 @@ let saveAnswer = function(answerIndex)
     }
     else if (answerList.length == 9)
     {
-        // send results in db and display stats
+        if (gameInfos["openquestion"] != false)
+        {
+            if (gameInfos["openquestion"]["serie"] == currentTheme)
+            {
+                document.getElementById("openQuestionTextArea").classList.toggle("disabled");
+                document.getElementById("question").innerText = gameInfos["openquestion"]["question"];
+                document.getElementById("propositionsContainer").classList.toggle("disabled");
+                questionContainer.classList.toggle("disabled");
+
+                let sendAnswersToDbButton = document.createElement("button");
+                sendAnswersToDbButton.innerText = "valider";
+                sendAnswersToDbButton.setAttribute("class", "themeButton sendAnswersToDbButton");
+                questionContainer.appendChild(sendAnswersToDbButton);
+                sendAnswersToDbButton.addEventListener("click", sendToDb, false);
+            }
+        }
     }
 }
 

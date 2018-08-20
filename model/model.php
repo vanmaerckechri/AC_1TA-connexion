@@ -204,7 +204,7 @@ class Authentification
 				// Si la classe existe, vérifier si les données entrées par l'étudiant sont correctes
 				if (!empty($resultReq))
 				{
-					$req = $db->prepare("SELECT id FROM pe_students WHERE nickname = :name AND password = :pwd AND id_classroom = :idcr AND id = :idSt");
+					$req = $db->prepare("SELECT id, id_classroom FROM pe_students WHERE nickname = :name AND password = :pwd AND id_classroom = :idcr AND id = :idSt");
 					$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
 					$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
 					$req->bindValue(':idcr', $resultReq[0]['id'], PDO::PARAM_INT);
@@ -216,6 +216,7 @@ class Authentification
 					if (!empty($resultReq))
 					{
 						$_SESSION['id'] = $resultReq[0]["id"];
+						$_SESSION['id_classroom'] = $resultReq[0]["id_classroom"];
 						return 'student';
 					}
 				}

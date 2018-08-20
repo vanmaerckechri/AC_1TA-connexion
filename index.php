@@ -9,6 +9,7 @@ require('./controller/controller.php');
 $_SESSION['nickname'] = "Martin";
 $_SESSION['password'] = '12345678';
 $_SESSION['classroom'] = "Classe de Test 01";
+$_SESSION['id_classroom'] = 5;
 $_SESSION['id'] = 19;
 
 function checkSession()

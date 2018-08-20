@@ -22,23 +22,23 @@ class GameInfos
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->execute();
 		$stats = $req->fetch(PDO::FETCH_ASSOC);
-		// questions
-		$req = $db->prepare("SELECT * FROM 1ta_theme_questions WHERE theme_position <= :idUnlocked");
-		$req->bindParam(':idUnlocked', $stats['unlocked_theme'], PDO::PARAM_INT);
+		// open question
+		$req = $db->prepare("SELECT serie, question FROM 1ta_openquestions WHERE id_classroom = :idCr");
+		$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
 		$req->execute();
-		$questions = $req->fetchAll(PDO::FETCH_ASSOC);
-		// propositions
-		$req = $db->prepare("SELECT 1ta_theme_propositions.* FROM 1ta_theme_propositions INNER JOIN 1ta_rel_questions_propositions ON 1ta_theme_propositions.id = 1ta_rel_questions_propositions.id_proposition INNER JOIN 1ta_theme_questions ON 1ta_rel_questions_propositions.id_question = 1ta_theme_questions.id AND 1ta_theme_questions.theme_position <= :idUnlocked");
-		$req->bindParam(':idUnlocked', $stats['unlocked_theme'], PDO::PARAM_INT);
-		$req->execute();
-		$propositions = $req->fetchAll(PDO::FETCH_ASSOC);
-
-
+		$openquestions = $req->fetch(PDO::FETCH_ASSOC);
+		foreach ($openquestions as $key => $openquestion) 
+		{
+			$openquestions[$key] = htmlspecialchars($openquestion, ENT_QUOTES);
+		}
+		foreach ($stats as $key => $stat) 
+		{
+			$stats[$key] = htmlspecialchars($stat, ENT_QUOTES);
+		}
 		$gameInfos = (object) 
 		[
 		    'playerStats' => $stats,
-		    'questions' => $questions,
-		   	'propositions' => $propositions
+		    'openquestion' => $openquestions
 		];
 
 		$req->closeCursor();
