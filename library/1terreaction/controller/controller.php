@@ -21,3 +21,35 @@ function loadGameView()
 	$allThemes = ["Repas", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
 	require('./view/st_game.php');
 }
+
+function recordReplies()
+{
+	$message = "";
+	if (count($_POST["cleanReplies"]) == 11)
+	{
+		foreach ($_POST["cleanReplies"] as $key => $reply) 
+		{
+			if ($key < 9)
+			{
+				if (!is_numeric($reply) || $reply < 1 || $reply > 3)
+				{
+					$message = "Une erreur est survenue";
+					break;
+				}
+			}
+			$serie = $_POST["cleanReplies"][10];
+			if (strlen($serie) != 1)
+			{
+				$message = "Une erreur est survenue";
+			}
+		}
+	}
+	if ($message == "")
+	{
+		RecordReplies::start($_POST["cleanReplies"]);
+	}
+	else
+	{
+		echo $message;
+	}
+}

@@ -21,25 +21,33 @@ function checkSession()
 $sessionResult = checkSession();
 
 // -- VIEW --
-if (isset($_GET['action']))
+	// Record Replies
+if (isset($_POST['cleanReplies']))
 {
-	// Main Menu
-	if ($_GET['action'] == 'main')
+	recordReplies();	
+}
+else
+{
+	if (isset($_GET['action']))
 	{
-		loadMainView();
-	}
-	// Launch Game
-	else if ($_GET['action'] == 'game')
-	{
-		loadGameView();
+		// Main Menu
+		if ($_GET['action'] == 'main')
+		{
+			loadMainView();
+		}
+		// Launch Game
+		else if ($_GET['action'] == 'game')
+		{
+			loadGameView();
+		}
+		else
+		{
+			loadMainView();
+		}
 	}
 	else
 	{
 		loadMainView();
 	}
-}
-else
-{
-	loadMainView();
 }
 ?>

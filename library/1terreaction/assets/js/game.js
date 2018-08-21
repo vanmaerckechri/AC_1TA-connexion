@@ -15,6 +15,7 @@ let sendToDb = function()
 
     let formReplies = document.createElement("form");
     formReplies.setAttribute("method", "post");
+    formReplies.setAttribute("action", "index.php");
 
     for (let i = 0, length = answerList.length; i < length; i++)
     {
@@ -32,12 +33,20 @@ let sendToDb = function()
     }
 
     let openQuestion = document.getElementById("openQuestionTextArea").value;
-    let inputReply = document.createElement("input");
-    inputReply.setAttribute("type", "hidden");
-    inputReply.setAttribute("name", "cleanReplies[9]");
-    inputReply.setAttribute("value", openQuestion);
-    formReplies.appendChild(inputReply);
+    let inputOpenQuestion = document.createElement("input");
+    inputOpenQuestion.setAttribute("type", "hidden");
+    inputOpenQuestion.setAttribute("name", "cleanReplies[9]");
+    inputOpenQuestion.setAttribute("value", openQuestion);
+    formReplies.appendChild(inputOpenQuestion);
+
+    inputSerie = document.createElement("input");
+    inputSerie.setAttribute("type", "hidden");
+    inputSerie.setAttribute("name", "cleanReplies[10]");
+    inputSerie.setAttribute("value", currentTheme.slice(0, 1));
+    formReplies.appendChild(inputSerie);
+
     document.body.appendChild(formReplies);
+    formReplies.submit();
     /*let openQuestion = document.getElementById("openQuestionTextArea").value;
     cleanReplies.push(openQuestion);*/
 
