@@ -10,7 +10,44 @@ let closeThemesMenu = function()
 // Save Answer
 let sendToDb = function()
 {
-    alert("envoyé à la db");
+    let cleanReplies = [];
+    let cycleShift = 0;
+
+    let formReplies = document.createElement("form");
+    formReplies.setAttribute("method", "post");
+
+    for (let i = 0, length = answerList.length; i < length; i++)
+    {
+        let index = cycleShift + questionList[i] - 1;
+        //cleanReplies[index] = answerList[i];
+        let inputReply = document.createElement("input");
+        inputReply.setAttribute("type", "hidden");
+        inputReply.setAttribute("name", "cleanReplies["+index+"]");
+        inputReply.setAttribute("value", answerList[i]);
+        formReplies.appendChild(inputReply);
+        if (i == 2 || i == 5)
+        {
+            cycleShift += 3;
+        }
+    }
+
+    let openQuestion = document.getElementById("openQuestionTextArea").value;
+    let inputReply = document.createElement("input");
+    inputReply.setAttribute("type", "hidden");
+    inputReply.setAttribute("name", "cleanReplies[9]");
+    inputReply.setAttribute("value", openQuestion);
+    formReplies.appendChild(inputReply);
+    document.body.appendChild(formReplies);
+    /*let openQuestion = document.getElementById("openQuestionTextArea").value;
+    cleanReplies.push(openQuestion);*/
+
+
+
+        /*
+    <form action="/action_page.php" method="post">
+        <input type="hidden" name="cleanReplies[]" value="Mickey">
+    </form>
+    */
 }
 
 let saveAnswer = function(answerIndex)

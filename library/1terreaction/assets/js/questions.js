@@ -8,6 +8,7 @@ const quizA1 =
 {
 	question01: 
 	{
+		questionNumber: 1,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -42,6 +43,7 @@ const quizA1 =
 	},
 	question02: 
 	{
+		questionNumber: 2,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -76,6 +78,7 @@ const quizA1 =
 	},
 	question03: 
 	{
+		questionNumber: 3,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -113,6 +116,7 @@ const quizA2 =
 {
 	question01: 
 	{
+		questionNumber: 4,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -147,6 +151,7 @@ const quizA2 =
 	},
 	question02: 
 	{
+		questionNumber: 5,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -181,6 +186,7 @@ const quizA2 =
 	},
 	question03: 
 	{
+		questionNumber: 6,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -218,6 +224,7 @@ const quizA3 =
 {
 	question01: 
 	{
+		questionNumber: 7,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -252,6 +259,7 @@ const quizA3 =
 	},
 	question02: 
 	{
+		questionNumber: 8,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -286,6 +294,7 @@ const quizA3 =
 	},
 	question03: 
 	{
+		questionNumber: 9,
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
