@@ -16,7 +16,7 @@ function loadGameView()
 	// $gamesInfos = object[playerStats: assoc array, questions: assoc array, propositions: assoc array];
 	$gameInfos = GameInfos::call();
 	// load background images for local impact
-	$localBgAir_imgSrc = "assets/img/local_0".$gameInfos->playerStats['stats_environnement'].".jpg";
+	$localBgAir_imgSrc = "assets/img/local_0".$gameInfos->playerStats['stats_envi'].".jpg";
 	// load themes
 	$allThemes = ["Repas", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
 	require('./view/st_game.php');
@@ -24,7 +24,6 @@ function loadGameView()
 
 function loadGameResultView()
 {
-	// SYSTEME DE STATS DOIT CHANGER EN CHARGEANT LES REPONSES DES SERIES DANS DES ARRAYS ET EN CALCULANT LEUR MOYENNE EN JS
 	// recordReplies and calcul stats average
 	$message = "";
 
@@ -76,7 +75,7 @@ function loadGameResultView()
 		echo $message;
 		return;
 	}
-	// Update Stats
+	// Insert/Update Stats to Db (for this serie and for planet)
 
 	// Display Stats
 	echo "<h2>Moyennes pour cette partie</h2>";

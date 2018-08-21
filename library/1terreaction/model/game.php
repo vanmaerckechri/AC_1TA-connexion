@@ -17,8 +17,13 @@ class GameInfos
 	public static function call()
 	{
 		$db = self::loadDb();
-		// player stats
-		$req = $db->prepare("SELECT stats_environnement, stats_sante, stats_social, stats_average, unlocked_theme FROM 1ta_populations WHERE id_student = :idSt");
+		// player game infos
+		$req = $db->prepare("SELECT unlocked_theme FROM 1ta_populations WHERE id_student = :idSt");
+		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
+		$req->execute();
+		$playerGameInfos = $req->fetch(PDO::FETCH_ASSOC);
+		// player game infos
+		$req = $db->prepare("SELECT stats_envi, stats_sante, stats_social FROM 1ta_stats WHERE id_student = :idSt");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->execute();
 		$stats = $req->fetch(PDO::FETCH_ASSOC);
@@ -37,6 +42,7 @@ class GameInfos
 		}
 		$gameInfos = (object) 
 		[
+			'playerGameInfos' => $playerGameInfos,
 		    'playerStats' => $stats,
 		    'openquestion' => $openquestions
 		];

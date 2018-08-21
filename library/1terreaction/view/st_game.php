@@ -36,7 +36,7 @@ ob_start();
                 foreach ($allThemes as $key => $theme)
                 {
                     $unLockedClass = "unlocked";
-                    if ($key >= $gameInfos->playerStats['unlocked_theme'])
+                    if ($key >= $gameInfos->playerGameInfos['unlocked_theme'])
                     {
                         $unLockedClass = "";
                         $theme = "<img src='assets/img/locked.png'>";

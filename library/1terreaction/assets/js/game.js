@@ -45,7 +45,6 @@ let sendToDb = function()
     inputReply.setAttribute("value", JSON.stringify(cleanReplies));
     formReplies.appendChild(inputReply);
 
-    // PAS BESOIN D ENVOYE LES STATS. ON S OCCUPERA DE LES CALCULER AU CHARGEMENT DE LA PROCHAINE PAGE EN FAISANT UNE REQUETE PHP AVEC LES REPONSES DE TOUTES LES SERIES!!!
     let inputStatsEnv = document.createElement("input");
     inputStatsEnv.setAttribute("type", "hidden");
     inputStatsEnv.setAttribute("name", "statsEnv");
