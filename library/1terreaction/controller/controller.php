@@ -24,12 +24,16 @@ function loadGameView()
 
 function loadGameResultView()
 {
-	// recordReplies
+	// SYSTEME DE STATS DOIT CHANGER EN CHARGEANT LES REPONSES DES SERIES DANS DES ARRAYS ET EN CALCULANT LEUR MOYENNE EN JS
+	// recordReplies and calcul stats average
 	$message = "";
 
 	$statsEnv = json_decode($_POST["statsEnv"]);
 	$statsSan = json_decode($_POST["statsSan"]);
 	$statsSo = json_decode($_POST["statsSo"]);
+	$statsEnvAverage = 0;
+	$statsSanAverage = 0;
+	$statsSoAverage = 0;
 
 	$_POST["cleanReplies"] = json_decode($_POST["cleanReplies"]);
 	if (count($_POST["cleanReplies"]) == 11)
@@ -42,6 +46,18 @@ function loadGameResultView()
 				{
 					$message = "Une erreur est survenue";
 					break;
+				}
+				else
+				{
+					$statsEnvAverage = $statsEnvAverage + $statsEnv[$key];
+					$statsSanAverage = $statsSanAverage + $statsSan[$key];
+					$statsSoAverage = $statsSoAverage + $statsSo[$key];
+				}
+				if ($key == 8)
+				{
+					$statsEnvAverage = $statsEnvAverage / 9;
+					$statsSanAverage = $statsSanAverage / 9;
+					$statsSoAverage = $statsSoAverage / 9;
 				}
 			}
 			$serie = $_POST["cleanReplies"][10];
@@ -60,5 +76,11 @@ function loadGameResultView()
 		echo $message;
 		return;
 	}
-	// updateStats
+	// Update Stats
+
+	// Display Stats
+	echo "<h2>Moyennes pour cette partie</h2>";
+	echo "<p>environnement: ".$statsEnvAverage."</p>";
+	echo "<p>santé: ".$statsSanAverage."</p>";
+	echo "<p>social: ".$statsSoAverage."</p>";
 }

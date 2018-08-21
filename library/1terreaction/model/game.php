@@ -102,7 +102,7 @@ class RecordReplies
 			{
 				$req = $db->prepare("INSERT INTO 1ta_replies (id_admin, id_classroom, id_student, serie, reply1, reply2, reply3, reply4, reply5, reply6, reply7, reply8, reply9, open_reply) VALUES (:idAd, :idCr, :idSt, :serie, :reply1, :reply2, :reply3, :reply4, :reply5, :reply6, :reply7, :reply8, :reply9, :open_reply)");
 				$req->bindParam(':idAd', $idAdmin, PDO::PARAM_INT);
-				$req->bindParam(':idCr', $_SESSION['classroom'], PDO::PARAM_INT);
+				$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
 				$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 				$req->bindParam(':serie', $replies[10], PDO::PARAM_STR);
 				$req->bindParam(':open_reply', $replies[9], PDO::PARAM_STR);
