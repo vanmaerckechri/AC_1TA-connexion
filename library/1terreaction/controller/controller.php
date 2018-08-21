@@ -22,16 +22,23 @@ function loadGameView()
 	require('./view/st_game.php');
 }
 
-function recordReplies()
+function loadGameResultView()
 {
+	// recordReplies
 	$message = "";
+
+	$statsEnv = json_decode($_POST["statsEnv"]);
+	$statsSan = json_decode($_POST["statsSan"]);
+	$statsSo = json_decode($_POST["statsSo"]);
+
+	$_POST["cleanReplies"] = json_decode($_POST["cleanReplies"]);
 	if (count($_POST["cleanReplies"]) == 11)
 	{
 		foreach ($_POST["cleanReplies"] as $key => $reply) 
 		{
 			if ($key < 9)
 			{
-				if (!is_numeric($reply) || $reply < 1 || $reply > 3)
+				if (!is_numeric($reply) || $reply < 1 || $reply > 3 || !is_numeric($statsEnv[$key]) || $statsEnv[$key] < 1 || $statsEnv[$key] > 3 || !is_numeric($statsSan[$key]) || $statsSan[$key] < 1 || $statsSan[$key] > 3 || !is_numeric($statsSo[$key]) || $statsSo[$key] < 1 || $statsSo[$key] > 3 )
 				{
 					$message = "Une erreur est survenue";
 					break;
@@ -51,5 +58,7 @@ function recordReplies()
 	else
 	{
 		echo $message;
+		return;
 	}
+	// updateStats
 }

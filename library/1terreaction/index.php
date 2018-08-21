@@ -24,7 +24,7 @@ $sessionResult = checkSession();
 	// Record Replies
 if (isset($_POST['cleanReplies']))
 {
-	recordReplies();	
+	loadGameResultView();
 }
 else
 {

@@ -79,7 +79,6 @@ class RecordReplies
 			for ($i = 0; $i < 9; $i++)
 			{
 				$replyCol = ":reply".($i+1);
-				var_dump($replyCol);
 				$req->bindParam($replyCol, $replies[$i], PDO::PARAM_INT);
 			}
 			$req->execute();

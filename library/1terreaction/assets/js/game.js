@@ -11,7 +11,12 @@ let closeThemesMenu = function()
 let sendToDb = function()
 {
     let cleanReplies = [];
+    let statsEnv = [];
+    let statsSan = [];
+    let statsSo = [];
     let cycleShift = 0;
+    currentTheme = currentTheme.slice(0, 1) + 1;
+    updateQuiz(currentTheme);
 
     let formReplies = document.createElement("form");
     formReplies.setAttribute("method", "post");
@@ -20,43 +25,47 @@ let sendToDb = function()
     for (let i = 0, length = answerList.length; i < length; i++)
     {
         let index = cycleShift + questionList[i] - 1;
-        //cleanReplies[index] = answerList[i];
-        let inputReply = document.createElement("input");
-        inputReply.setAttribute("type", "hidden");
-        inputReply.setAttribute("name", "cleanReplies["+index+"]");
-        inputReply.setAttribute("value", answerList[i]);
-        formReplies.appendChild(inputReply);
+        cleanReplies[index] = answerList[i];
         if (i == 2 || i == 5)
         {
+            currentTheme = currentTheme[0] + ((1 * currentTheme[1]) + 1);
+            updateQuiz(currentTheme);
             cycleShift += 3;
         }
+        statsEnv[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_environnement"];
+        statsSan[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_sante"];
+        statsSo[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_social"];
+
     }
+    cleanReplies.push(document.getElementById("openQuestionTextArea").value);
+    cleanReplies.push(currentTheme.slice(0, 1));
+    let inputReply = document.createElement("input");
+    inputReply.setAttribute("type", "hidden");
+    inputReply.setAttribute("name", "cleanReplies");
+    inputReply.setAttribute("value", JSON.stringify(cleanReplies));
+    formReplies.appendChild(inputReply);
 
-    let openQuestion = document.getElementById("openQuestionTextArea").value;
-    let inputOpenQuestion = document.createElement("input");
-    inputOpenQuestion.setAttribute("type", "hidden");
-    inputOpenQuestion.setAttribute("name", "cleanReplies[9]");
-    inputOpenQuestion.setAttribute("value", openQuestion);
-    formReplies.appendChild(inputOpenQuestion);
+    let inputStatsEnv = document.createElement("input");
+    inputStatsEnv.setAttribute("type", "hidden");
+    inputStatsEnv.setAttribute("name", "statsEnv");
+    inputStatsEnv.setAttribute("value", JSON.stringify(statsEnv));
+    formReplies.appendChild(inputStatsEnv);
 
-    inputSerie = document.createElement("input");
-    inputSerie.setAttribute("type", "hidden");
-    inputSerie.setAttribute("name", "cleanReplies[10]");
-    inputSerie.setAttribute("value", currentTheme.slice(0, 1));
-    formReplies.appendChild(inputSerie);
+    let inputStatsSan = document.createElement("input");
+    inputStatsSan.setAttribute("type", "hidden");
+    inputStatsSan.setAttribute("name", "statsSan");
+    inputStatsSan.setAttribute("value", JSON.stringify(statsSan));
+    formReplies.appendChild(inputStatsSan);
+
+    let inputStatsSo = document.createElement("input");
+    inputStatsSo.setAttribute("type", "hidden");
+    inputStatsSo.setAttribute("name", "statsSo");
+    inputStatsSo.setAttribute("value", JSON.stringify(statsSo));
+    formReplies.appendChild(inputStatsSo);
 
     document.body.appendChild(formReplies);
     formReplies.submit();
-    /*let openQuestion = document.getElementById("openQuestionTextArea").value;
-    cleanReplies.push(openQuestion);*/
 
-
-
-        /*
-    <form action="/action_page.php" method="post">
-        <input type="hidden" name="cleanReplies[]" value="Mickey">
-    </form>
-    */
 }
 
 let saveAnswer = function(answerIndex)
@@ -132,9 +141,8 @@ let displayQuestion = function(questionIndex, event)
 }
 
 // Launch Game
-let loadQuestions = function(themePosition)
+let updateQuiz = function(themePosition)
 {
-    currentTheme = themePosition.slice(0, 1);
     switch(themePosition)
     {
         case "A1":
@@ -156,6 +164,11 @@ let loadQuestions = function(themePosition)
             quiz = quizB3;
             break;
     }
+}
+let loadQuestions = function(themePosition)
+{
+    currentTheme = themePosition.slice(0, 1);
+    updateQuiz(themePosition);
     let questionButtons = document.querySelectorAll(".questionButton");
     for (let i = questionButtons.length - 1; i >= 0; i--)
     {
