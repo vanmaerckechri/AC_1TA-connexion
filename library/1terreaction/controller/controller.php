@@ -16,7 +16,8 @@ function loadGameView()
 	// $gamesInfos = object[playerStats: assoc array, questions: assoc array, propositions: assoc array];
 	$gameInfos = GameInfos::call();
 	// load background images for local impact
-	$localBgAir_imgSrc = "assets/img/local_0".$gameInfos->playerStats['stats_envi'].".jpg";
+	$imgNumber = round($gameInfos->playerStats['stats_envi']);
+	$localBgAir_imgSrc = "assets/img/local_0".$imgNumber.".jpg";
 	// load themes
 	$allThemes = ["Repas", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
 	require('./view/st_game.php');
@@ -41,7 +42,7 @@ function loadGameResultView()
 		{
 			if ($key < 9)
 			{
-				if (!is_numeric($reply) || $reply < 1 || $reply > 3 || !is_numeric($statsEnv[$key]) || $statsEnv[$key] < 1 || $statsEnv[$key] > 3 || !is_numeric($statsSan[$key]) || $statsSan[$key] < 1 || $statsSan[$key] > 3 || !is_numeric($statsSo[$key]) || $statsSo[$key] < 1 || $statsSo[$key] > 3 )
+				if (!is_numeric($reply) || $reply < 1 || $reply > 3 || !is_numeric($statsEnv[$key]) || $statsEnv[$key] < 0 || $statsEnv[$key] > 2 || !is_numeric($statsSan[$key]) || $statsSan[$key] < 0 || $statsSan[$key] > 2 || !is_numeric($statsSo[$key]) || $statsSo[$key] < 0 || $statsSo[$key] > 2 )
 				{
 					$message = "Une erreur est survenue";
 					break;

@@ -19,17 +19,17 @@ const quizA1 =
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 2,
+	    	stats_sante: 0,
+	    	stats_social: 2
 	    },
 	    proposition02: 
 	    {
 	    	proposition: "banane",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_environnement: 0,
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
@@ -37,7 +37,7 @@ const quizA1 =
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_social: 0
 	    }
 	},
 	question02: 
@@ -55,23 +55,23 @@ const quizA1 =
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_social: 1
 	    },
 	    proposition02: 
 	    {
 	    	proposition: "banane",
 	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_sante: 1,
+	    	stats_social: 0
 	    },	   
 	    proposition03: 
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 0,
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    }
 	},
 	question03: 
@@ -88,8 +88,8 @@ const quizA1 =
 	    	proposition: "banane",
 	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_sante: 1,
+	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
@@ -103,9 +103,9 @@ const quizA1 =
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 1,
+	    	stats_sante: 1,
+	    	stats_social: 0
 	    }
 	}
 };
@@ -124,25 +124,25 @@ const quizA2 =
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    },
 	    proposition02: 
 	    {
 	    	proposition: "banane",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_environnement: 1,
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
 	    	proposition: "kiwi",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_sante: 0,
+	    	stats_social: 0
 	    }
 	},
 	question02: 
@@ -160,23 +160,23 @@ const quizA2 =
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_social: 1
 	    },
 	    proposition02: 
 	    {
 	    	proposition: "banane",
 	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_sante: 1,
+	    	stats_social: 0
 	    },	   
 	    proposition03: 
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 1
 	    }
 	},
 	question03: 
@@ -192,25 +192,25 @@ const quizA2 =
 	    {
 	    	proposition: "banane",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 2,
+	    	stats_environnement: 1,
 	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_social: 1
 	    },
 	    proposition02: 
 	    {
 	    	proposition: "kiwi",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_sante: 0,
+	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    }
 	}
 };
@@ -229,25 +229,25 @@ const quizA3 =
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    },
 	    proposition02: 
 	    {
 	    	proposition: "banane",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_environnement: 1,
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
 	    	proposition: "kiwi",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
-	    	stats_environnement: 1,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_environnement: 0,
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    }
 	},
 	question02: 
@@ -264,24 +264,24 @@ const quizA3 =
 	    	proposition: "kiwi",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_sante: 1,
+	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
 	    	proposition: "banane",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_environnement: 1,
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    }
 	},
 	question03: 
@@ -307,15 +307,15 @@ const quizA3 =
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
 	    	proposition: "pomme",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 3,
-	    	stats_sante: 3,
-	    	stats_social: 3
+	    	stats_environnement: 1,
+	    	stats_sante: 0,
+	    	stats_social: 0
 	    }
 	}
 };

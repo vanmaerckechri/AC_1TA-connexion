@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 22 août 2018 à 20:08
+-- Généré le :  mer. 22 août 2018 à 20:34
 -- Version du serveur :  5.7.19
 -- Version de PHP :  7.1.9
 
@@ -56,11 +56,18 @@ CREATE TABLE IF NOT EXISTS `1ta_planets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_admin` int(11) NOT NULL,
   `id_classroom` int(11) NOT NULL,
-  `stats_environnement` float NOT NULL DEFAULT '3',
-  `stats_sante` float NOT NULL DEFAULT '3',
-  `stats_social` float NOT NULL DEFAULT '3',
+  `stats_environnement` float NOT NULL DEFAULT '1',
+  `stats_sante` float NOT NULL DEFAULT '1',
+  `stats_social` float NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=183 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `1ta_planets`
+--
+
+INSERT INTO `1ta_planets` (`id`, `id_admin`, `id_classroom`, `stats_environnement`, `stats_sante`, `stats_social`) VALUES
+(182, 31, 5, 1.16667, 1.02778, 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +81,17 @@ CREATE TABLE IF NOT EXISTS `1ta_populations` (
   `id_student` int(11) NOT NULL,
   `unlocked_theme` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=378 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=382 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `1ta_populations`
+--
+
+INSERT INTO `1ta_populations` (`id`, `id_student`, `unlocked_theme`) VALUES
+(378, 19, 1),
+(379, 21, 1),
+(380, 22, 1),
+(381, 33, 1);
 
 -- --------------------------------------------------------
 
@@ -98,7 +115,14 @@ CREATE TABLE IF NOT EXISTS `1ta_replies` (
   `reply9` int(1) NOT NULL,
   `open_reply` varchar(512) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `1ta_replies`
+--
+
+INSERT INTO `1ta_replies` (`id`, `id_student`, `serie`, `reply1`, `reply2`, `reply3`, `reply4`, `reply5`, `reply6`, `reply7`, `reply8`, `reply9`, `open_reply`) VALUES
+(5, 19, 'A', 1, 2, 3, 1, 2, 3, 1, 2, 3, 'kjkhkjhkh');
 
 -- --------------------------------------------------------
 
@@ -115,7 +139,18 @@ CREATE TABLE IF NOT EXISTS `1ta_stats` (
   `stats_sante` float NOT NULL DEFAULT '1',
   `stats_social` float NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `1ta_stats`
+--
+
+INSERT INTO `1ta_stats` (`id`, `id_student`, `serie`, `stats_envi`, `stats_sante`, `stats_social`) VALUES
+(221, 19, 'average', 1.66667, 1.11111, 1),
+(222, 21, 'average', 1, 1, 1),
+(223, 22, 'average', 1, 1, 1),
+(224, 33, 'average', 1, 1, 1),
+(225, 19, 'A', 1.66667, 1.11111, 1);
 
 -- --------------------------------------------------------
 
@@ -198,22 +233,14 @@ CREATE TABLE IF NOT EXISTS `pe_rel_cr_library` (
   `id_classroom` int(11) NOT NULL,
   `id_library` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `pe_rel_cr_library`
 --
 
 INSERT INTO `pe_rel_cr_library` (`id`, `id_classroom`, `id_library`) VALUES
-(60, 8, 1),
-(62, 9, 1),
-(64, 5, 1),
-(75, 25, 1),
-(76, 26, 1),
-(77, 27, 1),
-(78, 28, 1),
-(79, 29, 1),
-(80, 30, 1);
+(89, 5, 1);
 
 -- --------------------------------------------------------
 
