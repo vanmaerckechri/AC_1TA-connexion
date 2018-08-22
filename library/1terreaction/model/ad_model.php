@@ -246,24 +246,40 @@ class ManagePlanets
 
 			// All Students who have a planet
 			$allStudentsOnPlanet = [];
-			$req = $db->prepare("SELECT pe_students.id FROM pe_students, 1ta_populations WHERE pe_students.id_admin = :idAd AND pe_students.id_classroom = :idCr AND pe_students.id = :idSt AND 1ta_populations.id_student = :idSt");
+			$allStudentsOnPlanetClassroom = [];
+			$req = $db->prepare("SELECT id_student FROM 1ta_populations WHERE id_classroom = :idCr");
 			foreach ($classroomsId as $cr)
 			{
-				$req->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-				$req->bindParam(':idCr', $cr['id_classroom'], PDO::PARAM_INT);
-				foreach ($allStudents as $studentsId)
-				{
-					$req->bindParam(':idSt', $studentsId, PDO::PARAM_INT);
+					$req->bindParam(':idCr', $cr['id_classroom'], PDO::PARAM_INT);
 					$req->execute();
-					$studentId = $req->fetch(PDO::FETCH_COLUMN, 0);
+					$studentId = $req->fetchAll(PDO::FETCH_COLUMN, 0);
+					array_push($allStudentsOnPlanetClassroom, $cr['id_classroom']);
 					if ($studentId != false)
 					{
 						array_push($allStudentsOnPlanet, $studentId);
 					}
-				}
 			}
 			// Keep only students who need a planet, remove others for the list
-			$studentsWhoNeedToBeLinked = array_diff($allStudents, $allStudentsOnPlanet);
+			if (isset($allStudentsOnPlanet) && !empty($allStudentsOnPlanet))
+			{
+				$studentsWhoNeedToBeLinked = array_diff($allStudents, $allStudentsOnPlanet[0]);
+			}
+			else
+			{
+				$studentsWhoNeedToBeLinked = $allStudents;
+			}
+			//$test = array_diff($allStudentsOnPlanet[0], $allStudents);
+			
+
+
+			var_dump($allStudentsOnPlanetClassroom);
+
+			//var_dump($studentsWhoNeedToBeLinked);
+
+			/*var_dump($allStudentsOnPlanet);
+						var_dump($allStudents);*/
+
+
 			/*
 			// Erase students who are no longer in the classroom
 			$del = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt AND id_admin = :idAd");
@@ -286,11 +302,12 @@ class ManagePlanets
 			$del2 = NULL;
 			*/
 			// Record new students into planet
-			$req = $db->prepare("INSERT INTO 1ta_populations (id_student) VALUES (:idSt)");
+			$req = $db->prepare("INSERT INTO 1ta_populations (id_student, id_classroom) VALUES (:idSt, :idCr)");
 			$req2 = $db->prepare("INSERT INTO 1ta_stats (id_student) VALUES (:idSt)");
-			foreach ($studentsWhoNeedToBeLinked as $idSt)
+			foreach ($studentsWhoNeedToBeLinked as $key => $idSt)
 			{
 				$req->bindParam(':idSt', $idSt, PDO::PARAM_INT); 
+				$req->bindParam(':idCr', $allStudentsOnPlanetClassroom[$key], PDO::PARAM_INT); 
 				$req->execute();
 				$req2->bindParam(':idSt', $idSt, PDO::PARAM_INT); 
 				$req2->execute();
