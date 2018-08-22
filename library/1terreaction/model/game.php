@@ -130,14 +130,14 @@ class RecordReplies
 		$req->execute();
 		$statsAverageFromSeries = $req->fetchAll();
 
-		$average = self::giveAverage($statsAverageFromSeries);
+		$averagePlayer = self::giveAverage($statsAverageFromSeries);
 
 		$req = $db->prepare("UPDATE 1ta_stats SET stats_envi = :stats_envi, stats_sante = :stats_sante, stats_social = :stats_social WHERE id_student = :idSt AND serie = :serie");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->bindValue(':serie', "average", PDO::PARAM_STR);
-		$req->bindParam(':stats_envi', $average["stats_enviAverage"], PDO::PARAM_STR);
-		$req->bindParam(':stats_sante', $average["stats_santeAverage"], PDO::PARAM_STR);
-		$req->bindParam(':stats_social', $average["stats_socialAverage"], PDO::PARAM_STR);
+		$req->bindParam(':stats_envi', $averagePlayer["stats_enviAverage"], PDO::PARAM_STR);
+		$req->bindParam(':stats_sante', $averagePlayer["stats_santeAverage"], PDO::PARAM_STR);
+		$req->bindParam(':stats_social', $averagePlayer["stats_socialAverage"], PDO::PARAM_STR);
 		$req->execute();		
 
 		// GLOBAL STATS
@@ -157,16 +157,18 @@ class RecordReplies
 			array_push($statsAverageFromStudents, $req->fetch(PDO::FETCH_ASSOC));
 		}
 		// update average serie stats
-		$average = self::giveAverage($statsAverageFromStudents);
+		$averagePlanet = self::giveAverage($statsAverageFromStudents);
 		$req = $db->prepare("UPDATE 1ta_planets SET stats_environnement = :stats_envi, stats_sante = :stats_sante, stats_social = :stats_social WHERE id_classroom = :idCr");
 		$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
-		$req->bindParam(':stats_envi', $average["stats_enviAverage"], PDO::PARAM_INT);
-		$req->bindParam(':stats_sante', $average["stats_santeAverage"], PDO::PARAM_INT);
-		$req->bindParam(':stats_social', $average["stats_socialAverage"], PDO::PARAM_INT);
+		$req->bindParam(':stats_envi', $averagePlanet["stats_enviAverage"], PDO::PARAM_INT);
+		$req->bindParam(':stats_sante', $averagePlanet["stats_santeAverage"], PDO::PARAM_INT);
+		$req->bindParam(':stats_social', $averagePlanet["stats_socialAverage"], PDO::PARAM_INT);
 		$req->execute();
 
 		$req->closeCursor();
 		$req = NULL;
+
+		return ["averagePlayer" => $averagePlayer, "averagePlanet" => $averagePlanet];
 	}
 
 	public static function start($replies, $statsEnviAverage, $statsSanAverage, $statsSoAverage)
@@ -190,7 +192,7 @@ class RecordReplies
 				$req->bindParam($replyCol, $replies[$i], PDO::PARAM_INT);
 			}
 			$req->execute();
-			self::updateStats($replies[10], $statsEnviAverage, $statsSanAverage, $statsSoAverage);
+			$averages = self::updateStats($replies[10], $statsEnviAverage, $statsSanAverage, $statsSoAverage);
 		}
 		// Replies row doesn't exist -> create
 		else
@@ -219,10 +221,12 @@ class RecordReplies
 					$req->bindParam($replyCol, $replies[$i], PDO::PARAM_INT);
 				}
 				$req->execute();
-				self::updateStats($replies[10], $statsEnviAverage, $statsSanAverage, $statsSoAverage);
+				$averages = self::updateStats($replies[10], $statsEnviAverage, $statsSanAverage, $statsSoAverage);
 			}
 		}
 		$req->closeCursor();
 		$req = NULL;
+
+		return $averages;
 	}
 }

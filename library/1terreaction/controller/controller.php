@@ -24,7 +24,7 @@ function loadGameView()
 
 function loadGameResultView()
 {
-	// recordReplies and calcul stats average
+	// recordReplies and calcul stats average(this series of player questions, all the themes of this player and this player planet)
 	$message = "";
 
 	$statsEnv = json_decode($_POST["statsEnv"]);
@@ -68,18 +68,33 @@ function loadGameResultView()
 	}
 	if ($message == "")
 	{
-		$message = RecordReplies::start($_POST["cleanReplies"], $statsEnvAverage, $statsSanAverage, $statsSoAverage);
+		$averages = RecordReplies::start($_POST["cleanReplies"], $statsEnvAverage, $statsSanAverage, $statsSoAverage);
 	}
 	if ($message != "")
 	{
+		if (isset($averages) && is_string($averages))
+		{
+			$message = $averages;
+		}
 		echo $message;
 		return;
 	}
-	// Insert/Update Stats to Db (for this serie and for planet)
+	else
+	{
+		// Display Stats
+		echo "<h2>Moyennes pour ce thème</h2>";
+		echo "<p>environnement: ".$statsEnvAverage."</p>";
+		echo "<p>santé: ".$statsSanAverage."</p>";
+		echo "<p>social: ".$statsSoAverage."</p>";
 
-	// Display Stats
-	echo "<h2>Moyennes pour cette partie</h2>";
-	echo "<p>environnement: ".$statsEnvAverage."</p>";
-	echo "<p>santé: ".$statsSanAverage."</p>";
-	echo "<p>social: ".$statsSoAverage."</p>";
+		echo "<h2>Moyennes de tous les thèmes</h2>";
+		echo "<p>environnement: ".$averages["averagePlayer"]["stats_enviAverage"]."</p>";
+		echo "<p>santé: ".$averages["averagePlayer"]["stats_santeAverage"]."</p>";
+		echo "<p>social: ".$averages["averagePlayer"]["stats_socialAverage"]."</p>";
+
+		echo "<h2>Moyennes de la planète</h2>";
+		echo "<p>environnement: ".$averages["averagePlanet"]["stats_enviAverage"]."</p>";
+		echo "<p>santé: ".$averages["averagePlanet"]["stats_santeAverage"]."</p>";
+		echo "<p>social: ".$averages["averagePlanet"]["stats_socialAverage"]."</p>";
+	}
 }
