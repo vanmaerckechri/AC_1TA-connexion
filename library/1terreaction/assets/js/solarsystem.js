@@ -295,6 +295,10 @@ window.addEventListener('load', function()
             stats_sante: 1,
             stats_social: 1,
         };
+        if (typeof studentsList == "undefined")
+        {
+            studentsList = [];
+        }
         for (let i = studentsList.length; i >= 0; i--)
         {
             let statsDbTitle = ["stats_envi", "stats_sante", "stats_social", "stats_average"];

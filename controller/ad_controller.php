@@ -1,6 +1,7 @@
 <?php
 require('./model/model.php');
 require('./model/ad_model.php');
+require('./model/1ta_update.php');
 
 // ACTIVATE SESSION!
 Authentification::startSession();
@@ -36,7 +37,11 @@ function renameClassroom()
 
 function deleteClassrooms()
 {
-	Classrooms::deleteClassrooms($_SESSION['id'], $_POST['classrooms']);
+	$idsSt = Classrooms::deleteClassrooms($_SESSION['id'], $_POST['classrooms']);
+	if (!empty($idsSt))
+	{
+		UpdateDb::deletePlanet($_POST['classrooms'], $idsSt);
+	}
 	require('./view/ad_manageClassroomsView.php');	
 }
 
@@ -71,7 +76,11 @@ function editStudent()
 
 function deleteStudents()
 {
-	Classrooms::deleteStudents($_SESSION['id'], $_POST['students'], $_GET['idcr']);
+	$idsSt = Classrooms::deleteStudents($_SESSION['id'], $_POST['students'], $_GET['idcr']);
+	if (!empty($idsSt))
+	{
+		UpdateDb::deletePopulation($idsSt, $_POST['students']);
+	}
 }
 
 // VIEWS!

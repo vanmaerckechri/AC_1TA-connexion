@@ -1,6 +1,8 @@
 <?php
 require('./model/model.php');
 require('./model/ad_model.php');
+require('./../../model/1ta_update.php');
+
 
 // -- ACTIVATE SESSION --
 Authentification::startSession();
@@ -9,7 +11,6 @@ Authentification::startSession();
 
 function loadMainView()
 {
-	ManagePlanets::refreshPopulationWithClassroom();
 	$planetList = ManagePlanets::callPlanetList($_SESSION['id']);
 	$studentsList = ManagePlanets::callStudentsList($planetList);
 	$freeClassrooms = ManagePlanets::callFreeClassroomsList($_SESSION['id']);
@@ -32,7 +33,7 @@ function deletePlanetView($idCr)
 {
 	if ($idCr >= 0)
 	{
-		ManagePlanets::deletePlanet($idCr);
+		UpdateDb::deletePlanet($idCr);
 	}
 	else
 	{

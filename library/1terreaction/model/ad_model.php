@@ -23,10 +23,6 @@ class ManagePlanets
 			// Check planets for this admin account
 			$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id = :idCr AND id_admin = :idAd");
 			$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
-			$delInPop = $db->prepare("DELETE FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
-			$delInPop->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-			$delInPlanet = $db->prepare("DELETE FROM 1ta_planets WHERE id_classroom = :idCr AND id_admin = :idAd");
-			$delInPlanet->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 			foreach ($classroomLinkedToPlanet as $classroom)
 			{
 				$req->bindValue(':idCr', $classroom['id_classroom'], PDO::PARAM_INT);
@@ -36,19 +32,7 @@ class ManagePlanets
 				{
 					array_push($planetsInfo, $result[0]);
 				}
-				// Classroom no longer exists
-				else
-				{
-					$delInPop->bindParam(':idCr', $classroom['id_classroom'], PDO::PARAM_INT);
-					$delInPop->execute();
-					$delInPlanet->bindParam(':idCr', $classroom['id_classroom'], PDO::PARAM_INT);
-					$delInPlanet->execute();
-				}
 			}
-			$delInPop->closeCursor();
-			$delInPop = NULL;
-			$delInPlanet->closeCursor();
-			$delInPlanet = NULL;
 		}
 		$req->closeCursor();
 		$req = NULL;
@@ -208,170 +192,30 @@ class ManagePlanets
 				$req->bindParam(':idCr', $idCr, PDO::PARAM_INT);
 				$req->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 				$req->execute();
+				// link population to students
+				$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
+				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+				$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+				$req->execute();
+				$studentsId = $req->fetchAll(PDO::FETCH_COLUMN);
+
+				$req = $db->prepare("INSERT INTO 1ta_populations (id_student) VALUES (:idSt)");
+				foreach ($studentsId as $idSt)
+				{
+					$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
+					$req->execute();	
+				}
+				// link population stats
+				$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
+				foreach ($studentsId as $idSt)
+				{
+					$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
+					$req->bindValue(':serie', "average", PDO::PARAM_INT);
+					$req->execute();	
+				}
 			}
 		}
 		$req->closeCursor();
 		$req = NULL;
-	}
-	public static function refreshPopulationWithClassroom()
-	{
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
-		// Check planets exist for this admin
-		$req = $db->prepare("SELECT id_classroom FROM 1ta_planets WHERE id_admin = :idAd");
-		$req->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-		$req->execute();
-		$classroomsId = $req->fetchAll(PDO::FETCH_ASSOC);
-		// if at least 1 planet exist
-		if (!empty($classroomsId))
-		{
-			// All Students from classrooms(classroom who linked to a planet)
-			$allStudents = [];
-			$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
-			foreach ($classroomsId as $cr)
-			{
-				$req->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-				$req->bindParam(':idCr', $cr['id_classroom'], PDO::PARAM_INT);
-				$req->execute();
-				$students = $req->fetchAll(PDO::FETCH_COLUMN, 0);
-				$allStudents = array_merge($allStudents, $students);
-			}
-
-			// All Students who have a planet
-			$allStudentsOnPlanet = [];
-			$allStudentsOnPlanetClassroom = [];
-			$req = $db->prepare("SELECT id_student FROM 1ta_populations WHERE id_classroom = :idCr");
-			foreach ($classroomsId as $cr)
-			{
-					$req->bindParam(':idCr', $cr['id_classroom'], PDO::PARAM_INT);
-					$req->execute();
-					$studentId = $req->fetchAll(PDO::FETCH_COLUMN, 0);
-					array_push($allStudentsOnPlanetClassroom, $cr['id_classroom']);
-					if ($studentId != false)
-					{
-						array_push($allStudentsOnPlanet, $studentId);
-					}
-			}
-			// Keep only students who need a planet, remove others for the list
-			if (isset($allStudentsOnPlanet) && !empty($allStudentsOnPlanet))
-			{
-				$studentsWhoNeedToBeLinked = array_diff($allStudents, $allStudentsOnPlanet[0]);
-			}
-			else
-			{
-				$studentsWhoNeedToBeLinked = $allStudents;
-			}
-			//$test = array_diff($allStudentsOnPlanet[0], $allStudents);
-			
-
-
-			var_dump($allStudentsOnPlanetClassroom);
-
-			//var_dump($studentsWhoNeedToBeLinked);
-
-			/*var_dump($allStudentsOnPlanet);
-						var_dump($allStudents);*/
-
-
-			/*
-			// Erase students who are no longer in the classroom
-			$del = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt AND id_admin = :idAd");
-			$del2 = $db->prepare("DELETE FROM 1ta_replies WHERE id_student = :idSt AND id_admin = :idAd");
-			$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-			$del2->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);           
-			foreach ($studentsDeletedFromClassroom as $idStudents)
-			{
-				foreach ($idStudents as $idSt)
-				{	
-					$del->bindParam(':idSt', $idSt, PDO::PARAM_INT);
-					$del->execute();
-					$del2->bindParam(':idSt', $idSt, PDO::PARAM_INT);
-					$del2->execute();
-				}
-			}
-			$del->closeCursor();
-			$del = NULL;
-			$del2->closeCursor();
-			$del2 = NULL;
-			*/
-			// Record new students into planet
-			$req = $db->prepare("INSERT INTO 1ta_populations (id_student, id_classroom) VALUES (:idSt, :idCr)");
-			$req2 = $db->prepare("INSERT INTO 1ta_stats (id_student) VALUES (:idSt)");
-			foreach ($studentsWhoNeedToBeLinked as $key => $idSt)
-			{
-				$req->bindParam(':idSt', $idSt, PDO::PARAM_INT); 
-				$req->bindParam(':idCr', $allStudentsOnPlanetClassroom[$key], PDO::PARAM_INT); 
-				$req->execute();
-				$req2->bindParam(':idSt', $idSt, PDO::PARAM_INT); 
-				$req2->execute();
-			}
-			$req->closeCursor();
-			$req = NULL;
-			$req2->closeCursor();
-			$req2 = NULL;
-		}
-	}
-	public static function deletePlanet($idCr)
-	{
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
-		$del = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
-		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
-		$del->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-		$del->execute();
-		$studentsId = $del->fetchAll(PDO::FETCH_COLUMN, 0);
-
-		$del = $db->prepare("DELETE FROM 1ta_planets WHERE id_classroom = :idCr AND id_admin = :idAd");
-		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
-		$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
-		$del->execute();
-
-		$del = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt");
-		foreach ($studentsId as $idSt)
-		{
-			$del->bindParam(':idSt', $idSt, PDO::PARAM_INT);
-			$del->execute();
-		}
-
-		$del = $db->prepare("DELETE FROM 1ta_replies WHERE id_student = :idSt");
-		foreach ($studentsId as $idSt)
-		{
-			$del->bindParam(':idSt', $idSt, PDO::PARAM_INT);
-			$del->execute();
-		}
-
-		$del = $db->prepare("DELETE FROM 1ta_stats WHERE id_student = :idSt");
-		foreach ($studentsId as $idSt)
-		{
-			$del->bindParam(':idSt', $idSt, PDO::PARAM_INT);
-			$del->execute();
-		}
-
-		$del = $db->prepare("SELECT id FROM pe_library WHERE name = :name");
-		$name = "1TerreAction";
-		$del->bindValue(':name', $name, PDO::PARAM_INT);
-		$del->execute();
-		$idLib = $del->fetch(PDO::FETCH_COLUMN, 0);
-
-		$del = $db->prepare("DELETE FROM pe_rel_cr_library WHERE id_classroom = :idCr AND id_library = :idLib");
-		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
-		$del->bindParam(':idLib', $idLib, PDO::PARAM_INT);   
-		$del->execute();
-		$del->closeCursor();
-		$del = NULL;
 	}
 }

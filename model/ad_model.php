@@ -138,6 +138,7 @@ class Classrooms
 		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000)
 		{
 			$sms = "";
+			$return = [];
 			// Effacer les classes sélectionnées si possible
 			$db = (new self)->connect();
 			$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id = :idclass AND id_admin = :idAd");
@@ -155,6 +156,16 @@ class Classrooms
 					$del = $db->prepare("DELETE FROM pe_classrooms WHERE id = :idclass");
 					if (isset($resultReq) && !empty($resultReq))
 					{
+						// Récuperer l'id des élèves au cas où ils seraient liés à la population d'une planète
+						$reqStudentsId = $db->prepare("SELECT id FROM pe_students WHERE id_classroom = :idclass AND id_admin = :idAd");
+						$reqStudentsId->bindValue(':idclass', $value, PDO::PARAM_INT);
+						$reqStudentsId->bindValue(':idAd', $mySessionId, PDO::PARAM_INT);
+						$reqStudentsId->execute();
+						$studentsId = $reqStudentsId->fetchAll(PDO::FETCH_COLUMN);
+						if (isset($resultReq) && !empty($resultReq))
+						{
+							$return = array_merge($return, $studentsId);
+						}
 						// Effacer les classes
 						$del->bindParam(':idclass', $value, PDO::PARAM_INT);   
 						$del->execute();
@@ -171,6 +182,7 @@ class Classrooms
 			$req->closeCursor();
 			$req = NULL;
 			$_SESSION['smsAlert']['default'] = $sms;
+			return $return;
 		}
 	}
 
@@ -253,6 +265,7 @@ class Classrooms
 		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000 && filter_var($idcr, FILTER_VALIDATE_INT) && $idcr >=0 && $idcr < 100000)
 		{
 			$sms = "";
+			$result = [];
 			// Effacer les étudiants sélectionnés si possible
 			$db = (new self)->connect();
 			$req = $db->prepare("SELECT nickname, id_classroom FROM pe_students WHERE id = :idStudent AND id_admin = :idAd");
@@ -272,6 +285,7 @@ class Classrooms
 						$del->bindParam(':idStudent', $value, PDO::PARAM_INT);   
 						$del->execute();
 						$sms = $sms == "" ? "Le(s) compte(s) suivant(s) a/ont été supprimé(s): <span class='smsAlert'>".htmlspecialchars($resultReq[0]['nickname'], ENT_QUOTES)."</span>" : $sms.", <span class='smsAlert'>".$resultReq[0]['nickname']."</span>";
+						array_push($result, $value);
 					}
 					$del->closeCursor();
 					$del = NULL;
@@ -282,6 +296,6 @@ class Classrooms
 			$_SESSION['smsAlert']['default'] = $sms;
 		}
 		header('Location: admin.php?action=manageThisClassroom&idcr='.$idcr);	  
-		exit;  	
+		return $result;  	
 	}
 }
