@@ -37,10 +37,13 @@ function renameClassroom()
 
 function deleteClassrooms()
 {
-	$idsSt = Classrooms::deleteClassrooms($_SESSION['id'], $_POST['classrooms']);
-	if (!empty($idsSt))
+	if (isset($_POST['classrooms']) && !empty('classrooms'))
 	{
-		UpdateDb::deletePlanet($_POST['classrooms'], $idsSt);
+		$idsSt = Classrooms::deleteClassrooms($_SESSION['id'], $_POST['classrooms']);
+		if (!empty($idsSt))
+		{
+			Update1TerreActionDb::deletePlanet($_POST['classrooms'], $idsSt);
+		}
 	}
 	require('./view/ad_manageClassroomsView.php');	
 }
@@ -53,7 +56,11 @@ function createStudents()
 		$filteredPassword = checkInput($_POST['newStudentPassword'], 'password', 'password');
 		if ($filteredNickname != false && $filteredPassword != false)
 		{
-			Classrooms::createStudent($_SESSION['id'], $filteredNickname, $filteredPassword, $_GET['idcr']);
+			$idSt = Classrooms::createStudent($_SESSION['id'], $filteredNickname, $filteredPassword, $_GET['idcr']);
+			if ($idSt != false)
+			{
+				Update1TerreActionDb::createPop($idSt);
+			}
 		}
 	}
 	$form_createOpen = true;
@@ -79,7 +86,7 @@ function deleteStudents()
 	$idsSt = Classrooms::deleteStudents($_SESSION['id'], $_POST['students'], $_GET['idcr']);
 	if (!empty($idsSt))
 	{
-		UpdateDb::deletePopulation($idsSt, $_POST['students']);
+		Update1TerreActionDb::deletePopulation($idsSt, $_POST['students']);
 	}
 }
 

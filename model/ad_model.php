@@ -193,6 +193,7 @@ class Classrooms
 		if (filter_var($mySessionId, FILTER_VALIDATE_INT) && $mySessionId >=0 && $mySessionId < 100000 && filter_var($idcr, FILTER_VALIDATE_INT) && $idcr >=0 && $idcr < 100000)
 		{
 			$sms = "";
+			$result = false;
 			// Ajouter un nouvel étudiant si possible
 			$db = (new self)->connect();
 			$req = $db->prepare("SELECT id FROM pe_classrooms WHERE id = :idcr AND id_admin = :idAd");
@@ -218,6 +219,8 @@ class Classrooms
 					$req->bindValue(':pwd', $pwd, PDO::PARAM_STR);
 					$req->execute();
 					$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Élève créé avec succès!</span>";
+					$result = $db->lastInsertId();
+					var_dump($result);
 				}
 				else
 				{
@@ -226,6 +229,7 @@ class Classrooms
 			}
 			$req->closeCursor();
 			$req = NULL;
+			return $result;
 		}
 	}
 

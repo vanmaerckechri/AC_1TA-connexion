@@ -1,5 +1,5 @@
 <?php
-class UpdateDb
+class Update1TerreActionDb
 {
 	public static function loadDb()
 	{
@@ -13,6 +13,19 @@ class UpdateDb
 		{
 			die('Erreur : ' . $e->getMessage());
 		}
+	}
+
+	public static function createPop($idSt)
+	{
+		$db = self::loadDb();
+		$req = $db->prepare("INSERT INTO 1ta_populations (id_student) VALUES (:idSt)");
+		$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
+		$req->execute();
+
+		$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
+		$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
+		$req->bindValue(':serie', "average", PDO::PARAM_STR);
+		$req->execute();
 	}
 
 	public static function deletePopulation($idCr, $idsSt)
@@ -91,15 +104,5 @@ class UpdateDb
 				$del = NULL;
 			}
 		}
-	}
-
-	public static function addStudent()
-	{
-
-	}
-
-	public static function deleteStudent()
-	{
-
 	}
 }

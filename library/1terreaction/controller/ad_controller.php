@@ -33,7 +33,7 @@ function deletePlanetView($idCr)
 {
 	if ($idCr >= 0)
 	{
-		UpdateDb::deletePlanet($idCr);
+		Update1TerreActionDb::deletePlanet($idCr);
 	}
 	else
 	{
