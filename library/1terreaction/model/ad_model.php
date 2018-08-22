@@ -57,7 +57,6 @@ class ManagePlanets
 
 	public static function callStudentsList($classroomsInfos)
 	{
-		$studentsNameList = [];
 		$studentsList = [];
 		try
 		{
@@ -69,34 +68,33 @@ class ManagePlanets
 		    die('Erreur : ' . $e->getMessage());
 		}
 		// students name and id
-		$req = $db->prepare("SELECT nickname, id FROM pe_students WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$req = $db->prepare("SELECT nickname, id, id_classroom FROM pe_students WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		foreach ($classroomsInfos as $crInfo)
 		{
 			$req->bindValue(':idCr', $crInfo['id'], PDO::PARAM_INT);
 			$req->execute();
-			$result = $req->fetchAll();
-			// index of array = id of the classroom
-			$studentsNameList[$crInfo['id']] = $result;
+			$studentsInfos = $req->fetchAll(PDO::FETCH_ASSOC);
 		}
 		// students stats
-		$req = $db->prepare("SELECT stats_environnement, stats_sante, stats_social, stats_average FROM 1ta_populations WHERE id_classroom = :idCr AND id_admin = :idAd");
-		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-		foreach ($classroomsInfos as $crInfo)
+		$req = $db->prepare("SELECT stats_envi, stats_sante, stats_social FROM 1ta_stats WHERE id_student = :idSt AND serie = :serie");
+		foreach ($studentsInfos as $student)
 		{
-			$req->bindValue(':idCr', $crInfo['id'], PDO::PARAM_INT);
+			$classroomId = $student["id_classroom"];
+			$req->bindParam(':idSt', $student['id'], PDO::PARAM_INT);
+			$req->bindValue(':serie', "average", PDO::PARAM_STR);
 			$req->execute();
-			$studentsListStats = $req->fetchAll();
-			$studentsListTemp = [];
-			// merge array(id and name from students) with their stats
-			foreach ($studentsListStats as $keyStats => $studentStats)
+			$studentsListStats = $req->fetch(PDO::FETCH_ASSOC);
+			$studentInfos = $student;
+			if (isset($studentsList[$student["id_classroom"]]))
 			{
-				if (!empty($studentsNameList[$crInfo['id']][$keyStats]))
-				{
-					array_push($studentsListTemp, array_merge($studentsNameList[$crInfo['id']][$keyStats], $studentStats));
-				}
+				array_push($studentsList[$student["id_classroom"]], array_merge($studentInfos, $studentsListStats));
 			}
-			$studentsList[$crInfo['id']] = $studentsListTemp;
+			else
+			{
+				$studentsList[$student["id_classroom"]] = [];
+				array_push($studentsList[$student["id_classroom"]], array_merge($studentInfos, $studentsListStats));
+			}
 		}
 		$req->closeCursor();
 		$req = NULL;
@@ -241,7 +239,7 @@ class ManagePlanets
 			foreach ($classroomsId as $cr)
 			{
 				// Students from admin planets
-				$req = $db->prepare("SELECT id_student FROM 1ta_populations WHERE id_admin = :idAd AND id_classroom = :idCr");
+				$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
 				$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 				$req->bindValue(':idCr', $cr['id_classroom'], PDO::PARAM_INT);
 				$req->execute();

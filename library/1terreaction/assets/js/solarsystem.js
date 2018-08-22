@@ -291,15 +291,14 @@ window.addEventListener('load', function()
         // statsPlanetAverage Temporaire (php qui s'en occupera)
         let statsPlanetAverage = 
         {
-            stats_water: 0,
-            stats_air: 0,
-            stats_forest: 0,
-            stats_average: 0
+            stats_envi: 1,
+            stats_sante: 1,
+            stats_social: 1,
         };
         for (let i = studentsList.length; i >= 0; i--)
         {
-            let statsDbTitle = ["stats_water", "stats_air", "stats_forest", "stats_average"];
-            let statsTitle = ["Eau", "Air", "Forêt", "Moyenne"];
+            let statsDbTitle = ["stats_envi", "stats_sante", "stats_social", "stats_average"];
+            let statsTitle = ["Environnement", "Santé", "Social", "Moyenne"];
             let student = document.createElement("li");
             let studentName = document.createElement("p");
             let statsContainer = createDomElem("span", [["class"], ["statsContainer"]]);
@@ -331,15 +330,15 @@ window.addEventListener('load', function()
                     if (j < statsLength - 1)//TEMP
                     {
                         // students stats
-                        stats.innerText = studentsList[i][statsDbTitle[j]];
-                        statsStudentAverage += parseInt(studentsList[i][statsDbTitle[j]]);//TEMP
+                        stats.innerText = Math.round(studentsList[i][statsDbTitle[j]]*100)/100;
+                        statsStudentAverage +=parseFloat(studentsList[i][statsDbTitle[j]]);//TEMP
                         // planet stats
-                        statsPlanetAverage[statsDbTitle[j]] += parseInt(studentsList[i][statsDbTitle[j]]);//TEMP
+                        statsPlanetAverage[statsDbTitle[j]] += parseFloat(studentsList[i][statsDbTitle[j]]);//TEMP
                     }
                     else
                     {
                         // student average
-                        stats.innerText = Math.round(statsStudentAverage / (statsLength -1));//TEMP
+                        stats.innerText = Math.round(statsStudentAverage / (statsLength -1)*100)/100;//TEMP
                     }
                 }
                 statsContainer.appendChild(stats);
