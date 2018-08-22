@@ -68,9 +68,9 @@ function loadGameResultView()
 	}
 	if ($message == "")
 	{
-		RecordReplies::start($_POST["cleanReplies"]);
+		$message = RecordReplies::start($_POST["cleanReplies"], $statsEnvAverage, $statsSanAverage, $statsSoAverage);
 	}
-	else
+	if ($message != "")
 	{
 		echo $message;
 		return;
