@@ -160,9 +160,9 @@ class RecordReplies
 		$average = self::giveAverage($statsAverageFromStudents);
 		$req = $db->prepare("UPDATE 1ta_planets SET stats_environnement = :stats_envi, stats_sante = :stats_sante, stats_social = :stats_social WHERE id_classroom = :idCr");
 		$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
-		$req->bindParam(':stats_envi', $stats_enviAverage, PDO::PARAM_INT);
-		$req->bindParam(':stats_sante', $stats_santeAverage, PDO::PARAM_INT);
-		$req->bindParam(':stats_social', $stats_socialAverage, PDO::PARAM_INT);
+		$req->bindParam(':stats_envi', $average["stats_enviAverage"], PDO::PARAM_INT);
+		$req->bindParam(':stats_sante', $average["stats_santeAverage"], PDO::PARAM_INT);
+		$req->bindParam(':stats_social', $average["stats_socialAverage"], PDO::PARAM_INT);
 		$req->execute();
 
 		$req->closeCursor();
