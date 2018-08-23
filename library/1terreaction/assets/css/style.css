@@ -436,5 +436,128 @@ body {
           cursor: pointer;
           background-color: rgba(0, 60, 120, 0.8);
           color: white; }
+  #main .step_scores {
+    padding: 110px 4rem 2rem;
+    position: absolute;
+    z-index: 0;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: rgba(32, 52, 72, 0.2); }
+    #main .step_scores .scoresContainer {
+      margin: 0 auto;
+      border: 2px solid rgba(32, 52, 72, 0.9);
+      border-radius: 12px;
+      padding: 50px 20px;
+      position: relative;
+      width: 100%;
+      font-size: 1rem;
+      background-color: rgba(32, 52, 72, 0.8); }
+      #main .step_scores .scoresContainer .scoresContainerClose {
+        position: absolute;
+        right: 10px;
+        top: 20px;
+        border: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        background-color: transparent; }
+        #main .step_scores .scoresContainer .scoresContainerClose:hover {
+          cursor: pointer; }
+      #main .step_scores .scoresContainer h2 {
+        margin-bottom: 2rem;
+        font-size: 1.5rem; }
+      #main .step_scores .scoresContainer .scoresTitleContainer, #main .step_scores .scoresContainer .scoresThisGameContainer, #main .step_scores .scoresContainer .scoresAllThemesContainer, #main .step_scores .scoresContainer .scoresThisPlanetContainer {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap; }
+        #main .step_scores .scoresContainer .scoresTitleContainer h3, #main .step_scores .scoresContainer .scoresThisGameContainer h3, #main .step_scores .scoresContainer .scoresAllThemesContainer h3, #main .step_scores .scoresContainer .scoresThisPlanetContainer h3 {
+          margin: 0 10px 10px 0;
+          flex: 1;
+          min-height: 40px;
+          display: inline-block;
+          vertical-align: middle; }
+        #main .step_scores .scoresContainer .scoresTitleContainer div, #main .step_scores .scoresContainer .scoresThisGameContainer div, #main .step_scores .scoresContainer .scoresAllThemesContainer div, #main .step_scores .scoresContainer .scoresThisPlanetContainer div {
+          margin: 0 10px 10px 0;
+          border: 1px solid rgba(255, 255, 255, 0.9);
+          border-radius: 2px 8px 8px 2px;
+          position: relative;
+          flex: 1;
+          height: 40px;
+          min-width: 80px;
+          display: inline-block;
+          background-color: rgba(255, 255, 255, 0.1); }
+          #main .step_scores .scoresContainer .scoresTitleContainer div .fluidForScore, #main .step_scores .scoresContainer .scoresThisGameContainer div .fluidForScore, #main .step_scores .scoresContainer .scoresAllThemesContainer div .fluidForScore, #main .step_scores .scoresContainer .scoresThisPlanetContainer div .fluidForScore {
+            position: absolute;
+            border-radius: 2px 8px 8px 2px;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: all 2s; }
+        #main .step_scores .scoresContainer .scoresTitleContainer .envi .fluidForScore, #main .step_scores .scoresContainer .scoresThisGameContainer .envi .fluidForScore, #main .step_scores .scoresContainer .scoresAllThemesContainer .envi .fluidForScore, #main .step_scores .scoresContainer .scoresThisPlanetContainer .envi .fluidForScore {
+          background-color: #64d219; }
+        #main .step_scores .scoresContainer .scoresTitleContainer .sante .fluidForScore, #main .step_scores .scoresContainer .scoresThisGameContainer .sante .fluidForScore, #main .step_scores .scoresContainer .scoresAllThemesContainer .sante .fluidForScore, #main .step_scores .scoresContainer .scoresThisPlanetContainer .sante .fluidForScore {
+          background-color: #f095be; }
+        #main .step_scores .scoresContainer .scoresTitleContainer .social .fluidForScore, #main .step_scores .scoresContainer .scoresThisGameContainer .social .fluidForScore, #main .step_scores .scoresContainer .scoresAllThemesContainer .social .fluidForScore, #main .step_scores .scoresContainer .scoresThisPlanetContainer .social .fluidForScore {
+          background-color: #ff5c41; }
+      #main .step_scores .scoresContainer .scoresTitleContainer .scoreTitle {
+        border: none;
+        padding-bottom: 1rem;
+        font-weight: bold;
+        background-color: transparent; }
+      #main .step_scores .scoresContainer .scoresTitleContainer .titleEnv {
+        color: #64d219; }
+      #main .step_scores .scoresContainer .scoresTitleContainer .titleSante {
+        color: #f095be; }
+      #main .step_scores .scoresContainer .scoresTitleContainer .titleSocial {
+        color: #ff5c41; }
+
+@media (max-width: 620px) and (orientation: portrait) {
+  .headerProfile {
+    padding: 10px 20px;
+    background-color: black; }
+
+  .appTitle {
+    font-size: 1.3rem;
+    letter-spacing: .1rem; }
+
+  #main .step_scores {
+    padding: 0; }
+    #main .step_scores .scoresContainer {
+      margin-top: 84px;
+      border-radius: 0;
+      border: none;
+      height: 100%;
+      overflow: auto; }
+      #main .step_scores .scoresContainer h2 {
+        margin-bottom: 1rem; }
+      #main .step_scores .scoresContainer .scoresTitleContainer {
+        margin-bottom: 10px;
+        flex-wrap: nowrap; }
+        #main .step_scores .scoresContainer .scoresTitleContainer h3 {
+          display: none; }
+      #main .step_scores .scoresContainer .scoresThisGameContainer, #main .step_scores .scoresContainer .scoresAllThemesContainer, #main .step_scores .scoresContainer .scoresThisPlanetContainer {
+        margin-bottom: 10px;
+        flex-direction: column; }
+        #main .step_scores .scoresContainer .scoresThisGameContainer h3, #main .step_scores .scoresContainer .scoresAllThemesContainer h3, #main .step_scores .scoresContainer .scoresThisPlanetContainer h3 {
+          min-height: auto; }
+      #main .step_scores .scoresContainer .scoresTitleContainer .scoreTitle {
+        padding-bottom: 0; }
+      #main .step_scores .scoresContainer .scoresTitleContainer .titleEnv {
+        height: auto; }
+      #main .step_scores .scoresContainer .scoresTitleContainer .titleSante {
+        height: auto;
+        text-align: center; }
+      #main .step_scores .scoresContainer .scoresTitleContainer .titleSocial {
+        height: auto;
+        text-align: right; } }
 
 /*# sourceMappingURL=style.css.map */

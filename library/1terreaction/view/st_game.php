@@ -17,7 +17,7 @@ ob_start();
             <div class="localBgContainer">
                 <img class="localBg localBgAir" src="<?=$localBgAir_imgSrc?>" alt="ciel faisant parti du parallax">
             </div>
-            <div class="menu">
+            <div id="mainMenuContainer" class="menu">
                 <div class="menuButtonContainer">
                      <button id="backToSolarSystem" class="menuButton disabled_v2">Système Solaire</button>
                 </div>
@@ -68,8 +68,84 @@ ob_start();
                 </div>
             </div>
         </div>
-        <div id="step_scores" class="disabled">
-        </div>
+        <?php
+            if ($activeScoreTab == true)
+            {
+        ?>
+                <div id="step_scores" class="step_scores">
+                    <div id="scoresContainer" class="scoresContainer">
+                        <button id="scoresContainerClose" class="scoresContainerClose">X</button>
+                        <h2>Scores</h2>
+                        <div id="scoresTitleContainer" class="scoresTitleContainer">
+                            <h3 class="scoreTitle">Statistiques</h3>
+                            <div class="scoreTitle titleEnv">Env.</div>
+                            <div class="scoreTitle titleSante">Santé</div>
+                            <div class="scoreTitle titleSocial">Social</div>
+                        </div>
+
+                        <div id="scoresThisGameContainer" class="scoresThisGameContainer">
+                            <h3>Pour cette Partie:</h3>
+                            <div class="envi"><?=round($statsEnvAverage, 2)?></div>
+                            <div class="sante"><?=round($statsSanAverage, 2)?></div>
+                            <div class="social"><?=round($statsSoAverage, 2)?></div>
+                        </div>
+
+                        <div id="scoresAllThemesContainer" class="scoresAllThemesContainer">
+                            <h3>Pour Tous les Thèmes:</h3>
+                            <?php
+                            foreach ($gameInfos->playerStats as $key => $value)
+                            {
+                                $value = round($value, 2);
+                                $class = "";
+                                if ($key == "stats_envi")
+                                {
+                                    $class = "envi";
+                                }
+                                else if ($key == "stats_sante")
+                                {
+                                    $class = "sante";                  
+                                }
+                                else if ($key == "stats_social")
+                                {
+                                    $class = "social";                  
+                                }
+                                ?>
+                                <div class="<?=$class?>"><?=$value?></div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+
+                        <div id="scoresThisPlanetContainer" class="scoresThisPlanetContainer">
+                            <h3>Pour la Planète:</h3>
+                            <?php
+                            foreach ($gameInfos->planetStats as $key => $value)
+                            {
+                                $value = round($value, 2);
+                                $class = "";
+                                if ($key == "stats_environnement")
+                                {
+                                    $class = "envi";
+                                }
+                                else if ($key == "stats_sante")
+                                {
+                                    $class = "sante";                  
+                                }
+                                else if ($key == "stats_social")
+                                {
+                                    $class = "social";                  
+                                }
+                                ?>
+                                <div class="<?=$class?>"><?=$value?></div>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+        <?php
+            }
+        ?>
         <div id="pacmanContainer" class="pacmanContainer disabled">
         </div>
     </div>

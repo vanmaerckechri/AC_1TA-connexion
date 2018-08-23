@@ -2,9 +2,84 @@
 @media only screen and (min-width: 768px)
 {
 }
-@media (max-width: 601px) and (orientation: portrait)
+@media (max-width: 620px) and (orientation: portrait)
 {
-}
-@media (max-width: 330px) and (orientation: portrait)
-{
+	.headerProfile
+	{
+		padding: 10px 20px;
+		background-color: black;
+		.profile
+		{
+			.disconnect
+			{
+			}	
+		}
+	}
+	.appTitle
+	{
+		font-size: 1.3rem;
+		letter-spacing: .1rem;
+	}
+
+	#main
+	{
+		.step_scores
+		{
+			padding: 0;
+			.scoresContainer
+			{
+				margin-top: 84px;
+				border-radius: 0;
+				border: none;
+				height: 100%;
+				overflow: auto;
+				.scoresContainerClose
+				{
+				}
+				h2
+				{
+					margin-bottom: 1rem;
+				}
+				.scoresTitleContainer
+				{
+					margin-bottom: 10px;
+					flex-wrap: nowrap;
+					h3
+					{
+						display: none;
+					}
+				}
+				.scoresThisGameContainer, .scoresAllThemesContainer, .scoresThisPlanetContainer
+				{
+					margin-bottom: 10px;
+					flex-direction: column;
+					h3
+					{
+						min-height: auto;
+					}
+				}
+				.scoresTitleContainer
+				{
+					.scoreTitle
+					{
+						padding-bottom: 0;
+					}
+					.titleEnv
+					{
+						height: auto;
+					}
+					.titleSante
+					{
+						height: auto;
+						text-align: center;
+					}
+					.titleSocial
+					{
+						height: auto;
+						text-align: right;
+					}
+				}
+			}
+		}
+	}
 }

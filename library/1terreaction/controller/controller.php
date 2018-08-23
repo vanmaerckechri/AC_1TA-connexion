@@ -10,7 +10,7 @@ function loadMainView()
 	require('./view/st_mainmenu.php');
 }
 
-function loadGameView()
+function loadGameView($activeScoreTab = false, $statsEnvAverage = false, $statsSanAverage = false, $statsSoAverage = false)
 {
 	// load game infos (averages player stats, questions and propositions with score, ...)
 	// $gamesInfos = object[playerStats: assoc array, questions: assoc array, propositions: assoc array];
@@ -70,7 +70,7 @@ function loadGameResultView()
 	if ($message == "")
 	{
 		RecordReplies::start($_POST["cleanReplies"], $statsEnvAverage, $statsSanAverage, $statsSoAverage);
-		loadGameView();
+		loadGameView(true, $statsEnvAverage, $statsSanAverage, $statsSoAverage);
 	}
 	else
 	{

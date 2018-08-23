@@ -1,4 +1,36 @@
 let currentTheme;
+// SCORES
+let displayScoresBar = function()
+{
+    if (document.getElementById("step_scores"))
+    {
+        let scoresThisGame = document.querySelectorAll(".scoresThisGameContainer div");
+        let scoresAllThemesContainer = document.querySelectorAll(".scoresAllThemesContainer div");
+        let scoresThisPlanetContainer = document.querySelectorAll(".scoresThisPlanetContainer div");
+        let scoresList = [scoresThisGame, scoresAllThemesContainer, scoresThisPlanetContainer];
+        for (let j = scoresList.length - 1; j >= 0; j--)
+        {
+            for (let i = scoresList[j].length - 1; i >= 0; i--)
+            {
+                let fluidForScore = document.createElement("span");
+                fluidForScore.setAttribute("class", "fluidForScore");
+                scoresList[j][i].appendChild(fluidForScore);
+
+                let score = scoresList[j][i].innerText * 50;
+                scoresList[j][i].style.color = "transparent";
+
+                fluidForScore.style.width = score + "%";
+            }
+        }
+        document.getElementById("mainMenuContainer").classList.add("disabled_v2");
+        let closeButton = document.getElementById("scoresContainerClose");
+        closeButton.addEventListener("click", function()
+        {
+            document.getElementById("mainMenuContainer").classList.toggle("disabled_v2");
+            document.getElementById("step_scores").remove();
+        }, false);
+    }
+}
 // -- DISPLAY THEMES MENU --
 // Hide
 let closeThemesMenu = function()
@@ -315,3 +347,5 @@ for (let i = propositionButtons.length - 1; i >=0; i--)
 {
     propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i), false);
 }
+
+displayScoresBar();
