@@ -36,6 +36,11 @@ button {
   100% {
     transform: translateY(256px);
     pointer-events: auto; } }
+@keyframes drawAttentionQuestionButton {
+  0% {
+    transform: scale(1, 1); }
+  100% {
+    transform: scale(1.2, 1.2); } }
 html {
   background-color: #e3e9ea;
   font-family: 'Oswald', sans-serif; }
@@ -360,11 +365,27 @@ body {
         height: auto;
         max-height: 100%; }
       #main #step_questions .themeBackgroundContainer .questionButton {
+        border: 2px solid rgba(100, 210, 25, 0.9);
         border-radius: 50%;
-        background-color: green;
-        position: absolute; }
+        background-color: rgba(100, 210, 25, 0.7);
+        position: absolute;
+        animation: drawAttentionQuestionButton 1s infinite alternate;
+        transition: all .5s; }
+        #main #step_questions .themeBackgroundContainer .questionButton:hover {
+          cursor: pointer;
+          border-color: rgba(235, 120, 20, 0.9);
+          background-color: rgba(235, 120, 20, 0.7); }
       #main #step_questions .themeBackgroundContainer .questionButtonClosed {
-        background-color: red; }
+        opacity: .5;
+        animation: none;
+        border-color: rgba(120, 160, 120, 0.9);
+        background-color: rgba(120, 160, 120, 0.7);
+        transform: scale(0.8, 0.8); }
+        #main #step_questions .themeBackgroundContainer .questionButtonClosed:hover {
+          opacity: .5;
+          cursor: default;
+          border-color: rgba(120, 160, 120, 0.9);
+          background-color: rgba(120, 160, 120, 0.7); }
     #main #step_questions .questionContainer {
       border: 2px solid #003c78;
       border-radius: 12px;

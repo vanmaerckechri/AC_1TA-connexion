@@ -68,6 +68,8 @@ ob_start();
                 </div>
             </div>
         </div>
+        <div id="step_scores" class="disabled">
+        </div>
         <div id="pacmanContainer" class="pacmanContainer disabled">
         </div>
     </div>

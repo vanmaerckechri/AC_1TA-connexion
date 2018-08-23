@@ -69,19 +69,15 @@ function loadGameResultView()
 	}
 	if ($message == "")
 	{
-		$averages = RecordReplies::start($_POST["cleanReplies"], $statsEnvAverage, $statsSanAverage, $statsSoAverage);
-	}
-	if ($message != "")
-	{
-		if (isset($averages) && is_string($averages))
-		{
-			$message = $averages;
-		}
-		echo $message;
-		return;
+		RecordReplies::start($_POST["cleanReplies"], $statsEnvAverage, $statsSanAverage, $statsSoAverage);
+		loadGameView();
 	}
 	else
 	{
+		echo $message;
+		return;
+	}
+	/*
 		// Display Stats
 		echo "<h2>Moyennes pour ce thème</h2>";
 		echo "<p>environnement: ".$statsEnvAverage."</p>";
@@ -97,5 +93,5 @@ function loadGameResultView()
 		echo "<p>environnement: ".$averages["averagePlanet"]["stats_enviAverage"]."</p>";
 		echo "<p>santé: ".$averages["averagePlanet"]["stats_santeAverage"]."</p>";
 		echo "<p>social: ".$averages["averagePlanet"]["stats_socialAverage"]."</p>";
-	}
+	*/
 }

@@ -372,13 +372,33 @@
 			}
 			.questionButton
 			{
+				border: 2px solid rgba(100, 210, 25, .9);
 				border-radius: 50%;
-				background-color: green;
+				background-color: rgba(100, 210, 25, .7);
 				position: absolute;
+				animation: drawAttentionQuestionButton 1s infinite alternate;
+				transition: all .5s;
+				&:hover
+				{
+					cursor: pointer;
+					border-color: rgba(235, 120, 20, .9);
+					background-color: rgba(235, 120, 20, .7);
+				}
 			}
 			.questionButtonClosed
 			{
-				background-color: red;
+				opacity: .5;
+				animation: none;
+				border-color: rgba(120, 160, 120, .9);
+				background-color: rgba(120, 160, 120, .7);
+				transform: scale(.8, .8);
+				&:hover
+				{
+					opacity: .5;
+					cursor: default;
+					border-color: rgba(120, 160, 120, .9);
+					background-color: rgba(120, 160, 120, .7);
+				}
 			}
 		}
 		.questionContainer
