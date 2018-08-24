@@ -104,6 +104,25 @@
 				{
 					font-weight: 300;
 				}
+				.profile
+				{
+					.avatarContainer
+					{
+						position: relative;
+						img
+						{
+							position: absolute;
+							left: -64px;
+							top: -24px;
+							width: 64px;
+							height: 64px;
+						}
+						&:hover
+						{
+							cursor: pointer;
+						}
+					}
+				}
 			}
 		}
 	}

@@ -77,6 +77,7 @@ foreach ($libraryList as $libElem)
 <?php
 $content = ob_get_clean();
 
+$avatarInfos = Avatar::load();
 ?>
 
 <!DOCTYPE html>
@@ -99,6 +100,8 @@ $content = ob_get_clean();
             </div>
             <div class="headerProfile">
                 <div class="profile">
+                    <div id="avatarContainer" class="avatarContainer">
+                    </div>
                     <?=$_SESSION['nickname']?>
                     <a href="library.php?action=disco" class="disconnect">X</a>
                 </div>
@@ -120,6 +123,11 @@ $content = ob_get_clean();
             <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
         </div>
     </footer>
+    <script>
+        let avatarInfos = <?=json_encode($avatarInfos)?>;
+        avatarInfos = avatarInfos[0];
+    </script>
+    <script type= "text/javascript" src="js/avatar.js"></script>
 </body>
 </html>
 

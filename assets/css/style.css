@@ -184,6 +184,16 @@ input {
         color: #4ab4f1; }
       .admin header .headerContainer .headerTitle h2, .admin header .headerContainer .headerProfile h2 {
         font-weight: 300; }
+      .admin header .headerContainer .headerTitle .profile .avatarContainer, .admin header .headerContainer .headerProfile .profile .avatarContainer {
+        position: relative; }
+        .admin header .headerContainer .headerTitle .profile .avatarContainer img, .admin header .headerContainer .headerProfile .profile .avatarContainer img {
+          position: absolute;
+          left: -64px;
+          top: -24px;
+          width: 64px;
+          height: 64px; }
+        .admin header .headerContainer .headerTitle .profile .avatarContainer:hover, .admin header .headerContainer .headerProfile .profile .avatarContainer:hover {
+          cursor: pointer; }
   .admin .navBar {
     margin: 7px 0 20px;
     padding: 0 100px;
