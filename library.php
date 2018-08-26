@@ -96,13 +96,13 @@ foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc)
     else
     {
         ?>
-        <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01.svg" alt="">
+        <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
         <?php
     }
 }
 $avatarContent = ob_get_clean();
 
-$avatarCustomList = ["avatarCustomYeuxContainer" => glob("assets/img/avatar_yeux*"), "avatarCustomLunettesContainer" => glob("assets/img/avatar_lunettes*"), "avatarCustomBoucheContainer" => glob("assets/img/avatar_bouche*"), "avatarCustomCheveuxContainer" => glob("assets/img/avatar_cheveux*")];
+$avatarCustomList = ["avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg")];
 
 ob_start();
 ?>
@@ -120,7 +120,9 @@ ob_start();
     foreach ($avatarCustomList as $avatarCustomThemeName => $avatarCustomImagesSrcList)
     {
         ?>
-        <div id="<?=$avatarCustomThemeName?>" class="<?=$avatarCustomThemeName?> disabled">
+        <div id="<?=$avatarCustomThemeName?>Container" class="<?=$avatarCustomThemeName?>Container disabled">
+        <div id="<?=$avatarCustomThemeName?>ColorsContainer" class="<?=$avatarCustomThemeName?>ColorsContainer">
+        </div>
         <?php
         foreach ($avatarCustomImagesSrcList as $avatarCustomSrc)
         {

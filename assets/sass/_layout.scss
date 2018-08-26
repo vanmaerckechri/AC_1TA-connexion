@@ -381,6 +381,10 @@
 		{
 			width: 128px;
 			height: 128px;
+			&:hover
+			{
+				cursor: pointer;
+			}
 		}
 		.avatarCustomResult
 		{
@@ -400,6 +404,46 @@
 		.avatarCustomYeuxContainer, .avatarCustomLunettesContainer, .avatarCustomBoucheContainer, .avatarCustomCheveuxContainer
 		{
 			width: 100%;
+		}
+		.customColor
+		{
+			margin: 5px;
+			border: 1px solid black;
+			border-radius: 50%;
+			width: 32px;
+			height: 32px;
+			&:hover
+			{
+				cursor: pointer;
+			}
+		}
+		.black
+		{
+			background-color: black;
+		}
+		.brown
+		{
+			background-color: SaddleBrown;
+		}
+		.yellow
+		{
+			background-color: yellow;
+		}
+		.orange
+		{
+			background-color: orange;
+		}
+		.green
+		{
+			background-color: green;
+		}
+		.blue
+		{
+			background-color: blue;
+		}
+		.white
+		{
+			background-color: white;
 		}
 	}
 }

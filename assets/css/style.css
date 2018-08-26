@@ -373,6 +373,8 @@ input {
   #main .avatarCustomContainer img {
     width: 128px;
     height: 128px; }
+    #main .avatarCustomContainer img:hover {
+      cursor: pointer; }
   #main .avatarCustomContainer .avatarCustomResult {
     display: inline-block;
     position: relative;
@@ -386,6 +388,28 @@ input {
       height: 256px; }
   #main .avatarCustomContainer .avatarCustomYeuxContainer, #main .avatarCustomContainer .avatarCustomLunettesContainer, #main .avatarCustomContainer .avatarCustomBoucheContainer, #main .avatarCustomContainer .avatarCustomCheveuxContainer {
     width: 100%; }
+  #main .avatarCustomContainer .customColor {
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px; }
+    #main .avatarCustomContainer .customColor:hover {
+      cursor: pointer; }
+  #main .avatarCustomContainer .black {
+    background-color: black; }
+  #main .avatarCustomContainer .brown {
+    background-color: SaddleBrown; }
+  #main .avatarCustomContainer .yellow {
+    background-color: yellow; }
+  #main .avatarCustomContainer .orange {
+    background-color: orange; }
+  #main .avatarCustomContainer .green {
+    background-color: green; }
+  #main .avatarCustomContainer .blue {
+    background-color: blue; }
+  #main .avatarCustomContainer .white {
+    background-color: white; }
 
 /*
 @media (max-width: 991px)

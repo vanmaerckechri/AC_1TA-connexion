@@ -40,38 +40,61 @@ window.addEventListener("load", function(event)
 		}
 	}	
 
+	let updateAvatarCustom = function(color, theme)
+	{
+		let newSrc;
+		if (theme.indexOf("Yeux") != -1)
+		{
+			classname = "avatar_yeux";
+		}
+		else if (theme.indexOf("Cheveux") != -1)
+		{
+			classname = "avatar_cheveux";
+		}
+		else if (theme.indexOf("Lunettes") != -1)
+		{
+			classname = "avatar_lunettes";
+		}
+		else if (theme.indexOf("Bouche") != -1)
+		{
+			classname = "avatar_bouche";
+		}
+		if (color.length == 5)
+		{
+			newSrc = document.querySelector(".avatarCustomResult ."+classname).src;
+			newSrc = newSrc.slice(0, -9);
+			newSrc += color+".svg";
+		}
+		else
+		{
+			newSrc = color;
+		}
+		document.querySelector(".avatarCustomResult ."+classname).src = newSrc;
+	}
+
 	let selectAvatarCustomElement = function(e)
 	{
-		if (e.target.localName == "img")
+		if (typeof e.target.src != "undefined")
 		{
-			let avatarCustomResult = document.querySelector(".avatarCustomResult");
-			let avatarCustomContainer = document.getElementById("avatarCustomContainer");
-			let theme;
-			let src;
-			if (e.target["src"].indexOf("yeux") != -1)
-			{
-				theme = "avatar_yeux";
-				src = e.target["src"];
-			}
-			else if (e.target["src"].indexOf("lunettes") != -1)
-			{
-				theme = "avatar_lunettes";
-							src = e.target["src"];
-
-			}		
-			else if (e.target["src"].indexOf("bouche") != -1)
-			{
-				theme = "avatar_bouche";
-							src = e.target["src"];
-
-			}		
-			else if (e.target["src"].indexOf("cheveux") != -1)
-			{
-				theme = "avatar_cheveux";
-				src = e.target["src"];
-			}
-			avatarCustomResult.querySelector("."+theme).src = src;
+			let parentId = e.target.parentElement.id;
+			let newSrc = e.target.src;
+			updateAvatarCustom(newSrc, parentId);
 		}
+	}
+
+
+	let changeColor = function(color, event)
+	{
+		let parentId = event.target.parentElement.parentElement;
+		let images = parentId.querySelectorAll("img");
+		for (let i = images.length - 1; i >= 0; i--)
+		{
+			let newSrc = images[i].src;
+			newSrc = newSrc.slice(0, -9);
+			newSrc += color+".svg";
+			images[i].src = newSrc;
+		}
+		updateAvatarCustom(color, parentId.id)
 	}
 
 	let initAvatarCustom = function()
@@ -88,6 +111,33 @@ window.addEventListener("load", function(event)
 		document.getElementById("avatarCustomCheveuxContainer").addEventListener("click", selectAvatarCustomElement, false);
 
 		document.getElementById("avatarContainer").addEventListener("click", openAvatarCustomSystem, false);
+
+		// colors
+		let yeuxColorsContainer = document.getElementById("avatarCustomYeuxColorsContainer");
+		let lunettesColorsContainer = document.getElementById("avatarCustomLunettesColorsContainer");
+		let cheveuxColorsContainer = document.getElementById("avatarCustomCheveuxColorsContainer");
+		let colorsContainerList = [yeuxColorsContainer, lunettesColorsContainer, cheveuxColorsContainer];
+
+		let yeuxColorsList = ["black", "brown", "blue", "green"];
+		let lunettesColorsList = ["black", "blue", "white"];
+		let CheveuxColorsList = ["black", "brown", "yellow", "orange"];
+		let allColorsByTheme = [yeuxColorsList, lunettesColorsList, CheveuxColorsList];
+
+		for (let i = colorsContainerList.length - 1; i >= 0; i--)
+		{
+			console.log(colorsContainerList[i])
+			for (let j = 0, length = allColorsByTheme[i].length; j < length; j++)
+			{
+				let index = j + 1;
+				let colNumber = allColorsByTheme[i].length < 10 ? "0"+index : index;
+				let buttonColor = document.createElement("button");
+				let buttonClass = "customColor col"+colNumber+" "+allColorsByTheme[i][j];
+				buttonColor.setAttribute("class", buttonClass);
+				colorsContainerList[i].appendChild(buttonColor);
+
+				buttonColor.addEventListener("click", changeColor.bind(this, "col"+colNumber));
+			}
+		}
 	}
 
 	initAvatarCustom();

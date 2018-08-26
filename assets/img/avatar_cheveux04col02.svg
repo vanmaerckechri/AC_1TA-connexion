@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="1024"
+   viewBox="0 0 270.93333 270.93334"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="avatar_cheveux04col02.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="399.5509"
+     inkscape:cy="484.64026"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-global="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="100"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-26.06665)">
+    <path
+       style="fill:#803300;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 620.71484,120.89648 c -22.67857,-0.1116 -49.64258,4.17411 -82.14257,14.53125 -60,10 -141.43025,-24.28571 -207.14454,-10 -65.71427,14.28572 -152.85602,98.57312 -168.57031,197.14454 -15.71428,98.57143 -76.348403,73.87673 -97.143692,154.28515 -21.428571,82.85711 -2.856587,171.42773 32.8577,239.99917 35.714282,68.57144 -45.714845,138.57231 -62.857701,148.57224 -17.142858,10 87.878413,-4.95785 111.429683,44.28573 15.71429,32.85715 29.99918,54.286 17.14203,85.71453 C 228.28525,981.572 276.41395,954.28967 294.85938,919.8418 192.96163,847.27875 132.40503,729.95152 132.28516,604.85742 132.28492,391.04407 481.32867,771.99946 590.8563,293.42718 c 102.67715,-1.2e-4 129.72037,-34.92612 202.32408,37.67759 72.60371,72.60371 113.392,171.0755 113.39189,273.75265 -0.10734,115.74424 -51.9961,225.36918 -141.44336,298.82617 33.07382,30.1293 51.43765,65.78488 62.01367,91.74414 44.28574,-32.85709 17.1426,-102.85546 67.14258,-72.85546 50.00001,30 82.85742,61.42773 82.85742,61.42773 0,0 -64.28513,-129.99975 -44.28516,-187.14258 19.2799,-55.08548 61.4291,-190.00001 15.71485,-290 -35.99607,-78.74135 19.99915,-165.7151 -61.42941,-221.4294 -81.42856,-55.71428 -111.4283,-44.286 -144.28544,-90.00029 -24.64288,-34.28571 -54.10687,-74.19642 -122.14258,-74.53125 z"
+       id="path1515"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="scsssscsccccscccscsssss"
+       transform="matrix(0.26458333,0,0,0.26458333,0,26.06665)" />
+  </g>
+</svg>
