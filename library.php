@@ -1,6 +1,8 @@
 <?php
 
 require('./model/model.php');
+require('./model/avatar.php');
+
 // SESSION
 Authentification::startSession();
 
@@ -80,6 +82,20 @@ foreach ($libraryList as $libElem)
 $content = ob_get_clean();
 
 // AVATARS
+if (isset($_POST["filesSrcList"]) && !empty($_POST["filesSrcList"]))
+{
+    for ($i = count($_POST["filesSrcList"]) - 1; $i >= 0; $i--)
+    {
+        if (substr($_POST["filesSrcList"][$i], -4) != ".svg")
+        {
+            return;
+        }
+        if ($i == 0)
+        {
+            Avatar::update($_POST["filesSrcList"][0], $_POST["filesSrcList"][1], $_POST["filesSrcList"][2], $_POST["filesSrcList"][3], $_POST["filesSrcList"][4]);
+        }
+    }
+}
 
 $avatarInfos = Avatar::load();
 
@@ -102,7 +118,7 @@ foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc)
 }
 $avatarContent = ob_get_clean();
 
-$avatarCustomList = ["avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg")];
+$avatarCustomList = ["avatarCustomPeau" => [], "avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg")];
 
 ob_start();
 ?>
@@ -111,6 +127,7 @@ ob_start();
         <?=$avatarContent?>
     </div>
     <div id="avatarCustomButtons" class="avatarCustomButtons">
+        <button id="avatarCustomPeauButton" class="avatarCustomPeauButton">Peau</button>
         <button id="avatarCustomYeuxButton" class="avatarCustomYeuxButton">Yeux</button>
         <button id="avatarCustomLunettesButton" class="avatarCustomLunettesButton">Lunettes</button>
         <button id="avatarCustomBoucheButton" class="avatarCustomBoucheButton">Bouches</button>
@@ -124,6 +141,14 @@ ob_start();
         <div id="<?=$avatarCustomThemeName?>ColorsContainer" class="<?=$avatarCustomThemeName?>ColorsContainer">
         </div>
         <?php
+        if ($avatarCustomThemeName == "avatarCustomLunettes")
+        {
+            ?>
+            <img class="aucun" src=assets/img/avatar_aucun.svg alt="">
+            <?php
+        }
+        ?>
+        <?php
         foreach ($avatarCustomImagesSrcList as $avatarCustomSrc)
         {
             ?>
@@ -135,6 +160,9 @@ ob_start();
         <?php
     }
     ?>
+    <div class="avatarRecordButtonContainer">
+        <button id="avatarRecordButton" class="avatarRecordButton">Enregistrer</button>
+    </div>
 </div>
 <?php
 $avatarCustom = ob_get_clean();

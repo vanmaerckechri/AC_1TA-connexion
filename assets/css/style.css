@@ -366,7 +366,8 @@ input {
       border: 3px solid transparent;
       border-radius: 8px;
       padding: 4px 6px;
-      font-family: 'Open Sans', sans-serif; }
+      font-family: 'Open Sans', sans-serif;
+      transition: all .3s; }
       #main .avatarCustomContainer .avatarCustomButtons button:hover {
         border: 3px solid #4ab4f1;
         cursor: pointer; }
@@ -407,9 +408,26 @@ input {
   #main .avatarCustomContainer .green {
     background-color: green; }
   #main .avatarCustomContainer .blue {
-    background-color: blue; }
+    background-color: #4d6bc0; }
   #main .avatarCustomContainer .white {
     background-color: white; }
+  #main .avatarCustomContainer .pink {
+    background-color: pink; }
+  #main .avatarCustomContainer .red {
+    background-color: red; }
+  #main .avatarCustomContainer .avatarRecordButtonContainer {
+    width: 100%;
+    text-align: right; }
+    #main .avatarCustomContainer .avatarRecordButtonContainer .avatarRecordButton {
+      margin: 5px;
+      border: 3px solid transparent;
+      border-radius: 8px;
+      padding: 4px 6px;
+      font-family: 'Open Sans', sans-serif;
+      transition: all .3s; }
+      #main .avatarCustomContainer .avatarRecordButtonContainer .avatarRecordButton:hover {
+        border: 3px solid #4ab4f1;
+        cursor: pointer; }
 
 /*
 @media (max-width: 991px)

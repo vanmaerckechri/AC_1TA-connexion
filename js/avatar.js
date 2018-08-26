@@ -10,10 +10,10 @@ window.addEventListener("load", function(event)
 		let title = document.querySelector(".navBar h2");
 		title.innerText =  title.innerText == "Ludothèque" ? "Personnalise ton Avatar" : "Ludothèque";
 
-		if (!document.getElementById("avatarCustomYeuxButton").classList.contains("selected"))
+		if (!document.getElementById("avatarCustomPeauButton").classList.contains("selected"))
 		{
-			document.getElementById("avatarCustomYeuxButton").classList.add("selected")
-			document.getElementById("avatarCustomYeuxContainer").classList.remove("disabled")
+			document.getElementById("avatarCustomPeauButton").classList.add("selected")
+			document.getElementById("avatarCustomPeauContainer").classList.remove("disabled")
 		}
 	}
 
@@ -40,10 +40,14 @@ window.addEventListener("load", function(event)
 		}
 	}	
 
-	let updateAvatarCustom = function(color, theme)
+	let updateAvatarCustom = function(color, theme, aucun = false)
 	{
 		let newSrc;
-		if (theme.indexOf("Yeux") != -1)
+		if (theme.indexOf("Peau") != -1)
+		{
+			classname = "avatar_tete";
+		}
+		else if (theme.indexOf("Yeux") != -1)
 		{
 			classname = "avatar_yeux";
 		}
@@ -69,16 +73,28 @@ window.addEventListener("load", function(event)
 		{
 			newSrc = color;
 		}
-		document.querySelector(".avatarCustomResult ."+classname).src = newSrc;
+		if (aucun == true)
+		{
+			document.querySelector(".avatarCustomResult ."+classname).src = "";
+		}
+		else
+		{
+			document.querySelector(".avatarCustomResult ."+classname).src = newSrc;
+		}
 	}
 
 	let selectAvatarCustomElement = function(e)
 	{
 		if (typeof e.target.src != "undefined")
 		{
+			let aucun = false;
+			if (e.target.classList.contains("aucun"))
+			{
+				aucun = true;
+			}
 			let parentId = e.target.parentElement.id;
 			let newSrc = e.target.src;
-			updateAvatarCustom(newSrc, parentId);
+			updateAvatarCustom(newSrc, parentId, aucun);
 		}
 	}
 
@@ -92,7 +108,10 @@ window.addEventListener("load", function(event)
 			let newSrc = images[i].src;
 			newSrc = newSrc.slice(0, -9);
 			newSrc += color+".svg";
-			images[i].src = newSrc;
+			if (!images[i].classList.contains("aucun"))
+			{
+				images[i].src = newSrc;
+			}
 		}
 		updateAvatarCustom(color, parentId.id)
 	}
@@ -113,19 +132,20 @@ window.addEventListener("load", function(event)
 		document.getElementById("avatarContainer").addEventListener("click", openAvatarCustomSystem, false);
 
 		// colors
+		let peauColorsContainer = document.getElementById("avatarCustomPeauColorsContainer");
 		let yeuxColorsContainer = document.getElementById("avatarCustomYeuxColorsContainer");
 		let lunettesColorsContainer = document.getElementById("avatarCustomLunettesColorsContainer");
 		let cheveuxColorsContainer = document.getElementById("avatarCustomCheveuxColorsContainer");
-		let colorsContainerList = [yeuxColorsContainer, lunettesColorsContainer, cheveuxColorsContainer];
+		let colorsContainerList = [peauColorsContainer, yeuxColorsContainer, lunettesColorsContainer, cheveuxColorsContainer];
 
+		let peauColorsList = ["pink", "black", "brown", "yellow", "red"];
 		let yeuxColorsList = ["black", "brown", "blue", "green"];
 		let lunettesColorsList = ["black", "blue", "white"];
 		let CheveuxColorsList = ["black", "brown", "yellow", "orange"];
-		let allColorsByTheme = [yeuxColorsList, lunettesColorsList, CheveuxColorsList];
+		let allColorsByTheme = [peauColorsList, yeuxColorsList, lunettesColorsList, CheveuxColorsList];
 
 		for (let i = colorsContainerList.length - 1; i >= 0; i--)
 		{
-			console.log(colorsContainerList[i])
 			for (let j = 0, length = allColorsByTheme[i].length; j < length; j++)
 			{
 				let index = j + 1;
@@ -139,6 +159,25 @@ window.addEventListener("load", function(event)
 			}
 		}
 	}
+
+	let recordAvatar = function()
+	{
+		let avatarCustomResult = document.querySelectorAll(".avatarCustomResult img");
+		let form = document.createElement("form");
+		form.setAttribute("action", "library.php");
+		form.setAttribute("method", "post");
+		for (let i = 0, length = avatarCustomResult.length; i < length; i++)
+		{
+			let output = document.createElement("input");
+			output.setAttribute("name", "filesSrcList[]");
+			output.setAttribute("value", avatarCustomResult[i].src)
+			form.appendChild(output);
+		}
+		document.body.appendChild(form);
+		form.submit();
+	}
+
+	document.getElementById("avatarRecordButton").addEventListener("click", recordAvatar, false);
 
 	initAvatarCustom();
 });
