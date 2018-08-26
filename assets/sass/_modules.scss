@@ -87,3 +87,13 @@
 		}
 	}
 }
+
+.disabled
+{
+	display: none!important;
+}
+.selected
+{
+	border: 3px solid $ac-blue!important;
+	background-color: rgba(74, 180, 241, .2);
+}

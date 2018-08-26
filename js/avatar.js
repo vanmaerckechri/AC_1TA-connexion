@@ -1,51 +1,94 @@
 window.addEventListener("load", function(event)
 {
-	let avatarImages =
+	let openAvatarCustomSystem = function()
 	{
-		imageLoaded: 0,
-		avatar_tete: new Image(),
-		avatar_yeux: new Image(),
-		avatar_lunettes: new Image(),
-		avatar_bouche: new Image(),
-		avatar_cheveux: new Image()
-	}
+		document.getElementById("avatarCustomContainer").classList.toggle("disabled");
 
-	let adaptNumberFileImage = function(imageName, number)
-	{
-		if (number < 10)
+		document.getElementById("libElemContainer").classList.toggle("libElemContainer");
+		document.getElementById("libElemContainer").classList.toggle("disabled");
+
+		let title = document.querySelector(".navBar h2");
+		title.innerText =  title.innerText == "Ludothèque" ? "Personnalise ton Avatar" : "Ludothèque";
+
+		if (!document.getElementById("avatarCustomYeuxButton").classList.contains("selected"))
 		{
-			number = "0"+number;
-		}
-		avatarImages[imageName].src = "assets/img/"+imageName+number+".svg";
-	}
-
-	for (let avatarPropertyName in avatarInfos)
-	{
-		adaptNumberFileImage(avatarPropertyName, avatarInfos[avatarPropertyName]);
-	}
-
-	let loadAvatar = function()
-	{
-		let avatarContainer = document.getElementById("avatarContainer");
-
-		for (let avatarPropertyName in avatarInfos)
-		{
-			avatarContainer.appendChild(avatarImages[avatarPropertyName]);
+			document.getElementById("avatarCustomYeuxButton").classList.add("selected")
+			document.getElementById("avatarCustomYeuxContainer").classList.remove("disabled")
 		}
 	}
 
-	let checkImageLoaded = function(image)
+	let selectAvatarCustomTheme = function(e)
 	{
-		avatarImages["imageLoaded"] += 1;
-		if (avatarImages["imageLoaded"] == 5)
+		let buttons = document.querySelectorAll("#avatarCustomButtons button");
+		for (let i = buttons.length - 1; i >= 0; i--)
 		{
-			loadAvatar();
+			let avatarCustomThemeContainer = buttons[i]["id"].replace("Button", "Container");
+			avatarCustomThemeContainer = document.getElementById(avatarCustomThemeContainer) ;
+			if (e.target != buttons[i])
+			{
+				if (!avatarCustomThemeContainer.classList.contains("disabled"))
+				{
+					avatarCustomThemeContainer.classList.add("disabled");
+					buttons[i].classList.remove("selected");
+				}
+			}
+			else
+			{
+				avatarCustomThemeContainer.classList.remove("disabled");
+				buttons[i].classList.add("selected");
+			}
+		}
+	}	
+
+	let selectAvatarCustomElement = function(e)
+	{
+		if (e.target.localName == "img")
+		{
+			let avatarCustomResult = document.querySelector(".avatarCustomResult");
+			let avatarCustomContainer = document.getElementById("avatarCustomContainer");
+			let theme;
+			let src;
+			if (e.target["src"].indexOf("yeux") != -1)
+			{
+				theme = "avatar_yeux";
+				src = e.target["src"];
+			}
+			else if (e.target["src"].indexOf("lunettes") != -1)
+			{
+				theme = "avatar_lunettes";
+							src = e.target["src"];
+
+			}		
+			else if (e.target["src"].indexOf("bouche") != -1)
+			{
+				theme = "avatar_bouche";
+							src = e.target["src"];
+
+			}		
+			else if (e.target["src"].indexOf("cheveux") != -1)
+			{
+				theme = "avatar_cheveux";
+				src = e.target["src"];
+			}
+			avatarCustomResult.querySelector("."+theme).src = src;
 		}
 	}
 
-	avatarImages["avatar_tete"].onload = checkImageLoaded();
-	avatarImages["avatar_yeux"].onload = checkImageLoaded();
-	avatarImages["avatar_lunettes"].onload = checkImageLoaded();
-	avatarImages["avatar_bouche"].onload = checkImageLoaded();
-	avatarImages["avatar_cheveux"].onload = checkImageLoaded();
+	let initAvatarCustom = function()
+	{
+		let buttons = document.querySelectorAll("#avatarCustomButtons button");
+		for (let i = buttons.length - 1; i >= 0; i--)
+		{
+			buttons[i].addEventListener("click", selectAvatarCustomTheme, false);
+		}
+
+		document.getElementById("avatarCustomYeuxContainer").addEventListener("click", selectAvatarCustomElement, false);
+		document.getElementById("avatarCustomLunettesContainer").addEventListener("click", selectAvatarCustomElement, false);
+		document.getElementById("avatarCustomBoucheContainer").addEventListener("click", selectAvatarCustomElement, false);
+		document.getElementById("avatarCustomCheveuxContainer").addEventListener("click", selectAvatarCustomElement, false);
+
+		document.getElementById("avatarContainer").addEventListener("click", openAvatarCustomSystem, false);
+	}
+
+	initAvatarCustom();
 });

@@ -357,4 +357,49 @@
 			}
 		}
 	}
+	.avatarCustomContainer
+	{
+		max-width: 100%;
+		.avatarCustomButtons
+		{
+			margin: 10px;
+			button
+			{
+				margin: 5px;
+				border: 3px solid transparent;
+				border-radius: 8px;
+				padding: 4px 6px;
+				font-family: 'Open Sans', sans-serif;
+				&:hover
+				{
+					border: 3px solid $ac-blue;
+					cursor: pointer;
+				}
+			}
+		}
+		img
+		{
+			width: 128px;
+			height: 128px;
+		}
+		.avatarCustomResult
+		{
+			display: inline-block;
+			position: relative;
+			width: 256px;
+			height: 256px;
+			img
+			{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 256px;
+				height: 256px;
+			}
+		}
+		.avatarCustomYeuxContainer, .avatarCustomLunettesContainer, .avatarCustomBoucheContainer, .avatarCustomCheveuxContainer
+		{
+			width: 100%;
+		}
+	}
 }

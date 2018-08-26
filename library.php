@@ -36,6 +36,8 @@ $sessionResult = checkSession();
 $_SESSION['smsAlert'] = !isset($_SESSION['smsAlert']) ? array() : $_SESSION['smsAlert'];
 $_SESSION['smsAlert']['default'] = !isset($_SESSION['smsAlert']['default']) ? '' : $_SESSION['smsAlert']['default'];
 
+// APPLICATIONS LIST
+
 $libraryList = Library::load();
 
 ob_start();
@@ -56,7 +58,7 @@ $nav = ob_get_clean();
 
 ob_start();
 ?>
-<div class="libElemContainer">
+<div id="libElemContainer" class="libElemContainer">
 <?php
 foreach ($libraryList as $libElem)
 {
@@ -77,7 +79,63 @@ foreach ($libraryList as $libElem)
 <?php
 $content = ob_get_clean();
 
+// AVATARS
+
 $avatarInfos = Avatar::load();
+
+ob_start();
+foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
+{
+    // avatarSrc = 1 for a new account. Student need to create an avatar to first connexion.
+    if ($avatarSrc != 1 && substr($avatarSrc, -4) == ".svg")
+    {
+        ?>
+        <img class=<?=$avatarThemeName?> src=<?=$avatarSrc?> alt="">
+        <?php
+    }
+    else
+    {
+        ?>
+        <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01.svg" alt="">
+        <?php
+    }
+}
+$avatarContent = ob_get_clean();
+
+$avatarCustomList = ["avatarCustomYeuxContainer" => glob("assets/img/avatar_yeux*"), "avatarCustomLunettesContainer" => glob("assets/img/avatar_lunettes*"), "avatarCustomBoucheContainer" => glob("assets/img/avatar_bouche*"), "avatarCustomCheveuxContainer" => glob("assets/img/avatar_cheveux*")];
+
+ob_start();
+?>
+<div id="avatarCustomContainer" class="avatarCustomContainer disabled">
+    <div class="avatarCustomResult">
+        <?=$avatarContent?>
+    </div>
+    <div id="avatarCustomButtons" class="avatarCustomButtons">
+        <button id="avatarCustomYeuxButton" class="avatarCustomYeuxButton">Yeux</button>
+        <button id="avatarCustomLunettesButton" class="avatarCustomLunettesButton">Lunettes</button>
+        <button id="avatarCustomBoucheButton" class="avatarCustomBoucheButton">Bouches</button>
+        <button id="avatarCustomCheveuxButton" class="avatarCustomCheveuxButton">Cheveux</button>
+    </div>
+    <?php
+    foreach ($avatarCustomList as $avatarCustomThemeName => $avatarCustomImagesSrcList)
+    {
+        ?>
+        <div id="<?=$avatarCustomThemeName?>" class="<?=$avatarCustomThemeName?> disabled">
+        <?php
+        foreach ($avatarCustomImagesSrcList as $avatarCustomSrc)
+        {
+            ?>
+            <img src=<?=$avatarCustomSrc?> alt="">
+            <?php
+        }
+        ?>
+        </div>
+        <?php
+    }
+    ?>
+</div>
+<?php
+$avatarCustom = ob_get_clean();
 ?>
 
 <!DOCTYPE html>
@@ -101,6 +159,7 @@ $avatarInfos = Avatar::load();
             <div class="headerProfile">
                 <div class="profile">
                     <div id="avatarContainer" class="avatarContainer">
+                        <?=$avatarContent?>
                     </div>
                     <?=$_SESSION['nickname']?>
                     <a href="library.php?action=disco" class="disconnect">X</a>
@@ -116,6 +175,8 @@ $avatarInfos = Avatar::load();
     </div>
     <div id="main">
         <?=$content?>
+        <?=$avatarCustom?>
+        </div>
      	<?=$_SESSION['smsAlert']['default']?>
     </div>
     <footer>
@@ -123,10 +184,6 @@ $avatarInfos = Avatar::load();
             <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
         </div>
     </footer>
-    <script>
-        let avatarInfos = <?=json_encode($avatarInfos)?>;
-        avatarInfos = avatarInfos[0];
-    </script>
     <script type= "text/javascript" src="js/avatar.js"></script>
 </body>
 </html>
