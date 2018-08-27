@@ -73,3 +73,23 @@
 		transform: translate(-10px);
 	}
 }
+
+.buttonDefault
+{
+	border: none;
+	border-radius: 8px;
+	padding: 8px 10px;
+	font-family: 'Orbitron', sans-serif;
+	color: rgba(255, 255, 255, .9);
+	font-size: 1rem;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: rgba(0, 60, 120, .6);
+	transition: all .5s;
+	&:hover
+	{
+		cursor: pointer;
+		color: black;
+		background-color: rgba(255, 255, 255, .9);
+	}
+}

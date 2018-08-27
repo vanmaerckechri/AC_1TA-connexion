@@ -385,6 +385,12 @@
 		width: 100vw;
 		height: 100vh;
 		background-color: black;
+		.abandonGame
+		{
+			position: absolute;
+			right: 4rem;
+			bottom: 2rem;
+		}
 		.themeBackgroundContainer
 		{
 			position: absolute;
@@ -392,6 +398,7 @@
 			height: 100%;
 			.themeBackground
 			{
+				border-radius: 12px;
 				max-width: 100%;
 				height: auto;
 				max-height: 100%;

@@ -73,6 +73,7 @@ ob_start();
                     <button class="proposition"><img id="" src="" alt=""></button>
                 </div>
             </div>
+            <a class="buttonDefault abandonGame" href="index.php?action=game">abandonner</a>
         </div>
         <?php
             if ($activeScoreTab == true)
