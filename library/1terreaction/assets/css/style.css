@@ -80,6 +80,14 @@ body {
     white-space: nowrap;
     color: white;
     font-family: 'Orbitron', sans-serif; }
+    .headerProfile .profile .avatarContainer {
+      position: relative; }
+      .headerProfile .profile .avatarContainer img {
+        position: absolute;
+        left: -72px;
+        top: -32px;
+        width: 64px;
+        height: 64px; }
     .headerProfile .profile .disconnect {
       font-size: 1.5;
       font-weight: 700;

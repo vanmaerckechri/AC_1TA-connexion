@@ -1,12 +1,47 @@
 <?php
 require('./model/model.php');
 require('./model/game.php');
+require('../../model/avatar.php');
+
 
 // -- ACTIVATE SESSION --
 Authentification::startSession();
 
+function loadAvatar()
+{
+	$avatarInfos = Avatar::load();
+
+	ob_start();
+	foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
+	{
+	    // avatarSrc = 1 for a new account. Student need to create an avatar to first connexion.
+	    if ($avatarSrc != 1 && (substr($avatarSrc, -4) == ".svg"))
+	    {
+	        ?>
+	        <img class=<?=$avatarThemeName?> src="../../assets/img/<?=$avatarSrc?>"" alt="">
+	        <?php
+	    }
+	    else if ($avatarSrc == "")
+	    {
+	        ?>
+	        <img class=<?=$avatarThemeName?> src="" alt="">
+	        <?php
+	    }
+	    else
+	    {
+	        ?>
+	        <img class=<?=$avatarThemeName?> src="../../assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
+	        <?php
+	    }
+	}
+	$avatarContent = ob_get_clean();
+
+	return $avatarContent;
+}
+
 function loadMainView()
 {
+	$avatarContent = loadAvatar();
 	require('./view/st_mainmenu.php');
 }
 
@@ -20,6 +55,7 @@ function loadGameView($activeScoreTab = false, $statsEnvAverage = false, $statsS
 	$localBgAir_imgSrc = "assets/img/local_0".$imgNumber.".jpg";
 	// load themes
 	$allThemes = ["Repas", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
+	$avatarContent = loadAvatar();
 	require('./view/st_game.php');
 }
 
