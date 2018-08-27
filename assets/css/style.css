@@ -372,30 +372,40 @@ input {
         border: 3px solid #4ab4f1;
         cursor: pointer; }
   #main .avatarCustomContainer .avatarCustomYeuxContainer img, #main .avatarCustomContainer .avatarCustomLunettesContainer img, #main .avatarCustomContainer .avatarCustomBoucheContainer img, #main .avatarCustomContainer .avatarCustomCheveuxContainer img {
+    border: 1px solid rgba(74, 180, 241, 0.5);
+    border-radius: 12px;
     width: 128px;
     height: 128px; }
     #main .avatarCustomContainer .avatarCustomYeuxContainer img:hover, #main .avatarCustomContainer .avatarCustomLunettesContainer img:hover, #main .avatarCustomContainer .avatarCustomBoucheContainer img:hover, #main .avatarCustomContainer .avatarCustomCheveuxContainer img:hover {
-      cursor: pointer; }
+      cursor: pointer;
+      background-color: rgba(74, 180, 241, 0.2); }
   #main .avatarCustomContainer .avatarCustomResult {
+    border-radius: 50%;
     display: inline-block;
     position: relative;
-    width: 256px;
-    height: 256px; }
+    width: 288px;
+    height: 288px;
+    box-shadow: inset 0 0 8px #4ab4f1; }
     #main .avatarCustomContainer .avatarCustomResult img {
       position: absolute;
-      left: 0;
-      top: 0;
+      left: 50%;
+      top: 50%;
       width: 256px;
-      height: 256px; }
+      height: 256px;
+      transform: translate(-50%, -50%); }
   #main .avatarCustomContainer .avatarCustomYeuxContainer, #main .avatarCustomContainer .avatarCustomLunettesContainer, #main .avatarCustomContainer .avatarCustomBoucheContainer, #main .avatarCustomContainer .avatarCustomCheveuxContainer {
     width: 100%; }
+    #main .avatarCustomContainer .avatarCustomYeuxContainer div, #main .avatarCustomContainer .avatarCustomLunettesContainer div, #main .avatarCustomContainer .avatarCustomBoucheContainer div, #main .avatarCustomContainer .avatarCustomCheveuxContainer div {
+      padding-bottom: 10px; }
   #main .avatarCustomContainer .customColor {
     margin: 5px;
     border: 1px solid black;
     border-radius: 50%;
     width: 32px;
-    height: 32px; }
+    height: 32px;
+    transition: transform .5s; }
     #main .avatarCustomContainer .customColor:hover {
+      transform: scale(1.2, 1.2);
       cursor: pointer; }
   #main .avatarCustomContainer .black {
     background-color: black; }

@@ -102,7 +102,7 @@ if (isset($_POST["filesSrcList"]) && !empty($_POST["filesSrcList"]))
 }
     // Load
 $avatarInfos = Avatar::load();
-$firsCo = false;
+$firsCo = "false";
 ob_start();
 foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
 {
@@ -121,7 +121,7 @@ foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc)
     }
     else
     {
-        $firsCo = true;
+        $firsCo = "true";
         ?>
         <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
         <?php
