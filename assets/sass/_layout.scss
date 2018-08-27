@@ -378,13 +378,16 @@
 				}
 			}
 		}
-		img
+		.avatarCustomYeuxContainer, .avatarCustomLunettesContainer, .avatarCustomBoucheContainer, .avatarCustomCheveuxContainer
 		{
-			width: 128px;
-			height: 128px;
-			&:hover
+			img
 			{
-				cursor: pointer;
+				width: 128px;
+				height: 128px;
+				&:hover
+				{
+					cursor: pointer;
+				}
 			}
 		}
 		.avatarCustomResult

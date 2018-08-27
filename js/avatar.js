@@ -2,14 +2,26 @@ window.addEventListener("load", function(event)
 {
 	let openAvatarCustomSystem = function()
 	{
+		// display/hide avatar custom container and library container
 		document.getElementById("avatarCustomContainer").classList.toggle("disabled");
-
 		document.getElementById("libElemContainer").classList.toggle("libElemContainer");
 		document.getElementById("libElemContainer").classList.toggle("disabled");
-
+		// change title
 		let title = document.querySelector(".navBar h2");
 		title.innerText =  title.innerText == "Ludothèque" ? "Personnalise ton Avatar" : "Ludothèque";
-
+		// detect if section is already active and disabled it
+		let avatarCustomButtons = document.querySelectorAll("#avatarCustomButtons button");
+		for (let i = avatarCustomButtons.length - 1; i >= 0; i--)
+		{
+			if (avatarCustomButtons[i].classList.contains("selected"))
+			{
+				avatarCustomButtons[i].classList.remove("selected");
+				let id = avatarCustomButtons[i].id;
+				id = id.replace("Button", "Container");
+				document.getElementById(id).classList.add("disabled");
+			}
+		}
+		// if skin section is disabled, active it
 		if (!document.getElementById("avatarCustomPeauButton").classList.contains("selected"))
 		{
 			document.getElementById("avatarCustomPeauButton").classList.add("selected")
@@ -99,6 +111,7 @@ window.addEventListener("load", function(event)
 	}
 
 
+
 	let changeColor = function(color, event)
 	{
 		let parentId = event.target.parentElement.parentElement;
@@ -114,6 +127,41 @@ window.addEventListener("load", function(event)
 			}
 		}
 		updateAvatarCustom(color, parentId.id)
+	}
+
+	let cutAfterWord = function(stringToCut, stringAfterWich)
+	{
+		let indexBegin;
+		let result;
+		if (stringToCut.indexOf(stringAfterWich) != -1)
+		{
+			indexBegin = stringToCut.indexOf(stringAfterWich);
+			result = stringToCut.slice(indexBegin+stringAfterWich.length);
+		}
+		else
+		{
+			result = "";
+		}
+		return result;
+	}
+
+	let recordAvatar = function()
+	{
+		let avatarCustomResult = document.querySelectorAll(".avatarCustomResult img");
+		let form = document.createElement("form");
+		form.setAttribute("action", "library.php");
+		form.setAttribute("method", "post");
+		form.setAttribute("class", "disabled");
+		for (let i = 0, length = avatarCustomResult.length; i < length; i++)
+		{
+			let relativeSrc = cutAfterWord(avatarCustomResult[i].src, "/img/");
+			let output = document.createElement("input");
+			output.setAttribute("name", "filesSrcList[]");
+			output.setAttribute("value", relativeSrc);
+			form.appendChild(output);
+		}
+		document.body.appendChild(form);
+		form.submit();
 	}
 
 	let initAvatarCustom = function()
@@ -158,23 +206,6 @@ window.addEventListener("load", function(event)
 				buttonColor.addEventListener("click", changeColor.bind(this, "col"+colNumber));
 			}
 		}
-	}
-
-	let recordAvatar = function()
-	{
-		let avatarCustomResult = document.querySelectorAll(".avatarCustomResult img");
-		let form = document.createElement("form");
-		form.setAttribute("action", "library.php");
-		form.setAttribute("method", "post");
-		for (let i = 0, length = avatarCustomResult.length; i < length; i++)
-		{
-			let output = document.createElement("input");
-			output.setAttribute("name", "filesSrcList[]");
-			output.setAttribute("value", avatarCustomResult[i].src)
-			form.appendChild(output);
-		}
-		document.body.appendChild(form);
-		form.submit();
 	}
 
 	document.getElementById("avatarRecordButton").addEventListener("click", recordAvatar, false);

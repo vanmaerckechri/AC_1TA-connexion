@@ -82,31 +82,41 @@ foreach ($libraryList as $libElem)
 $content = ob_get_clean();
 
 // AVATARS
+    // Record
 if (isset($_POST["filesSrcList"]) && !empty($_POST["filesSrcList"]))
 {
     for ($i = count($_POST["filesSrcList"]) - 1; $i >= 0; $i--)
     {
-        if (substr($_POST["filesSrcList"][$i], -4) != ".svg")
+        if (substr($_POST["filesSrcList"][$i], -4) == ".svg" || $_POST["filesSrcList"][$i] == "")
         {
-            return;
+            if ($i == 0)
+            {
+                Avatar::update($_POST["filesSrcList"][0], $_POST["filesSrcList"][1], $_POST["filesSrcList"][2], $_POST["filesSrcList"][3], $_POST["filesSrcList"][4]);
+            }
         }
-        if ($i == 0)
+        else
         {
-            Avatar::update($_POST["filesSrcList"][0], $_POST["filesSrcList"][1], $_POST["filesSrcList"][2], $_POST["filesSrcList"][3], $_POST["filesSrcList"][4]);
+            break;
         }
     }
 }
-
+    // Load
 $avatarInfos = Avatar::load();
 
 ob_start();
 foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
 {
     // avatarSrc = 1 for a new account. Student need to create an avatar to first connexion.
-    if ($avatarSrc != 1 && substr($avatarSrc, -4) == ".svg")
+    if ($avatarSrc != 1 && (substr($avatarSrc, -4) == ".svg"))
     {
         ?>
-        <img class=<?=$avatarThemeName?> src=<?=$avatarSrc?> alt="">
+        <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarSrc?>"" alt="">
+        <?php
+    }
+    else if ($avatarSrc == "")
+    {
+        ?>
+        <img class=<?=$avatarThemeName?> src="" alt="">
         <?php
     }
     else

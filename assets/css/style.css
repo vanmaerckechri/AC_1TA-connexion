@@ -371,10 +371,10 @@ input {
       #main .avatarCustomContainer .avatarCustomButtons button:hover {
         border: 3px solid #4ab4f1;
         cursor: pointer; }
-  #main .avatarCustomContainer img {
+  #main .avatarCustomContainer .avatarCustomYeuxContainer img, #main .avatarCustomContainer .avatarCustomLunettesContainer img, #main .avatarCustomContainer .avatarCustomBoucheContainer img, #main .avatarCustomContainer .avatarCustomCheveuxContainer img {
     width: 128px;
     height: 128px; }
-    #main .avatarCustomContainer img:hover {
+    #main .avatarCustomContainer .avatarCustomYeuxContainer img:hover, #main .avatarCustomContainer .avatarCustomLunettesContainer img:hover, #main .avatarCustomContainer .avatarCustomBoucheContainer img:hover, #main .avatarCustomContainer .avatarCustomCheveuxContainer img:hover {
       cursor: pointer; }
   #main .avatarCustomContainer .avatarCustomResult {
     display: inline-block;
