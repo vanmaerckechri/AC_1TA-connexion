@@ -175,10 +175,10 @@
 }
 
 // STUDENT MAIN MENU
-.ui
+.ui, .tutoButtonContainer
 {
 
-	a
+	a, .buttonDefault
 	{
 		position: absolute;
 		right: 4rem;
@@ -470,7 +470,7 @@
 				text-align: center;
 				.proposition
 				{
-					margin: 0 10px;
+					margin: 10px;
 					border: none;
 					border-radius: 12px;
 					&:hover

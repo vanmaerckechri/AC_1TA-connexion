@@ -40,6 +40,14 @@
 			left: 50%;
 			transform: translate(-50%, 0);
 		}
+		#step_questions
+		{
+			.abandonGame
+			{
+				bottom: 10px;
+				right: 20px;
+			}
+		}
 		.step_scores
 		{
 			padding: 0;
@@ -99,10 +107,15 @@
 			}
 		}
 	}
-	.ui
+	.pacmanTuto
+	{
+		padding: 10px 20px!important;
+	}
+	.ui, .tutoButtonContainer
 	{
 
-		a
+
+		a, .buttonDefault
 		{
 			right: 20px;
 			bottom: 10px;

@@ -137,11 +137,23 @@ let launchPacmanGame = function()
 		let mobilePadLeft = document.createElement("div");
 		mobilePadLeft.setAttribute("class", "mobilePadLeft");
 
+		let tutoButtonContainer = document.createElement("div");
+		tutoButtonContainer.setAttribute("class", "tutoButtonContainer");
+		let passGameButton = document.createElement("button");
+		passGameButton.setAttribute("class", "pacmanButton buttonDefault");
+		passGameButton.setAttribute("id", "passBreakGame");
+		passGameButton.innerText = "passer";
+		tutoButtonContainer.appendChild(passGameButton);
+		passGameButton.addEventListener("click", closeGame, false);
+
 		mobilePad.appendChild(mobilePadTop);
 		mobilePad.appendChild(mobilePadRight);
 		mobilePad.appendChild(mobilePadBottom);
 		mobilePad.appendChild(mobilePadLeft);
 		pacmanContainer.appendChild(mobilePad);
+
+		pacmanContainer.appendChild(tutoButtonContainer);
+
 		// init and launche game loop
 		initCanvas();
 		initMap();

@@ -255,7 +255,7 @@ body {
           margin: 0 .2rem;
           flex: 2; }
 
-.ui a {
+.ui a, .ui .buttonDefault, .tutoButtonContainer a, .tutoButtonContainer .buttonDefault {
   position: absolute;
   right: 4rem;
   bottom: 2rem;
@@ -264,7 +264,7 @@ body {
   color: white;
   text-decoration: none;
   transition: text-shadow .5s; }
-  .ui a:hover {
+  .ui a:hover, .ui .buttonDefault:hover, .tutoButtonContainer a:hover, .tutoButtonContainer .buttonDefault:hover {
     text-shadow: 0 0 15px white, 0 0 30px white; }
 
 #main {
@@ -469,7 +469,7 @@ body {
       #main #step_questions .questionContainer .propositionsContainer {
         text-align: center; }
         #main #step_questions .questionContainer .propositionsContainer .proposition {
-          margin: 0 10px;
+          margin: 10px;
           border: none;
           border-radius: 12px; }
           #main #step_questions .questionContainer .propositionsContainer .proposition:hover {
@@ -593,6 +593,9 @@ body {
     width: 122px;
     left: 50%;
     transform: translate(-50%, 0); }
+  #main #step_questions .abandonGame {
+    bottom: 10px;
+    right: 20px; }
   #main .step_scores {
     padding: 0; }
     #main .step_scores .scoresContainer {
@@ -624,7 +627,10 @@ body {
         height: auto;
         text-align: right; }
 
-  .ui a {
+  .pacmanTuto {
+    padding: 10px 20px !important; }
+
+  .ui a, .ui .buttonDefault, .tutoButtonContainer a, .tutoButtonContainer .buttonDefault {
     right: 20px;
     bottom: 10px; } }
 
