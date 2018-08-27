@@ -102,7 +102,7 @@ if (isset($_POST["filesSrcList"]) && !empty($_POST["filesSrcList"]))
 }
     // Load
 $avatarInfos = Avatar::load();
-
+$firsCo = false;
 ob_start();
 foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
 {
@@ -121,6 +121,7 @@ foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc)
     }
     else
     {
+        $firsCo = true;
         ?>
         <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
         <?php
@@ -224,6 +225,9 @@ $avatarCustom = ob_get_clean();
             <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
         </div>
     </footer>
+    <script>
+        let firsCo = <?=$firsCo?>;
+    </script>
     <script type= "text/javascript" src="js/avatar.js"></script>
 </body>
 </html>

@@ -206,6 +206,10 @@ window.addEventListener("load", function(event)
 				buttonColor.addEventListener("click", changeColor.bind(this, "col"+colNumber));
 			}
 		}
+		if (!typeof firsCo!= "undefined" && firsCo == 1)
+		{
+			openAvatarCustomSystem();
+		}
 	}
 
 	document.getElementById("avatarRecordButton").addEventListener("click", recordAvatar, false);
