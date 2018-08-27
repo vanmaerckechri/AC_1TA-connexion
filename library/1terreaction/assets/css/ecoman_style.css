@@ -40,9 +40,13 @@ body {
       font-size: 2rem; }
     .pacmanContainer .pacmanTuto .tutoContent {
       font-size: 1rem; }
-    .pacmanContainer .pacmanTuto .launchGameButton {
-      font-family: 'Orbitron', sans-serif;
-      align-self: flex-end; }
+    .pacmanContainer .pacmanTuto .tutoButtonContainer {
+      width: 100%;
+      text-align: right; }
+      .pacmanContainer .pacmanTuto .tutoButtonContainer .launchGameButton {
+        margin-left: 10px;
+        font-family: 'Orbitron', sans-serif;
+        align-self: flex-end; }
   .pacmanContainer .ui .scoreContainer {
     font-family: 'Orbitron', sans-serif;
     color: white; }

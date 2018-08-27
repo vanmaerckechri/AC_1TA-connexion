@@ -18,6 +18,7 @@ ob_start();
         </div>
     </div>
     <div class="ui">
+        <a href="../../library.php">Quitter le Jeu</a>
     </div>
 <?php
 $content = ob_get_clean();

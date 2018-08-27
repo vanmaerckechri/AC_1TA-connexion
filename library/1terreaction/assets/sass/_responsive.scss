@@ -10,6 +10,16 @@
 		background-color: black;
 		.profile
 		{
+			.avatarContainer
+			{
+				img
+				{
+					left: -50px;
+					top: -20px;
+					width: 48px;
+					height: 48px;
+				}
+			}
 			.disconnect
 			{
 			}	
@@ -23,6 +33,13 @@
 
 	#main
 	{
+		.menu
+		{
+			padding: 0;
+		    width: 122px;
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
 		.step_scores
 		{
 			padding: 0;

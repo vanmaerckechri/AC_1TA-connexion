@@ -177,18 +177,32 @@ let launchPacmanHome = function()
 		let tutoContent = document.createElement("div");
 		tutoContent.setAttribute("class", "tutoContent");
 		tutoContent.innerText = "blablabla les règles...";
+		let tutoButtonContainer = document.createElement("div");
+		tutoButtonContainer.setAttribute("class", "tutoButtonContainer");
 		let launchGameButton = document.createElement("button");
 		launchGameButton.setAttribute("class", "pacmanButton launchGameButton");
 		launchGameButton.setAttribute("id", "launchGameButton");
 		launchGameButton.innerText = "commencer"
+		let passGameButton = document.createElement("button");
+		passGameButton.setAttribute("class", "pacmanButton passGameButton");
+		passGameButton.setAttribute("id", "passGameButton");
+		passGameButton.innerText = "passer";
 		tuto.appendChild(tutoTitle);
 		tuto.appendChild(tutoContent);
-		tuto.appendChild(launchGameButton);
+		tutoButtonContainer.appendChild(passGameButton);
+		tutoButtonContainer.appendChild(launchGameButton);
+		tuto.appendChild(tutoButtonContainer);
+
 		pacmanContainer.appendChild(tuto);
 		launchGameButton.onclick = function()
 		{
 			tuto.remove();
 			launchPacmanGame();
+		}
+		passGameButton.onclick = function()
+		{
+			tuto.remove();
+			document.getElementById("pacmanContainer").classList.toggle("disabled");
 		}
 		tuto.style.marginTop = document.getElementById("headerProfile").offsetHeight + "px";
 	}

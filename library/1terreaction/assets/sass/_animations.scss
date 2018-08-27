@@ -35,6 +35,24 @@
     	pointer-events: auto;
     }
 }
+@keyframes mainMenuOpenButton03
+{
+    0%
+    {
+        transform: translateY(0px);
+        pointer-events: none;
+    }
+    99%
+    {
+        transform: translateY(384px);
+        pointer-events: none;
+    }
+    100%
+    {
+        transform: translateY(384px);
+        pointer-events: auto;
+    }
+}
 @keyframes drawAttentionQuestionButton
 {
     0%

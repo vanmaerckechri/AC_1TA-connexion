@@ -337,6 +337,12 @@ backToSolarSystemButton.addEventListener("click", function()
 {
     window.location.href = "index.php";
 }, false);
+// -- LEAVE GAME --
+let leaveGameButton = document.querySelector("#leaveGame");
+leaveGameButton.addEventListener("click", function()
+{
+    window.location.href = "../../library.php";
+}, false);
 // -- MAIN MENU --
 let mainMenuButton = document.querySelector("#mainMenuButton");
 mainMenuButton.addEventListener("click", displayMainMenu, false);

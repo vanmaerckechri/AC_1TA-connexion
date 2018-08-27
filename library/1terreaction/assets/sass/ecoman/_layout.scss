@@ -38,10 +38,16 @@ body
 		{
 			font-size: 1rem;
 		}
-		.launchGameButton
+		.tutoButtonContainer
 		{
-			font-family: 'Orbitron', sans-serif;
-			align-self: flex-end;
+			width: 100%;
+			text-align: right;
+			.launchGameButton
+			{
+				margin-left: 10px;
+				font-family: 'Orbitron', sans-serif;
+				align-self: flex-end;
+			}
 		}
 	}
   	.ui

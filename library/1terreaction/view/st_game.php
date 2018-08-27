@@ -22,10 +22,13 @@ ob_start();
             </div>
             <div id="mainMenuContainer" class="menu">
                 <div class="menuButtonContainer">
+                    <button id="launchThemesMenuButton" class="menuButton disabled_v2">Jouer</button>
+                </div>
+                <div class="menuButtonContainer">
                      <button id="backToSolarSystem" class="menuButton disabled_v2">Système Solaire</button>
                 </div>
                 <div class="menuButtonContainer">
-                    <button id="launchThemesMenuButton" class="menuButton disabled_v2">Jouer</button>
+                     <button id="leaveGame" class="menuButton disabled_v2">Quitter</button>
                 </div>
                 <div class="menuButtonContainer">
                      <button id="mainMenuButton" class="menuButton">Menu</button>
