@@ -100,6 +100,30 @@ let sendToDb = function()
 
 }
 
+let manageDisplayQuiz = function(wantedStatus)
+{
+    let circlesToCallQuestion = document.querySelectorAll(".questionButton");
+    for (let i = circlesToCallQuestion.length - 1; i >= 0; i--)
+    {
+        if (wantedStatus == "hide")
+        {
+            circlesToCallQuestion[i].style.opacity = "0";
+        }
+        else
+        {
+             circlesToCallQuestion[i].style.opacity = "1";           
+        }
+    }
+    if (wantedStatus == "hide")
+    {
+        document.getElementById("themeBackground").style.opacity = "0";
+    }
+    else
+    {
+        document.getElementById("themeBackground").style.opacity = "1";
+    }
+}
+
 let saveAnswer = function(answerIndex)
 {
     let questionContainer = document.getElementById("questionContainer");
@@ -138,6 +162,7 @@ let saveAnswer = function(answerIndex)
             }
         }
     }
+    manageDisplayQuiz("display");
 }
 
 // Load Questions and Propositions
@@ -170,6 +195,8 @@ let displayQuestion = function(questionIndex, event)
             propositions[i].id = currentQuestion[proposition]["proposition"];
         }
     }
+    manageDisplayQuiz("hide");
+    fitBackgroundQuestions();
 }
 
 // Launch Game
@@ -201,6 +228,8 @@ let loadQuestions = function(themePosition)
 {
     currentTheme = themePosition.slice(0, 1);
     updateQuiz(themePosition);
+    // load intro
+    document.getElementById("questionIntro").innerText = quiz["question01"]["intro"];
     let questionButtons = document.querySelectorAll(".questionButton");
     for (let i = questionButtons.length - 1; i >= 0; i--)
     {
@@ -287,31 +316,52 @@ let fitBackgroundQuestions = function()
     let headerProfile = document.getElementById("headerProfile");
     let themeBackgroundContainer = document.getElementById("themeBackgroundContainer");
     let themeBackground = document.getElementById("themeBackground");
+    let questionContainer = document.getElementById("questionContainer");
+    let questionIntro = document.getElementById("questionIntro");
+    let propositionsContainer = document.getElementById("propositionsContainer");
+    let question = document.getElementById("question");
+
+    let headerProfileHeight = headerProfile.offsetHeight;
+    let questionIntroHeight = questionIntro.offsetHeight;
 
     let ratioBG = themeBackground.offsetWidth / themeBackground.offsetHeight;
     let ratioWindow = window.innerWidth / window.innerHeight;
-    let ratioBgWindow;  
+    let ratioBgWindow;
+
+    // background quiz size
     if (ratioWindow < ratioBG)
     {
         ratioBgWindow = (window.innerWidth - themeBackground.offsetWidth) / themeBackground.offsetWidth;
-        themeBackground.style.height = themeBackground.height + (themeBackground.height * ratioBgWindow);
-        themeBackground.style.width = window.innerWidth;
+        /*themeBackground.style.height = themeBackground.height + (themeBackground.height * ratioBgWindow) + "px";
+        themeBackground.style.width = window.innerWidth + "px";*/
     }
     else
     {
         ratioBgWindow = (window.innerHeight - themeBackground.offsetHeight) / themeBackground.offsetHeight;
-        themeBackground.style.width = themeBackground.width + (themeBackground.width * ratioBgWindow);
-        themeBackground.style.height = window.innerHeight;
+        /*themeBackground.style.width = themeBackground.width + (themeBackground.width * ratioBgWindow) + "px";
+        themeBackground.style.height = window.innerHeight + "px";*/
     }
+    themeBackgroundContainer.style.height = window.innerHeight - (headerProfileHeight + questionIntroHeight) + "px";
+    // fixed the container of the introductory sentence to background image
+    questionIntro.style.width = themeBackground.offsetWidth + "px";
+    // fixed the container question
+    questionContainer.style.width = themeBackground.offsetWidth + "px";
+    questionContainer.style.height = themeBackgroundContainer.offsetHeight + "px";
+    questionContainer.style.left = themeBackground.offsetLeft + "px";
+    questionContainer.style.top = themeBackground.offsetTop + "px";
+    // fixed height of proposition container
+    propositionsContainer.style.height = themeBackgroundContainer.offsetHeight - question.offsetHeight + "px";
+    // background quiz position
+    //themeBackgroundContainer.style.left = (window.innerWidth / 2) - (themeBackground.offsetWidth / 2) + "px";
+    //themeBackgroundContainer.style.top = headerProfileHeight + "px";
+
+    // circles position(button to call a question)
     for(let question in quiz) 
     {
         quiz[question]["tag"].style.left = ((themeBackground.offsetWidth / 100) * quiz[question]["xOrigin"]) + (quiz[question]["xOrigin"] * ratioBgWindow) + themeBackground.offsetLeft + "px";
         quiz[question]["tag"].style.top = ((themeBackground.offsetHeight / 100) * quiz[question]["yOrigin"]) + (quiz[question]["yOrigin"] * ratioBgWindow) + themeBackground.offsetTop + "px";
         quiz[question]["tag"].style.width = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
         quiz[question]["tag"].style.height = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
-
-        themeBackgroundContainer.style.left = (window.innerWidth / 2) - (themeBackground.offsetWidth / 2) + "px";
-        themeBackgroundContainer.style.top = headerProfile.offsetHeight + "px";
     }
 }
 document.getElementById("themeBackground").onload = function()

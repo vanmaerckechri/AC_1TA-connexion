@@ -8,36 +8,37 @@ const quizA1 =
 {
 	question01: 
 	{
+		intro: "« Il est très important de prendre un bon petit déjeuner le matin ! » Aujourd’hui, tu peux choisir ce que tu prends ! Que choisis-tu ?",
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
 	    xOrigin: 30,
 	    yOrigin: 30,
 	    tag: document.getElementById("questionButton01"),
-	    question: "Quel fruit manges-tu pour ton petit déjeuner ?",
+	    question: "Que vas-tu manger ?",
 	    proposition01: 
 	    {
-	    	proposition: "pomme",
+	    	proposition: "Choco bols",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 2,
+	    	stats_environnement: 0,
 	    	stats_sante: 0,
-	    	stats_social: 2
+	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "banane",
+	    	proposition: "Pain + confiture",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 0,
-	    	stats_sante: 1,
-	    	stats_social: 1
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    },	   
 	    proposition03: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "Viennoiseries",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
-	    	stats_sante: 2,
-	    	stats_social: 0
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    }
 	},
 	question02: 
@@ -48,30 +49,30 @@ const quizA1 =
 	    xOrigin: 50,
 	    yOrigin: 75,
 	   	tag: document.getElementById("questionButton02"),
-	    question: "Quel fruit manges-tu pour ton diner ?",
+	    question: "Que bois-tu le matin ?",
 	    proposition01: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "chocolat chaud ou froid",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
-	    	stats_sante: 2,
+	    	stats_sante: 1,
 	    	stats_social: 1
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "banane",
+	    	proposition: "jus de fruits pressé",
 	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 2,
-	    	stats_sante: 1,
-	    	stats_social: 0
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    },	   
 	    proposition03: 
 	    {
-	    	proposition: "pomme",
+	    	proposition: "sodas",
 	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 0,
-	    	stats_sante: 1,
-	    	stats_social: 1
+	    	stats_sante: 0,
+	    	stats_social: 0
 	    }
 	},
 	question03: 
@@ -82,30 +83,30 @@ const quizA1 =
 	    xOrigin: 60,
 	    yOrigin: 20,
 	   	tag: document.getElementById("questionButton03"),
-	    question: "Quel fruit manges-tu pour ton souper ?",
+	    question: "Qu’emmènes-tu comme collation pour l’école ?",
 	    proposition01: 
 	    {
-	    	proposition: "banane",
+	    	proposition: "un snickers/mars",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 2,
-	    	stats_sante: 1,
+	    	stats_environnement: 0,
+	    	stats_sante: 0,
 	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "un fruit",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
-	    	stats_environnement: 1,
+	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
 	    },	   
 	    proposition03: 
 	    {
-	    	proposition: "pomme",
+	    	proposition: "gâteau fait maison",
 	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 1,
-	    	stats_social: 0
+	    	stats_social: 1
 	    }
 	}
 };
@@ -113,24 +114,25 @@ const quizA2 =
 {
 	question01: 
 	{
+		intro: "« AUCUN TEXTE D'INTRO!?",
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
 	    xOrigin: 20,
 	    yOrigin: 15,
 	    tag: document.getElementById("questionButton01"),
-	    question: "Serie A - Question 04",
+	    question: "Aujourd’hui, c’est jour de poisson ! Vous allez manger",
 	    proposition01: 
 	    {
-	    	proposition: "pomme",
+	    	proposition: "des fishticks",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_environnement: 0,
+	    	stats_sante: 0,
+	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "banane",
+	    	proposition: "du saumon élevé en Ecosse",
 	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 1,
@@ -138,11 +140,11 @@ const quizA2 =
 	    },	   
 	    proposition03: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "du poisson issu de la pêche durable",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
-	    	stats_environnement: 1,
-	    	stats_sante: 0,
-	    	stats_social: 0
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    }
 	},
 	question02: 
@@ -153,10 +155,10 @@ const quizA2 =
 	    xOrigin: 35,
 	    yOrigin: 20,
 	   	tag: document.getElementById("questionButton02"),
-	    question: "Serie A - Question 05",
+	    question: "Serie: le souper - Question 02",
 	    proposition01: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "reponse 1",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
@@ -164,7 +166,7 @@ const quizA2 =
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "banane",
+	    	proposition: "reponse 2",
 	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 2,
 	    	stats_sante: 1,
@@ -172,7 +174,7 @@ const quizA2 =
 	    },	   
 	    proposition03: 
 	    {
-	    	proposition: "pomme",
+	    	proposition: "reponse 3",
 	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
@@ -187,30 +189,30 @@ const quizA2 =
 	    xOrigin: 90,
 	    yOrigin: 10,
 	   	tag: document.getElementById("questionButton03"),
-	    question: "Serie A - Question 06",
+	    question: "Après le souper, vous regardez un reportage à la télé. On y parle des agriculteurs brésiliens qui ne sont pas contents parce qu’ils ont faim. Que fais-tu ?",
 	    proposition01: 
 	    {
-	    	proposition: "banane",
+	    	proposition: "Tu changes de chaine parce que tu n’y comprends rien (c’est un problème de grands !)",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 1,
-	    	stats_sante: 2,
-	    	stats_social: 1
+	    	stats_environnement: 0,
+	    	stats_sante: 0,
+	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "Tu poses des questions",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
-	    	stats_environnement: 1,
-	    	stats_sante: 0,
-	    	stats_social: 1
-	    },	   
-	    proposition03: 
-	    {
-	    	proposition: "pomme",
-	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
+	    },	   
+	    proposition03: 
+	    {
+	    	proposition: "Tu demandes à tes parents d’envoyer de l’argent aux agriculteurs pour qu’ils ne soient plus pauvres",
+	    	imageSrc: "assets/img/fruit_pomme.png",
+	    	stats_environnement: 1,
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    }
 	}
 };
@@ -218,36 +220,37 @@ const quizA3 =
 {
 	question01: 
 	{
+		intro: "« Tu pars faire les courses avec les parents. Tu t’emmitoufles dans ton manteau parce qu’il fait très froid en ce mois de décembre. Que mettez-vous dans le caddie ? »",
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
 	    xOrigin: 30,
 	    yOrigin: 30,
 	    tag: document.getElementById("questionButton01"),
-	    question: "Serie A - Question 07",
+	    question: "miam des fruits !",
 	    proposition01: 
 	    {
-	    	proposition: "pomme",
+	    	proposition: "fraises dans un ravier en carton",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
-	    },
-	    proposition02: 
-	    {
-	    	proposition: "banane",
-	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 1,
 	    	stats_social: 1
+	    },
+	    proposition02: 
+	    {
+	    	proposition: "poires en vrac",
+	    	imageSrc: "assets/img/fruit_banane.png",
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    },	   
 	    proposition03: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "tranches d’ananas en conserve",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 0,
-	    	stats_sante: 1,
-	    	stats_social: 1
+	    	stats_sante: 0,
+	    	stats_social: 0
 	    }
 	},
 	question02: 
@@ -258,18 +261,18 @@ const quizA3 =
 	    xOrigin: 50,
 	    yOrigin: 75,
 	   	tag: document.getElementById("questionButton02"),
-	    question: "Serie A - Question 08",
+	    question: "au rayon boucherie",
 	    proposition01: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "bœuf",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
-	    	stats_environnement: 1,
-	    	stats_sante: 1,
+	    	stats_environnement: 0,
+	    	stats_sante: 0,
 	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "banane",
+	    	proposition: "poulet",
 	    	imageSrc: "assets/img/fruit_banane.png",
 	    	stats_environnement: 1,
 	    	stats_sante: 1,
@@ -277,7 +280,7 @@ const quizA3 =
 	    },	   
 	    proposition03: 
 	    {
-	    	proposition: "pomme",
+	    	proposition: "burger végé",
 	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
@@ -292,30 +295,30 @@ const quizA3 =
 	    xOrigin: 60,
 	    yOrigin: 20,
 	   	tag: document.getElementById("questionButton03"),
-	    question: "Serie A - Question 09",
+	    question: "tu as un petit creux, tes parents te laissent choisir un produit. Lequel choisis-tu ?",
 	    proposition01: 
 	    {
-	    	proposition: "banane",
+	    	proposition: "chips",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 2,
-	    	stats_sante: 2,
-	    	stats_social: 2
+	    	stats_environnement: 0,
+	    	stats_sante: 0,
+	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "kiwi",
+	    	proposition: "bonbons",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
 	    	stats_environnement: 1,
-	    	stats_sante: 2,
+	    	stats_sante: 1,
 	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
-	    	proposition: "pomme",
+	    	proposition: "chocolat équitable",
 	    	imageSrc: "assets/img/fruit_pomme.png",
-	    	stats_environnement: 1,
-	    	stats_sante: 0,
-	    	stats_social: 0
+	    	stats_environnement: 2,
+	    	stats_sante: 2,
+	    	stats_social: 2
 	    }
 	}
 };

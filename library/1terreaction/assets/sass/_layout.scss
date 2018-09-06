@@ -383,7 +383,8 @@
 		top: 0;
 		left: 0;
 		width: 100vw;
-		height: 100vh;
+		height: 100%;
+		font-family: 'Orbitron', sans-serif;
 		background-color: black;
 		.abandonGame
 		{
@@ -393,15 +394,17 @@
 		}
 		.themeBackgroundContainer
 		{
-			position: absolute;
+			margin: 100px auto 0;
 			width: 100%;
-			height: 100%;
+			text-align: center;
 			.themeBackground
 			{
-				border-radius: 12px;
+				border-bottom-left-radius: 12px;
+				border-bottom-right-radius: 12px;
 				max-width: 100%;
 				height: auto;
 				max-height: 100%;
+				transition: opacity .5s;
 			}
 			.questionButton
 			{
@@ -434,27 +437,38 @@
 				}
 			}
 		}
+		.questionIntro
+		{
+			margin: 0 auto;
+			border-top-right-radius: 12px;
+			border-top-left-radius: 12px;
+			padding: 20px 40px;
+			text-align: center;
+			font-size: 1rem;
+			max-width: 1016px;
+			background-color: rgba(0, 60, 120, 1);
+			color: white;
+			box-shadow: 0px 3px 5px 2px rgba(24, 37, 59, 0.5);
+		}
+
 		.questionContainer
 		{
-			border: 2px solid rgb(0, 60, 120);
-			border-radius: 12px;
-			padding: 10px 10px 20px;
 			position: absolute;
-			top: 50%;
-			left: 50%;
+			left: 0;
+			top: 0;
+			border-bottom: 2px solid rgb(0, 60, 120);
+			border-bottom-left-radius: 12px;
+			border-bottom-right-radius: 12px;
 			max-width: 100%;
 			text-align: right;
-			transform: translate(-50%, -50%);
 			background-color: rgba(0, 60, 120, .8);
 			.question
 			{
-				margin-bottom: 10px;
 				padding: 10px;
 				text-align: center;
-				font-family: 'Orbitron', sans-serif;
 				font-size: 1.2rem;
-				color: white;
-				background-color: rgba(0, 60, 120, .8);
+				color: rgba(0, 60, 120, 1);
+				background-color: white;
 			}
 			.openQuestionTextArea
 			{
@@ -467,15 +481,26 @@
 			}
 			.propositionsContainer
 			{
-				text-align: center;
+				display: flex;
+				flex-wrap: wrap;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+				height: 100%;
 				.proposition
 				{
 					margin: 10px;
-					border: none;
-					border-radius: 12px;
+					border: 2px solid rgba(100, 210, 25, 0.9);
+					border-radius: 50%;
+					padding: 4%;
+					width: 20%;
+					height: auto;
+					background-color: rgba(100, 210, 25, 0.7);
+					transition: all .5s;
 					&:hover
 					{
-						background-color: #a1dd19;
+						border: 2px solid rgba(255, 135, 0, .9);
+						background-color: rgba(255, 135, 0, .7);
 						cursor: pointer;
 					}
 				}
@@ -487,7 +512,6 @@
 				border-radius: 8px;
 				padding: 8px 10px;
 				color: rgba(0, 60, 120, 0.8);
-				font-family: 'Orbitron', sans-serif;
 				font-size: 1rem;
 				font-weight: bold;
 				background-color: white;

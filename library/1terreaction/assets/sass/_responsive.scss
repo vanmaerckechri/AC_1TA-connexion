@@ -42,10 +42,28 @@
 		}
 		#step_questions
 		{
+			.themeBackgroundContainer
+			{
+				margin: 42px auto 0;				
+			}
 			.abandonGame
 			{
 				bottom: 10px;
 				right: 20px;
+			}
+			.questionIntro
+			{
+				border: none;
+			}
+			.questionContainer
+			{
+				.propositionsContainer
+				{
+					.proposition
+					{
+						width: 30%;
+					}
+				}
 			}
 		}
 		.step_scores

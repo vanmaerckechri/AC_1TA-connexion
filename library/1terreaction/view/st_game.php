@@ -59,19 +59,20 @@ ob_start();
         </div>
         <div id="step_questions" class="disabled">
             <div id="themeBackgroundContainer" class="themeBackgroundContainer">
+                <div id="questionIntro" class="questionIntro"></div>
                 <img id="themeBackground" class="themeBackground" src="">
                 <div id="questionButton01" class="questionButton"></div>
                 <div id="questionButton02" class="questionButton"></div>
                 <div id="questionButton03" class="questionButton"></div>
-            </div>
-            <div id="questionContainer" class="questionContainer disabled">
-                <p id="question" class="question"></p>
+                <div id="questionContainer" class="questionContainer disabled">
+                <p id="question" class="question">cvm</p>
                 <textarea id="openQuestionTextArea" class="openQuestionTextArea disabled"></textarea> 
                 <div id="propositionsContainer" class="propositionsContainer">
-                    <button class="proposition"><img id="" src="" alt=""></button>
-                    <button class="proposition"><img id="" src="" alt=""></button>
-                    <button class="proposition"><img id="" src="" alt=""></button>
+                    <img id="" class="proposition" src="" alt="">
+                    <img id="" class="proposition" src="" alt="">
+                    <img id="" class="proposition" src="" alt="">
                 </div>
+            </div>
             </div>
             <a class="buttonDefault abandonGame" href="index.php?action=game">abandonner</a>
         </div>

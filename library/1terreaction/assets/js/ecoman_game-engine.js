@@ -48,13 +48,19 @@ function placeCanvasOnBackground()
 function adaptGameSizeToScreen()
 {
     let canvasContainer = document.getElementById("canvasContainer");
-    let maxSize = window.innerWidth < window.innerHeight ? window.innerWidth : window.innerHeight;
-    let gameSize = window.innerWidth < window.innerHeight ? tileNumberByCol * tileSize : tileNumberByRow * tileSize;
+    let headerProfileHeight = document.getElementById("headerProfile").offsetHeight;
+    let scoreTitleHeight = document.getElementById("scoreTitle").offsetHeight;
+    let maxSize = window.innerHeight - (headerProfileHeight + scoreTitleHeight);
+    let gameSize = tileNumberByRow * tileSize;
+
     if (gameSize > maxSize)
     {   
+    	let pacmanContainer = document.getElementById("pacmanContainer");
         let scalePercent = maxSize / gameSize;
         scalePercent = (scalePercent * 10) / 10;
         tileSize = Math.floor(tileSize * scalePercent);
+        pacmanContainer.style.top = headerProfileHeight + "px";
+        pacmanContainer.style.height = window.innerHeight - headerProfileHeight +"px";
         /*canvasContainer.style.transformOrigin = "left top";
         canvasContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";*/
     }
@@ -91,6 +97,9 @@ let launchPacmanGame = function()
 		ui.setAttribute("class", "ui");
 		let scoreContainer = document.createElement("div");
 		scoreContainer.setAttribute("class", "scoreContainer");
+		let scoreTitle = document.createElement("span");
+		scoreTitle.setAttribute("id", "scoreTitle");
+		scoreTitle.setAttribute("class", "scoreTitle");
 		scoreContainer.innerText = "score: ";
 		let score = document.createElement("span");
 		score.setAttribute("id", "score");
@@ -99,6 +108,7 @@ let launchPacmanGame = function()
 		gameOverDiv.setAttribute("id", "gameOver");
 		gameOverDiv.setAttribute("class", "gameOver");
 		gameOverDiv.innerText = "GameOver";
+		scoreContainer.appendChild(scoreTitle);
 		scoreContainer.appendChild(score);
 		ui.appendChild(scoreContainer);
 		ui.appendChild(gameOverDiv);
