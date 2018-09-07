@@ -1,18 +1,26 @@
 <?php
 class ManagePlanets
 {
-	public static function callPlanetList($idAd)
+	public static function loadDb()
 	{
-		$planetsInfo = [];
 		try
 		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$db = connectDB();
+			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			return $db;
 		} 
 		catch (Exception $e)
 		{
-		    die('Erreur : ' . $e->getMessage());
+			die('Erreur : ' . $e->getMessage());
 		}
+	}
+
+	public static function callPlanetList($idAd)
+	{
+		$planetsInfo = [];
+
+		$db = self::loadDb();
+
 		// Planets List
 		$req = $db->prepare("SELECT id_classroom FROM 1ta_planets");
 		$req->execute();
@@ -42,15 +50,9 @@ class ManagePlanets
 	public static function callStudentsList($classroomsInfos)
 	{
 		$studentsList = [];
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
+
+		$db = self::loadDb();
+
 		// students name and id
 		$studentsInfos = [];
 		$req = $db->prepare("SELECT nickname, id, id_classroom FROM pe_students WHERE id_classroom = :idCr AND id_admin = :idAd");
@@ -97,15 +99,9 @@ class ManagePlanets
 	public static function callFreeClassroomsList($idAd)
 	{
 		$classroomsInfo = [];
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
+
+		$db = self::loadDb();
+
 		// Planets list for this admin
 		$req = $db->prepare("SELECT id_classroom FROM 1ta_planets WHERE id_admin = :idAd");
 		$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
@@ -151,15 +147,9 @@ class ManagePlanets
 	public static function create($idCr)
 	{
 		$classroomsInfo = [];
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
+
+		$db = self::loadDb();
+
 		// Check if classroom belongs to this admin
 		$req = $db->prepare("SELECT id FROM pe_classrooms WHERE id_admin = :idAd AND id = :idCr");
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
@@ -217,5 +207,20 @@ class ManagePlanets
 		}
 		$req->closeCursor();
 		$req = NULL;
+	}
+
+	public static function getIdStudents($idCr)
+	{
+		$db = self::loadDb();
+
+		$req = $db->prepare("SELECT id FROM pe_students WHERE id_admin = :idAd AND id_classroom = :idCr");
+		$req->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+		$req->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		$req->execute();
+		$idStudents = $req->fetchAll(PDO::FETCH_COLUMN);
+
+		$req->closeCursor();
+		$req = NULL;
+		return $idStudents;
 	}
 }

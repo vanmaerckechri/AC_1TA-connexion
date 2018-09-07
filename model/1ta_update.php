@@ -68,6 +68,7 @@ class Update1TerreActionDb
 		$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
 		$del->bindParam(':idLib', $idLib, PDO::PARAM_INT);   
 		$del->execute();
+
 		$del->closeCursor();
 		$del = NULL;
 	}

@@ -104,27 +104,30 @@ if (isset($_POST["filesSrcList"]) && !empty($_POST["filesSrcList"]))
 $avatarInfos = Avatar::load();
 $firsCo = "false";
 ob_start();
-foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
+if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
 {
-    // avatarSrc = 1 for a new account. Student need to create an avatar to first connexion.
-    if ($avatarSrc != 1 && (substr($avatarSrc, -4) == ".svg"))
+    foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
     {
-        ?>
-        <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarSrc?>"" alt="">
-        <?php
-    }
-    else if ($avatarSrc == "")
-    {
-        ?>
-        <img class=<?=$avatarThemeName?> src="" alt="">
-        <?php
-    }
-    else
-    {
-        $firsCo = "true";
-        ?>
-        <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
-        <?php
+        // avatarSrc = 1 for a new account. Student need to create an avatar to first connexion.
+        if ($avatarSrc != 1 && (substr($avatarSrc, -4) == ".svg"))
+        {
+            ?>
+            <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarSrc?>"" alt="">
+            <?php
+        }
+        else if ($avatarSrc == "")
+        {
+            ?>
+            <img class=<?=$avatarThemeName?> src="" alt="">
+            <?php
+        }
+        else
+        {
+            $firsCo = "true";
+            ?>
+            <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
+            <?php
+        }
     }
 }
 $avatarContent = ob_get_clean();

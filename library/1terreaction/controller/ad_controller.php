@@ -31,9 +31,10 @@ function createPlanetView($idCr)
 
 function deletePlanetView($idCr)
 {
+	$idStudents = ManagePlanets::getIdStudents($idCr);
 	if ($idCr >= 0)
 	{
-		Update1TerreActionDb::deletePlanet($idCr);
+		Update1TerreActionDb::deletePlanet($idCr, $idStudents);
 	}
 	else
 	{

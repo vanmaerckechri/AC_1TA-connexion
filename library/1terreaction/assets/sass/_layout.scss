@@ -180,9 +180,6 @@
 
 	a, .buttonDefault
 	{
-		position: absolute;
-		right: 4rem;
-		bottom: 2rem;
 		font-family: 'Orbitron', sans-serif;
 		font-size: 1.3rem;
 		color: white;
@@ -192,6 +189,12 @@
 		{
 			text-shadow: 0 0 15px white, 0 0 30px white;
 		}
+	}
+	.buttonDefault
+	{
+		position: absolute;
+		right: 4rem;
+		bottom: 2rem;
 	}
 }
 
