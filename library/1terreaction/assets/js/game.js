@@ -124,10 +124,30 @@ let manageDisplayQuiz = function(wantedStatus)
     }
 }
 
+let dezoomBackground = function()
+{
+    let imgBgContainer = document.getElementById("themeBackgroundContainer");
+    let imgBg = document.getElementById("themeBackground");
+    let questionButtons = document.querySelectorAll(".questionButton");
+
+    imgBgContainer.style = "";
+    imgBg.style = "";
+    for (let i = questionButtons.length - 1; i >= 0; i--)
+    {
+        questionButtons[i].style.display = "block";
+    }
+
+    fitBackgroundQuestions();
+}
+
 let saveAnswer = function(answerIndex)
 {
     let questionContainer = document.getElementById("questionContainer");
-    questionContainer.classList.toggle("disabled");
+
+    dezoomBackground();
+
+    document.getElementById("themeBackground").classList.toggle("disabled_v2");
+    questionContainer.classList.toggle("disabled_v2");
     answerList.push(answerIndex + 1);
     waitForAnswer = false;
     // check the answers to find out what to do next
@@ -149,20 +169,34 @@ let saveAnswer = function(answerIndex)
         {
             if (gameInfos["openquestion"]["serie"] == currentTheme)
             {
-                document.getElementById("openQuestionTextArea").classList.toggle("disabled");
+                let propositionsContainer = document.getElementById("propositionsContainer");
+                let openQuestionTextArea = document.getElementById("openQuestionTextArea");
+                let step_questions = document.getElementById("step_questions");
+
+                document.getElementById("questionIntro").innerText = "";   
+                openQuestionTextArea.classList.toggle("disabled");
+                openQuestionTextArea.focus();
                 document.getElementById("question").innerText = gameInfos["openquestion"]["question"];
-                document.getElementById("propositionsContainer").classList.toggle("disabled");
-                questionContainer.classList.toggle("disabled");
+
+                fitBackgroundQuestions();    
+
+                questionContainer.style.transition = "none";
+                propositionsContainer.style.transition = "none";
+
+                questionContainer.classList.toggle("disabled_v2");
+                propositionsContainer.classList.toggle("disabled_v2");
+
+                questionContainer.style.transition = "";
+                propositionsContainer.style.transition = "";
 
                 let sendAnswersToDbButton = document.createElement("button");
                 sendAnswersToDbButton.innerText = "valider";
-                sendAnswersToDbButton.setAttribute("class", "themeButton sendAnswersToDbButton");
-                questionContainer.appendChild(sendAnswersToDbButton);
+                sendAnswersToDbButton.setAttribute("class", "buttonDefault sendAnswersToDbButton");
+                step_questions.appendChild(sendAnswersToDbButton);
                 sendAnswersToDbButton.addEventListener("click", sendToDb, false);
             }
         }
     }
-    manageDisplayQuiz("display");
 }
 
 // Load Questions and Propositions
@@ -170,33 +204,74 @@ let displayQuestion = function(questionIndex, event)
 {
     if (waitForAnswer == false && !event.target.classList.contains("questionButtonClosed"))
     {
-        let currentQuestion = {};
-        let questionContainer = document.getElementById("questionContainer");
-        let questionParagraph = document.getElementById("question");
-        let propositions = document.querySelectorAll("#propositionsContainer img");
-        waitForAnswer = true;
-        questionList.push(questionIndex);
-        questionContainer.classList.toggle("disabled");
-        event.target.classList.add("questionButtonClosed")
-        for(let question in quiz) 
+        fitBackgroundQuestions();
+
+        let getQuestion = function()
         {
-            if (event.target == quiz[question]["tag"])
+            let currentQuestion = {};
+            let questionParagraph = document.getElementById("question");
+            let propositions = document.querySelectorAll("#propositionsContainer img");
+            waitForAnswer = true;
+            questionList.push(questionIndex);
+            
+            event.target.classList.add("questionButtonClosed")
+            for(let question in quiz) 
             {
-                currentQuestion = quiz[question];
+                if (event.target == quiz[question]["tag"])
+                {
+                    currentQuestion = quiz[question];
+                }
+            }    
+     
+            questionParagraph.innerText = currentQuestion["question"];
+            for (let i = propositions.length - 1; i >= 0; i--)
+            {
+                let proposition = "proposition0" + (i + 1)
+                propositions[i].src = currentQuestion[proposition]["imageSrc"];
+                propositions[i].alt = currentQuestion[proposition]["proposition"];
+                propositions[i].id = currentQuestion[proposition]["proposition"];
             }
-        }    
- 
-        questionParagraph.innerText = currentQuestion["question"];
-        for (let i = propositions.length - 1; i >= 0; i--)
-        {
-            let proposition = "proposition0" + (i + 1)
-            propositions[i].src = currentQuestion[proposition]["imageSrc"];
-            propositions[i].alt = currentQuestion[proposition]["proposition"];
-            propositions[i].id = currentQuestion[proposition]["proposition"];
+
+            //document.getElementById("propositionsContainer").classList.toggle("disabled_v2");
+            document.getElementById("questionContainer").classList.toggle("disabled_v2");
+            document.getElementById("themeBackground").classList.toggle("disabled_v2");
         }
+
+        let zoomOnQuestionArea = function(event)
+        {
+            let imgBgContainer = document.getElementById("themeBackgroundContainer");
+            let imgBg = document.getElementById("themeBackground");
+            let questionButtons = document.querySelectorAll(".questionButton");
+            let questionIntro = document.getElementById("questionIntro");
+            let questionArea = event.target;
+            let imgBgPosX = imgBg.offsetLeft;
+            let imgBgPosY = imgBg.offsetTop;
+            let imgBgWidth = imgBg.offsetWidth;
+            let imgBgHeight = imgBg.offsetHeight;
+            let questionAreaPosX = questionArea.offsetLeft - imgBgPosX;
+            let questionAreaPosY = questionArea.offsetTop - imgBgPosY;
+
+            imgBgContainer.style.width = imgBgWidth + "px";
+            imgBgContainer.style.height = imgBgHeight + questionIntro.offsetHeight + "px";
+            imgBgContainer.style.overflow = "hidden";
+
+            let translateX = ((imgBgWidth / 2) - questionAreaPosX) * 3;
+            let translateY = ((imgBgHeight / 2) - questionAreaPosY) * 3;
+
+            imgBg.style.transition = "all 2s";
+            imgBg.style.transform = "translate("+translateX+"px, "+translateY+"px) scale(3)";
+
+            for (let i = questionButtons.length - 1; i >= 0; i--)
+            {
+                questionButtons[i].style.display = "none";
+            }
+            let waitForGetQuestion = setTimeout(function()
+            {
+                getQuestion();
+            }, 500);
+        }
+        zoomOnQuestionArea(event);
     }
-    manageDisplayQuiz("hide");
-    fitBackgroundQuestions();
 }
 
 // Launch Game
@@ -228,6 +303,7 @@ let loadQuestions = function(themePosition)
 {
     currentTheme = themePosition.slice(0, 1);
     updateQuiz(themePosition);
+
     // load intro
     document.getElementById("questionIntro").innerText = quiz["question01"]["intro"];
     let questionButtons = document.querySelectorAll(".questionButton");

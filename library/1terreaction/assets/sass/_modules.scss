@@ -11,7 +11,7 @@
 }
 .disabled_v2
 {
-	opacity: 0;
+	opacity: 0!important;
 	pointer-events: none;
 }
 .headerProfile
@@ -76,7 +76,7 @@
 
 .buttonDefault
 {
-	border: none;
+	border: 1px solid white;
 	border-radius: 8px;
 	padding: 8px 10px;
 	font-family: 'Orbitron', sans-serif;
@@ -84,12 +84,13 @@
 	font-size: 1rem;
 	font-weight: bold;
 	text-decoration: none;
-	background-color: rgba(0, 60, 120, .6);
+	background-color: rgba(0, 60, 120, 1);
 	transition: all .5s;
 	&:hover
 	{
+		border: 1px solid black;
 		cursor: pointer;
 		color: black;
-		background-color: rgba(255, 255, 255, .9);
+		background-color: rgba(255, 255, 255, 1);
 	}
 }

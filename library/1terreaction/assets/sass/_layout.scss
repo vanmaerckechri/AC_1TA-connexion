@@ -398,16 +398,21 @@
 		.themeBackgroundContainer
 		{
 			margin: 100px auto 0;
+			border-top-left-radius: 12px;
+			border-top-right-radius: 12px;
 			width: 100%;
 			text-align: center;
 			.themeBackground
 			{
+				position: relative;
 				border-bottom-left-radius: 12px;
 				border-bottom-right-radius: 12px;
 				max-width: 100%;
 				height: auto;
 				max-height: 100%;
-				transition: opacity .5s;
+				opacity: 1;
+				transition: opacity 2s;
+				z-index: -1;
 			}
 			.questionButton
 			{
@@ -464,7 +469,9 @@
 			border-bottom-right-radius: 12px;
 			max-width: 100%;
 			text-align: right;
-			background-color: rgba(0, 60, 120, .8);
+			background-color: rgba(0, 60, 120, 1);
+			opacity: 1;
+			transition: opacity 1s;
 			.question
 			{
 				padding: 10px;
@@ -475,12 +482,13 @@
 			}
 			.openQuestionTextArea
 			{
+				padding: 20px 20px 140px 20px;
 				min-width: 50vw;
-				max-width: 100%;
 				min-height: 33vh;
-				max-height: 66vh;
-				width: 75vw;
-				height: 50vh;
+				width: 100%;
+				height: 100%;
+				color: white;
+				background-color: rgba(0, 60, 120, 1);
 			}
 			.propositionsContainer
 			{
@@ -490,6 +498,8 @@
 				justify-content: space-around;
 				align-items: center;
 				height: 100%;
+				opacity: 1;
+				transition: opacity 1s;
 				.proposition
 				{
 					margin: 10px;
@@ -508,24 +518,12 @@
 					}
 				}
 			}
-			.sendAnswersToDbButton
-			{
-				margin-top: 20px;
-				border: none;
-				border-radius: 8px;
-				padding: 8px 10px;
-				color: rgba(0, 60, 120, 0.8);
-				font-size: 1rem;
-				font-weight: bold;
-				background-color: white;
-				transition: all .5s;
-				&:hover
-				{
-					cursor: pointer;
-					background-color: rgba(0, 60, 120, 0.8);
-					color: white;
-				}
-			}
+		}
+		.sendAnswersToDbButton
+		{
+			position: absolute;
+			left: 4rem;
+			bottom: 2rem;
 		}
 	}
 	// Scores

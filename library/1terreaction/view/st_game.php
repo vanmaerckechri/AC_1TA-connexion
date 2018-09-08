@@ -64,7 +64,7 @@ ob_start();
                 <div id="questionButton01" class="questionButton"></div>
                 <div id="questionButton02" class="questionButton"></div>
                 <div id="questionButton03" class="questionButton"></div>
-                <div id="questionContainer" class="questionContainer disabled">
+                <div id="questionContainer" class="questionContainer disabled_v2">
                 <p id="question" class="question">cvm</p>
                 <textarea id="openQuestionTextArea" class="openQuestionTextArea disabled"></textarea> 
                 <div id="propositionsContainer" class="propositionsContainer">

@@ -220,7 +220,6 @@ class Classrooms
 					$req->execute();
 					$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Élève créé avec succès!</span>";
 					$result = $db->lastInsertId();
-					var_dump($result);
 				}
 				else
 				{
