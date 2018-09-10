@@ -370,7 +370,8 @@ input {
       transition: all .3s; }
       #main .avatarCustomContainer .avatarCustomButtons button:hover {
         border: 3px solid #4ab4f1;
-        cursor: pointer; }
+        cursor: pointer;
+        background-color: white; }
   #main .avatarCustomContainer .avatarCustomYeuxContainer img, #main .avatarCustomContainer .avatarCustomLunettesContainer img, #main .avatarCustomContainer .avatarCustomBoucheContainer img, #main .avatarCustomContainer .avatarCustomCheveuxContainer img {
     border: 1px solid rgba(74, 180, 241, 0.5);
     border-radius: 12px;
