@@ -1,9 +1,9 @@
 <?php
 
 // CHARGE LES DONNEES DE LA DB ET LA CLEF CAPTCHA EN FONCTION DU CONTEXTE LOCAL/DISTANT!
-if (file_exists('./model/hum.php'))
+if (file_exists('../../model/hum.php'))
 {
-	require('./model/hum.php');
+	require('../../model/hum.php');
 }
 else
 {
