@@ -74,8 +74,8 @@ ob_start();
                     </div>
                 </div>
             </div>
-            <div id="backToLastQuestionButton" class="backToLastQuestionButton previousContainer disabled_v2">
-                <img id="backToLastQuestionImg" class="backToLastQuestionImg previous" src="assets/img/previous_darkfill.svg">
+            <div id="backOnPreviousQuestionButton" class="backOnPreviousQuestionButton previousContainer disabled_v2">
+                <img class="backOnPreviousQuestionImg previous" src="assets/img/previous_darkfill.svg">
             </div>
             <a class="buttonDefault abandonGame" href="index.php?action=game">abandonner</a>
         </div>

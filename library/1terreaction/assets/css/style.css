@@ -410,13 +410,17 @@ body {
     height: 100%;
     font-family: 'Orbitron', sans-serif;
     background-color: black; }
-    #main #step_questions .backToLastQuestionButton {
+    #main #step_questions .backOnPreviousQuestionButton {
       border: none;
       padding: 0;
       position: absolute;
       left: 4rem;
       bottom: 2rem;
       background-color: transparent; }
+    #main #step_questions .sendAnswersToDbButton {
+      position: absolute;
+      right: 210px;
+      bottom: 2rem; }
     #main #step_questions .abandonGame {
       position: absolute;
       right: 4rem;
@@ -518,10 +522,6 @@ body {
             border: 2px solid rgba(255, 135, 0, 0.9);
             background-color: rgba(255, 135, 0, 0.7);
             cursor: pointer; }
-    #main #step_questions .sendAnswersToDbButton {
-      position: absolute;
-      left: 4rem;
-      bottom: 2rem; }
   #main .step_scores {
     padding: 110px 4rem 2rem;
     position: absolute;
@@ -625,9 +625,12 @@ body {
     width: 122px;
     left: 50%;
     transform: translate(-50%, 0); }
-  #main #step_questions .backToLastQuestionButton {
+  #main #step_questions .backOnPreviousQuestionButton {
     bottom: 10px;
     left: 20px; }
+  #main #step_questions .sendAnswersToDbButton {
+    bottom: 10px;
+    right: 198px; }
   #main #step_questions .abandonGame {
     bottom: 10px;
     right: 20px; }

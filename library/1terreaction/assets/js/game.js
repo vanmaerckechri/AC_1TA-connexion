@@ -101,39 +101,6 @@ let sendToDb = function()
 
 }
 
-let backOnLastQuestion = function()
-{
-    let questionIndex = questionList[questionList.length - 1];
-    answerList = answerList.slice(0, answerList.length - 1);
-    questionList = questionList.slice(0, questionList.length - 1);
-
-    let closeAllQuestionsButtons = function()
-    {
-        let questionButton = document.querySelectorAll(".questionButton");
-        for (let i = questionButton.length - 1; i >= 0; i--)
-        {
-            questionButton[i].classList.add("questionButtonClosed");
-        }        
-    }
-
-    if (questionList.length == 0 && !backToLastQuestionButton.classList.contains("disabled_v2"))
-    {
-        backToLastQuestionButton.classList.add("disabled_v2")
-    }
-    else if (questionList.length == 2)
-    {
-        loadQuestions(currentTheme+"1");
-        closeAllQuestionsButtons();
-    }
-    else if (questionList.length == 5)
-    {
-        loadQuestions(currentTheme+"2");
-        closeAllQuestionsButtons();
-    }
-
-    document.getElementById("questionButton0" + questionIndex).classList.remove("questionButtonClosed");
-}
-
 let manageDisplayQuiz = function(wantedStatus)
 {
     let circlesToCallQuestion = document.querySelectorAll(".questionButton");
@@ -180,13 +147,9 @@ let saveAnswer = function(answerIndex)
     let backToLastQuestionButton = document.getElementById("backToLastQuestionButton");
 
     dezoomBackground();
-    if (questionList.length > 0 && backToLastQuestionButton.classList.contains("disabled_v2"))
-    {
-        backToLastQuestionButton.classList.remove("disabled_v2")
-    }
 
-    document.getElementById("themeBackground").classList.toggle("disabled_v2");
-    questionContainer.classList.toggle("disabled_v2");
+    document.getElementById("themeBackground").classList.remove("disabled_v2");
+    questionContainer.classList.add("disabled_v2");
     answerList.push(answerIndex + 1);
     waitForAnswer = false;
     // check the answers to find out what to do next
@@ -223,20 +186,14 @@ let saveAnswer = function(answerIndex)
                 let step_questions = document.getElementById("step_questions");
 
                 document.getElementById("questionIntro").innerText = "";   
-                openQuestionTextArea.classList.toggle("disabled");
+                openQuestionTextArea.classList.remove("disabled");
                 openQuestionTextArea.focus();
                 document.getElementById("question").innerText = gameInfos["openquestion"]["question"];
 
-                fitBackgroundQuestions();    
+                fitBackgroundQuestions();               
 
-                questionContainer.style.transition = "none";
-                propositionsContainer.style.transition = "none";
-
-                questionContainer.classList.toggle("disabled_v2");
-                propositionsContainer.classList.toggle("disabled_v2");
-
-                questionContainer.style.transition = "";
-                propositionsContainer.style.transition = "";
+                questionContainer.classList.remove("disabled_v2");
+                propositionsContainer.classList.add("disabled_v2");
 
                 let sendAnswersToDbButton = document.createElement("button");
                 sendAnswersToDbButton.innerText = "valider";
@@ -248,12 +205,65 @@ let saveAnswer = function(answerIndex)
     }
 }
 
+let backOnPreviousQuestion = function()
+{
+    let backOnPreviousQuestionButton = document.getElementById("backOnPreviousQuestionButton");
+    // if the question screen is displayed and user aren't on open question screen
+    if (!document.getElementById("questionContainer").classList.contains("disabled_v2") && questionList.length != 9)
+    {
+        saveAnswer(1);
+    }
+    // record button index of previous question and delete last input in array
+    let questionIndex = questionList[questionList.length - 1];
+    answerList = answerList.slice(0, answerList.length - 1);
+    questionList = questionList.slice(0, questionList.length - 1);
+    // ...
+    let closeAllQuestionsButtons = function()
+    {
+        let questionButton = document.querySelectorAll(".questionButton");
+        for (let i = questionButton.length - 1; i >= 0; i--)
+        {
+            questionButton[i].classList.add("questionButtonClosed");
+        }        
+    }
+    // display back on previous question button
+    if (questionList.length == 0 && !backOnPreviousQuestionButton.classList.contains("disabled_v2"))
+    {
+        backOnPreviousQuestionButton.classList.add("disabled_v2")
+    }
+    // user back on previous background
+    else if (questionList.length == 2)
+    {
+        loadQuestions(currentTheme+"1");
+        closeAllQuestionsButtons();
+    }
+    else if (questionList.length == 5)
+    {
+        loadQuestions(currentTheme+"2");
+        closeAllQuestionsButtons();
+    }
+    else if (questionList.length == 8)
+    {
+        document.getElementById("openQuestionTextArea").classList.add("disabled");
+        document.getElementById("questionContainer").classList.add("disabled_v2");
+        document.getElementById("propositionsContainer").classList.remove("disabled_v2");
+
+        document.querySelector(".sendAnswersToDbButton").remove();
+    }
+
+    document.getElementById("questionIntro").innerText = quiz["question01"]["intro"];
+    document.getElementById("questionButton0" + questionIndex).classList.remove("questionButtonClosed");
+}
+
 // Load Questions and Propositions
 let displayQuestion = function(questionIndex, event)
 {
     if (waitForAnswer == false && !event.target.classList.contains("questionButtonClosed"))
     {
         fitBackgroundQuestions();
+        
+        // display back to previous question button    
+        document.getElementById("backOnPreviousQuestionButton").classList.remove("disabled_v2")
 
         let getQuestion = function()
         {
@@ -500,35 +510,36 @@ document.getElementById("questionButton02").addEventListener("click", displayQue
 document.getElementById("questionButton03").addEventListener("click", displayQuestion.bind(this, 3), false);
 
 
-// -- DISPLAY THEMES MENU --
+// -- BUTTONS --
+// Display themes menu
 let launchThemesMenuButton = document.querySelector("#launchThemesMenuButton");
 launchThemesMenuButton.addEventListener("click", launchThemesMenu, false);
-// -- BACK TO LOCAL UI --
+// Back to local UI
 let backToLocalBgButton = document.querySelector("#backToLocalBgContainer");
 backToLocalBgButton.addEventListener("click", closeThemesMenu, false);
-// -- BACK TO SOLAR SYSTEM --
+// Back to solar system
 let backToSolarSystemButton = document.querySelector("#backToSolarSystem");
 backToSolarSystemButton.addEventListener("click", function()
 {
     window.location.href = "index.php";
 }, false);
-// -- LEAVE GAME --
+// Leave
 let leaveGameButton = document.querySelector("#leaveGame");
 leaveGameButton.addEventListener("click", function()
 {
     window.location.href = "../../library.php";
 }, false);
-// -- MAIN MENU --
+// Main menu
 let mainMenuButton = document.querySelector("#mainMenuButton");
 mainMenuButton.addEventListener("click", displayMainMenu, false);
 
-// -- PROPOSITION BUTTON TO RECORD ANSWERS --
+// Proposition buttons to record answers
 let propositionButtons = document.querySelectorAll(".proposition");
 for (let i = propositionButtons.length - 1; i >=0; i--)
 {
     propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i), false);
 }
-// -- BACK ON LAST QUESTION --
-document.getElementById("backToLastQuestionButton").addEventListener("click", backOnLastQuestion, false);
+// Back on previous question
+document.getElementById("backOnPreviousQuestionButton").addEventListener("click", backOnPreviousQuestion, false);
 
 displayScoresBar();

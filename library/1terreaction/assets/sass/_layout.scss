@@ -387,7 +387,7 @@
 		height: 100%;
 		font-family: 'Orbitron', sans-serif;
 		background-color: black;
-		.backToLastQuestionButton
+		.backOnPreviousQuestionButton
 		{
 			border: none;
 			padding: 0;
@@ -395,6 +395,12 @@
 			left: 4rem;
 			bottom: 2rem;
 			background-color: transparent;
+		}
+		.sendAnswersToDbButton
+		{
+			position: absolute;
+			right: 210px;
+			bottom: 2rem;
 		}
 		.abandonGame
 		{
@@ -525,12 +531,6 @@
 					}
 				}
 			}
-		}
-		.sendAnswersToDbButton
-		{
-			position: absolute;
-			left: 4rem;
-			bottom: 2rem;
 		}
 	}
 	// Scores

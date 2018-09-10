@@ -42,10 +42,15 @@
 		}
 		#step_questions
 		{
-			.backToLastQuestionButton
+			.backOnPreviousQuestionButton
 			{
 				bottom: 10px;
 				left: 20px;	
+			}
+			.sendAnswersToDbButton
+			{
+				bottom: 10px;
+				right: 198px;
 			}
 			.abandonGame
 			{
