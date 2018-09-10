@@ -42,14 +42,19 @@
 		}
 		#step_questions
 		{
-			.themeBackgroundContainer
+			.backToLastQuestionButton
 			{
-				margin: 42px auto 0;				
+				bottom: 10px;
+				left: 20px;	
 			}
 			.abandonGame
 			{
 				bottom: 10px;
 				right: 20px;
+			}
+			.themeBackgroundContainer
+			{
+				margin: 42px auto 0;				
 			}
 			.questionIntro
 			{

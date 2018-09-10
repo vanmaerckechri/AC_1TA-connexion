@@ -1,4 +1,5 @@
 let currentTheme;
+let bonusGameAlreadyPlayed = [false, false];
 // SCORES
 let displayScoresBar = function()
 {
@@ -100,6 +101,39 @@ let sendToDb = function()
 
 }
 
+let backOnLastQuestion = function()
+{
+    let questionIndex = questionList[questionList.length - 1];
+    answerList = answerList.slice(0, answerList.length - 1);
+    questionList = questionList.slice(0, questionList.length - 1);
+
+    let closeAllQuestionsButtons = function()
+    {
+        let questionButton = document.querySelectorAll(".questionButton");
+        for (let i = questionButton.length - 1; i >= 0; i--)
+        {
+            questionButton[i].classList.add("questionButtonClosed");
+        }        
+    }
+
+    if (questionList.length == 0 && !backToLastQuestionButton.classList.contains("disabled_v2"))
+    {
+        backToLastQuestionButton.classList.add("disabled_v2")
+    }
+    else if (questionList.length == 2)
+    {
+        loadQuestions(currentTheme+"1");
+        closeAllQuestionsButtons();
+    }
+    else if (questionList.length == 5)
+    {
+        loadQuestions(currentTheme+"2");
+        closeAllQuestionsButtons();
+    }
+
+    document.getElementById("questionButton0" + questionIndex).classList.remove("questionButtonClosed");
+}
+
 let manageDisplayQuiz = function(wantedStatus)
 {
     let circlesToCallQuestion = document.querySelectorAll(".questionButton");
@@ -143,8 +177,13 @@ let dezoomBackground = function()
 let saveAnswer = function(answerIndex)
 {
     let questionContainer = document.getElementById("questionContainer");
+    let backToLastQuestionButton = document.getElementById("backToLastQuestionButton");
 
     dezoomBackground();
+    if (questionList.length > 0 && backToLastQuestionButton.classList.contains("disabled_v2"))
+    {
+        backToLastQuestionButton.classList.remove("disabled_v2")
+    }
 
     document.getElementById("themeBackground").classList.toggle("disabled_v2");
     questionContainer.classList.toggle("disabled_v2");
@@ -154,14 +193,24 @@ let saveAnswer = function(answerIndex)
     if (answerList.length == 3)
     {
         loadQuestions(currentTheme+"2");
-        document.getElementById("pacmanContainer").classList.toggle("disabled");
-        launchPacmanHome();
+
+        if (bonusGameAlreadyPlayed[0] == false)
+        {
+            document.getElementById("pacmanContainer").classList.toggle("disabled");
+            launchPacmanHome();
+            bonusGameAlreadyPlayed[0] = true;
+        }
     }
     else if (answerList.length == 6)
     {
         loadQuestions(currentTheme+"3");
-        document.getElementById("pacmanContainer").classList.toggle("disabled");
-        launchPacmanHome();
+
+        if (bonusGameAlreadyPlayed[1] == false)
+        {
+            document.getElementById("pacmanContainer").classList.toggle("disabled");
+            launchPacmanHome();
+            bonusGameAlreadyPlayed[1] = true;
+        }
     }
     else if (answerList.length == 9)
     {
@@ -455,7 +504,7 @@ document.getElementById("questionButton03").addEventListener("click", displayQue
 let launchThemesMenuButton = document.querySelector("#launchThemesMenuButton");
 launchThemesMenuButton.addEventListener("click", launchThemesMenu, false);
 // -- BACK TO LOCAL UI --
-let backToLocalBgButton = document.querySelector("#backToLocalBg");
+let backToLocalBgButton = document.querySelector("#backToLocalBgContainer");
 backToLocalBgButton.addEventListener("click", closeThemesMenu, false);
 // -- BACK TO SOLAR SYSTEM --
 let backToSolarSystemButton = document.querySelector("#backToSolarSystem");
@@ -479,5 +528,7 @@ for (let i = propositionButtons.length - 1; i >=0; i--)
 {
     propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i), false);
 }
+// -- BACK ON LAST QUESTION --
+document.getElementById("backToLastQuestionButton").addEventListener("click", backOnLastQuestion, false);
 
 displayScoresBar();

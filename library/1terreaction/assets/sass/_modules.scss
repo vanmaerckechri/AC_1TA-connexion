@@ -61,16 +61,24 @@
 	letter-spacing: .2rem;
 	color: white;
 }
-.previous
+.previousContainer
 {
-	width: 32px;
-	height: 32px;
+	padding: .2rem .4rem;
 	transition: all .5s;
+	.previous
+	{
+		width: 32px;
+		height: 32px;
+		transition: all .5s;
+	}
 	&:hover
 	{
-		width: 42px;
 		cursor: pointer;
-		transform: translate(-10px);
+		.previous
+		{
+			width: 42px;
+			transform: translate(-10px);
+		}
 	}
 }
 

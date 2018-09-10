@@ -54,7 +54,7 @@ ob_start();
                 <?php
                 }
             ?>
-                <div class="previousContainer"><img id="backToLocalBg" class="previous" src="assets/img/previous_dark.svg" alt="boutton page précédente"></div>
+                <div id="backToLocalBgContainer" class="backToLocalBgContainer previousContainer"><img class="previous" src="assets/img/previous_dark.svg" alt="boutton page précédente"></div>
             </div>
         </div>
         <div id="step_questions" class="disabled">
@@ -65,14 +65,17 @@ ob_start();
                 <div id="questionButton02" class="questionButton"></div>
                 <div id="questionButton03" class="questionButton"></div>
                 <div id="questionContainer" class="questionContainer disabled_v2">
-                <p id="question" class="question">cvm</p>
-                <textarea id="openQuestionTextArea" class="openQuestionTextArea disabled"></textarea> 
-                <div id="propositionsContainer" class="propositionsContainer">
-                    <img id="" class="proposition" src="" alt="">
-                    <img id="" class="proposition" src="" alt="">
-                    <img id="" class="proposition" src="" alt="">
+                    <p id="question" class="question">cvm</p>
+                    <textarea id="openQuestionTextArea" class="openQuestionTextArea disabled"></textarea> 
+                    <div id="propositionsContainer" class="propositionsContainer">
+                        <img id="" class="proposition" src="" alt="">
+                        <img id="" class="proposition" src="" alt="">
+                        <img id="" class="proposition" src="" alt="">
+                    </div>
                 </div>
             </div>
+            <div id="backToLastQuestionButton" class="backToLastQuestionButton previousContainer disabled_v2">
+                <img id="backToLastQuestionImg" class="backToLastQuestionImg previous" src="assets/img/previous_darkfill.svg">
             </div>
             <a class="buttonDefault abandonGame" href="index.php?action=game">abandonner</a>
         </div>
