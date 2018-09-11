@@ -84,7 +84,6 @@ window.addEventListener('load', function()
         moon.receiveShadow = true;
         moon.castShadow = false;
         scene.add(moon);
-        console.log(scene)
     }
     createPlanets();
     

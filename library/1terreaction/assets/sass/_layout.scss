@@ -174,31 +174,129 @@
 	}
 }
 
-// STUDENT MAIN MENU
-.ui, .tutoButtonContainer
-{
+// -- STUDENT --
 
-	a, .buttonDefault
+// Statistiques (Main Menu and Game) --
+.step_scores
+{
+	margin: 200px 4rem 15px auto;
+	border: 2px solid rgba(32, 52, 72, .9);
+	border-radius: 12px;
+	padding: 0;
+	display: block;
+	max-width: 640px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: right;
+	background-color: rgba(32, 52, 72, .5);
+	.statsContainer
 	{
+		padding: 10px;
+		flex: 1;
+		text-align: center;
+		.fluidForScore
+		{
+			position: absolute;
+			border-radius: 2px 8px 8px 2px;
+			left: 0;
+			top: 0;
+			width: 2px;
+			height: 100%;
+			background-color: rgba(0, 0, 0, .5);
+			transition: all 2s;
+		}
+		.envi, .sante, .social
+		{
+			margin-top: 8px;
+			border: 1px solid rgba(255, 255, 255, .3);
+			border-radius: 2px 8px 8px 2px;
+			width: 100%;
+			height: 33px;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgba(255, 255, 255, .1);
+		}
+		.envi
+		{
+			.fluidForScore
+			{	
+				background-color: rgb(100, 210, 25);
+			}
+		}
+		.sante
+		{
+			.fluidForScore
+			{	
+				background-color: rgb(240, 149, 190);
+			}
+		}
+		.social
+		{
+			.fluidForScore
+			{	
+				background-color: rgb(255, 92, 65);
+			}
+		}
+	}
+	.titleEnv
+	{
+		color: rgb(100, 210, 25);
+	}
+	.titleSante
+	{
+		color: rgb(240, 149, 190);
+	}
+	.titleSocial
+	{
+		color: rgb(255, 92, 65);
+	}
+	.scoresContainerCloseButton
+	{
+		position: absolute;
+		right: 10px;
+		top: 20px;
+		border: none;
 		font-family: 'Orbitron', sans-serif;
-		font-size: 1.3rem;
+		font-size: 1.2rem;
+		font-weight: bold;
 		color: white;
+		background-color: transparent;
+		&:hover
+		{
+			cursor: pointer;
+		}
+	}
+}
+
+// Main Menu
+.uiMainMenuStudent
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	.leaveGameButton
+	{
+		position: absolute;
+		bottom: 2rem;
+		right: 4rem;
+		font-size: 1.3rem;
 		text-decoration: none;
+		color: white;
 		transition: text-shadow .5s;
 		&:hover
 		{
 			text-shadow: 0 0 15px white, 0 0 30px white;
 		}
 	}
-	.buttonDefault
-	{
-		position: absolute;
-		right: 4rem;
-		bottom: 2rem;
-	}
 }
 
-// -- GAME(player) --
+// Game
 #main
 {
 	max-width: 100vw;
@@ -529,134 +627,6 @@
 						background-color: rgba(255, 135, 0, .7);
 						cursor: pointer;
 					}
-				}
-			}
-		}
-	}
-	// Scores
-	.step_scores
-	{
-		padding: 110px 4rem 2rem;
-		position: absolute;
-		z-index: 0;
-		left: 0;
-		top: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 100%;
-		color: white;
-		background-color: rgba(32, 52, 72, .2);
-		.scoresContainer
-		{
-			margin: 0 auto;
-			border: 2px solid rgba(32, 52, 72, .9);
-			border-radius: 12px;
-			padding: 50px 20px;
-			position: relative;
-			width: 100%;
-			font-size: 1rem;
-			background-color: rgba(32, 52, 72, .8);
-			.scoresContainerClose
-			{
-				position: absolute;
-				right: 10px;
-				top: 20px;
-				border: none;
-				font-family: 'Orbitron', sans-serif;
-				font-size: 1.2rem;
-				font-weight: bold;
-				color: white;
-				background-color: transparent;
-				&:hover
-				{
-					cursor: pointer;
-				}
-			}
-			h2
-			{
-				margin-bottom: 2rem;
-				font-size: 1.5rem;
-			}
-			.scoresTitleContainer, .scoresThisGameContainer, .scoresAllThemesContainer, .scoresThisPlanetContainer
-			{
-				width: 100%;
-				display: flex;
-				flex-wrap: wrap;
-				h3
-				{
-					margin: 0 10px 10px 0;
-					flex: 1;
-					min-height: 40px;
-					display: inline-block;
-					vertical-align: middle;
-				}
-				div
-				{
-					margin: 0 10px 10px 0;
-					border: 1px solid rgba(255, 255, 255, .9);
-					border-radius: 2px 8px 8px 2px;
-					position: relative;
-					flex: 1;
-					height: 40px;
-					min-width: 80px;
-					display: inline-block;
-					background-color: rgba(255, 255, 255, .1);
-					.fluidForScore
-					{
-						position: absolute;
-						border-radius: 2px 8px 8px 2px;
-						left: 0;
-						top: 0;
-						width: 2px;
-						height: 100%;
-						background-color: rgba(0, 0, 0, .5);
-						transition: all 2s;
-					}
-				}
-				.envi
-				{
-					.fluidForScore
-					{	
-						background-color: rgb(100, 210, 25);
-					}
-				}
-				.sante
-				{
-					.fluidForScore
-					{	
-						background-color: rgb(240, 149, 190);
-					}
-				}
-				.social
-				{
-					.fluidForScore
-					{	
-						background-color: rgb(255, 92, 65);
-					}
-				}
-			}
-			.scoresTitleContainer
-			{
-				.scoreTitle
-				{
-					border: none;
-					padding-bottom: 1rem;
-					font-weight: bold;
-					background-color: transparent;
-				}
-				.titleEnv
-				{
-					color: rgb(100, 210, 25);
-				}
-				.titleSante
-				{
-					color: rgb(240, 149, 190);
-				}
-				.titleSocial
-				{
-					color: rgb(255, 92, 65);
 				}
 			}
 		}

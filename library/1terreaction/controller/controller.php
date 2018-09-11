@@ -41,6 +41,7 @@ function loadAvatar()
 
 function loadMainView()
 {
+	$planetStats = GameInfos::getPlanetStatsAverage();
 	$avatarContent = loadAvatar();
 	require('./view/st_mainmenu.php');
 }

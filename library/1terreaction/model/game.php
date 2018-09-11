@@ -30,7 +30,7 @@ class GameInfos
 
 	public static function getPlayerStats($serie)
 	{
-		if (strlen($serie) <= 7 && ctype_alpha($serie) == true)
+		if (strlen($serie) == 1 && ctype_alpha($serie) == true || $serie == "average")
 		{
 			$db = self::loadDb();
 			$req = $db->prepare("SELECT stats_envi, stats_sante, stats_social FROM 1ta_stats WHERE id_student = :idSt AND serie = :serie");
