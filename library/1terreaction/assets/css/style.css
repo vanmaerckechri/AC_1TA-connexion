@@ -16,41 +16,70 @@ button::-moz-focus-inner {
 button {
   outline: 0; }
 
-@keyframes mainMenuOpenButton01 {
-  0% {
-    transform: translateY(0px);
-    pointer-events: none; }
-  99% {
-    transform: translateY(128px);
-    pointer-events: none; }
-  100% {
-    transform: translateY(128px);
-    pointer-events: auto; } }
-@keyframes mainMenuOpenButton02 {
-  0% {
-    transform: translateY(0px);
-    pointer-events: none; }
-  99% {
-    transform: translateY(256px);
-    pointer-events: none; }
-  100% {
-    transform: translateY(256px);
-    pointer-events: auto; } }
-@keyframes mainMenuOpenButton03 {
-  0% {
-    transform: translateY(0px);
-    pointer-events: none; }
-  99% {
-    transform: translateY(384px);
-    pointer-events: none; }
-  100% {
-    transform: translateY(384px);
-    pointer-events: auto; } }
+/*@keyframes mainMenuOpenButton01
+{
+    0%
+    {
+        transform: translateY(0px);
+        pointer-events: none;
+    }
+    99%
+    {
+    	transform: translateY(128px);
+    	pointer-events: none;
+    }
+    100%
+    {
+    	transform: translateY(128px);
+    	pointer-events: auto;
+    }
+}
+@keyframes mainMenuOpenButton02
+{
+    0%
+    {
+        transform: translateY(0px);
+        pointer-events: none;
+    }
+    99%
+    {
+    	transform: translateY(256px);
+    	pointer-events: none;
+    }
+    100%
+    {
+    	transform: translateY(256px);
+    	pointer-events: auto;
+    }
+}
+@keyframes mainMenuOpenButton03
+{
+    0%
+    {
+        transform: translateY(0px);
+        pointer-events: none;
+    }
+    99%
+    {
+        transform: translateY(384px);
+        pointer-events: none;
+    }
+    100%
+    {
+        transform: translateY(384px);
+        pointer-events: auto;
+    }
+}*/
 @keyframes drawAttentionQuestionButton {
   0% {
     transform: scale(1, 1); }
   100% {
     transform: scale(1.2, 1.2); } }
+@keyframes hideAfterSec {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
 html {
   background-color: #e3e9ea;
   font-family: 'Oswald', sans-serif; }
@@ -265,22 +294,41 @@ body {
           flex: 2; }
 
 .step_scores {
-  margin: 200px 4rem 15px auto;
   border: 2px solid rgba(32, 52, 72, 0.9);
-  border-radius: 12px;
-  padding: 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 0 4rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
   display: block;
-  max-width: 640px;
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   text-align: right;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
   background-color: rgba(32, 52, 72, 0.5); }
-  .step_scores .statsContainer {
-    padding: 10px;
+  .step_scores h3 {
     flex: 1;
+    font-weight: bold;
+    text-align: left; }
+  .step_scores .statsContainer {
+    margin: 10px;
+    position: relative;
+    flex: 2;
     text-align: center; }
+    .step_scores .statsContainer p {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      color: white;
+      font-weight: bold;
+      transform: translate(-50%, -25%); }
     .step_scores .statsContainer .fluidForScore {
       position: absolute;
       border-radius: 2px 8px 8px 2px;
@@ -307,6 +355,8 @@ body {
       background-color: #f095be; }
     .step_scores .statsContainer .social .fluidForScore {
       background-color: #ff5c41; }
+  .step_scores .statsContainer:last-of-type {
+    margin-right: 0; }
   .step_scores .titleEnv {
     color: #64d219; }
   .step_scores .titleSante {
@@ -326,6 +376,9 @@ body {
     .step_scores .scoresContainerCloseButton:hover {
       cursor: pointer; }
 
+.statsLocalPreviousGameContainer {
+  bottom: 63px; }
+
 .uiMainMenuStudent {
   position: fixed;
   top: 0;
@@ -333,9 +386,7 @@ body {
   width: 100%;
   height: 100%; }
   .uiMainMenuStudent .leaveGameButton {
-    position: absolute;
-    bottom: 2rem;
-    right: 4rem;
+    margin-left: 2rem;
     font-size: 1.3rem;
     text-decoration: none;
     color: white;
@@ -354,6 +405,22 @@ body {
       width: 100vw;
       height: 100vh;
       object-fit: cover; }
+  #main .homeSms {
+    border-radius: 8px;
+    padding: 2px 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: white;
+    font-size: 1.5rem;
+    letter-spacing: .2rem;
+    font-weight: bold;
+    white-space: nowrap;
+    background-color: rgba(0, 0, 55, 0.1);
+    opacity: 1;
+    animation: hideAfterSec 2s 8s forwards;
+    transform: translate(-50%, -50%);
+    transition: all .5s; }
   #main .menu {
     margin: 0 auto;
     padding: 2rem 4rem;
@@ -370,18 +437,18 @@ body {
       position: absolute;
       perspective: 800px;
       perspective-origin: center center;
-      width: 122px;
-      height: 122px;
+      width: 102px;
+      height: 102px;
       background-color: rgba(0, 60, 120, 0);
       transition: transform .5s, opacity .2s; }
       #main .menu .menuButtonContainer .menuButton {
         border-radius: 50%;
         border: none;
         padding: 1rem 0;
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
         font-family: 'Orbitron', sans-serif;
-        font-size: 1rem;
+        font-size: .8rem;
         letter-spacing: .2rem;
         color: #003c78;
         background-color: rgba(255, 255, 255, 0.8);
@@ -395,13 +462,13 @@ body {
           background-color: white;
           cursor: pointer; }
     #main .menu .mainMenuOpenButton00 {
-      transform: translateY(130px) rotateZ(360deg);
+      transform: translateY(110px) rotateZ(360deg);
       opacity: 1; }
     #main .menu .mainMenuOpenButton01 {
-      transform: translateY(260px) rotateZ(360deg);
+      transform: translateY(220px) rotateZ(360deg);
       opacity: 1; }
     #main .menu .mainMenuOpenButton02 {
-      transform: translateY(390px) rotateZ(360deg);
+      transform: translateY(330px) rotateZ(360deg);
       opacity: 1; }
     #main .menu .menuMainButtonOpen {
       border: 1px solid rgba(255, 255, 255, 0.5);
@@ -415,6 +482,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -540,7 +608,7 @@ body {
       padding: 20px 40px;
       text-align: center;
       font-size: 1rem;
-      max-width: 1016px;
+      max-width: 100%;
       background-color: #003c78;
       color: white;
       box-shadow: 0px 3px 5px 2px rgba(24, 37, 59, 0.5); }
@@ -571,27 +639,37 @@ body {
         color: white;
         background-color: #003c78; }
       #main #step_questions .questionContainer .propositionsContainer {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
         height: 100%;
         opacity: 1;
         transition: opacity 1s; }
-        #main #step_questions .questionContainer .propositionsContainer .proposition {
-          margin: 10px;
+        #main #step_questions .questionContainer .propositionsContainer .propositionContainer {
           border: 2px solid rgba(100, 210, 25, 0.9);
-          border-radius: 50%;
-          padding: 4%;
-          width: 20%;
-          height: auto;
+          width: 100%;
+          height: 33%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          color: white;
+          font-size: 1rem;
           background-color: rgba(100, 210, 25, 0.7);
           transition: all .5s; }
-          #main #step_questions .questionContainer .propositionsContainer .proposition:hover {
+          #main #step_questions .questionContainer .propositionsContainer .propositionContainer:hover {
             border: 2px solid rgba(255, 135, 0, 0.9);
             background-color: rgba(255, 135, 0, 0.7);
             cursor: pointer; }
+          #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionImgContainer {
+            padding-right: 20px;
+            width: 50%;
+            text-align: right; }
+          #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionText {
+            padding-left: 20px;
+            width: 50%;
+            text-align: left; }
+          #main #step_questions .questionContainer .propositionsContainer .propositionContainer .proposition {
+            margin-right: 50px;
+            max-width: 100%;
+            height: auto; }
 
 @media (max-width: 620px) and (orientation: portrait) {
   .headerProfile {
@@ -612,6 +690,14 @@ body {
     width: 122px;
     left: 50%;
     transform: translate(-50%, 0); }
+  #main .homeSms {
+    width: 100%;
+    left: 0;
+    top: 69px;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: transparent;
+    transform: none; }
   #main #step_questions .backOnPreviousQuestionButton {
     bottom: 10px;
     left: 20px; }
@@ -625,10 +711,8 @@ body {
     margin: 42px auto 0; }
   #main #step_questions .questionIntro {
     border: none; }
-  #main #step_questions .questionContainer .propositionsContainer .proposition {
-    width: 30%; }
   #main .step_scores {
-    padding: 0; }
+    padding: 0 20px; }
     #main .step_scores .scoresContainer {
       margin-top: 84px;
       border-radius: 0;

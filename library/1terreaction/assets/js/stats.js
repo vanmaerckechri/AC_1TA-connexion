@@ -34,9 +34,9 @@ window.addEventListener("load", function()
             let statsBarsLocalAverage = document.querySelectorAll(".statsLocalAverageContainer .statsBar");
             createFluid(statsBarsLocalAverage);
         }
-        if (document.querySelector(".statsLocalByThemeContainer"))
+        if (document.querySelector(".statsLocalPreviousGameContainer"))
         {
-            let statsBarsLocalByTheme = document.querySelectorAll(".statsLocalByThemeContainer .statsBar");
+            let statsBarsLocalByTheme = document.querySelectorAll(".statsLocalPreviousGameContainer .statsBar");
             createFluid(statsBarsLocalByTheme);
         }
         /*let closeButton = document.getElementById("scoresContainerClose");

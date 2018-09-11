@@ -179,23 +179,46 @@
 // Statistiques (Main Menu and Game) --
 .step_scores
 {
-	margin: 200px 4rem 15px auto;
 	border: 2px solid rgba(32, 52, 72, .9);
-	border-radius: 12px;
-	padding: 0;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	padding: 0 4rem;
+	position: fixed;
+	left: 0;
+	bottom: 0;
 	display: block;
-	max-width: 640px;
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: baseline;
 	text-align: right;
+	font-family: 'Orbitron', sans-serif;
+	font-size: 1rem;
+	font-weight: bold;
+	color: white;
 	background-color: rgba(32, 52, 72, .5);
+	h3
+	{
+		flex: 1;
+		font-weight: bold;
+		text-align: left;
+	}
 	.statsContainer
 	{
-		padding: 10px;
-		flex: 1;
+		margin: 10px;
+		position: relative;
+		flex: 2;
 		text-align: center;
+		p
+		{
+			position:absolute;
+			left: 50%;
+			top: 50%;
+			z-index: 1;
+			color: white;
+			font-weight: bold;
+			transform: translate(-50%, -25%);
+		}
 		.fluidForScore
 		{
 			position: absolute;
@@ -242,6 +265,10 @@
 			}
 		}
 	}
+	.statsContainer:last-of-type
+	{
+		margin-right: 0;
+	}
 	.titleEnv
 	{
 		color: rgb(100, 210, 25);
@@ -271,6 +298,10 @@
 		}
 	}
 }
+.statsLocalPreviousGameContainer
+{
+	bottom: 63px;
+}
 
 // Main Menu
 .uiMainMenuStudent
@@ -282,9 +313,7 @@
 	height: 100%;
 	.leaveGameButton
 	{
-		position: absolute;
-		bottom: 2rem;
-		right: 4rem;
+		margin-left: 2rem;
 		font-size: 1.3rem;
 		text-decoration: none;
 		color: white;
@@ -314,6 +343,25 @@
 			object-fit: cover;
 		}
 	}
+	.homeSms
+	{
+		border-radius: 8px;
+		padding: 2px 4px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		color: white;
+		font-size: 1.5rem;
+		letter-spacing: .2rem;
+		font-weight: bold;
+		white-space: nowrap;
+		background-color: rgba(0, 0, 55, .1);
+		opacity: 1;
+		animation: hideAfterSec 2s 8s forwards;
+		transform: translate(-50%, -50%);
+		transition: all .5s;
+	}
+
 	// Menus
 	.menu
 	{
@@ -333,8 +381,8 @@
 			position: absolute;
 			perspective: 800px;
 		    perspective-origin: center center;
-		    width: 122px;
-		    height: 122px;
+		    width: 102px;
+		    height: 102px;
 		    background-color: rgba(0, 60, 120, 0);
 		    transition: transform .5s, opacity .2s;
 			.menuButton
@@ -342,10 +390,10 @@
 				border-radius: 50%;
 				border: none;
 				padding: 1rem 0;
-				width: 120px;
-				height: 120px;
+				width: 100px;
+				height: 100px;
 				font-family: 'Orbitron', sans-serif;
-				font-size: 1rem;
+				font-size: .8rem;
 				letter-spacing: .2rem;
 				color: rgba(0, 60, 120, 1);
 				background-color: rgba(255, 255, 255, .8);
@@ -366,17 +414,17 @@
 		}
 		.mainMenuOpenButton00
 		{
-			transform: translateY(130px) rotateZ(360deg);
+			transform: translateY(110px) rotateZ(360deg);
 			opacity: 1;
 		}
 		.mainMenuOpenButton01
 		{
-			transform: translateY(260px) rotateZ(360deg);
+			transform: translateY(220px) rotateZ(360deg);
 			opacity: 1;
 		}
 		.mainMenuOpenButton02
 		{
-			transform: translateY(390px) rotateZ(360deg);
+			transform: translateY(330px) rotateZ(360deg);
 			opacity: 1;
 		}
 		.menuMainButtonOpen
@@ -398,6 +446,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
+		z-index: 1;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -564,7 +613,7 @@
 			padding: 20px 40px;
 			text-align: center;
 			font-size: 1rem;
-			max-width: 1016px;
+			max-width: 100%;
 			background-color: rgba(0, 60, 120, 1);
 			color: white;
 			box-shadow: 0px 3px 5px 2px rgba(24, 37, 59, 0.5);
@@ -603,22 +652,20 @@
 			}
 			.propositionsContainer
 			{
-				display: flex;
-				flex-wrap: wrap;
-				flex-direction: column;
-				justify-content: space-around;
-				align-items: center;
 				height: 100%;
 				opacity: 1;
 				transition: opacity 1s;
-				.proposition
+				.propositionContainer
 				{
-					margin: 10px;
 					border: 2px solid rgba(100, 210, 25, 0.9);
-					border-radius: 50%;
-					padding: 4%;
-					width: 20%;
-					height: auto;
+					width: 100%;
+					height: 33%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					text-align: center;
+					color: white;
+					font-size: 1rem;
 					background-color: rgba(100, 210, 25, 0.7);
 					transition: all .5s;
 					&:hover
@@ -626,6 +673,24 @@
 						border: 2px solid rgba(255, 135, 0, .9);
 						background-color: rgba(255, 135, 0, .7);
 						cursor: pointer;
+					}
+					.propositionImgContainer
+					{
+						padding-right: 20px;
+						width: 50%;
+						text-align: right;
+					}
+					.propositionText
+					{
+						padding-left: 20px;
+						width: 50%;
+						text-align: left;
+					}
+					.proposition
+					{
+						margin-right: 50px;
+						max-width: 100%;
+						height: auto;
 					}
 				}
 			}

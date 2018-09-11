@@ -40,6 +40,16 @@
 			left: 50%;
 			transform: translate(-50%, 0);
 		}
+		.homeSms
+		{
+			width: 100%;
+			left: 0;
+			top: 69px;
+			font-size: 1.5rem;
+			text-align: center;
+			background-color: transparent;
+			transform: none;
+		}
 		#step_questions
 		{
 			.backOnPreviousQuestionButton
@@ -69,16 +79,18 @@
 			{
 				.propositionsContainer
 				{
-					.proposition
+					.propositionContainer
 					{
-						width: 30%;
+						.proposition
+						{
+						}
 					}
 				}
 			}
 		}
 		.step_scores
 		{
-			padding: 0;
+			padding: 0 20px;
 			.scoresContainer
 			{
 				margin-top: 84px;

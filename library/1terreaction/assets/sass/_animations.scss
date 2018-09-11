@@ -1,5 +1,5 @@
 @import "variables";
-@keyframes mainMenuOpenButton01
+/*@keyframes mainMenuOpenButton01
 {
     0%
     {
@@ -52,7 +52,7 @@
         transform: translateY(384px);
         pointer-events: auto;
     }
-}
+}*/
 @keyframes drawAttentionQuestionButton
 {
     0%
@@ -62,5 +62,16 @@
     100%
     {
         transform: scale(1.2, 1.2);
+    }
+}
+@keyframes hideAfterSec
+{
+    0%
+    {
+        opacity: 1;
+    }
+    100%
+    {
+        opacity: 0;
     }
 }

@@ -68,9 +68,24 @@ ob_start();
                     <p id="question" class="question">cvm</p>
                     <textarea id="openQuestionTextArea" class="openQuestionTextArea disabled"></textarea> 
                     <div id="propositionsContainer" class="propositionsContainer">
-                        <img id="" class="proposition" src="" alt="">
-                        <img id="" class="proposition" src="" alt="">
-                        <img id="" class="proposition" src="" alt="">
+                        <div class="propositionContainer">
+                            <div class="propositionImgContainer">
+                                <img id="" class="proposition" src="" alt="">
+                            </div>
+                            <p class="propositionText"></p>
+                        </div>
+                        <div class="propositionContainer">
+                            <div class="propositionImgContainer">
+                                <img id="" class="proposition" src="" alt="">
+                            </div>
+                            <p class="propositionText"></p>
+                        </div>
+                        <div class="propositionContainer">
+                            <div class="propositionImgContainer">
+                                <img id="" class="proposition" src="" alt="">
+                            </div>
+                            <p class="propositionText"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,81 +94,46 @@ ob_start();
             </div>
             <a class="buttonDefault abandonGame" href="index.php?action=game">abandonner</a>
         </div>
+        <div class="step_scores statsLocalAverageContainer disabled_v2">
+            <h3>Moyennes:</h3>
+            <div class="statsContainer titleEnv">
+                <div class="statsBar envi"><?=$gameInfos->playerStats["stats_envi"]?></div>
+                <p>Env.</p>
+            </div>
+            <div class="statsContainer titleSante">
+                <div class="statsBar sante"><?=$gameInfos->playerStats["stats_sante"]?></div>
+                <p>Santé</p>
+            </div>
+            <div class="statsContainer titleSocial">
+                <div class="statsBar social"><?=$gameInfos->playerStats["stats_social"]?></div>
+                <p>Social</p>
+            </div>
+        </div>
         <?php
             if ($activeScoreTab == true)
             {
         ?>
-                <div id="step_scores" class="step_scores">
-                    <div id="scoresContainer" class="scoresContainer">
-                        <button id="scoresContainerClose" class="scoresContainerClose">X</button>
-                        <h2>Scores</h2>
-                        <div id="scoresTitleContainer" class="scoresTitleContainer">
-                            <h3 class="scoreTitle">Statistiques</h3>
-                            <div class="scoreTitle titleEnv">Env.</div>
-                            <div class="scoreTitle titleSante">Santé</div>
-                            <div class="scoreTitle titleSocial">Social</div>
-                        </div>
-
-                        <div id="scoresThisGameContainer" class="scoresThisGameContainer">
-                            <h3>Pour cette Partie:</h3>
-                            <div class="envi"><?=round($statsEnvAverage, 2)?></div>
-                            <div class="sante"><?=round($statsSanAverage, 2)?></div>
-                            <div class="social"><?=round($statsSoAverage, 2)?></div>
-                        </div>
-
-                        <div id="scoresAllThemesContainer" class="scoresAllThemesContainer">
-                            <h3>Pour Tous les Thèmes:</h3>
-                            <?php
-                            foreach ($gameInfos->playerStats as $key => $value)
-                            {
-                                $value = round($value, 2);
-                                $class = "";
-                                if ($key == "stats_envi")
-                                {
-                                    $class = "envi";
-                                }
-                                else if ($key == "stats_sante")
-                                {
-                                    $class = "sante";                  
-                                }
-                                else if ($key == "stats_social")
-                                {
-                                    $class = "social";                  
-                                }
-                                ?>
-                                <div class="<?=$class?>"><?=$value?></div>
-                                <?php
-                            }
-                            ?>
-                        </div>
-
-                        <div id="scoresThisPlanetContainer" class="scoresThisPlanetContainer">
-                            <h3>Pour la Planète:</h3>
-                            <?php
-                            foreach ($gameInfos->planetStats as $key => $value)
-                            {
-                                $value = round($value, 2);
-                                $class = "";
-                                if ($key == "stats_environnement")
-                                {
-                                    $class = "envi";
-                                }
-                                else if ($key == "stats_sante")
-                                {
-                                    $class = "sante";                  
-                                }
-                                else if ($key == "stats_social")
-                                {
-                                    $class = "social";                  
-                                }
-                                ?>
-                                <div class="<?=$class?>"><?=$value?></div>
-                                <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
+            <div class="step_scores statsLocalPreviousGameContainer disabled_v2">
+                <h3><?=$currentTheme?>:</h3>
+                <div class="statsContainer titleEnv">
+                    <div class="statsBar envi"><?=$gameInfos->playerStats["stats_envi"]?></div>
+                    <p>Env.</p>
                 </div>
+                <div class="statsContainer titleSante">
+                    <div class="statsBar sante"><?=$gameInfos->playerStats["stats_sante"]?></div>
+                    <p>Santé</p>
+                </div>
+                <div class="statsContainer titleSocial">
+                    <div class="statsBar social"><?=$gameInfos->playerStats["stats_social"]?></div>
+                    <p>Social</p>
+                </div>
+            </div>
+        <?php
+            }
+            else
+            {
+        ?>
+                <p id="homeSms" class="homeSms">Bienvenue chez toi!</p>
         <?php
             }
         ?>
@@ -170,6 +150,7 @@ ob_start();
     
     <script type= "text/javascript" src="assets/js/questions.js"></script>
     <script type= "text/javascript" src="assets/js/game.js"></script>
+    <script src="assets/js/stats.js"></script>
     <script type= "text/javascript" src="assets/js/ecoman_game-maps.js"></script>
     <script type= "text/javascript" src="assets/js/ecoman_game-player.js"></script>
     <script type= "text/javascript" src="assets/js/ecoman_game-ghosts.js"></script>

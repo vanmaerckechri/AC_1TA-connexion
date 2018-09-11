@@ -195,22 +195,22 @@ let backOnPreviousQuestion = function()
         }        
     }
     // display back on previous question button
-    if (questionList.length == 0 && !backOnPreviousQuestionButton.classList.contains("disabled_v2"))
+    if (answerList.length == 0 && !backOnPreviousQuestionButton.classList.contains("disabled_v2"))
     {
         backOnPreviousQuestionButton.classList.add("disabled_v2")
     }
     // user back on previous background
-    else if (questionList.length == 2)
+    else if (answerList.length == 2)
     {
         loadQuestions(currentTheme+"1");
         closeAllQuestionsButtons();
     }
-    else if (questionList.length == 5)
+    else if (answerList.length == 5)
     {
         loadQuestions(currentTheme+"2");
         closeAllQuestionsButtons();
     }
-    else if (questionList.length == 8)
+    else if (answerList.length == 8)
     {
         document.getElementById("openQuestionTextArea").classList.add("disabled");
         document.getElementById("questionContainer").classList.add("disabled_v2");
@@ -238,6 +238,7 @@ let displayQuestion = function(questionIndex, event)
             let currentQuestion = {};
             let questionParagraph = document.getElementById("question");
             let propositions = document.querySelectorAll("#propositionsContainer img");
+            let propositionsText = document.querySelectorAll("#propositionsContainer .propositionText");
             waitForAnswer = true;
             questionList.push(questionIndex);
             
@@ -257,6 +258,7 @@ let displayQuestion = function(questionIndex, event)
                 propositions[i].src = currentQuestion[proposition]["imageSrc"];
                 propositions[i].alt = currentQuestion[proposition]["proposition"];
                 propositions[i].id = currentQuestion[proposition]["proposition"];
+                propositionsText[i].innerText = currentQuestion[proposition]["proposition"];
             }
 
             //document.getElementById("propositionsContainer").classList.toggle("disabled_v2");
@@ -346,6 +348,16 @@ let loadQuestions = function(themePosition)
     document.querySelector("#step_questions").classList.remove('disabled');
     document.querySelector(".headerProfile").style.backgroundColor = "black";
 }
+let launchGame = function(themePosition)
+{
+    loadQuestions(themePosition);
+    let statsContainers = document.querySelectorAll(".step_scores");
+    for (let i = statsContainers.length - 1; i >= 0; i--)
+    {
+        statsContainers[i].remove();
+    }
+    document.getElementById("homeSms").remove();
+}
 // Display
 let launchThemesMenu = function(event)
 {
@@ -371,7 +383,7 @@ let launchThemesMenu = function(event)
     {
         if (themeButtons[i].classList.contains("unlocked"))
         {
-            themeButtons[i].addEventListener("click", loadQuestions.bind(this, buttonQuizList[i]), false);
+            themeButtons[i].addEventListener("click", launchGame.bind(this, buttonQuizList[i]), false);
         }
     }
 }
@@ -502,7 +514,7 @@ let mainMenuButton = document.querySelector("#mainMenuButton");
 mainMenuButton.addEventListener("click", displayMainMenu, false);
 
 // Proposition buttons to record answers
-let propositionButtons = document.querySelectorAll(".proposition");
+let propositionButtons = document.querySelectorAll(".propositionContainer");
 for (let i = propositionButtons.length - 1; i >=0; i--)
 {
     propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i), false);

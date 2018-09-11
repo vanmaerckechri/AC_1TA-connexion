@@ -19,17 +19,20 @@ ob_start();
     </div>
     <div class="ui uiMainMenuStudent">
          <div class="step_scores statsPlanetContainer disabled_v2">
-            <div class="statsContainer titleEnv">Env.
+            <div class="statsContainer titleEnv">
                 <div class="statsBar envi"><?=$planetStats["stats_environnement"]?></div>
+                <p>Env.</p>
             </div>
-            <div class="statsContainer titleSante">Santé
+            <div class="statsContainer titleSante">
                 <div class="statsBar sante"><?=$planetStats["stats_sante"]?></div>
+                <p>Santé</p>
             </div>
-            <div class="statsContainer titleSocial">Social
+            <div class="statsContainer titleSocial">
                 <div class="statsBar social"><?=$planetStats["stats_social"]?></div>
+                <p>Social</p>
             </div>
+            <a class="leaveGameButton" href="../../library.php">Quitter le Jeu</a>
         </div>
-        <a class="leaveGameButton" href="../../library.php">Quitter le Jeu</a>
     </div>
 <?php
 $content = ob_get_clean();

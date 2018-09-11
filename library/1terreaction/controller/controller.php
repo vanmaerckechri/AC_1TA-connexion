@@ -56,6 +56,10 @@ function loadGameView($activeScoreTab = false, $statsEnvAverage = false, $statsS
 	$localBgAir_imgSrc = "assets/img/local_0".$imgNumber.".jpg";
 	// load themes
 	$allThemes = ["Repas", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
+
+	$currentThemeIndex = ord(strtolower($gameInfos->openquestion["serie"])) - 97;
+	$currentTheme = $allThemes[$currentThemeIndex];
+
 	$avatarContent = loadAvatar();
 	require('./view/st_game.php');
 }
@@ -114,6 +118,7 @@ function loadGameResultView()
 		echo $message;
 		return;
 	}
+
 	/*
 		// Display Stats
 		echo "<h2>Moyennes pour ce thème</h2>";
