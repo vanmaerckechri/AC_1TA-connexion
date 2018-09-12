@@ -88,6 +88,10 @@
 			}
 			.questionContainer
 			{
+				.question
+				{
+					font-size: .8rem;
+				}
 				.propositionsContainer
 				{
 					.propositionContainer
@@ -95,6 +99,10 @@
 						.proposition
 						{
 							max-width: 64px;
+						}
+						.propositionText
+						{
+							font-size: .8rem;	
 						}
 					}
 				}

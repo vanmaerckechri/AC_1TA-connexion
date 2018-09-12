@@ -684,20 +684,20 @@ body {
             background-color: rgba(255, 135, 0, 0.7);
             cursor: pointer; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionImgContainer {
-            height: 100%;
-            width: 20%;
+            position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; }
+            overflow: hidden;
+            opacity: .1; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionText {
             width: 80%;
             text-align: center; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .proposition {
             max-width: 100%;
             height: auto; }
-          #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionMid {
-            margin: 10px 0; }
+        #main #step_questions .questionContainer .propositionsContainer .propositionContainerMid {
+          margin: 5px 0; }
 
 @media (max-width: 640px) and (orientation: portrait) {
   #main .menu {
@@ -744,8 +744,12 @@ body {
   #main #step_questions .questionIntro {
     border: none;
     padding: 10px 20px; }
+  #main #step_questions .questionContainer .question {
+    font-size: .8rem; }
   #main #step_questions .questionContainer .propositionsContainer .propositionContainer .proposition {
     max-width: 64px; }
+  #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionText {
+    font-size: .8rem; }
   #main .step_scores {
     padding: 0 20px; }
     #main .step_scores .scoresContainer {

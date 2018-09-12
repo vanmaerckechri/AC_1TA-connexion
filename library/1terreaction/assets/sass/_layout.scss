@@ -704,12 +704,12 @@
 					}
 					.propositionImgContainer
 					{
-						height: 100%;
-						width: 20%;
+						position: absolute;
 						display: flex;
 						justify-content: center;
 						align-items: center;
 						overflow: hidden;
+						opacity: .1;
 					}
 					.propositionText
 					{
@@ -721,10 +721,10 @@
 						max-width: 100%;
 						height: auto;
 					}
-					.propositionMid
-					{
-						margin: 10px 0;
-					}
+				}
+				.propositionContainerMid
+				{
+					margin: 5px 0;
 				}
 			}
 		}

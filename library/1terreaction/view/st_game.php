@@ -74,7 +74,7 @@ ob_start();
                             </div>
                             <p class="propositionText"></p>
                         </div>
-                        <div class="propositionContainer">
+                        <div class="propositionContainer propositionContainerMid">
                             <div class="propositionImgContainer">
                                 <img id="" class="proposition" src="" alt="">
                             </div>
