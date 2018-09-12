@@ -75,7 +75,6 @@ function loadGameResultView()
 	$statsEnvAverage = 0;
 	$statsSanAverage = 0;
 	$statsSoAverage = 0;
-
 	$_POST["cleanReplies"] = json_decode($_POST["cleanReplies"]);
 	if (count($_POST["cleanReplies"]) == 11)
 	{

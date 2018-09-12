@@ -542,6 +542,7 @@
 			left: 4rem;
 			bottom: 2rem;
 			background-color: transparent;
+			z-index: 2;
 		}
 		.sendAnswersToDbButton
 		{
@@ -622,6 +623,7 @@
 			transform-origin: top;
         	transform: translateX(-50%) scaleY(1);
 			transition: all .3s;
+			z-index: 1;
 			&:hover
 			{
 				cursor: pointer;
@@ -640,12 +642,13 @@
 			left: 0;
 			top: 0;
 			padding-bottom: 20px;
-			max-width: 100%;
+			width: 100%;
+			height: 100%;
 			height: calc(100% - 80px);
 			text-align: right;
-			background-color: black;
 			opacity: 1;
 			transition: opacity 1s;
+			z-index: 2;
 			.question
 			{
 				border-top-right-radius: 12px;
@@ -673,19 +676,14 @@
 			.propositionsContainer
 			{
 				margin-bottom: 75px;
-				height: 80%;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
+				height: 100%;
+				max-width: 100%;
 				opacity: 1;
 				transition: opacity 1s;
-				background-color: black;
 				.propositionContainer
 				{
 					border: 2px solid rgba(100, 210, 25, 0.9);
 					padding: 0 20px;
-					flex: 1;
 					width: 100%;
 					height: 27%;
 					display: flex;
@@ -704,21 +702,26 @@
 					}
 					.propositionImgContainer
 					{
-						padding-right: 20px;
+						height: 100%;
 						width: 20%;
-						text-align: right;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						overflow: hidden;
 					}
 					.propositionText
 					{
-						padding-left: 20px;
 						width: 80%;
 						text-align: center;
 					}
 					.proposition
 					{
-						margin-right: 50px;
 						max-width: 100%;
 						height: auto;
+					}
+					.propositionMid
+					{
+						margin: 10px 0;
 					}
 				}
 			}

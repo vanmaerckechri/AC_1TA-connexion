@@ -155,7 +155,7 @@ class RecordReplies
 		{
 			$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie, stats_envi, stats_sante, stats_social) VALUES (:idSt, :serie, :stats_envi, :stats_sante, :stats_social)");
 			$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
-			$req->bindValue(':serie', $serie, PDO::PARAM_INT);
+			$req->bindValue(':serie', $serie, PDO::PARAM_STR);
 			$req->bindParam(':stats_envi', $stats_enviAverage, PDO::PARAM_STR);
 			$req->bindParam(':stats_sante', $stats_santeAverage, PDO::PARAM_STR);
 			$req->bindParam(':stats_social', $stats_socialAverage, PDO::PARAM_STR);

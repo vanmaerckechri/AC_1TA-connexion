@@ -114,7 +114,7 @@ const quizA2 =
 {
 	question01: 
 	{
-		intro: "« AUCUN TEXTE D'INTRO!?",
+		intro: "« AUCUN TEXTE D'INTRO!? »",
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
@@ -160,17 +160,17 @@ const quizA2 =
 	    {
 	    	proposition: "reponse 1",
 	    	imageSrc: "assets/img/fruit_kiwi.png",
-	    	stats_environnement: 1,
-	    	stats_sante: 2,
-	    	stats_social: 1
+	    	stats_environnement: 0,
+	    	stats_sante: 0,
+	    	stats_social: 0
 	    },
 	    proposition02: 
 	    {
 	    	proposition: "reponse 2",
 	    	imageSrc: "assets/img/fruit_banane.png",
-	    	stats_environnement: 2,
+	    	stats_environnement: 1,
 	    	stats_sante: 1,
-	    	stats_social: 0
+	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
@@ -178,7 +178,7 @@ const quizA2 =
 	    	imageSrc: "assets/img/fruit_pomme.png",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
-	    	stats_social: 1
+	    	stats_social: 2
 	    }
 	},
 	question03: 

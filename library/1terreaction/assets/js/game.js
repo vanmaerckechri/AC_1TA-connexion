@@ -66,7 +66,6 @@ let sendToDb = function()
 
     document.body.appendChild(formReplies);
     formReplies.submit();
-
 }
 
 let manageDisplayQuiz = function(wantedStatus)
@@ -223,6 +222,14 @@ let backOnPreviousQuestion = function()
     document.getElementById("questionButton0" + questionIndex).classList.remove("questionButtonClosed");
 }
 
+let minimizeIntroductionQuestions = function()
+{
+    if (!document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
+    {
+        document.getElementById("questionIntro").classList.add("questionIntroMinimize")
+    };
+}
+
 // Load Questions and Propositions
 let displayQuestion = function(questionIndex, event)
 {
@@ -278,6 +285,8 @@ let displayQuestion = function(questionIndex, event)
             let imgBgHeight = imgBg.offsetHeight;
             let questionAreaPosX = questionArea.offsetLeft - imgBgPosX;
             let questionAreaPosY = questionArea.offsetTop - imgBgPosY;
+
+            minimizeIntroductionQuestions();
 
             imgBgContainer.style.width = imgBgWidth + "px";
             imgBgContainer.style.height = imgBgHeight + questionIntro.offsetHeight + "px";
@@ -368,10 +377,7 @@ let loadQuestions = function(themePosition)
     // hide the question intro 8s after it loaded
     questionIntroTimeToDisplay = setTimeout(function()
     {
-        if (!document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
-        {
-            document.getElementById("questionIntro").classList.add("questionIntroMinimize")
-        };
+        minimizeIntroductionQuestions();
     }, 8000);
 }
 let launchGame = function(themePosition)
@@ -387,7 +393,10 @@ let launchGame = function(themePosition)
     {
         statsContainers[i].remove();
     }
-    document.getElementById("homeSms").remove();
+    if (document.getElementById("homeSms"))
+    {
+        document.getElementById("homeSms").remove();
+    }
     document.getElementById("mainMenuContainer").remove();
 }
 // Display
@@ -460,7 +469,6 @@ let displayMainMenu = function()
 }
 let fitBackgroundQuestions = function()
 {
-    console.log("fit");
     let headerProfile = document.getElementById("headerProfile");
     let themeBackgroundContainer = document.getElementById("themeBackgroundContainer");
     let themeBackground = document.getElementById("themeBackground");
@@ -487,10 +495,10 @@ let fitBackgroundQuestions = function()
     }
 
     questionIntro.style.width = themeBackground.offsetWidth + "px";
-    propositionsContainer.style.width = themeBackground.offsetWidth + "px";
-    questionContainer.style.width = themeBackground.offsetWidth + "px";
+    //propositionsContainer.style.width = themeBackground.offsetWidth + "px";
+    //questionContainer.style.width = themeBackground.offsetWidth + "px";
 
-    questionContainer.style.left = themeBackground.offsetLeft + "px";
+    //questionContainer.style.left = themeBackground.offsetLeft + "px";
     questionContainer.style.top = themeBackground.offsetTop + "px";
 
     // circles position(button to call a question)
