@@ -163,5 +163,12 @@ window.addEventListener('load', function()
     animate();
     document.addEventListener("mousemove", hoverPlanetToLaunchGame, false);
 
+let updateRender = function()
+{
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+window.addEventListener("resize", updateRender, false);
 // -- NEXT MENU(LOCAL BACKGROUND) --
 });

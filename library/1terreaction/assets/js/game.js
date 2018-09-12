@@ -227,17 +227,16 @@ let backOnPreviousQuestion = function()
 let displayQuestion = function(questionIndex, event)
 {
     if (waitForAnswer == false && !event.target.classList.contains("questionButtonClosed"))
-    {
-        fitBackgroundQuestions();
-        
+    {      
         // display back to previous question button    
         document.getElementById("backOnPreviousQuestionButton").classList.remove("disabled_v2")
+        
+        let propositions = document.querySelectorAll("#propositionsContainer img");
 
         let getQuestion = function()
         {
             let currentQuestion = {};
             let questionParagraph = document.getElementById("question");
-            let propositions = document.querySelectorAll("#propositionsContainer img");
             let propositionsText = document.querySelectorAll("#propositionsContainer .propositionText");
             waitForAnswer = true;
             questionList.push(questionIndex);
@@ -300,6 +299,11 @@ let displayQuestion = function(questionIndex, event)
             }, 500);
         }
         zoomOnQuestionArea(event);
+        propositions[2].onload = function()
+        {
+            fitBackgroundQuestions();
+             propositions[2].onload = null;
+        }
     }
 }
 
@@ -328,13 +332,18 @@ let updateQuiz = function(themePosition)
             break;
     }
 }
+let questionIntroTimeToDisplay;
 let loadQuestions = function(themePosition)
 {
+    // cleartimeout to prevent the previous influence the following 
+    clearTimeout(questionIntroTimeToDisplay);
+
     currentTheme = themePosition.slice(0, 1);
     updateQuiz(themePosition);
 
-    // load intro
+    // load introduction text
     document.getElementById("questionIntro").innerText = quiz["question01"]["intro"];
+    // refresh buttons appearance
     let questionButtons = document.querySelectorAll(".questionButton");
     for (let i = questionButtons.length - 1; i >= 0; i--)
     {
@@ -343,20 +352,43 @@ let loadQuestions = function(themePosition)
             questionButtons[i].classList.remove("questionButtonClosed");
         }
     }
+    // load theme image for this 3 questions
     document.querySelector("#themeBackground").src = quiz["question01"]["imageSrc"];
-    closeThemesMenu();
-    document.querySelector("#step_questions").classList.remove('disabled');
-    document.querySelector(".headerProfile").style.backgroundColor = "black";
+    // when theme image is loaded organize circles question buttons on image
+    document.getElementById("themeBackground").onload = function()
+    {
+        fitBackgroundQuestions();
+        document.getElementById("themeBackground").onload = null;
+    }
+    // display question intro when it's a new one.
+    if (document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
+    {
+        document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
+    };
+    // hide the question intro 8s after it loaded
+    questionIntroTimeToDisplay = setTimeout(function()
+    {
+        if (!document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
+        {
+            document.getElementById("questionIntro").classList.add("questionIntroMinimize")
+        };
+    }, 8000);
 }
 let launchGame = function(themePosition)
 {
     loadQuestions(themePosition);
+    closeThemesMenu();
+    // display questions container and change header color
+    document.querySelector("#step_questions").classList.remove('disabled');
+    document.querySelector(".headerProfile").style.backgroundColor = "black";
+    // delete stats, home sms and main menu
     let statsContainers = document.querySelectorAll(".step_scores");
     for (let i = statsContainers.length - 1; i >= 0; i--)
     {
         statsContainers[i].remove();
     }
     document.getElementById("homeSms").remove();
+    document.getElementById("mainMenuContainer").remove();
 }
 // Display
 let launchThemesMenu = function(event)
@@ -428,6 +460,7 @@ let displayMainMenu = function()
 }
 let fitBackgroundQuestions = function()
 {
+    console.log("fit");
     let headerProfile = document.getElementById("headerProfile");
     let themeBackgroundContainer = document.getElementById("themeBackgroundContainer");
     let themeBackground = document.getElementById("themeBackground");
@@ -447,28 +480,18 @@ let fitBackgroundQuestions = function()
     if (ratioWindow < ratioBG)
     {
         ratioBgWindow = (window.innerWidth - themeBackground.offsetWidth) / themeBackground.offsetWidth;
-        /*themeBackground.style.height = themeBackground.height + (themeBackground.height * ratioBgWindow) + "px";
-        themeBackground.style.width = window.innerWidth + "px";*/
     }
     else
     {
         ratioBgWindow = (window.innerHeight - themeBackground.offsetHeight) / themeBackground.offsetHeight;
-        /*themeBackground.style.width = themeBackground.width + (themeBackground.width * ratioBgWindow) + "px";
-        themeBackground.style.height = window.innerHeight + "px";*/
     }
-    themeBackgroundContainer.style.height = window.innerHeight - (headerProfileHeight + questionIntroHeight) + "px";
-    // fixed the container of the introductory sentence to background image
+
     questionIntro.style.width = themeBackground.offsetWidth + "px";
-    // fixed the container question
+    propositionsContainer.style.width = themeBackground.offsetWidth + "px";
     questionContainer.style.width = themeBackground.offsetWidth + "px";
-    questionContainer.style.height = themeBackgroundContainer.offsetHeight + "px";
+
     questionContainer.style.left = themeBackground.offsetLeft + "px";
     questionContainer.style.top = themeBackground.offsetTop + "px";
-    // fixed height of proposition container
-    propositionsContainer.style.height = themeBackgroundContainer.offsetHeight - question.offsetHeight + "px";
-    // background quiz position
-    //themeBackgroundContainer.style.left = (window.innerWidth / 2) - (themeBackground.offsetWidth / 2) + "px";
-    //themeBackgroundContainer.style.top = headerProfileHeight + "px";
 
     // circles position(button to call a question)
     for(let question in quiz) 
@@ -479,10 +502,7 @@ let fitBackgroundQuestions = function()
         quiz[question]["tag"].style.height = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
     }
 }
-document.getElementById("themeBackground").onload = function()
-{
-    fitBackgroundQuestions();
-}
+
 window.addEventListener("resize", fitBackgroundQuestions, false);
 
 document.getElementById("questionButton01").addEventListener("click", displayQuestion.bind(this, 1), false);
@@ -521,3 +541,9 @@ for (let i = propositionButtons.length - 1; i >=0; i--)
 }
 // Back on previous question
 document.getElementById("backOnPreviousQuestionButton").addEventListener("click", backOnPreviousQuestion, false);
+
+// Maximize/Minimize question Intro
+document.getElementById("questionIntro").addEventListener("click", function()
+{
+    document.getElementById("questionIntro").classList.toggle("questionIntroMinimize");
+}, false);

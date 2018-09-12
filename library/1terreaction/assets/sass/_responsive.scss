@@ -1,36 +1,6 @@
 @import "variables";
-@media only screen and (min-width: 768px)
+@media (max-width: 640px) and (orientation: portrait)
 {
-}
-@media (max-width: 620px) and (orientation: portrait)
-{
-	.headerProfile
-	{
-		padding: 10px 20px;
-		background-color: black;
-		.profile
-		{
-			.avatarContainer
-			{
-				img
-				{
-					left: -50px;
-					top: -20px;
-					width: 48px;
-					height: 48px;
-				}
-			}
-			.disconnect
-			{
-			}	
-		}
-	}
-	.appTitle
-	{
-		font-size: 1.3rem;
-		letter-spacing: .1rem;
-	}
-
 	#main
 	{
 		.menu
@@ -50,6 +20,46 @@
 			background-color: transparent;
 			transform: none;
 		}
+	}
+	.step_scores
+	{
+		h3
+		{
+			width: 30%;
+		}
+	}
+}
+@media (max-width: 640px)
+{
+	.headerProfile
+	{
+		padding: 10px 20px;
+		background-color: black;
+		.profile
+		{
+			.avatarContainer
+			{
+				img
+				{
+					left: -45px;
+					top: -15px;
+					width: 40px;
+					height: 40px;
+				}
+			}
+			.disconnect
+			{
+			}	
+		}
+	}
+	.appTitle
+	{
+		font-size: 1.3rem;
+		letter-spacing: .1rem;
+	}
+
+	#main
+	{
 		#step_questions
 		{
 			.backOnPreviousQuestionButton
@@ -74,6 +84,7 @@
 			.questionIntro
 			{
 				border: none;
+				padding: 10px 20px;
 			}
 			.questionContainer
 			{
@@ -98,52 +109,6 @@
 				border: none;
 				height: 100%;
 				overflow: auto;
-				.scoresContainerClose
-				{
-				}
-				h2
-				{
-					margin-bottom: 1rem;
-				}
-				.scoresTitleContainer
-				{
-					margin-bottom: 10px;
-					flex-wrap: nowrap;
-					h3
-					{
-						display: none;
-					}
-				}
-				.scoresThisGameContainer, .scoresAllThemesContainer, .scoresThisPlanetContainer
-				{
-					margin-bottom: 10px;
-					flex-direction: column;
-					h3
-					{
-						min-height: auto;
-					}
-				}
-				.scoresTitleContainer
-				{
-					.scoreTitle
-					{
-						padding-bottom: 0;
-					}
-					.titleEnv
-					{
-						height: auto;
-					}
-					.titleSante
-					{
-						height: auto;
-						text-align: center;
-					}
-					.titleSocial
-					{
-						height: auto;
-						text-align: right;
-					}
-				}
 			}
 		}
 	}
@@ -159,6 +124,46 @@
 		{
 			right: 20px;
 			bottom: 10px;
+		}
+	}
+}
+@media only screen and (max-height: 620px) and (orientation: landscape)
+{
+	#main
+	{
+		.homeSms
+		{
+			margin-right: 4rem;
+			left: initial;
+			right: 0;
+			top: 69%;
+			transform: none;
+		}
+		.menu
+		{
+			top: 60px;
+			.mainMenuOpenButton00
+			{
+				transform: translateX(110px) rotateZ(360deg);
+				opacity: 1;
+			}
+			.mainMenuOpenButton01
+			{
+				transform: translateX(220px) rotateZ(360deg);
+				opacity: 1;
+			}
+			.mainMenuOpenButton02
+			{
+				transform: translateX(330px) rotateZ(360deg);
+				opacity: 1;
+			}
+		}
+	}
+	.step_scores
+	{
+		h3
+		{
+			width: 20%;
 		}
 	}
 }

@@ -199,7 +199,7 @@
 	background-color: rgba(32, 52, 72, .5);
 	h3
 	{
-		flex: 1;
+		width: 15%;
 		font-weight: bold;
 		text-align: left;
 	}
@@ -370,9 +370,9 @@
 	    max-width: 1920px;
 	    width: 100%;
 		position: absolute;
-		top: 15%;
-		left: 50%;
-		transform: translate(-50%, 0);
+		top: 115px;
+		left: 0;
+		z-index: 1;
 		.menuButtonContainer
 		{
 			margin-bottom: 8px;
@@ -561,12 +561,12 @@
 			border-top-left-radius: 12px;
 			border-top-right-radius: 12px;
 			width: 100%;
+			height: 100%;
 			text-align: center;
 			.themeBackground
 			{
 				position: relative;
-				border-bottom-left-radius: 12px;
-				border-bottom-right-radius: 12px;
+				border-radius: 12px;
 				max-width: 100%;
 				height: auto;
 				max-height: 100%;
@@ -610,13 +610,28 @@
 			margin: 0 auto;
 			border-top-right-radius: 12px;
 			border-top-left-radius: 12px;
-			padding: 20px 40px;
+			padding: 20px 4rem;
+			position: absolute;
+			left: 50%;
 			text-align: center;
 			font-size: 1rem;
 			max-width: 100%;
 			background-color: rgba(0, 60, 120, 1);
 			color: white;
 			box-shadow: 0px 3px 5px 2px rgba(24, 37, 59, 0.5);
+			transform-origin: top;
+        	transform: translateX(-50%) scaleY(1);
+			transition: all .3s;
+			&:hover
+			{
+				cursor: pointer;
+			}
+		}
+		.questionIntroMinimize
+		{
+			overflow: hidden;
+        	transform: translateX(-50%) scaleY(.2);
+        	color: rgba(0, 60, 120, 1);
 		}
 
 		.questionContainer
@@ -624,19 +639,24 @@
 			position: absolute;
 			left: 0;
 			top: 0;
-			border-bottom: 2px solid rgb(0, 60, 120);
-			border-bottom-left-radius: 12px;
-			border-bottom-right-radius: 12px;
+			padding-bottom: 20px;
 			max-width: 100%;
+			height: calc(100% - 80px);
 			text-align: right;
-			background-color: rgba(0, 60, 120, 1);
+			background-color: black;
 			opacity: 1;
 			transition: opacity 1s;
 			.question
 			{
+				border-top-right-radius: 12px;
+				border-top-left-radius: 12px;
 				padding: 10px;
+				height: 20%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 				text-align: center;
-				font-size: 1.2rem;
+				font-size: 1rem;
 				color: rgba(0, 60, 120, 1);
 				background-color: white;
 			}
@@ -652,14 +672,22 @@
 			}
 			.propositionsContainer
 			{
-				height: 100%;
+				margin-bottom: 75px;
+				height: 80%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
 				opacity: 1;
 				transition: opacity 1s;
+				background-color: black;
 				.propositionContainer
 				{
 					border: 2px solid rgba(100, 210, 25, 0.9);
+					padding: 0 20px;
+					flex: 1;
 					width: 100%;
-					height: 33%;
+					height: 27%;
 					display: flex;
 					justify-content: center;
 					align-items: center;
@@ -677,14 +705,14 @@
 					.propositionImgContainer
 					{
 						padding-right: 20px;
-						width: 50%;
+						width: 20%;
 						text-align: right;
 					}
 					.propositionText
 					{
 						padding-left: 20px;
-						width: 50%;
-						text-align: left;
+						width: 80%;
+						text-align: center;
 					}
 					.proposition
 					{

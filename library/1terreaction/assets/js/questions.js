@@ -118,8 +118,8 @@ const quizA2 =
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
-	    xOrigin: 20,
-	    yOrigin: 15,
+	    xOrigin: 30,
+	    yOrigin: 25,
 	    tag: document.getElementById("questionButton01"),
 	    question: "Aujourd’hui, c’est jour de poisson ! Vous allez manger",
 	    proposition01: 
@@ -152,8 +152,8 @@ const quizA2 =
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
-	    xOrigin: 35,
-	    yOrigin: 20,
+	    xOrigin: 65,
+	    yOrigin: 60,
 	   	tag: document.getElementById("questionButton02"),
 	    question: "Serie: le souper - Question 02",
 	    proposition01: 
@@ -186,8 +186,8 @@ const quizA2 =
 		// number in % from background size
 		imageSrc: "assets/img/alim_bg01.jpg",
 	    sizeOrigin: 4,
-	    xOrigin: 90,
-	    yOrigin: 10,
+	    xOrigin: 40,
+	    yOrigin: 70,
 	   	tag: document.getElementById("questionButton03"),
 	    question: "Après le souper, vous regardez un reportage à la télé. On y parle des agriculteurs brésiliens qui ne sont pas contents parce qu’ils ont faim. Que fais-tu ?",
 	    proposition01: 
