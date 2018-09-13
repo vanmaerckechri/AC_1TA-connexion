@@ -650,7 +650,7 @@ let Fruilegsais = class
 		}
 		flsPassBonusButton.onclick = function()
 		{
-			flsTutoContainer.remove();
+			document.getElementById("flsContainer").classList.toggle("disabled");
 			fruitlegsais.closeGame();
 		}
 	}
