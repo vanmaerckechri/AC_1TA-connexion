@@ -108,7 +108,7 @@ let dezoomBackground = function()
     fitBackgroundQuestions();
 }
 
-let saveAnswer = function(answerIndex)
+let saveAnswer = function(answerIndex, blockBonus = false)
 {
     let questionContainer = document.getElementById("questionContainer");
     let backToLastQuestionButton = document.getElementById("backToLastQuestionButton");
@@ -124,7 +124,7 @@ let saveAnswer = function(answerIndex)
     {
         loadQuestions(currentTheme+"2");
 
-        if (bonusGameAlreadyPlayed[0] == false)
+        if (bonusGameAlreadyPlayed[0] == false && blockBonus == false)
         {
             document.getElementById("pacmanContainer").classList.toggle("disabled");
             launchPacmanHome();
@@ -135,7 +135,7 @@ let saveAnswer = function(answerIndex)
     {
         loadQuestions(currentTheme+"3");
 
-        if (bonusGameAlreadyPlayed[1] == false)
+        if (bonusGameAlreadyPlayed[1] == false && blockBonus == false)
         {
             document.getElementById("pacmanContainer").classList.toggle("disabled");
             launchPacmanHome();
@@ -553,5 +553,6 @@ document.getElementById("backOnPreviousQuestionButton").addEventListener("click"
 // Maximize/Minimize question Intro
 document.getElementById("questionIntro").addEventListener("click", function()
 {
+    clearTimeout(questionIntroTimeToDisplay);
     document.getElementById("questionIntro").classList.toggle("questionIntroMinimize");
 }, false);
