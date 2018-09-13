@@ -1,0 +1,276 @@
+@charset "UTF-8";
+html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, fieldset, input, textarea, label, legend {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-weight: normal; }
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: white; }
+
+.flsContainer {
+  margin: 0 auto;
+  padding: 102px 0 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  height: 100%;
+  background-color: #141517;
+  color: white;
+  font-family: "Orbitron", sans-serif; }
+  .flsContainer .flsCanvasContainer {
+    display: none; }
+  .flsContainer .flsTutoContainer {
+    padding: 20px 0 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Open Sans", sans-serif; }
+    .flsContainer .flsTutoContainer .flsTutoContent {
+      margin: 10px;
+      flex: 1; }
+  .flsContainer .flsUiContainer {
+    width: 100%;
+    letter-spacing: .2rem; }
+    .flsContainer .flsUiContainer .flsScoreContainer {
+      padding: 10px 0;
+      background-color: #e2deec;
+      color: black; }
+    .flsContainer .flsUiContainer .flsDateSeasonContainer {
+      padding: 10px 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      transition: background-color 1s; }
+      .flsContainer .flsUiContainer .flsDateSeasonContainer span {
+        flex: 1; }
+      .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDateContainer {
+        text-align: right; }
+        .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDateContainer .flsDateDay, .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDateContainer .flsDateMonth {
+          display: inline-block; }
+        .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDateContainer .flsDateDay {
+          padding-right: 8px;
+          min-width: 30px;
+          text-align: right; }
+  .flsContainer .flsFruitLegumeContainer {
+    position: relative;
+    width: 100%;
+    height: 100%; }
+    .flsContainer .flsFruitLegumeContainer .flsFruitLegumeImg, .flsContainer .flsFruitLegumeContainer .flsAnswerImg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-width: 512px;
+      width: 100%;
+      height: auto;
+      transform: translate(-50%, -50%);
+      transition: all .5s;
+      pointer-events: none; }
+    .flsContainer .flsFruitLegumeContainer .flsFruitLegumeImgAnswerTrue {
+      left: calc(100% + 256px); }
+    .flsContainer .flsFruitLegumeContainer .flsFruitLegumeImgAnswerFalse {
+      left: -256px; }
+    .flsContainer .flsFruitLegumeContainer .flsAnswerImg {
+      z-index: 1; }
+  .flsContainer .flsScoreFinalContainer {
+    margin: 20px 0; }
+    .flsContainer .flsScoreFinalContainer .flsScoreFinalText, .flsContainer .flsScoreFinalContainer .flsScoreFinal {
+      font-size: 1.5rem; }
+  .flsContainer .flsFinalAnwsersBoardContainer {
+    margin-bottom: 74px;
+    padding: 0 4rem;
+    width: 100%;
+    max-width: 1280px; }
+    .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer {
+      width: 100%;
+      display: flex;
+      justify-content: space-around; }
+      .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer span, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span {
+        border: 1px solid white;
+        display: inline-block;
+        flex: 1;
+        height: 128px; }
+      .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsFinalAnwserImg, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsFinalAnwserImg {
+        margin: 0 20px 0 0;
+        width: 128px;
+        height: auto; }
+      .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsCellColor, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsCellColor {
+        background-color: rgba(225, 225, 255, 0.2); }
+    .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsMonthToEat {
+      background-color: rgba(0, 60, 120, 0.8); }
+    .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer span {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer span .flsMonthChoosed {
+        width: 50%;
+        height: 50%; }
+    .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span::after {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        color: white;
+        transform: translate(-50%, -50%); }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(2)::after {
+        content: "mars"; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(3)::after {
+        content: "avril"; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(4)::after {
+        content: "mai"; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(5)::after {
+        content: "juin"; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(6)::after {
+        content: "juil."; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(7)::after {
+        content: "août"; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(8)::after {
+        content: "sept."; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(9)::after {
+        content: "oct."; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(10)::after {
+        content: "nov."; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(11)::after {
+        content: "déc."; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(12)::after {
+        content: "jan."; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(13)::after {
+        content: "fév."; }
+    .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsWidthImgDummy {
+      flex: initial;
+      border: none;
+      margin: 0 20px 0 0;
+      width: 128px;
+      height: 128px; }
+
+.flsButtonsContainer {
+  padding: 0 4rem 20px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; }
+  .flsButtonsContainer .flsButton {
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-family: "Orbitron", sans-serif;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #003c78;
+    transition: all .5s; }
+    .flsButtonsContainer .flsButton:hover {
+      cursor: pointer;
+      color: black;
+      background-color: white; }
+
+.flsBodyOverflowOn {
+  height: auto;
+  overflow: auto;
+  overflow-x: hidden; }
+
+.flsContainerFinalScore {
+  justify-content: center; }
+
+.flsBgPrintemps {
+  border-bottom: 1px solid rgba(141, 255, 0, 0.8);
+  background-color: rgba(141, 255, 0, 0.4); }
+
+.flsBgEte {
+  border-bottom: 1px solid rgba(0, 219, 255, 0.4);
+  background-color: rgba(0, 219, 255, 0.4); }
+
+.flsBgAutomne {
+  border-bottom: 1px solid rgba(239, 159, 21, 0.8);
+  background-color: rgba(239, 159, 21, 0.4); }
+
+.flsBgHiver {
+  border-bottom: 1px solid rgba(213, 209, 255, 0.8);
+  background-color: rgba(213, 209, 255, 0.4); }
+
+@media (max-width: 768px) {
+  .flsButtonsContainer {
+    padding: 0 20px 10px; }
+
+  .flsContainer {
+    padding: 42px 0 0; }
+    .flsContainer .flsUiContainer .flsDateSeasonContainer {
+      padding: 10px 20px;
+      font-size: .9rem; }
+      .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDummyBoxFlex {
+        flex: 0; }
+      .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDateContainer {
+        flex: 3;
+        padding-right: 0px; }
+      .flsContainer .flsUiContainer .flsDateSeasonContainer .flsSeason {
+        flex: 2;
+        text-align: left; }
+    .flsContainer .flsScoreFinalContainer {
+      padding: 0 20px; }
+    .flsContainer .flsFinalAnwsersBoardContainer {
+      margin-bottom: 56px;
+      padding: 0 10px; }
+      .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer span, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span {
+        height: 64px; }
+      .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsFinalAnwserImg, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsFinalAnwserImg {
+        margin: 0 4px 0 0;
+        width: 64px;
+        height: 64px; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span {
+        overflow: hidden;
+        font-size: .7rem; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(2)::after {
+          content: "03"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(3)::after {
+          content: "04"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(4)::after {
+          content: "05"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(5)::after {
+          content: "06"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(6)::after {
+          content: "07"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(7)::after {
+          content: "08"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(8)::after {
+          content: "09"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(9)::after {
+          content: "10"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(10)::after {
+          content: "11"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(11)::after {
+          content: "12"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(12)::after {
+          content: "01"; }
+        .flsContainer .flsFinalAnwsersBoardContainer .boardContainer span:nth-child(13)::after {
+          content: "02"; }
+      .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsWidthImgDummy {
+        margin: 0 0 0 4px;
+        width: 64px;
+        height: 64px; } }
+@media only screen and (orientation: landscape) and (max-width: 768px) {
+  .flsContainer .flsFruitLegumeContainer {
+    height: calc(100% - 75px); }
+    .flsContainer .flsFruitLegumeContainer .flsFruitLegumeImg, .flsContainer .flsFruitLegumeContainer .flsAnswerImg {
+      max-height: 512px;
+      width: auto;
+      height: 100%; } }
+
+/*# sourceMappingURL=fls_style.css.map */

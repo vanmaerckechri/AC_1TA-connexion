@@ -139,6 +139,8 @@ ob_start();
         ?>
         <div id="pacmanContainer" class="pacmanContainer disabled">
         </div>
+        <div id="flsContainer" class="flsContainer disabled">
+        </div>
     </div>
 <?php
 $content = ob_get_clean();
@@ -156,6 +158,7 @@ ob_start();
     <script type= "text/javascript" src="assets/js/ecoman_game-ghosts.js"></script>
     <script type= "text/javascript" src="assets/js/ecoman_game-pathfinder.js"></script>
     <script type= "text/javascript" src="assets/js/ecoman_game-engine.js"></script>
+    <script type= "text/javascript" src="assets/js/fls_game-engine.js"></script>
 <?php
 $script = ob_get_clean();
 

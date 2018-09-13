@@ -1,0 +1,179 @@
+@import "variables";
+@media (max-width: 768px)
+{
+	.flsButtonsContainer
+	{
+		padding: 0 20px 10px;
+	}
+	.flsContainer
+	{
+	  	padding: 42px 0 0;
+	  	.flsUiContainer
+	  	{
+		  	.flsDateSeasonContainer
+	  		{
+	  			padding: 10px 20px;
+	  			font-size: .9rem;
+	  			.flsDummyBoxFlex
+	  			{
+	  				flex: 0;
+	  			}
+	  			.flsDateContainer	
+	  			{
+	  				flex: 3;
+	  				padding-right: 0px;
+		  		}
+		  		.flsSeason
+	  			{
+	  				flex: 2;
+	  				text-align: left;
+	  			}
+	  		}
+	  	}
+	  	 .flsScoreFinalContainer
+  		{
+  			padding: 0 20px;
+  		}
+	  	.flsFinalAnwsersBoardContainer
+	  	{
+	  		margin-bottom: 56px;
+	  		padding: 0 10px;
+	  		.flsFinalAnwserContainer, .boardContainer
+	  		{
+	  			span
+	  			{
+	  				height: 64px;
+	  			}
+	  			.flsFinalAnwserImg
+	  			{
+	  				margin: 0 4px 0 0;
+	  				width: 64px;
+		  			height: 64px;
+	  			}
+	  			.flsCellColor
+	  			{
+	  			}
+	  		}
+	  		.flsFinalAnwserContainer
+	  		{
+	  			span
+	  			{
+		  		}
+	  		}
+	  		.boardContainer
+	  		{
+	  			span
+	  			{
+	  				overflow: hidden;
+	  				font-size: .7rem;
+	  				&:nth-child(2)
+	  				{
+	  					&::after
+	  					{
+		  					content: "03";
+		  				}
+	  				}
+	  				&:nth-child(3)
+	  				{
+	  					&::after
+	  					{
+		  					content: "04";
+		  				}
+	  				}
+	  				&:nth-child(4)
+	  				{
+	  					&::after
+	  					{
+		  					content: "05";
+		  				}
+	  				}
+	  				&:nth-child(5)
+	  				{
+	  					&::after
+	  					{
+		  					content: "06";
+		  				}
+	  				}
+	  				&:nth-child(6)
+	  				{
+	  					&::after
+	  					{
+		  					content: "07";
+		  				}
+	  				}
+	  				&:nth-child(7)
+	  				{
+	  					&::after
+	  					{
+		  					content: "08";
+		  				}
+	  				}
+	  				&:nth-child(8)
+	  				{
+	  					&::after
+	  					{
+		  					content: "09";
+		  				}
+	  				}
+	  				&:nth-child(9)
+	  				{
+	  					&::after
+	  					{
+		  					content: "10";
+		  				}
+	  				}
+	  				&:nth-child(10)
+	  				{
+	  					&::after
+	  					{
+		  					content: "11";
+		  				}
+	  				}
+	  				&:nth-child(11)
+	  				{
+	  					&::after
+	  					{
+		  					content: "12";
+		  				}
+	  				}
+	  				&:nth-child(12)
+	  				{
+	  					&::after
+	  					{
+		  					content: "01";
+		  				}
+	  				}
+	  				&:nth-child(13)
+	  				{
+	  					&::after
+	  					{
+		  					content: "02";
+		  				}
+	  				}
+	  			}
+	  			.flsWidthImgDummy
+	  			{
+	  				margin: 0 0 0 4px;
+	  				width: 64px;
+	  				height: 64px;
+	  			}
+	  		}
+	  	}
+	}
+}
+ @media only screen and (orientation:landscape) and (max-width: 768px)
+ {
+ 	.flsContainer
+	{
+	  	.flsFruitLegumeContainer
+	  	{
+	  		height: calc(100% - 75px);
+	  		.flsFruitLegumeImg, .flsAnswerImg
+	  		{
+	  			max-height: 512px;
+	  			width: auto;
+	  			height: 100%;
+	  		}
+	  	}
+	}
+ }

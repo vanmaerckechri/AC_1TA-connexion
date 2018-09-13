@@ -120,7 +120,7 @@ let saveAnswer = function(answerIndex, blockBonus)
     answerList.push(answerIndex + 1);
     waitForAnswer = false;
     // check the answers to find out what to do next
-    if (answerList.length == 3)
+    if (answerList.length == 6)
     {
         loadQuestions(currentTheme+"2");
 
@@ -131,14 +131,15 @@ let saveAnswer = function(answerIndex, blockBonus)
             bonusGameAlreadyPlayed[0] = true;
         }
     }
-    else if (answerList.length == 6)
+    else if (answerList.length == 3)
     {
         loadQuestions(currentTheme+"3");
 
         if (bonusGameAlreadyPlayed[1] == false && blockBonus == false)
         {
-            document.getElementById("pacmanContainer").classList.toggle("disabled");
-            launchPacmanHome();
+            document.getElementById("flsContainer").classList.toggle("disabled");
+            fruitlegsais = new Fruilegsais();
+            fruitlegsais.launchMainMenu();
             bonusGameAlreadyPlayed[1] = true;
         }
     }

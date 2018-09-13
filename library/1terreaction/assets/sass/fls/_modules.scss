@@ -1,0 +1,59 @@
+@import "variables";
+.flsButtonsContainer
+{
+	padding: 0 4rem 20px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	.flsButton
+	{
+		border: 1px solid white;
+		border-radius: 8px;
+		padding: 8px 10px;
+		font-family: $font-title;
+		color: rgba(255, 255, 255, .9);
+		font-size: 1rem;
+		font-weight: bold;
+		background-color: #003c78;
+		transition: all .5s;
+		&:hover
+		{
+			cursor: pointer;
+			color: black;
+			background-color: white;
+		}
+	}
+}
+.flsBodyOverflowOn
+{
+	height: auto;
+	overflow: auto;
+	overflow-x: hidden;
+}
+.flsContainerFinalScore
+{
+	justify-content: center;
+}
+.flsBgPrintemps
+{
+  	border-bottom: 1px solid rgba(141, 255, 0, .8);
+  	background-color: rgba(141, 255, 0, .4);
+}
+.flsBgEte
+{
+  	border-bottom: 1px solid rgba(0, 219, 255, 0.4);
+  	background-color: rgba(0, 219, 255, 0.4);
+}
+.flsBgAutomne
+{
+  	border-bottom: 1px solid rgba(239, 159, 21, .8);
+  	background-color: rgba(239, 159, 21, .4);
+}
+.flsBgHiver
+{
+  	border-bottom: 1px solid rgba(213, 209, 255, .8);
+  	background-color: rgba(213, 209, 255, .4);
+}

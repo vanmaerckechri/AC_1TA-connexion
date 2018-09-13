@@ -1,0 +1,284 @@
+@import "variables";
+body
+{
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: white;
+}
+.flsContainer
+{
+	margin: 0 auto;
+  padding: 102px 0 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+	text-align: center;
+	height: 100%;
+	background-color: #141517;
+  color: white;
+  font-family: $font-title;
+  .flsCanvasContainer
+  {
+    display: none;
+  }
+	.flsTutoContainer
+	{
+		padding: 20px 0 40px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		font-family: $font-main;
+		.flsTutoTitle
+		{
+		}
+    .flsTutoContent
+    {
+      margin: 10px;
+      flex: 1;
+    }
+	}
+  	.flsUiContainer
+  	{
+  		width: 100%;
+  		letter-spacing: .2rem;
+  		.flsScoreContainer
+  		{
+  			padding: 10px 0;
+  			background-color: #e2deec;				
+  			color: black;
+  		}
+  		.flsDateSeasonContainer
+  		{
+  			padding: 10px 4rem;
+  			display: flex;
+  			justify-content: space-between;
+  			align-items: baseline;
+  			transition: background-color 1s;
+  			span
+  			{
+  				flex: 1;
+  			}	
+  			.flsDateContainer	
+  			{
+  				text-align: right;
+	  			.flsDateDay, .flsDateMonth
+	  			{
+	  				display: inline-block;
+	  			}
+	  			.flsDateDay
+	  			{
+	  				padding-right: 8px;
+	  				min-width: 30px;
+	  				text-align: right;
+	  			}
+	  		}
+	  		.flsSeason
+  			{
+  			}
+  		}
+  	}
+  	.flsCanvasContainer
+  	{
+  	}
+  	.flsFruitLegumeContainer
+  	{
+  		position: relative;
+  		width: 100%;
+  		height: 100%;
+  		.flsFruitLegumeImg, .flsAnswerImg
+  		{
+  			position: absolute;
+  			top: 50%;
+  			left: 50%;
+  			max-width: 512px;
+  			width: 100%;
+  			height: auto;
+  			transform: translate(-50%, -50%);
+  			transition: all .5s;
+  			pointer-events: none;
+  		}
+  		.flsFruitLegumeImgAnswerTrue
+  		{
+  			left: calc(100% + 256px);
+  		}
+  		.flsFruitLegumeImgAnswerFalse
+  		{
+  			left: -256px;
+  		}
+  		.flsAnswerImg
+  		{
+  			z-index: 1;
+  		}
+  	}
+  	.flsScoreFinalContainer
+  	{
+      margin: 20px 0;
+  		.flsScoreFinalText, .flsScoreFinal
+  		{
+  			font-size: 1.5rem;
+  		}
+  	}
+  	.flsFinalAnwsersBoardContainer
+  	{
+      margin-bottom: 74px;
+      padding: 0 4rem;
+  		width: 100%;
+  		max-width: 1280px;
+  		.flsFinalAnwserContainer, .boardContainer
+  		{
+  			width: 100%;
+  			display: flex;
+  			justify-content: space-around;
+  			span
+  			{
+  				border: 1px solid white;
+  				display: inline-block;
+  				flex: 1;
+  				height: 128px;
+  			}
+  			.flsFinalAnwserImg
+  			{
+  				margin: 0 20px 0 0;
+  				width: 128px;
+	  			height: auto;
+  			}
+  			.flsCellColor
+  			{
+  				background-color: rgba(225, 225, 255, .2);
+  			}
+  		}
+  		.flsFinalAnwserContainer
+  		{
+  			.flsMonthToEat
+  			{
+  				background-color: rgba(0, 60, 120, .8);
+  			}
+  			span
+  			{
+  				display: flex;
+  				justify-content: center;
+  				align-items: center;
+	  			.flsMonthChoosed
+	  			{
+	  				width: 50%;
+	  				height: 50%;
+	  			}
+	  		}
+  		}
+  		.boardContainer
+  		{
+  			span
+  			{
+  				display: flex;
+  				justify-content: center;
+  				align-items: center;            
+          position: relative;
+          &::after
+          {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            color: white;
+            transform: translate(-50%, -50%);
+          }
+          &:nth-child(2)
+          {
+            &::after
+            {
+              content: "mars";
+            }
+          }
+          &:nth-child(3)
+          {
+            &::after
+            {
+              content: "avril";
+            }
+          }
+          &:nth-child(4)
+          {
+            &::after
+            {
+              content: "mai";
+            }
+          }
+          &:nth-child(5)
+          {
+            &::after
+            {
+              content: "juin";
+            }
+          }
+          &:nth-child(6)
+          {
+            &::after
+            {
+              content: "juil.";
+            }
+          }
+          &:nth-child(7)
+          {
+            &::after
+            {
+              content: "août";
+            }
+          }
+          &:nth-child(8)
+          {
+            &::after
+            {
+              content: "sept.";
+            }
+          }
+          &:nth-child(9)
+          {
+            &::after
+            {
+              content: "oct.";
+            }
+          }
+          &:nth-child(10)
+          {
+            &::after
+            {
+              content: "nov.";
+            }
+          }
+          &:nth-child(11)
+          {
+            &::after
+            {
+              content: "déc.";
+            }
+          }
+          &:nth-child(12)
+          {
+            &::after
+            {
+              content: "jan.";
+            }
+          }
+          &:nth-child(13)
+          {
+            &::after
+            {
+              content: "fév.";
+            }
+          }
+  			}
+  			.flsWidthImgDummy
+  			{
+  				flex: initial;
+  				border: none;
+  				margin: 0 20px 0 0;
+  				width: 128px;
+  				height: 128px;
+  			}
+  		}
+  	}
+}
