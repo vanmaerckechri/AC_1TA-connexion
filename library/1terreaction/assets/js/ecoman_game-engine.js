@@ -48,31 +48,42 @@ function placeCanvasOnBackground()
 function adaptGameSizeToScreen()
 {
     let canvasContainer = document.getElementById("canvasContainer");
+    let pacmanContainer = document.getElementById("pacmanContainer");
     let headerProfileHeight = document.getElementById("headerProfile").offsetHeight;
     let scoreTitleHeight = document.getElementById("scoreTitle").offsetHeight;
-    let maxSize = window.innerHeight - (headerProfileHeight + scoreTitleHeight);
+    let maxSize;
     let gameSize = tileNumberByRow * tileSize;
 
-    if (gameSize > maxSize)
-    {   
-    	let pacmanContainer = document.getElementById("pacmanContainer");
-        let scalePercent = maxSize / gameSize;
-        scalePercent = (scalePercent * 10) / 10;
-        tileSize = Math.floor(tileSize * scalePercent);
-        pacmanContainer.style.top = headerProfileHeight + "px";
-        pacmanContainer.style.height = window.innerHeight - headerProfileHeight +"px";
-        /*canvasContainer.style.transformOrigin = "left top";
-        canvasContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";*/
+    // detect screen orientation
+    let windowHeight = window.innerHeight;
+    let windowWidth = window.innerWidth;
+    // orientation portrait
+    if (windowHeight > windowWidth)
+    {
+   		maxSize = windowWidth;
     }
+    // orientation landscape
+    else
+    {
+    	maxSize = windowHeight - (headerProfileHeight + scoreTitleHeight);
+    }
+
+    let scalePercent = maxSize / gameSize;
+    scalePercent = (scalePercent * 10) / 10;
+    tileSize = Math.floor(tileSize * scalePercent);
+    pacmanContainer.style.top = headerProfileHeight + "px";
+    //pacmanContainer.style.height = windowHeight - headerProfileHeight +"px";
+    /*canvasContainer.style.transformOrigin = "left top";
+    canvasContainer.style.transform = "scale("+scalePercent+", "+scalePercent+")";*/
     // Canvas Size
-		canvasBackground.height = tileSize * tileNumberByRow;
-		canvasBackground.width = tileSize * tileNumberByCol;
-		canvasFood.height = tileSize * tileNumberByRow;
-		canvasFood.width = tileSize * tileNumberByCol;
-		canvasPlayer.height = tileSize * tileNumberByRow;
-		canvasPlayer.width = tileSize * tileNumberByCol;
-		canvasGhosts.height = tileSize * tileNumberByRow;
-		canvasGhosts.width = tileSize * tileNumberByCol;
+	canvasBackground.height = tileSize * tileNumberByRow;
+	canvasBackground.width = tileSize * tileNumberByCol;
+	canvasFood.height = tileSize * tileNumberByRow;
+	canvasFood.width = tileSize * tileNumberByCol;
+	canvasPlayer.height = tileSize * tileNumberByRow;
+	canvasPlayer.width = tileSize * tileNumberByCol;
+	canvasGhosts.height = tileSize * tileNumberByRow;
+	canvasGhosts.width = tileSize * tileNumberByCol;
 }
 
 function adaptToMobileLandscape()

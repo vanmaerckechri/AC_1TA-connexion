@@ -14,7 +14,7 @@ body
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	height: 100%;
 	width: 100%;
@@ -38,16 +38,19 @@ body
 		{
 			font-size: 1rem;
 		}
-		.tutoButtonContainer
+	}
+	.tutoButtonContainer
 		{
-			width: 100%;
-			text-align: right;
-			.launchGameButton
-			{
-				margin-left: 10px;
-				font-family: 'Orbitron', sans-serif;
-				align-self: flex-end;
-			}
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		width: 100%;
+		text-align: right;
+		.launchGameButton
+		{
+			margin-left: 10px;
+			font-family: 'Orbitron', sans-serif;
+			align-self: flex-end;
 		}
 	}
   	.ui
@@ -60,9 +63,13 @@ body
   		.gameOver
   		{
   			display: none;
-  			position: absolute;
+  			border-radius: 8px;
+  			border: 1px solid white;
+  			padding: 8px;
+  			position: fixed;
   			top: 50%;
   			left: 50%;
+  			max-width: 100%;
   			z-index: 100;
   			color: white;
   			font-size: 50px;

@@ -108,7 +108,7 @@ let dezoomBackground = function()
     fitBackgroundQuestions();
 }
 
-let saveAnswer = function(answerIndex, blockBonus = false)
+let saveAnswer = function(answerIndex, blockBonus)
 {
     let questionContainer = document.getElementById("questionContainer");
     let backToLastQuestionButton = document.getElementById("backToLastQuestionButton");
@@ -178,7 +178,7 @@ let backOnPreviousQuestion = function()
     // if the question screen is displayed and user aren't on open question screen
     if (!document.getElementById("questionContainer").classList.contains("disabled_v2") && questionList.length != 9)
     {
-        saveAnswer(1);
+        saveAnswer(1, true);
     }
     // record button index of previous question and delete last input in array
     let questionIndex = questionList[questionList.length - 1];
@@ -545,7 +545,7 @@ mainMenuButton.addEventListener("click", displayMainMenu, false);
 let propositionButtons = document.querySelectorAll(".propositionContainer");
 for (let i = propositionButtons.length - 1; i >=0; i--)
 {
-    propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i), false);
+    propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i, false), false);
 }
 // Back on previous question
 document.getElementById("backOnPreviousQuestionButton").addEventListener("click", backOnPreviousQuestion, false);
