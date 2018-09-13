@@ -275,8 +275,6 @@ let Fruilegsais = class
 		{
 			if (this.currentFruiLeg["monthToEat"][i] == this.monthList[this.currentMonth])
 			{
-				console.log(answer)
-
 				if (answer == true)
 				{
 					accuracyAnswer = true;
@@ -305,7 +303,7 @@ let Fruilegsais = class
 		let answerResult;
 		let that = this;
 
-		if (this.endOfGame == false && !fruitLegumeImg.classList.contains("flsFruitLegumeImgAnswerTrue") && !fruitLegumeImg.classList.contains("flsFruitLegumeImgAnswerFalse"))
+		if (this.endOfGame == false && fruitLegumeImg != null && !fruitLegumeImg.classList.contains("flsFruitLegumeImgAnswerTrue") && !fruitLegumeImg.classList.contains("flsFruitLegumeImgAnswerFalse"))
 		{
 			// score and display
 			answerResult = this.checkAccuracyAnswer(answer);

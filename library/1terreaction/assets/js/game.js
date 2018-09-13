@@ -120,7 +120,7 @@ let saveAnswer = function(answerIndex, blockBonus)
     answerList.push(answerIndex + 1);
     waitForAnswer = false;
     // check the answers to find out what to do next
-    if (answerList.length == 6)
+    if (answerList.length == 3)
     {
         loadQuestions(currentTheme+"2");
 
@@ -131,7 +131,7 @@ let saveAnswer = function(answerIndex, blockBonus)
             bonusGameAlreadyPlayed[0] = true;
         }
     }
-    else if (answerList.length == 3)
+    else if (answerList.length == 6)
     {
         loadQuestions(currentTheme+"3");
 
