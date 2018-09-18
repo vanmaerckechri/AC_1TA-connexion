@@ -13,6 +13,26 @@
 		{
 			margin-bottom: 10px;
 		}
+		.userInfosLink
+		{
+			border-bottom: 2px solid white;
+			text-decoration: none;
+			color: $ac-blue;
+			font-size: .8rem;
+			font-style: italic;
+			background-color: transparent;
+			transition: color .3s;
+			&:hover
+			{
+				cursor: pointer;
+				color: black;
+			}
+		}
+		.userInfos
+		{
+			font-size: .8rem;
+			font-style: italic;
+		}
 		form
 		{
 			display: flex;

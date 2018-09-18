@@ -129,6 +129,20 @@ input {
   box-shadow: 0px 0px 6px 1px #575656; }
   #main .connexion h2 {
     margin-bottom: 10px; }
+  #main .connexion .userInfosLink {
+    border-bottom: 2px solid white;
+    text-decoration: none;
+    color: #4ab4f1;
+    font-size: .8rem;
+    font-style: italic;
+    background-color: transparent;
+    transition: color .3s; }
+    #main .connexion .userInfosLink:hover {
+      cursor: pointer;
+      color: black; }
+  #main .connexion .userInfos {
+    font-size: .8rem;
+    font-style: italic; }
   #main .connexion form {
     display: flex;
     flex-wrap: wrap;

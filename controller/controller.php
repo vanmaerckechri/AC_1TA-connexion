@@ -23,14 +23,18 @@ function testCaptcha()
 // Connexion
 function loadHomeView()
 {
+	$nickname = isset($_SESSION["nickname"]) ? $_SESSION["nickname"] : "";
+	$_SESSION["nickname"] = "";
     require('./view/loginView.php');
 }
 function loadClassroomView()
 {
+	$_SESSION["classroomSave"] = !isset($_SESSION["classroomSave"]) ? "" : $_SESSION["classroomSave"];
     require('./view/classroomView.php');
 }
 function loadPwdView($pwd = '', $isPost = false)
 {
+	$_SESSION["classroomSave"] = $_SESSION["classroom"];
 	$decode = testCaptcha();
 	if ($isPost == true && $decode['success'] == true)
 	{
