@@ -124,6 +124,7 @@ if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
         else
         {
             $firsCo = "true";
+            $_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Bienvenue! Pour votre première connexion veuillez personnaliser votre avatar.</span>";
             ?>
             <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
             <?php

@@ -789,7 +789,7 @@ body {
     font-size: .9rem; }
 
   .pacmanTuto {
-    padding: 10px 20px 40px !important; }
+    padding: 10px 20px !important; }
 
   .ui a, .ui .buttonDefault, .tutoButtonContainer a, .tutoButtonContainer .buttonDefault {
     right: 20px;
