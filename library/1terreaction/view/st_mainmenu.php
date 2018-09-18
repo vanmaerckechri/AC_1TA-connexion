@@ -14,7 +14,7 @@ ob_start();
                 <?=$avatarContent?>
             </div>
             <?=$_SESSION['nickname']?>
-            <a href="admin.php?action=disco" class="disconnect">X</a>
+            <a href="index.php?action=disco" class="disconnect">X</a>
         </div>
     </div>
     <div class="ui uiMainMenuStudent">

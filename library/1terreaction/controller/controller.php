@@ -136,3 +136,10 @@ function loadGameResultView()
 		echo "<p>social: ".$averages["averagePlanet"]["stats_socialAverage"]."</p>";
 	*/
 }
+
+function disconnect()
+{
+	$_SESSION = array();
+	$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Vous êtes bien déconnecté!</span>';
+	header('Location: index.php');
+}

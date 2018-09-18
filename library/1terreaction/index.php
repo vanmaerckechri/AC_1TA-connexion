@@ -40,6 +40,11 @@ else
 		{
 			loadGameView();
 		}
+		// Disconnect
+		else if ($_GET['action'] == 'disco')
+		{
+			disconnect();
+		}
 		else
 		{
 			loadMainView();
