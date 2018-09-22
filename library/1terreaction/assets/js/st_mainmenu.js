@@ -18,16 +18,16 @@ window.addEventListener('load', function()
         // Earth
         let planet;
         let geometry = new THREE.SphereGeometry(100, 64, 64);
-        let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_hd_diffuse.png');
-        let bumpMap = new THREE.TextureLoader().load('assets/img/earth_hd_bump.png');
-        //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular.tif');
+        let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse1.jpg');
+        let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
+        let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular1.jpg');
         let material = new THREE.MeshPhongMaterial
         ({
             color: 0xffffff,
             map: diffuseMap,
-            bumpMap: bumpMap,
-            bumpScale: 1,
-            specularMap: bumpMap,
+            //bumpMap: bumpMap,
+            //bumpScale: 1,
+            //specularMap: bumpMap,
             transparent: false
         })
         planet = new THREE.Mesh(geometry, material);
@@ -36,14 +36,17 @@ window.addEventListener('load', function()
         planet.receiveShadow = true;
         planet.name = "myPlanet";
 
+//2k_earth_normal_map
+
+
         // Clouds
         geometry = new THREE.SphereGeometry(101, 64, 64);
-        diffuseMap = new THREE.TextureLoader().load('assets/img/earth_clouds_diffuse.jpg');
+        diffuseMap = new THREE.TextureLoader().load('assets/img/earth_clouds_diffuse1.jpg');
         alphaMap = new THREE.TextureLoader().load('assets/img/earth_clouds_mask.jpg');
         material = new THREE.MeshLambertMaterial
         ({
-            color: 'rgb(255, 255, 255)',
-            map: diffuseMap,
+            color: 'rgb(175, 175, 200)',
+            //map: diffuseMap,
             alphaMap: alphaMap,
             transparent: true
         })
