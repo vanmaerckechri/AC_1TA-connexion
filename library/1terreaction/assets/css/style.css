@@ -293,6 +293,15 @@ body {
         .ui .planetInfosContainer .populationContainer li .statsContainer .stats {
           margin: 0 .2rem;
           flex: 2; }
+.ui .leaveGameButtonAdmin {
+  position: fixed;
+  right: 4rem;
+  bottom: 130px;
+  z-index: 2; }
+.ui .step_scoresAdmin {
+  bottom: 60px;
+  background-color: rgba(0, 40, 80, 0.2);
+  z-index: 2; }
 
 .step_scores {
   border: 2px solid rgba(32, 52, 72, 0.9);

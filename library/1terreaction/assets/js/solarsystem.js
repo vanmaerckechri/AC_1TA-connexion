@@ -111,7 +111,7 @@ window.addEventListener('load', function()
                 pivot_planets.add(planet);
             }
             planet.name = planetsList[i].name;
-            planet.idCr = planetsList[i].id;
+            planet.idCr = planetsList[i].id_classroom;
         }
         scene.add(pivot_planets);
     }
@@ -150,8 +150,57 @@ window.addEventListener('load', function()
     }
 
 // -- UI --
+    let updatePlanetStats = function(idCr)
+    {
+        console.log(idCr)
+        let planetIndex;
+        for (let idPlanet = planetsList.length - 1; idPlanet >= 0; idPlanet --)
+        {
+            if (planetsList[idPlanet]["id_classroom"] == idCr)
+            {
+                planetIndex = idPlanet;
+                break;
+            }
+        }
+        let statsBar = document.querySelectorAll(".statsBar");
+        statsBar[0].innerText =  planetsList[planetIndex]["stats_environnement"];
+        statsBar[1].innerText =  planetsList[planetIndex]["stats_sante"];
+        statsBar[2].innerText =  planetsList[planetIndex]["stats_social"];
+
+        if (document.getElementById("planetName").innerHTML == "Créer une Nouvelle Planète")
+        {
+            console.log("ok")
+            if (!document.getElementById("step_scores").classList.contains("disabled_v2"))
+            {
+                document.getElementById("step_scores").classList.add("disabled_v2");
+            }
+        }
+        else
+        {
+            if (document.getElementById("step_scores").classList.contains("disabled_v2"))
+            {
+                document.getElementById("step_scores").classList.remove("disabled_v2");            
+            }
+        }
+
+        displayScoresBar()
+        // planet stats (students average)
+        /*if (i == 0)//TEMP ==>
+        {
+            let statsLength = statsDbPlanetTitle.length - 1;
+            for (let j = 0, studentsLength = studentsList.length; j < statsLength; j++)
+            {
+                statsPlanetAverage[statsDbPlanetTitle[j]] = Math.round(statsPlanetAverage[statsDbPlanetTitle[j]] / studentsLength);
+                statsPlanetAverage['stats_average'] += statsPlanetAverage[statsDbPlanetTitle[j]];
+            }
+            statsPlanetAverage['stats_average'] = Math.round(statsPlanetAverage['stats_average'] / statsLength);
+        }*/// <== fin du temp
+    }
+
     let updatePlanetName = function(direction = false)
     {
+        updatePlanetStats(planetsList[planetListIndex]["id_classroom"]);
+
         if (direction == "left")
         {
             planetListIndex = planetListIndex > 0 ? planetListIndex - 1 : planetsLength - 1;
@@ -273,10 +322,15 @@ window.addEventListener('load', function()
 
     let loadStatsPannel = function(studentsList)
     {
+        console.log(studentsList)
         // Population Infos
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
         let planetInfosTitle = document.querySelector('.planetInfosTitle');
         planetInfosTitle.innerText = "Statistiques";
+
+        let planetInfosThemeTitle = document.getElementById('planetInfosThemeTitle');
+        planetInfosThemeTitle.innerText = "Moyenne de Tous les Thèmes";
+
         let studentsContainer = document.createElement("ul");
         studentsContainer.setAttribute("class", "populationContainer");
 
@@ -289,13 +343,6 @@ window.addEventListener('load', function()
             console.log(studentsList)
         }
 
-        // statsPlanetAverage Temporaire (php qui s'en occupera)
-        let statsPlanetAverage = 
-        {
-            stats_envi: 1,
-            stats_sante: 1,
-            stats_social: 1,
-        };
         if (typeof studentsList == "undefined")
         {
             studentsList = [];
@@ -303,6 +350,8 @@ window.addEventListener('load', function()
         for (let i = studentsList.length; i >= 0; i--)
         {
             let statsDbTitle = ["stats_envi", "stats_sante", "stats_social", "stats_average"];
+            let statsDbPlanetTitle = ["stats_environnement", "stats_sante", "stats_social", "stats_average"];
+
             let statsTitle = ["Environnement", "Santé", "Social", "Moyenne"];
             let student = document.createElement("li");
             let studentName = document.createElement("p");
@@ -337,8 +386,6 @@ window.addEventListener('load', function()
                         // students stats
                         stats.innerText = Math.round(studentsList[i]["stats"]["average"][statsDbTitle[j]]*100)/100;
                         statsStudentAverage += parseFloat(studentsList[i]["stats"]["average"][statsDbTitle[j]]);
-                        // planet stats
-                        statsPlanetAverage[statsDbTitle[j]] += parseFloat(studentsList[i]["stats"]["average"][statsDbTitle[j]]);//TEMP
                     }
                     else
                     {
@@ -350,17 +397,6 @@ window.addEventListener('load', function()
                 }
                 statsContainer.appendChild(stats);
             }
-            // planet stats (students average)
-            if (i == 0)//TEMP ==>
-            {
-                let statsLength = statsDbTitle.length - 1;
-                for (let j = 0, studentsLength = studentsList.length; j < statsLength; j++)
-                {
-                    statsPlanetAverage[statsDbTitle[j]] = Math.round(statsPlanetAverage[statsDbTitle[j]] / studentsLength);
-                    statsPlanetAverage['stats_average'] += statsPlanetAverage[statsDbTitle[j]];
-                }
-                statsPlanetAverage['stats_average'] = Math.round(statsPlanetAverage['stats_average'] / statsLength);
-            }// <== fin du temp
 
             student.appendChild(studentName);
             student.appendChild(statsContainer);

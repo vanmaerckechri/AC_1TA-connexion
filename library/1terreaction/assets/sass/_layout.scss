@@ -172,8 +172,20 @@
 			}
 		}
 	}
+	.leaveGameButtonAdmin
+	{
+		position: fixed;
+		right: 4rem;
+		bottom: 130px;
+		z-index: 2;
+	}
+	.step_scoresAdmin
+	{
+		bottom: 60px;
+		background-color: rgba(0, 40, 80, 0.2);
+		z-index: 2;
+	}
 }
-
 // -- STUDENT --
 
 // Statistiques (Main Menu and Game) --

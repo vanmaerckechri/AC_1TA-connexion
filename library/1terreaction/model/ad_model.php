@@ -22,23 +22,25 @@ class ManagePlanets
 		$db = self::loadDb();
 
 		// Planets List
-		$req = $db->prepare("SELECT id_classroom FROM 1ta_planets");
+		$req = $db->prepare("SELECT id_classroom, stats_environnement, stats_sante, stats_social FROM 1ta_planets WHERE id_admin = :idAd ");
+		$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
 		$req->execute();
-		$classroomLinkedToPlanet = $req->fetchAll();
+		$planetsStats = $req->fetchAll(PDO::FETCH_ASSOC);
 		// Planets list exist ?
-		if (!empty($classroomLinkedToPlanet))
+		if (!empty($planetsStats))
 		{
 			// Check planets for this admin account
-			$req = $db->prepare("SELECT id, name FROM pe_classrooms WHERE id = :idCr AND id_admin = :idAd");
+			$req = $db->prepare("SELECT name FROM pe_classrooms WHERE id = :idCr AND id_admin = :idAd");
 			$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
-			foreach ($classroomLinkedToPlanet as $classroom)
+			foreach ($planetsStats as $planet)
 			{
-				$req->bindValue(':idCr', $classroom['id_classroom'], PDO::PARAM_INT);
+				$req->bindValue(':idCr', $planet['id_classroom'], PDO::PARAM_INT);
 				$req->execute();
-				$result = $req->fetchAll();
-				if (!empty($result[0]))
+				$planetName = $req->fetchAll(PDO::FETCH_ASSOC);
+				if (!empty($planetName))
 				{
-					array_push($planetsInfo, $result[0]);
+					$planet = array_merge($planetName[0], $planet);
+					array_push($planetsInfo, $planet);
 				}
 			}
 		}
@@ -59,7 +61,7 @@ class ManagePlanets
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		foreach ($classroomsInfos as $crInfo)
 		{
-			$req->bindValue(':idCr', $crInfo['id'], PDO::PARAM_INT);
+			$req->bindValue(':idCr', $crInfo['id_classroom'], PDO::PARAM_INT);
 			$req->execute();
 			array_push($studentsBasicInfos, $req->fetchAll(PDO::FETCH_ASSOC));
 		}

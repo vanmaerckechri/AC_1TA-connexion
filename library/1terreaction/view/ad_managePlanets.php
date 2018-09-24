@@ -13,6 +13,8 @@ ob_start();
                 </div>
             </div>
             <h3 class="planetInfosTitle">
+                <h2 id="planetInfosThemeTitle" class="planetInfosThemeTitle">
+                </h2>
             </h3>
             <div class="freeClassroomsContainer disabled">
             <?php
@@ -26,8 +28,25 @@ ob_start();
             }
             ?>
             </div>
+            <button id="planetPreviousInfo" class="planetPreviousInfo">previous</button>
+            <button id="planetNextInfo" class="planetNextInfo">next</button>
         </div>
-        <p class="planetName"></p>
+        <a class="buttonDefault leaveGameButton leaveGameButtonAdmin" href="../../library.php">Quitter le Jeu</a>
+        <div id="step_scores" class="step_scores step_scoresAdmin statsPlanetContainer">
+            <div class="statsContainer titleEnv">
+                <div id="stats_environnement" class="statsBar envi"></div>
+                <p>Env.</p>
+            </div>
+            <div class="statsContainer titleSante">
+                <div id="stats_sante" class="statsBar sante"></div>
+                <p>Santé</p>
+            </div>
+            <div class="statsContainer titleSocial">
+                <div id="stats_social" class="statsBar social"></div>
+                <p>Social</p>
+            </div>
+        </div>
+        <p id="planetName" class="planetName"></p>
     </div>
 <?php
 $content = ob_get_clean();
@@ -45,7 +64,8 @@ ob_start();
     </script>
     <script src="assets/library/three.js"></script>
     <script src="assets/library/OrbitControls.js"></script>
-    <script src="assets/js/tools.js"></script>                  
+    <script src="assets/js/tools.js"></script>    
+    <script src="assets/js/stats.js"></script>              
     <script src="assets/js/solarsystem.js"></script>
 <?php
 $script = ob_get_clean();

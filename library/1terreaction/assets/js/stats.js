@@ -1,6 +1,4 @@
 // SCORES
-window.addEventListener("load", function()
-{
     let displayScoresBar = function(statsTitle)
     {
         let statsContainer = document.querySelectorAll(".step_scores");
@@ -46,5 +44,7 @@ window.addEventListener("load", function()
             document.getElementById("step_scores").remove();
         }, false);*/
     }
+window.addEventListener("load", function()
+{
     displayScoresBar();
 }, false);
