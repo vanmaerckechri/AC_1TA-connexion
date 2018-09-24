@@ -1,0 +1,4 @@
+clique planete => 
+	charger moyenne de la planete et boutons en fonction du nombre de thèmes existants =>
+		clique thème X =>
+			barres de stats passent de "moyenne de tous les thèmes" à "moyenne du thème actuel", afficher les stats, afficher question ouverte et edition, bouton activation/desactivation du thème, bouton autres thèmes, bouton sur chaque nom => réponses au thème du joueur (boutons joueur precedent/suivant, boutons retour sur les stats)

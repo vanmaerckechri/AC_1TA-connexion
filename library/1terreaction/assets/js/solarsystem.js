@@ -152,7 +152,6 @@ window.addEventListener('load', function()
 // -- UI --
     let updatePlanetStats = function(idCr)
     {
-        console.log(idCr)
         let planetIndex;
         for (let idPlanet = planetsList.length - 1; idPlanet >= 0; idPlanet --)
         {
@@ -199,8 +198,6 @@ window.addEventListener('load', function()
 
     let updatePlanetName = function(direction = false)
     {
-        updatePlanetStats(planetsList[planetListIndex]["id_classroom"]);
-
         if (direction == "left")
         {
             planetListIndex = planetListIndex > 0 ? planetListIndex - 1 : planetsLength - 1;
@@ -211,6 +208,8 @@ window.addEventListener('load', function()
         }
         let planetName = document.querySelector('.planetName');
         planetName.innerText = planetsList[planetListIndex].name;
+
+        updatePlanetStats(planetsList[planetListIndex]["id_classroom"]);
     }
 
     let randPlanetNameLetters = function()
