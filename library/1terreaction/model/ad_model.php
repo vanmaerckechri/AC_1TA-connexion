@@ -49,43 +49,44 @@ class ManagePlanets
 
 	public static function callStudentsList($classroomsInfos)
 	{
-		$studentsList = [];
+		$studentsInfos = [];
 
 		$db = self::loadDb();
 
 		// students name and id
-		$studentsInfos = [];
+		$studentsBasicInfos = [];
 		$req = $db->prepare("SELECT nickname, id, id_classroom FROM pe_students WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		foreach ($classroomsInfos as $crInfo)
 		{
 			$req->bindValue(':idCr', $crInfo['id'], PDO::PARAM_INT);
 			$req->execute();
-			array_push($studentsInfos, $req->fetchAll(PDO::FETCH_ASSOC));
+			array_push($studentsBasicInfos, $req->fetchAll(PDO::FETCH_ASSOC));
 		}
 		// students stats
-		if (!empty($studentsInfos));
+		if (!empty($studentsBasicInfos));
 		{
-			$req = $db->prepare("SELECT stats_envi, stats_sante, stats_social FROM 1ta_stats WHERE id_student = :idSt AND serie = :serie");
-			foreach ($studentsInfos as $classroom)
+			$req = $db->prepare("SELECT serie, stats_envi, stats_sante, stats_social FROM 1ta_stats WHERE id_student = :idSt");
+			foreach ($studentsBasicInfos as $classroom)
 			{
 				foreach ($classroom as $student)
 				{
-					$classroomId = $student["id_classroom"];
+					$idCr = $student["id_classroom"];
 					$req->bindParam(':idSt', $student['id'], PDO::PARAM_INT);
-					$req->bindValue(':serie', "average", PDO::PARAM_STR);
 					$req->execute();
-					$studentsListStats = $req->fetch(PDO::FETCH_ASSOC);
-					$studentInfos = $student;
-					if (isset($studentsList[$student["id_classroom"]]))
+					$stats = $req->fetchAll(PDO::FETCH_ASSOC);
+					$basicInfos = $student;
+
+					if (!isset($studentsInfos[$idCr]))
 					{
-						array_push($studentsList[$student["id_classroom"]], array_merge($studentInfos, $studentsListStats));
+						$studentsInfos[$idCr] = [];
 					}
-					else
+					$rebuildStats = [];
+					foreach ($stats as $serie)
 					{
-						$studentsList[$student["id_classroom"]] = [];
-						array_push($studentsList[$student["id_classroom"]], array_merge($studentInfos, $studentsListStats));
+						$rebuildStats[$serie["serie"]] = ["stats_envi" => $serie["stats_envi"], "stats_sante" => $serie["stats_sante"], "stats_social" => $serie["stats_social"]];
 					}
+					array_push($studentsInfos[$idCr], ["id" => $student["id"], "nickname" => $student["nickname"], "stats" => $rebuildStats]);
 				}
 			}
 		}
@@ -93,7 +94,7 @@ class ManagePlanets
 		$req = NULL;
 
 
-		return $studentsList;
+		return $studentsInfos;
 	}
 
 	public static function callFreeClassroomsList($idAd)
@@ -200,7 +201,7 @@ class ManagePlanets
 				foreach ($studentsId as $idSt)
 				{
 					$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
-					$req->bindValue(':serie', "average", PDO::PARAM_INT);
+					$req->bindValue(':serie', "average", PDO::PARAM_STR);
 					$req->execute();	
 				}
 			}

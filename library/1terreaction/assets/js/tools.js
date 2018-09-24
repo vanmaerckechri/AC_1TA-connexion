@@ -3,12 +3,19 @@
  *  out = array
  */
 let reverse = 1;
-let convertObjectsPropertyToArray = function(objs, key)
+let convertObjectsPropertyToArray = function(objs, key, byWhat)
 {
     let array = [];
     for (let i = objs.length - 1; i >= 0; i--)
     {
-        array.push(objs[i][key]);
+      if (byWhat == "nickname")
+      {
+          array.push(objs[i][key]);
+      }
+      else if (byWhat == "stats")
+      {
+         array.push( objs[i]["stats"]["average"][key]);
+      }
     }
     array.sort();
     if (reverse == 1)
@@ -16,17 +23,23 @@ let convertObjectsPropertyToArray = function(objs, key)
         array.reverse();
     }
     reverse *= -1;
-
+    console.log(key)
     return array;
 }
 
 // change array order who contain objects
-function sortObjectsByProperty (array, order, key)
+function sortObjectsByProperty (array, order, key, byWhat)
 {
     array.sort(function (a, b)
     {
-        //console.log(b[key]);
-        return order.indexOf(a[key]) - order.indexOf(b[key])
+      if (byWhat == "nickname")
+      {
+          return order.indexOf(a[key]) - order.indexOf(b[key]);
+      }
+      else if (byWhat == "stats")
+      {
+          return order.indexOf(a["stats"]["average"][key]) - order.indexOf(b["stats"]["average"][key]);
+      }
     });
 
 };

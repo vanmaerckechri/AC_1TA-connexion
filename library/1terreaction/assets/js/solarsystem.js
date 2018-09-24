@@ -32,10 +32,10 @@ window.addEventListener('load', function()
             if (i < planetsLengthIndex)
             {
                 let geometry = new THREE.SphereGeometry(600, 16, 16);
-                let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse.jpg');
-                let normalMap = new THREE.TextureLoader().load('assets/img/earth_normalmap.tif');
-                let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump.jpg');
-                let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular.tif');
+                let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse1.jpg');
+                //let normalMap = new THREE.TextureLoader().load('assets/img/earth_normalmap.tif');
+                let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
+                //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular.tif');
                 let material = new THREE.MeshPhongMaterial
                 ({
                     color: 0xffffff,
@@ -43,7 +43,7 @@ window.addEventListener('load', function()
                     bumpMap: bumpMap,
                     bumpScale: 20,
                     //normalMap: normalMap,
-                    specularMap: specularMap,
+                    //specularMap: specularMap,
                     //specular: 0x666666,
                     transparent: false
                 })
@@ -57,7 +57,7 @@ window.addEventListener('load', function()
 
                 // Clouds
                 geometry = new THREE.SphereGeometry(620, 16, 16);
-                diffuseMap = new THREE.TextureLoader().load('assets/img/earth_clouds_diffuse.jpg');
+                diffuseMap = new THREE.TextureLoader().load('assets/img/earth_clouds_diffuse1.jpg');
                 alphaMap = new THREE.TextureLoader().load('assets/img/earth_clouds_mask.jpg');
                 material = new THREE.MeshLambertMaterial
                 ({
@@ -280,12 +280,13 @@ window.addEventListener('load', function()
         let studentsContainer = document.createElement("ul");
         studentsContainer.setAttribute("class", "populationContainer");
 
-        let refresh = function(col)
+        let refresh = function(col, byWhat)
         {
             studentsContainer.remove();
-            let order = convertObjectsPropertyToArray(studentsList, col);
-            sortObjectsByProperty(studentsList, order, col);
+            let order = convertObjectsPropertyToArray(studentsList, col, byWhat);
+            sortObjectsByProperty(studentsList, order, col, byWhat);
             loadStatsPannel(studentsList);
+            console.log(studentsList)
         }
 
         // statsPlanetAverage Temporaire (php qui s'en occupera)
@@ -311,7 +312,7 @@ window.addEventListener('load', function()
             {
                 // Nickname Title
                 studentName.innerText = "Habitants";
-                studentName.onclick = function() {refresh("nickname");};
+                studentName.onclick = function() {refresh("nickname", "nickname");};
             }
             else
             {
@@ -326,23 +327,25 @@ window.addEventListener('load', function()
                 {
                     // Stats Title
                     stats.innerText = statsTitle[j];
-                    stats.onclick = function() {refresh(statsDbTitle[j]);};
+                    stats.onclick = function() {refresh(statsDbTitle[j], "stats");};
                 }
                 else
                 {
-                    // Stats (! tout ce qui est average est temporaire, ça sera fait côté php)
-                    if (j < statsLength - 1)//TEMP
+                    // Stats
+                    if (j < statsLength - 1)
                     {
                         // students stats
-                        stats.innerText = Math.round(studentsList[i][statsDbTitle[j]]*100)/100;
-                        statsStudentAverage +=parseFloat(studentsList[i][statsDbTitle[j]]);//TEMP
+                        stats.innerText = Math.round(studentsList[i]["stats"]["average"][statsDbTitle[j]]*100)/100;
+                        statsStudentAverage += parseFloat(studentsList[i]["stats"]["average"][statsDbTitle[j]]);
                         // planet stats
-                        statsPlanetAverage[statsDbTitle[j]] += parseFloat(studentsList[i][statsDbTitle[j]]);//TEMP
+                        statsPlanetAverage[statsDbTitle[j]] += parseFloat(studentsList[i]["stats"]["average"][statsDbTitle[j]]);//TEMP
                     }
                     else
                     {
                         // student average
-                        stats.innerText = Math.round(statsStudentAverage / (statsLength -1)*100)/100;//TEMP
+                        statsStudentAverage = Math.round(statsStudentAverage / (statsLength -1)*100)/100;
+                        studentsList[i]["stats"]["average"]["stats_average"] = statsStudentAverage;
+                        stats.innerText = statsStudentAverage;
                     }
                 }
                 statsContainer.appendChild(stats);
@@ -469,7 +472,7 @@ window.addEventListener('load', function()
                                 document.querySelector('.deleteValidationContainer').remove();
                             }
                         }
-                        loadStatsPannel(studentsList[intersects[0].object.idCr]);
+                        loadStatsPannel(studentsInfos[intersects[0].object.idCr]);
                     }
                 }
             }
