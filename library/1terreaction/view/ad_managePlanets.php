@@ -12,10 +12,7 @@ ob_start();
                     <img class="previous" src="assets/img/previous_light.svg" alt="retour à l'écran précédent">
                 </div>
             </div>
-            <h3 class="planetInfosTitle">
-                <h2 id="planetInfosThemeTitle" class="planetInfosThemeTitle">
-                </h2>
-            </h3>
+            <h3 id="planetInfosTitle" class="planetInfosTitle"></h3>
             <div class="freeClassroomsContainer disabled">
             <?php
             foreach ($freeClassrooms as $freeCr)
@@ -28,8 +25,9 @@ ob_start();
             }
             ?>
             </div>
-            <button id="planetPreviousInfo" class="planetPreviousInfo">previous</button>
-            <button id="planetNextInfo" class="planetNextInfo">next</button>
+            <div id="themeButtonsContainer" class="themeButtonsContainer">
+            </div>
+            <h2 id="planetInfosThemeTitle" class="planetInfosThemeTitle"></h2>
         </div>
         <a class="buttonDefault leaveGameButton leaveGameButtonAdmin" href="../../library.php">Quitter le Jeu</a>
         <div id="step_scores" class="step_scores step_scoresAdmin statsPlanetContainer">
@@ -65,8 +63,9 @@ ob_start();
     <script src="assets/library/three.js"></script>
     <script src="assets/library/OrbitControls.js"></script>
     <script src="assets/js/tools.js"></script>    
-    <script src="assets/js/stats.js"></script>              
-    <script src="assets/js/solarsystem.js"></script>
+    <script src="assets/js/stats.js"></script>
+    <script src="assets/js/questions.js"></script>             
+    <script src="assets/js/ad_managePlanets.js"></script>
 <?php
 $script = ob_get_clean();
 

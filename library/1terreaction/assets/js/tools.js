@@ -23,7 +23,6 @@ let convertObjectsPropertyToArray = function(objs, key, byWhat)
         array.reverse();
     }
     reverse *= -1;
-    console.log(key)
     return array;
 }
 

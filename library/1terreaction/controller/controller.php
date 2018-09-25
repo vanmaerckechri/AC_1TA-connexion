@@ -55,7 +55,7 @@ function loadGameView($activeScoreTab = false, $statsEnvAverage = false, $statsS
 	$imgNumber = round($gameInfos->playerStats['stats_envi']);
 	$localBgAir_imgSrc = "assets/img/local_0".$imgNumber.".jpg";
 	// load themes
-	$allThemes = ["Repas", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
+	$allThemes = ["alimentation", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
 
 	$currentThemeIndex = ord(strtolower($gameInfos->openquestion["serie"])) - 97;
 	$currentTheme = $allThemes[$currentThemeIndex];

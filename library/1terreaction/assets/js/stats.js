@@ -4,7 +4,10 @@
         let statsContainer = document.querySelectorAll(".step_scores");
         for (let i = statsContainer.length - 1; i >= 0; i--)
         {
-            statsContainer[i].classList.remove("disabled_v2");
+            if (!statsContainer[i].classList.contains("step_scoresAdmin") && statsContainer[i].classList.contains("disabled_v2"))
+            {
+                statsContainer[i].classList.remove("disabled_v2");
+            }
         }
 
         let createFluid = function(barsTag)
