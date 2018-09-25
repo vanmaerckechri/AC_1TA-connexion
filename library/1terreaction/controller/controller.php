@@ -100,11 +100,11 @@ function loadGameResultView()
 					$statsSoAverage = $statsSoAverage / 9;
 				}
 			}
-			$serie = $_POST["cleanReplies"][10];
-			if (strlen($serie) != 1)
-			{
-				$message = "Une erreur est survenue";
-			}
+		}
+		$serie = $_POST["cleanReplies"][10];
+		if (strlen($serie) > 20)
+		{
+			$message = "Une erreur est survenue";
 		}
 	}
 	if ($message == "")

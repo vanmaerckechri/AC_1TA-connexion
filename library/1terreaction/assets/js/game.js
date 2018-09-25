@@ -40,10 +40,8 @@ let sendToDb = function()
     }
     cleanReplies.push(document.getElementById("openQuestionTextArea").value);
 
-////////////////////////////////////////////////////////////////////////////////////////
-    themeIndex = currentTheme.slice(0, 1).charCodeAt(0) - 41//(A = first theme = 41)
+    themeIndex = currentTheme.slice(0, 1).charCodeAt() - 65//(A = first theme = 65)
     cleanReplies.push(allThemesNames[themeIndex]);
-////////////////////////////////////////////////////////////////////////////////////////
 
     let inputReply = document.createElement("input");
     inputReply.setAttribute("type", "hidden");
