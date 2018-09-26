@@ -38,7 +38,16 @@ class GameInfos
 			$req->bindParam(':serie', $serie, PDO::PARAM_STR);
 			$req->execute();
 			$playerStatsAverage = $req->fetchAll(PDO::FETCH_ASSOC);
-			$playerStatsAverage = $playerStatsAverage[0];
+			if (isset($playerStatsAverage) && !empty($playerStatsAverage))
+			{
+				$playerStatsAverage = $playerStatsAverage[0];
+			}
+			else
+			{
+				$playerStatsAverage["stats_envi"] = 1;
+				$playerStatsAverage["stats_sante"] = 1;
+				$playerStatsAverage["stats_social"] = 1;
+			}
 			$req->closeCursor();
 			$req = NULL;
 			return $playerStatsAverage;
@@ -134,7 +143,8 @@ class RecordReplies
 	public static function updateStats($serie, $stats_enviAverage, $stats_santeAverage, $stats_socialAverage)
 	{
 		$db = self::loadDb();
-		// LOCAL STATS
+		// -- LOCAL STATS --
+		// CREATE OR UPDATE STATS FROM CURRENT SERIE
 		// check if already exist stats for this serie
 		$req = $db->prepare("SELECT id FROM 1ta_stats WHERE id_student = :idSt AND serie = :serie");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
@@ -162,7 +172,7 @@ class RecordReplies
 			$req->execute();			
 		}
 
-		// update average serie stats
+		// CREATE OR UPDATE AVERAGE SERIES STATS
 		$req = $db->prepare("SELECT stats_envi, stats_sante, stats_social FROM 1ta_stats WHERE id_student = :idSt AND serie != :serie");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->bindValue(':serie', "average", PDO::PARAM_STR);
@@ -171,15 +181,34 @@ class RecordReplies
 
 		$averagePlayer = self::calculStatsAverages($statsAverageFromSeries);
 
-		$req = $db->prepare("UPDATE 1ta_stats SET stats_envi = :stats_envi, stats_sante = :stats_sante, stats_social = :stats_social WHERE id_student = :idSt AND serie = :serie");
+		// check if average series stats already exist
+		$req = $db->prepare("SELECT id FROM 1ta_stats WHERE id_student = :idSt AND serie = :serie");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->bindValue(':serie', "average", PDO::PARAM_STR);
-		$req->bindParam(':stats_envi', $averagePlayer["stats_enviAverage"], PDO::PARAM_STR);
-		$req->bindParam(':stats_sante', $averagePlayer["stats_santeAverage"], PDO::PARAM_STR);
-		$req->bindParam(':stats_social', $averagePlayer["stats_socialAverage"], PDO::PARAM_STR);
-		$req->execute();		
+		$req->execute();
+		$statsAverageAlreadyExistInDb = $req->fetchAll();
+		if (isset($statsAverageAlreadyExistInDb) && !empty($statsAverageAlreadyExistInDb) && $statsAverageAlreadyExistInDb != false)
+		{
+			$req = $db->prepare("UPDATE 1ta_stats SET stats_envi = :stats_envi, stats_sante = :stats_sante, stats_social = :stats_social WHERE id_student = :idSt AND serie = :serie");
+			$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
+			$req->bindValue(':serie', "average", PDO::PARAM_STR);
+			$req->bindParam(':stats_envi', $averagePlayer["stats_enviAverage"], PDO::PARAM_STR);
+			$req->bindParam(':stats_sante', $averagePlayer["stats_santeAverage"], PDO::PARAM_STR);
+			$req->bindParam(':stats_social', $averagePlayer["stats_socialAverage"], PDO::PARAM_STR);
+			$req->execute();
+		}
+		else
+		{
+			$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie, stats_envi, stats_sante, stats_social) VALUES (:idSt, :serie, :stats_envi, :stats_sante, :stats_social)");
+			$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
+			$req->bindValue(':serie', "average", PDO::PARAM_STR);
+			$req->bindParam(':stats_envi', $averagePlayer["stats_enviAverage"], PDO::PARAM_STR);
+			$req->bindParam(':stats_sante', $averagePlayer["stats_santeAverage"], PDO::PARAM_STR);
+			$req->bindParam(':stats_social', $averagePlayer["stats_socialAverage"], PDO::PARAM_STR);
+			$req->execute();
+		}		
 
-		// GLOBAL STATS
+		// -- GLOBAL STATS --
 		// get stats from others players
 		$req = $db->prepare("SELECT id FROM pe_students WHERE id_classroom = :idCr");
 		$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
@@ -193,7 +222,15 @@ class RecordReplies
 			$req->bindParam(':idSt', $idSt['id'], PDO::PARAM_INT);
 			$req->bindValue(':serie', "average", PDO::PARAM_STR);
 			$req->execute();
-			array_push($statsAverageFromStudents, $req->fetch(PDO::FETCH_ASSOC));
+			$averageStudent = $req->fetch(PDO::FETCH_ASSOC);
+			// if one of the other players has not played yet, it is given the average score the time to calculate the stats of the planets
+			if (!isset($averageStudent) || empty($averageStudent))
+			{
+				$averageStudent["stats_envi"] = 1;
+				$averageStudent["stats_sante"] = 1;
+				$averageStudent["stats_social"] = 1;
+			}
+			array_push($statsAverageFromStudents, $averageStudent);
 		}
 		// update average serie stats
 		$averagePlanet = self::calculStatsAverages($statsAverageFromStudents);

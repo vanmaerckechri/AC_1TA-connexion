@@ -383,7 +383,7 @@ window.addEventListener('load', function()
             else
             {
                 // Nickname
-                studentName.innerText = studentsList[row].nickname
+                studentName.innerText = studentsList[row].nickname;
                 studentName.onclick = displayQuestionsReplies.bind(this, row);
             }
             for (let col = 0, statsLength = statsDbTitle.length; col < statsLength; col++)

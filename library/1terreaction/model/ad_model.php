@@ -210,13 +210,13 @@ class ManagePlanets
 					$req->execute();	
 				}
 				// link population stats
-				$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
+				/*$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
 				foreach ($studentsId as $idSt)
 				{
 					$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 					$req->bindValue(':serie', "average", PDO::PARAM_STR);
 					$req->execute();	
-				}
+				}*/
 			}
 		}
 		$req->closeCursor();
