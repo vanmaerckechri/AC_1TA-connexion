@@ -12,11 +12,11 @@ let convertObjectsPropertyToArray = function(objs, key, byWhat, theme)
       {
           array.push(objs[i][key]);
       }
-      else if (byWhat == "stats")
+      else if (byWhat == "theme")
       {
-        if (typeof objs[i]["stats"][theme] != "undefined")
+        if (typeof objs[i]["theme"][theme] != "undefined")
         {
-          array.push(objs[i]["stats"][theme][key]);
+          array.push(objs[i]["theme"][theme][key]);
         }
         else
         {
@@ -42,19 +42,19 @@ function sortObjectsByProperty (array, order, key, byWhat, theme)
       {
           return order.indexOf(a[key]) - order.indexOf(b[key]);
       }
-      else if (byWhat == "stats")
+      else if (byWhat == "theme")
       {
-        if (typeof a["stats"][theme] == "undefined")
+        if (typeof a["theme"][theme] == "undefined")
         {
-          a["stats"][theme] = [];
-          a["stats"][theme][key] = "-";
+          a["theme"][theme] = [];
+          a["theme"][theme][key] = "-";
         }
-        if (typeof b["stats"][theme] == "undefined")
+        if (typeof b["theme"][theme] == "undefined")
         {
-          b["stats"][theme] = [];
-          b["stats"][theme][key] = "-";
+          b["theme"][theme] = [];
+          b["theme"][theme][key] = "-";
         }
-        return order.indexOf(a["stats"][theme][key]) - order.indexOf(b["stats"][theme][key]);
+        return order.indexOf(a["theme"][theme][key]) - order.indexOf(b["theme"][theme][key]);
       }
     });
 

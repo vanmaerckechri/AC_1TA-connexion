@@ -65,10 +65,11 @@ class ManagePlanets
 			$req->execute();
 			array_push($studentsBasicInfos, $req->fetchAll(PDO::FETCH_ASSOC));
 		}
-		// students stats
+		// students stats and replies
 		if (!empty($studentsBasicInfos));
 		{
 			$req = $db->prepare("SELECT serie, stats_envi, stats_sante, stats_social FROM 1ta_stats WHERE id_student = :idSt");
+			$req2 = $db->prepare("SELECT serie, reply1, reply2, reply3, reply4, reply5, reply6, reply7, reply8, reply9, open_reply FROM 1ta_replies WHERE id_student = :idSt");
 			foreach ($studentsBasicInfos as $classroom)
 			{
 				foreach ($classroom as $student)
@@ -77,18 +78,28 @@ class ManagePlanets
 					$req->bindParam(':idSt', $student['id'], PDO::PARAM_INT);
 					$req->execute();
 					$stats = $req->fetchAll(PDO::FETCH_ASSOC);
-					$basicInfos = $student;
+
+					$req2->bindParam(':idSt', $student['id'], PDO::PARAM_INT);
+					$req2->execute();
+					$replies = $req2->fetchAll(PDO::FETCH_ASSOC);
 
 					if (!isset($studentsInfos[$idCr]))
 					{
 						$studentsInfos[$idCr] = [];
 					}
 					$rebuildStats = [];
-					foreach ($stats as $serie)
+					$mergeStatsAndReplies = [];
+
+					foreach ($stats as $key => $serie)
 					{
 						$rebuildStats[$serie["serie"]] = ["stats_envi" => $serie["stats_envi"], "stats_sante" => $serie["stats_sante"], "stats_social" => $serie["stats_social"]];
 					}
-					array_push($studentsInfos[$idCr], ["id" => $student["id"], "nickname" => $student["nickname"], "stats" => $rebuildStats]);
+					foreach ($replies as $serie)
+					{
+						$rebuildStats[$serie["serie"]] += ["replies" => $serie];
+						unset($rebuildStats[$serie["serie"]]["replies"]["serie"]);
+					}
+					array_push($studentsInfos[$idCr], ["id" => $student["id"], "nickname" => $student["nickname"], "theme" => $rebuildStats]);
 				}
 			}
 		}

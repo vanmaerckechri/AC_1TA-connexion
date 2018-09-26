@@ -312,7 +312,7 @@ window.addEventListener('load', function()
         }
     }
 
-    let loadStatsPannel = function(studentsList, theme)
+    let loadStatsPannel = function(studentsList, currentTheme)
     {
         // Population Infos
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
@@ -320,15 +320,15 @@ window.addEventListener('load', function()
         planetInfosTitle.innerText = "Statistiques";
 
         let planetInfosThemeTitle = document.getElementById('planetInfosThemeTitle');
-        if (theme == "average")
+        if (currentTheme == "average")
         {
             planetInfosTitle.innerText += " de Tous les Thèmes";
-            //planetInfosThemeTitle.innerText = "Moyenne de Tous les Thèmes";
+            //planetInfoscurrentThemeTitle.innerText = "Moyenne de Tous les Thèmes";
         }
         else
         {
-            planetInfosTitle.innerText += " du thème: \""+theme+"\"";
-            //planetInfosThemeTitle.innerText = "Moyenne du Thème: \""+theme+"\"";
+            planetInfosTitle.innerText += " du thème: \""+currentTheme+"\"";
+            //planetInfoscurrentThemeTitle.innerText = "Moyenne du Thème: \""+currentTheme+"\"";
         }
 
         // refresh stats content
@@ -337,7 +337,7 @@ window.addEventListener('load', function()
             document.getElementById("populationContainer").remove();
         }
         document.getElementById("themeButtonsContainer").innerHTML = "";
-        createThemeButtons(studentsList, theme);
+        createThemeButtons(studentsList, currentTheme);
 
         let studentsContainer = createDomElem("ul", [["id", "class"], ["populationContainer", "populationContainer"]])
 
@@ -350,9 +350,18 @@ window.addEventListener('load', function()
         let changeRowOrder = function(col, byWhat)
         {
             studentsContainer.remove();
-            let order = convertObjectsPropertyToArray(studentsList, col, byWhat, theme);
-            sortObjectsByProperty(studentsList, order, col, byWhat, theme);
-            loadStatsPannel(studentsList, theme);
+            let order = convertObjectsPropertyToArray(studentsList, col, byWhat, currentTheme);
+            sortObjectsByProperty(studentsList, order, col, byWhat, currentTheme);
+            loadStatsPannel(studentsList, currentTheme);
+        }
+
+        // display questions and replies from players
+        let displayQuestionsReplies = function(studentIndex)
+        {
+            console.log(studentsList)
+            console.log(studentIndex)
+            console.log(currentTheme)
+            console.log(studentsList[studentIndex]["theme"][currentTheme]["replies"])
         }
 
         if (typeof studentsList == "undefined")
@@ -375,6 +384,7 @@ window.addEventListener('load', function()
             {
                 // Nickname
                 studentName.innerText = studentsList[row].nickname
+                studentName.onclick = displayQuestionsReplies.bind(this, row);
             }
             for (let col = 0, statsLength = statsDbTitle.length; col < statsLength; col++)
             {
@@ -384,7 +394,7 @@ window.addEventListener('load', function()
                 {
                     // Stats Title
                     stats.innerText = statsTitle[col];
-                    stats.onclick = function() {changeRowOrder(statsDbTitle[col], "stats");};
+                    stats.onclick = function() {changeRowOrder(statsDbTitle[col], "theme");};
                 }
                 else
                 {
@@ -392,7 +402,7 @@ window.addEventListener('load', function()
                     if (col < statsLength - 1)
                     {
                         // student stats
-                        let currentStat = studentsList[row]["stats"][theme] && studentsList[row]["stats"][theme][statsDbTitle[col]] && studentsList[row]["stats"][theme][statsDbTitle[col]] != "-" ? studentsList[row]["stats"][theme][statsDbTitle[col]] : false;
+                        let currentStat = studentsList[row]["theme"][currentTheme] && studentsList[row]["theme"][currentTheme][statsDbTitle[col]] && studentsList[row]["theme"][currentTheme][statsDbTitle[col]] != "-" ? studentsList[row]["theme"][currentTheme][statsDbTitle[col]] : false;
 
                         if (currentStat != false)
                         {
@@ -408,10 +418,10 @@ window.addEventListener('load', function()
                     else
                     {
                         // student average for last column
-                        if (studentsList[row]["stats"][theme] && studentsList[row]["stats"][theme]["stats_average"] != "-" && statsStudentAverage != "-")
+                        if (studentsList[row]["theme"][currentTheme] && studentsList[row]["theme"][currentTheme]["stats_average"] != "-" && statsStudentAverage != "-")
                         {
                             statsStudentAverage = Math.round(statsStudentAverage / (statsLength -1)*50) + "%";
-                            studentsList[row]["stats"][theme]["stats_average"] = statsStudentAverage;
+                            studentsList[row]["theme"][currentTheme]["stats_average"] = statsStudentAverage;
                             stats.innerText = statsStudentAverage;
                         }
                         else
