@@ -30,27 +30,27 @@ class GameInfos
 
 	public static function getPlayerStats($serie)
 	{
-		if (strlen($serie) == 1 && ctype_alpha($serie) == true || $serie == "average")
+		if (ctype_alpha($serie) == true)
 		{
 			$db = self::loadDb();
 			$req = $db->prepare("SELECT stats_envi, stats_sante, stats_social FROM 1ta_stats WHERE id_student = :idSt AND serie = :serie");
 			$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 			$req->bindParam(':serie', $serie, PDO::PARAM_STR);
 			$req->execute();
-			$playerStatsAverage = $req->fetchAll(PDO::FETCH_ASSOC);
-			if (isset($playerStatsAverage) && !empty($playerStatsAverage))
+			$playerStats = $req->fetchAll(PDO::FETCH_ASSOC);
+			if (isset($playerStats) && !empty($playerStats))
 			{
-				$playerStatsAverage = $playerStatsAverage[0];
+				$playerStats = $playerStats[0];
 			}
 			else
 			{
-				$playerStatsAverage["stats_envi"] = 1;
-				$playerStatsAverage["stats_sante"] = 1;
-				$playerStatsAverage["stats_social"] = 1;
+				$playerStats["stats_envi"] = 1;
+				$playerStats["stats_sante"] = 1;
+				$playerStats["stats_social"] = 1;
 			}
 			$req->closeCursor();
 			$req = NULL;
-			return $playerStatsAverage;
+			return $playerStats;
 		}
 		else
 		{

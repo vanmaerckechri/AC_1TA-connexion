@@ -116,15 +116,15 @@ ob_start();
             <div class="step_scores statsLocalPreviousGameContainer disabled_v2">
                 <h3><?=$currentTheme?>:</h3>
                 <div class="statsContainer titleEnv">
-                    <div class="statsBar envi"><?=$gameInfos->playerStats["stats_envi"]?></div>
+                    <div class="statsBar envi"><?=$statsEnvThemefromLastGame?></div>
                     <p>Env.</p>
                 </div>
                 <div class="statsContainer titleSante">
-                    <div class="statsBar sante"><?=$gameInfos->playerStats["stats_sante"]?></div>
+                    <div class="statsBar sante"><?=$statsSanThemefromLastGame?></div>
                     <p>Santé</p>
                 </div>
                 <div class="statsContainer titleSocial">
-                    <div class="statsBar social"><?=$gameInfos->playerStats["stats_social"]?></div>
+                    <div class="statsBar social"><?=$statsSoThemefromLastGame?></div>
                     <p>Social</p>
                 </div>
             </div>

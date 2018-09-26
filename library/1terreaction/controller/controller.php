@@ -46,7 +46,7 @@ function loadMainView()
 	require('./view/st_mainmenu.php');
 }
 
-function loadGameView($activeScoreTab = false, $statsEnvAverage = false, $statsSanAverage = false, $statsSoAverage = false)
+function loadGameView($activeScoreTab = false, $statsEnvThemefromLastGame = false, $statsSanThemefromLastGame = false, $statsSoThemefromLastGame = false)
 {
 	// load game infos (averages player stats, questions and propositions with score, ...)
 	// $gamesInfos = object[playerStats: assoc array, questions: assoc array, propositions: assoc array];
@@ -72,9 +72,9 @@ function loadGameResultView()
 	$statsEnv = json_decode($_POST["statsEnv"]);
 	$statsSan = json_decode($_POST["statsSan"]);
 	$statsSo = json_decode($_POST["statsSo"]);
-	$statsEnvAverage = 0;
-	$statsSanAverage = 0;
-	$statsSoAverage = 0;
+	$statsEnvCurrentTheme = 0;
+	$statsSanCurrentTheme = 0;
+	$statsSoCurrentTheme = 0;
 	$_POST["cleanReplies"] = json_decode($_POST["cleanReplies"]);
 	if (count($_POST["cleanReplies"]) == 11)
 	{
@@ -89,15 +89,15 @@ function loadGameResultView()
 				}
 				else
 				{
-					$statsEnvAverage = $statsEnvAverage + $statsEnv[$key];
-					$statsSanAverage = $statsSanAverage + $statsSan[$key];
-					$statsSoAverage = $statsSoAverage + $statsSo[$key];
+					$statsEnvCurrentTheme = $statsEnvCurrentTheme + $statsEnv[$key];
+					$statsSanCurrentTheme = $statsSanCurrentTheme + $statsSan[$key];
+					$statsSoCurrentTheme = $statsSoCurrentTheme + $statsSo[$key];
 				}
 				if ($key == 8)
 				{
-					$statsEnvAverage = $statsEnvAverage / 9;
-					$statsSanAverage = $statsSanAverage / 9;
-					$statsSoAverage = $statsSoAverage / 9;
+					$statsEnvCurrentTheme = $statsEnvCurrentTheme / 9;
+					$statsSanCurrentTheme = $statsSanCurrentTheme / 9;
+					$statsSoCurrentTheme = $statsSoCurrentTheme / 9;
 				}
 			}
 		}
@@ -109,8 +109,8 @@ function loadGameResultView()
 	}
 	if ($message == "")
 	{
-		RecordReplies::start($_POST["cleanReplies"], $statsEnvAverage, $statsSanAverage, $statsSoAverage);
-		loadGameView(true, $statsEnvAverage, $statsSanAverage, $statsSoAverage);
+		RecordReplies::start($_POST["cleanReplies"], $statsEnvCurrentTheme, $statsSanCurrentTheme, $statsSoCurrentTheme);
+		loadGameView(true, $statsEnvCurrentTheme, $statsSanCurrentTheme, $statsSoCurrentTheme);
 	}
 	else
 	{
@@ -122,8 +122,8 @@ function loadGameResultView()
 		// Display Stats
 		echo "<h2>Moyennes pour ce thème</h2>";
 		echo "<p>environnement: ".$statsEnvAverage."</p>";
-		echo "<p>santé: ".$statsSanAverage."</p>";
-		echo "<p>social: ".$statsSoAverage."</p>";
+		echo "<p>santé: ".$statsSanCurrentTheme."</p>";
+		echo "<p>social: ".$statsSoCurrentTheme."</p>";
 
 		echo "<h2>Moyennes de tous les thèmes</h2>";
 		echo "<p>environnement: ".$averages["averagePlayer"]["stats_enviAverage"]."</p>";
