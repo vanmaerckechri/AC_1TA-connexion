@@ -40,7 +40,7 @@ let sendToDb = function()
     }
     cleanReplies.push(document.getElementById("openQuestionTextArea").value);
 
-    themeIndex = currentTheme.slice(0, 1).charCodeAt() - 65//(A = first theme = 65)
+    let themeIndex = currentTheme.slice(0, 1).charCodeAt() - 65//(A = first theme = 65)
     cleanReplies.push(allThemesNames[themeIndex]);
 
     let inputReply = document.createElement("input");
@@ -150,7 +150,8 @@ let saveAnswer = function(answerIndex, blockBonus)
     {
         if (gameInfos["openquestion"] != false)
         {
-            if (gameInfos["openquestion"]["serie"] == currentTheme)
+            let themeIndex = currentTheme.slice(0, 1).charCodeAt() - 65//(A = first theme = 65)
+            if (gameInfos["openquestion"]["serie"] == allThemesNames[themeIndex])
             {
                 let propositionsContainer = document.getElementById("propositionsContainer");
                 let openQuestionTextArea = document.getElementById("openQuestionTextArea");

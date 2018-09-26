@@ -89,7 +89,7 @@ body {
     .flsContainer .flsScoreFinalContainer .flsScoreFinalText, .flsContainer .flsScoreFinalContainer .flsScoreFinal {
       font-size: 1.5rem; }
   .flsContainer .flsFinalAnwsersBoardContainer {
-    margin-bottom: 74px;
+    margin: 0 auto 74px;
     padding: 0 4rem;
     width: 100%;
     max-width: 1280px; }
@@ -105,7 +105,7 @@ body {
       .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsFinalAnwserImg, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsFinalAnwserImg {
         margin: 0 20px 0 0;
         width: 128px;
-        height: auto; }
+        height: 128px; }
       .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsCellColor, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsCellColor {
         background-color: rgba(225, 225, 255, 0.2); }
     .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsMonthToEat {

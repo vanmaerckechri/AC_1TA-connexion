@@ -57,8 +57,8 @@ function loadGameView($activeScoreTab = false, $statsEnvThemefromLastGame = fals
 	// load themes
 	$allThemes = ["alimentation", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
 
-	$currentThemeIndex = ord(strtolower($gameInfos->openquestion["serie"])) - 97;
-	$currentTheme = $allThemes[$currentThemeIndex];
+	//$currentThemeIndex = ord(strtolower($gameInfos->openquestion["serie"])) - 97;
+	$currentTheme = $gameInfos->openquestion["serie"];
 
 	$avatarContent = loadAvatar();
 	require('./view/st_game.php');
@@ -95,9 +95,9 @@ function loadGameResultView()
 				}
 				if ($key == 8)
 				{
-					$statsEnvCurrentTheme = $statsEnvCurrentTheme / 9;
-					$statsSanCurrentTheme = $statsSanCurrentTheme / 9;
-					$statsSoCurrentTheme = $statsSoCurrentTheme / 9;
+					$statsEnvCurrentTheme = round($statsEnvCurrentTheme / 9, 2);
+					$statsSanCurrentTheme = round($statsSanCurrentTheme / 9, 2);
+					$statsSoCurrentTheme = round($statsSoCurrentTheme / 9, 2);
 				}
 			}
 		}
