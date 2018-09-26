@@ -22,10 +22,10 @@ class Update1TerreActionDb
 		$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 		$req->execute();
 
-		$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
+		/*$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
 		$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 		$req->bindValue(':serie', "average", PDO::PARAM_STR);
-		$req->execute();
+		$req->execute();*/
 	}
 
 	public static function deletePopulation($idCr, $idsSt)
