@@ -299,7 +299,8 @@ body {
         flex: 2; }
         .ui .planetInfosContainer .populationContainer li .statsContainer .stats {
           margin: 0 .2rem;
-          flex: 2; }
+          flex: 2;
+          min-width: 130px; }
 .ui .leaveGameButtonAdmin {
   position: fixed;
   right: 4rem;

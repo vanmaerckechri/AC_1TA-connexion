@@ -12,7 +12,9 @@ ob_start();
                     <img class="previous" src="assets/img/previous_light.svg" alt="retour à l'écran précédent">
                 </div>
             </div>
+            <div id="themeButtonsContainer" class="themeButtonsContainer"></div>
             <h3 id="planetInfosTitle" class="planetInfosTitle"></h3>
+            <h2 id="planetInfosThemeTitle" class="planetInfosThemeTitle"></h2>
             <div class="freeClassroomsContainer disabled">
             <?php
             foreach ($freeClassrooms as $freeCr)
@@ -25,9 +27,6 @@ ob_start();
             }
             ?>
             </div>
-            <div id="themeButtonsContainer" class="themeButtonsContainer">
-            </div>
-            <h2 id="planetInfosThemeTitle" class="planetInfosThemeTitle"></h2>
         </div>
         <a class="buttonDefault leaveGameButton leaveGameButtonAdmin" href="../../library.php">Quitter le Jeu</a>
         <div id="step_scores" class="step_scores step_scoresAdmin statsPlanetContainer">

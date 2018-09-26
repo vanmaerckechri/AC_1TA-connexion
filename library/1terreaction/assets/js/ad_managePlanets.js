@@ -173,7 +173,7 @@ window.addEventListener('load', function()
 
         if (document.getElementById("planetName").innerHTML == "Créer une Nouvelle Planète")
         {
-            if (!statsBarsContainer.classList.contains("disabled_v3"))
+            if (!statsBarsContainer.classList.contains("disabled_v2"))
             {
                 statsBarsContainer.classList.add("disabled_v2");
             }
@@ -320,7 +320,16 @@ window.addEventListener('load', function()
         planetInfosTitle.innerText = "Statistiques";
 
         let planetInfosThemeTitle = document.getElementById('planetInfosThemeTitle');
-        planetInfosThemeTitle.innerText = "Moyenne de Tous les Thèmes";
+        if (theme == "average")
+        {
+            planetInfosTitle.innerText += " de Tous les Thèmes";
+            //planetInfosThemeTitle.innerText = "Moyenne de Tous les Thèmes";
+        }
+        else
+        {
+            planetInfosTitle.innerText += " du thème: \""+theme+"\"";
+            //planetInfosThemeTitle.innerText = "Moyenne du Thème: \""+theme+"\"";
+        }
 
         // refresh stats content
         if (document.getElementById("populationContainer"))
@@ -341,8 +350,8 @@ window.addEventListener('load', function()
         let changeRowOrder = function(col, byWhat)
         {
             studentsContainer.remove();
-            let order = convertObjectsPropertyToArray(studentsList, col, byWhat);
-            sortObjectsByProperty(studentsList, order, col, byWhat);
+            let order = convertObjectsPropertyToArray(studentsList, col, byWhat, theme);
+            sortObjectsByProperty(studentsList, order, col, byWhat, theme);
             loadStatsPannel(studentsList, theme);
         }
 
@@ -383,22 +392,25 @@ window.addEventListener('load', function()
                     if (col < statsLength - 1)
                     {
                         // student stats
-                        if (studentsList[row]["stats"][theme])
+                        let currentStat = studentsList[row]["stats"][theme] && studentsList[row]["stats"][theme][statsDbTitle[col]] && studentsList[row]["stats"][theme][statsDbTitle[col]] != "-" ? studentsList[row]["stats"][theme][statsDbTitle[col]] : false;
+
+                        if (currentStat != false)
                         {
-                            stats.innerText = Math.round(studentsList[row]["stats"][theme][statsDbTitle[col]]*100)/100;
-                            statsStudentAverage += parseFloat(studentsList[row]["stats"][theme][statsDbTitle[col]]);
+                            stats.innerText = Math.round(currentStat*50) + "%";
+                            statsStudentAverage += parseFloat(currentStat);
                         }
                         else
                         {
                             stats.innerText = "-";
+                            statsStudentAverage = "-";
                         }
                     }
                     else
                     {
                         // student average for last column
-                        if (studentsList[row]["stats"][theme])
+                        if (studentsList[row]["stats"][theme] && studentsList[row]["stats"][theme]["stats_average"] != "-" && statsStudentAverage != "-")
                         {
-                            statsStudentAverage = Math.round(statsStudentAverage / (statsLength -1)*100)/100;
+                            statsStudentAverage = Math.round(statsStudentAverage / (statsLength -1)*50) + "%";
                             studentsList[row]["stats"][theme]["stats_average"] = statsStudentAverage;
                             stats.innerText = statsStudentAverage;
                         }
@@ -491,10 +503,11 @@ window.addEventListener('load', function()
                     else if (planetNameText != "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
                     {
                         // Delete Pannel
+                        let themeButtonsContainer = document.getElementById("themeButtonsContainer");
                         let deleteContainer = document.querySelector('.planetDeleteContainer');
                         let deleteImg = createDomElem("img", [["class", "src"], ["deleteButton", "assets/img/delete.svg"]]);
                         deleteContainer.appendChild(deleteImg);
-                        planetInfosContainer.insertBefore(deleteContainer, planetInfosTitle);
+                        planetInfosContainer.insertBefore(deleteContainer, themeButtonsContainer);
                         document.querySelector('.deleteButton').onclick = function()
                         {
                             if (!document.querySelector('.deleteValidationContainer'))

@@ -3,7 +3,7 @@
  *  out = array
  */
 let reverse = 1;
-let convertObjectsPropertyToArray = function(objs, key, byWhat)
+let convertObjectsPropertyToArray = function(objs, key, byWhat, theme)
 {
     let array = [];
     for (let i = objs.length - 1; i >= 0; i--)
@@ -14,7 +14,14 @@ let convertObjectsPropertyToArray = function(objs, key, byWhat)
       }
       else if (byWhat == "stats")
       {
-         array.push( objs[i]["stats"]["average"][key]);
+        if (typeof objs[i]["stats"][theme] != "undefined")
+        {
+          array.push(objs[i]["stats"][theme][key]);
+        }
+        else
+        {
+          array.push("-");
+        }
       }
     }
     array.sort();
@@ -27,7 +34,7 @@ let convertObjectsPropertyToArray = function(objs, key, byWhat)
 }
 
 // change array order who contain objects
-function sortObjectsByProperty (array, order, key, byWhat)
+function sortObjectsByProperty (array, order, key, byWhat, theme)
 {
     array.sort(function (a, b)
     {
@@ -37,7 +44,17 @@ function sortObjectsByProperty (array, order, key, byWhat)
       }
       else if (byWhat == "stats")
       {
-          return order.indexOf(a["stats"]["average"][key]) - order.indexOf(b["stats"]["average"][key]);
+        if (typeof a["stats"][theme] == "undefined")
+        {
+          a["stats"][theme] = [];
+          a["stats"][theme][key] = "-";
+        }
+        if (typeof b["stats"][theme] == "undefined")
+        {
+          b["stats"][theme] = [];
+          b["stats"][theme][key] = "-";
+        }
+        return order.indexOf(a["stats"][theme][key]) - order.indexOf(b["stats"][theme][key]);
       }
     });
 
