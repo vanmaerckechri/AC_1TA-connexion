@@ -358,10 +358,55 @@ window.addEventListener('load', function()
         // display questions and replies from players
         let displayQuestionsReplies = function(studentIndex)
         {
-            console.log(studentsList)
-            console.log(studentIndex)
-            console.log(currentTheme)
-            console.log(studentsList[studentIndex]["theme"][currentTheme]["replies"])
+            studentsContainer.remove();
+            if (currentTheme == "average")
+            {
+                currentTheme = allThemesNames[0];
+            }
+            planetInfosTitle.innerText = "Réponses du Thème: \""+currentTheme+"\" de "+studentsList[studentIndex]["nickname"];
+
+            // translate theme name into quiz name
+            let quizIndex;
+            for (let themeIndex = allThemesNames.length - 1; themeIndex >= 0; themeIndex--)
+            {
+                if (allThemesNames[themeIndex] == currentTheme)
+                {
+                    quizIndex = themeIndex;
+                }
+            }
+            // display questions / replies
+            let quizName = allThemes[quizIndex];
+            let replyIndexName = 0;
+            for (let quizPart = 1; quizPart < 4; quizPart++)
+            {
+                quizName = quizName.slice(0, quizName.length - 1);
+                quizName += quizPart;
+                let quiz = eval(quizName)
+                for (let questionIndex = 0; questionIndex < 3; questionIndex++)
+                {
+                    replyIndexName++; 
+                    let replies = studentsList[studentIndex]["theme"][currentTheme] ? studentsList[studentIndex]["theme"][currentTheme]["replies"] : "-";
+                    let questionReplyContainer = createDomElem("div", [["class"],["questionReplyContainer"]]);
+                    let questionName = "question0"+(questionIndex+1);
+                    let question = createDomElem("p", [["class"],["question"]]);
+                    let replyName = "reply"+replyIndexName;
+                    let reply = createDomElem("p", [["class"],["reply"]]);
+                    let propositionName = "proposition0"+[replies[replyName]];
+                    question.innerText = quiz[questionName]["question"];
+
+                    if (replies != "-")
+                    {
+                        reply.innerText = quiz[questionName][propositionName]["proposition"];
+                    }
+                    else
+                    {
+                        reply.innerText = "?"
+                    }
+                    questionReplyContainer.appendChild(question);
+                    questionReplyContainer.appendChild(reply);
+                    planetInfosContainer.appendChild(questionReplyContainer);
+                }
+            }
         }
 
         if (typeof studentsList == "undefined")
