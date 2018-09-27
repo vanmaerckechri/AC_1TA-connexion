@@ -218,13 +218,42 @@ window.addEventListener('load', function()
         planetName.innerText = randText;
     }
 
+    let deleteElement = function(element, type)
+    {
+        if (typeof element == "string")
+        {
+            element[0] = element; 
+        }
+        if (typeof type == "string")
+        {
+            type[0] = type; 
+        }
+
+        for (let i = element.length - 1; i >= 0; i--)
+        {
+            let elementTarget;
+            if (type[i] == "class")
+            {
+                elementTarget = document.querySelector('.'+element[i]);
+            }
+            else
+            {
+                elementTarget = document.getElementById(element[i]);
+            }
+            if (elementTarget)
+            {
+                elementTarget.remove();
+            }
+        }
+    }
+
     let closePlanetInfos = function(event)
     {
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
         // close planet infos
-        if (document.querySelector('.populationContainer'))
+        if (document.querySelector('.populationContainer') || document.getElementById('questionsRepliesContainer'))
         {
-            document.querySelector('.populationContainer').remove();
+            deleteElement(["populationContainer", "questionsRepliesContainer"], ["class", "id"]);
             document.querySelector('.deleteButton').remove();
             planetInfosContainer.classList.add("disabled");
         }
@@ -234,10 +263,7 @@ window.addEventListener('load', function()
             document.querySelector('.freeClassroomsContainer').classList.add("disabled");
         }
         hoverPlanet(event);
-        if (document.querySelector('.deleteValidationContainer'))
-        {
-            document.querySelector('.deleteValidationContainer').remove();
-        }
+        deleteElement("deleteValidationContainer", "class");
     }
     // Detect Click on Planet
     scene.children[0].busy = false;
@@ -332,10 +358,8 @@ window.addEventListener('load', function()
         }
 
         // refresh stats content
-        if (document.getElementById("populationContainer"))
-        {
-            document.getElementById("populationContainer").remove();
-        }
+        deleteElement(["populationContainer", "questionsRepliesContainer"], ["class", "id"]);
+
         document.getElementById("themeButtonsContainer").innerHTML = "";
         createThemeButtons(studentsList, currentTheme);
 
@@ -375,6 +399,7 @@ window.addEventListener('load', function()
                 }
             }
             // display questions / replies
+            let questionsRepliesContainer = createDomElem("div", [["id", "class"], ["questionsRepliesContainer", "questionsRepliesContainer"]])
             let quizName = allThemes[quizIndex];
             let replyIndexName = 0;
             for (let quizPart = 1; quizPart < 4; quizPart++)
@@ -382,11 +407,12 @@ window.addEventListener('load', function()
                 quizName = quizName.slice(0, quizName.length - 1);
                 quizName += quizPart;
                 let quiz = eval(quizName)
+                deleteElement(["populationContainer", "questionsRepliesContainer"], ["class", "id"]);
                 for (let questionIndex = 0; questionIndex < 3; questionIndex++)
                 {
                     replyIndexName++; 
                     let replies = studentsList[studentIndex]["theme"][currentTheme] ? studentsList[studentIndex]["theme"][currentTheme]["replies"] : "-";
-                    let questionReplyContainer = createDomElem("div", [["class"],["questionReplyContainer"]]);
+                    let questionReplyRow = createDomElem("div", [["class"],["questionReplyRow"]]);
                     let questionName = "question0"+(questionIndex+1);
                     let question = createDomElem("p", [["class"],["question"]]);
                     let replyName = "reply"+replyIndexName;
@@ -402,10 +428,26 @@ window.addEventListener('load', function()
                     {
                         reply.innerText = "?"
                     }
-                    questionReplyContainer.appendChild(question);
-                    questionReplyContainer.appendChild(reply);
-                    planetInfosContainer.appendChild(questionReplyContainer);
+                    questionReplyRow.appendChild(question);
+                    questionReplyRow.appendChild(reply);
+                    questionsRepliesContainer.appendChild(questionReplyRow);
+                    planetInfosContainer.appendChild(questionsRepliesContainer);
                 }
+            }
+            // create theme buttons and change event on it
+            createThemeButtons(studentsList, currentTheme);
+            let themeButtons = document.querySelectorAll(".themeButton");
+            for (let buttonIndex = themeButtons.length - 1; buttonIndex >= 0; buttonIndex--)
+            {
+                if (themeButtons[buttonIndex].innerText == "tous les thèmes")
+                {
+                    themeButtons[buttonIndex].remove();
+                }
+                themeButtons[buttonIndex].onclick = function()
+                {
+                    currentTheme = themeButtons[buttonIndex].innerText;
+                    displayQuestionsReplies(studentIndex);
+                };
             }
         }
 
@@ -629,6 +671,7 @@ window.addEventListener('load', function()
     let createThemeButtons = function(studentsList, currentTheme)
     {
         let themeButtonsContainer = document.getElementById("themeButtonsContainer");
+        themeButtonsContainer.innerHTML = "";
         // allThemesNames from "question.js" file
         for (let theme = 0, themesLength = allThemesNames.length; theme < themesLength; theme++)
         {
@@ -646,7 +689,7 @@ window.addEventListener('load', function()
                 button.innerText = "tous les thèmes";
                 themeButtonsContainer.insertBefore(button, themeButtonsContainer.firstChild);
             }
-            button.addEventListener("click", loadStatsPannel.bind(this, studentsList, themeName), false)
+            button.onclick = loadStatsPannel.bind(this, studentsList, themeName);
         }
     }
     // active rotation if we have at least 2 planets (create planet + another one)
