@@ -109,14 +109,6 @@
 			font-family: $fontFamTitles;
 			font-size: 1.3rem;
 		}
-		.themeButtonsContainer
-		{
-			margin-bottom: 1rem;
-			.themeButton
-			{
-				position: static;
-			}
-		}
 		.planetInfosThemeTitle
 		{
 			font-size: 1.1rem;
@@ -194,6 +186,15 @@
 		.reply
 		{
 			margin-bottom: 10px;
+		}
+		// buttons
+		.themeButtonsContainer, .categoryButtonContainer, .previousNextPlButtonsContainer
+		{
+			.buttonDefault
+			{
+				margin: 0 10px 10px;
+				position: static;
+			}
 		}
 	}
 	.leaveGameButtonAdmin

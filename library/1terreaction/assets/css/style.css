@@ -253,10 +253,6 @@ body {
     margin-bottom: 1rem;
     font-family: "Orbitron", sans-serif;
     font-size: 1.3rem; }
-  .ui .planetInfosContainer .themeButtonsContainer {
-    margin-bottom: 1rem; }
-    .ui .planetInfosContainer .themeButtonsContainer .themeButton {
-      position: static; }
   .ui .planetInfosContainer .planetInfosThemeTitle {
     font-size: 1.1rem; }
   .ui .planetInfosContainer .freeClassroom {
@@ -307,6 +303,9 @@ body {
     font-weight: bold; }
   .ui .planetInfosContainer .reply {
     margin-bottom: 10px; }
+  .ui .planetInfosContainer .themeButtonsContainer .buttonDefault, .ui .planetInfosContainer .categoryButtonContainer .buttonDefault, .ui .planetInfosContainer .previousNextPlButtonsContainer .buttonDefault {
+    margin: 0 10px 10px;
+    position: static; }
 .ui .leaveGameButtonAdmin {
   position: fixed;
   right: 4rem;

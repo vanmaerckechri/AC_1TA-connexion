@@ -220,15 +220,6 @@ window.addEventListener('load', function()
 
     let deleteElement = function(element, type)
     {
-        if (typeof element == "string")
-        {
-            element[0] = element; 
-        }
-        if (typeof type == "string")
-        {
-            type[0] = type; 
-        }
-
         for (let i = element.length - 1; i >= 0; i--)
         {
             let elementTarget;
@@ -263,7 +254,7 @@ window.addEventListener('load', function()
             document.querySelector('.freeClassroomsContainer').classList.add("disabled");
         }
         hoverPlanet(event);
-        deleteElement("deleteValidationContainer", "class");
+        deleteElement(["deleteValidationContainer"], ["class"]);
     }
     // Detect Click on Planet
     scene.children[0].busy = false;
@@ -359,10 +350,7 @@ window.addEventListener('load', function()
 
         // refresh stats content
         deleteElement(["populationContainer", "questionsRepliesContainer"], ["class", "id"]);
-
-        document.getElementById("themeButtonsContainer").innerHTML = "";
         createThemeButtons(studentsList, currentTheme);
-
         let studentsContainer = createDomElem("ul", [["id", "class"], ["populationContainer", "populationContainer"]])
 
         // Stats Titles
@@ -411,7 +399,7 @@ window.addEventListener('load', function()
                 for (let questionIndex = 0; questionIndex < 3; questionIndex++)
                 {
                     replyIndexName++; 
-                    let replies = studentsList[studentIndex]["theme"][currentTheme] ? studentsList[studentIndex]["theme"][currentTheme]["replies"] : "-";
+                    let replies = studentsList[studentIndex]["theme"][currentTheme] && studentsList[studentIndex]["theme"][currentTheme]["replies"] ? studentsList[studentIndex]["theme"][currentTheme]["replies"] : "-";
                     let questionReplyRow = createDomElem("div", [["class"],["questionReplyRow"]]);
                     let questionName = "question0"+(questionIndex+1);
                     let question = createDomElem("p", [["class"],["question"]]);
@@ -426,7 +414,7 @@ window.addEventListener('load', function()
                     }
                     else
                     {
-                        reply.innerText = "?"
+                        reply.innerText = "-"
                     }
                     questionReplyRow.appendChild(question);
                     questionReplyRow.appendChild(reply);
@@ -434,6 +422,7 @@ window.addEventListener('load', function()
                     planetInfosContainer.appendChild(questionsRepliesContainer);
                 }
             }
+            createCategoryButton("questionsReplies");
             // create theme buttons and change event on it
             createThemeButtons(studentsList, currentTheme);
             let themeButtons = document.querySelectorAll(".themeButton");
@@ -449,8 +438,70 @@ window.addEventListener('load', function()
                     displayQuestionsReplies(studentIndex);
                 };
             }
+            // create previous/next player buttons
+            deleteElement("previousNextPlButtonsContainer", "id");
+            let previousNextPlButtonsContainer = createDomElem("div", [["id", "class"],["previousNextPlButtonsContainer","previousNextPlButtonsContainer"]]);
+            let previousPlayerButton = createDomElem("button", [["id", "class"],["previousPlayerButton","previousPlayerButton buttonDefault"]]);
+            previousPlayerButton.innerText = "<<<";
+            let nextPlayerButton = createDomElem("button", [["id", "class"],["nextPlayerButton","nextPlayerButton buttonDefault"]]);
+            nextPlayerButton.innerText = ">>>";
+            previousNextPlButtonsContainer.appendChild(previousPlayerButton);
+            previousNextPlButtonsContainer.appendChild(nextPlayerButton);
+            questionsRepliesContainer.appendChild(previousNextPlButtonsContainer);
+
+            let loadAnotherStudent = function(direction)
+            {
+                if (direction == "next")
+                {
+                    if (studentIndex < studentsList.length - 1)
+                    {
+                        studentIndex += 1;
+                    }
+                    else
+                    {
+                        studentIndex = 0;
+                    }
+                }
+                else
+                {
+                    if (studentIndex > 0)
+                    {
+                        studentIndex -= 1;
+                    }
+                    else
+                    {
+                        studentIndex = studentsList.length - 1;
+                    }
+                }
+                displayQuestionsReplies(studentIndex);
+            }
+
+            previousPlayerButton.onclick = loadAnotherStudent.bind(this, "previous");
+            nextPlayerButton.onclick = loadAnotherStudent.bind(this, "next");
+        }
+        // create category button
+        let createCategoryButton = function(category)
+        {
+            deleteElement(["categoryButtonContainer"], ["id"]);
+            let categoryButtonContainer = createDomElem("div", [["id", "class"],["categoryButtonContainer", "categoryButtonContainer"]]);
+            let categoryButton = createDomElem("button", [["id", "class"],["categoryButton", "categoryButton buttonDefault"]]);
+            let themeButtonsContainer = document.getElementById("themeButtonsContainer");
+            categoryButtonContainer.appendChild(categoryButton);
+            planetInfosContainer.insertBefore(categoryButtonContainer, themeButtonsContainer);
+            if (category == "stats")
+            {
+                categoryButton.onclick = displayQuestionsReplies.bind(this, 0);
+                categoryButton.innerText = "voir les questions/réponses";
+            }
+            else
+            {
+                categoryButton.onclick = loadStatsPannel.bind(this, studentsList, currentTheme);
+                categoryButton.innerText = "voir les statistiques";
+            }
         }
 
+        // Display Stats
+        createCategoryButton("stats");
         if (typeof studentsList == "undefined")
         {
             studentsList = [];
@@ -672,24 +723,28 @@ window.addEventListener('load', function()
     {
         let themeButtonsContainer = document.getElementById("themeButtonsContainer");
         themeButtonsContainer.innerHTML = "";
-        // allThemesNames from "question.js" file
-        for (let theme = 0, themesLength = allThemesNames.length; theme < themesLength; theme++)
+        if (allThemesNames.length > 1)
         {
-            let newElemAttributes = [["class"],["themeButton buttonDefault"]];
-            let button = createDomElem("button", newElemAttributes);
-            if (currentTheme != allThemesNames[theme])
+            // allThemesNames from "question.js" file
+            for (let theme = 0, themesLength = allThemesNames.length; theme < themesLength; theme++)
             {
-                themeName = allThemesNames[theme];
-                button.innerText = allThemesNames[theme];
-                themeButtonsContainer.appendChild(button);
+                let newElemAttributes = [["class"],["themeButton buttonDefault"]];
+                let button = createDomElem("button", newElemAttributes);
+                if (currentTheme != allThemesNames[theme])
+                {
+                    themeName = allThemesNames[theme];
+                    button.innerText = allThemesNames[theme];
+                    themeButtonsContainer.appendChild(button);
+                }
+                else
+                {
+                    
+                    themeName = "average";
+                    button.innerText = "tous les thèmes";
+                    themeButtonsContainer.insertBefore(button, themeButtonsContainer.firstChild);
+                }
+                button.onclick = loadStatsPannel.bind(this, studentsList, themeName);
             }
-            else
-            {
-                themeName = "average";
-                button.innerText = "tous les thèmes";
-                themeButtonsContainer.insertBefore(button, themeButtonsContainer.firstChild);
-            }
-            button.onclick = loadStatsPannel.bind(this, studentsList, themeName);
         }
     }
     // active rotation if we have at least 2 planets (create planet + another one)
