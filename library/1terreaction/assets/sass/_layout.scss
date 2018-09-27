@@ -7,26 +7,35 @@
 // -- ADMIN --
 .ui
 {
-	.planetName
+	.planetNameContainer
 	{
 		border: 1px solid rgba(255, 255, 255, .1);
-		padding: 10px;
+		padding: 10px 4rem;
 		position: absolute;
-		left: 0;
+		left: 50%;
 		bottom: 0;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		width: 100%;
-		min-height: 50px;
 		text-align: center;
-		letter-spacing: 1.05rem;
-    	font-family: $fontFamTitles;
-		font-size: 2rem;
+		width: 100%;
+		max-width: 1920px;
+		min-height: 50px;
 		color: rgba(255, 255, 255, .9);
 		background-color: rgba(0, 40, 80, .2);
-		transition: color .2s, background-color .2s, text-shadow .3s, box-shadow .4s;
+		transform: translateX(-50%);
+		transition: transform .2s, color .2s, background-color .2s, text-shadow .3s, box-shadow .4s;
 		z-index: 2;
+		.planetName
+		{
+			letter-spacing: 1.05rem;
+	    	font-family: $fontFamTitles;
+			font-size: 2rem;
+		}
+		.onOffButton
+		{
+			margin-left: 20px;
+		}
 	}
 	.planetNameSphereHover
 	{
@@ -105,14 +114,15 @@
 		}
 		.planetInfosTitleContainer
 		{
-			display: flex;
+			/*display: flex;
 			justify-content: center;
-			align-items: center;
+			align-items: center;*/
+			position: relative;
 			height: 50px;
 			.planetInfosTitle
 			{    
 				display: inline-block;
-				width: calc(100% - 154px);
+				width: 100%;
 				font-family: $fontFamTitles;
 				font-size: 1.3rem;
 			}
@@ -214,11 +224,16 @@
 				font-style: italic;
 			}
 		}
+		.themeTitle
+		{
+			display: inline-block;
+		}
 		// buttons
 		.previousNextPlButtonsContainer
 		{
-			margin-right: 1rem;
-			display: inline-block;
+			position: absolute;
+			right: 4rem;
+			top: 0;
 		}
 		.themeButtonsContainer, .categoryButtonContainer
 		{
@@ -228,16 +243,16 @@
 		{	
 			.buttonDefault
 			{
-				margin: 0 10px;
+				margin: 0 0 0 20px;
 				position: static;
 			}
 		}
 	}
 	.leaveGameButtonAdmin
 	{
-		position: fixed;
+		position: absolute;
 		right: 4rem;
-		bottom: 130px;
+		bottom: 0;
 		z-index: 1;
 	}
 	.step_scoresAdmin
@@ -258,9 +273,10 @@
 	border-top-right-radius: 12px;
 	padding: 0 4rem;
 	position: fixed;
-	left: 0;
+	left: 50%;
 	bottom: 0;
 	display: block;
+	max-width: 1920px;
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -272,6 +288,7 @@
 	color: white;
 	opacity: 1;
 	background-color: rgba(32, 52, 72, .5);
+	transform: translateX(-50%);
 	transition: all .5s;
 	h3
 	{

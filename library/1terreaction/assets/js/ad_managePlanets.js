@@ -27,12 +27,13 @@ window.addEventListener('load', function()
     {
         for (let planetsLengthIndex = planetsLength - 1, i = planetsLengthIndex; i >= 0; i--)
         {
+            let imgNbr = Math.round(planetsList[i]["stats_environnement"]);
             let planetCoordinates = givePlanetCoordinates(0, 0, ray, convertAngleToRadians(angle));
             angle += (360 / planetsLength);
             if (i < planetsLengthIndex)
             {
                 let geometry = new THREE.SphereGeometry(600, 16, 16);
-                let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse1.jpg');
+                let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse'+imgNbr+'.jpg');
                 //let normalMap = new THREE.TextureLoader().load('assets/img/earth_normalmap.tif');
                 let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
                 //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular.tif');
@@ -334,11 +335,10 @@ window.addEventListener('load', function()
         // Population Infos
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
         let planetInfosTitleContainer = document.querySelector('.planetInfosTitleContainer');
-
         let planetInfosTitle = document.querySelector('.planetInfosTitle');
-        planetInfosTitle.innerText = "Statistiques";
 
-        let planetInfosThemeTitle = document.getElementById('planetInfosThemeTitle');
+        planetInfosTitle.innerText = "Statistiques";
+/*
         if (currentTheme == "average")
         {
             planetInfosTitle.innerText += " de Tous les Thèmes";
@@ -346,9 +346,10 @@ window.addEventListener('load', function()
         }
         else
         {
-            planetInfosTitle.innerText += " du thème: \""+currentTheme+"\"";
+            planetInfosTitle.innerText += " du thème: \""+currentTheme.toUpperCase()+"\"";
             //planetInfoscurrentThemeTitle.innerText = "Moyenne du Thème: \""+currentTheme+"\"";
         }
+*/
 
         // refresh stats content
         deleteElement(["populationContainer", "questionsRepliesContainer"], ["class", "id"]);
@@ -381,7 +382,7 @@ window.addEventListener('load', function()
             {
                 currentTheme = allThemesNames[0];
             }
-            planetInfosTitle.innerText = "Réponses du Thème: \""+currentTheme+"\" de "+studentsList[studentIndex]["nickname"];
+            planetInfosTitle.innerText = "Réponses de "+studentsList[studentIndex]["nickname"];
 
             // translate theme name into quiz name
             let quizIndex;
@@ -461,7 +462,7 @@ window.addEventListener('load', function()
             nextPlayerButton.innerText = ">>>";
             previousNextPlButtonsContainer.appendChild(previousPlayerButton);
             previousNextPlButtonsContainer.appendChild(nextPlayerButton);
-            planetInfosTitleContainer.appendChild(previousNextPlButtonsContainer)
+            planetInfosTitleContainer.appendChild(previousNextPlButtonsContainer);
 
             let loadAnotherStudent = function(direction)
             {
@@ -502,6 +503,7 @@ window.addEventListener('load', function()
             let themeButtonsContainer = document.getElementById("themeButtonsContainer");
             categoryButtonContainer.appendChild(categoryButton);
             planetInfosContainer.insertBefore(categoryButtonContainer, themeButtonsContainer);
+
             if (category == "stats")
             {
                 categoryButton.onclick = displayQuestionsReplies.bind(this, 0);
@@ -600,6 +602,7 @@ window.addEventListener('load', function()
         let raycaster = new THREE.Raycaster();
         raycaster.setFromCamera(mouse, camera);
         let intersects = raycaster.intersectObjects(scene.children[0].children);
+        let planetNameContainer = document.querySelector('.planetNameContainer');
         let planetName = document.querySelector('.planetName');
         let planetNameText = planetName.innerText;
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
@@ -612,9 +615,9 @@ window.addEventListener('load', function()
                     scene.children[0].children[i].children[1].material.opacity = 0.15;
                 }
                 scene.children[0].children[0].material.opacity = 0.5;
-                if (planetName.classList.contains("planetNameSphereHover"))
+                if (planetNameContainer.classList.contains("planetNameSphereHover"))
                 {
-                    planetName.classList.remove("planetNameSphereHover");
+                    planetNameContainer.classList.remove("planetNameSphereHover");
                 }
                 document.body.style.cursor = "auto";
                 document.onclick = null;
@@ -629,9 +632,9 @@ window.addEventListener('load', function()
                 {
                     intersects[0].object.material.opacity = 0.80;
                 }
-                if (!planetName.classList.contains("planetNameSphereHover"))
+                if (!planetNameContainer.classList.contains("planetNameSphereHover"))
                 {
-                    planetName.classList.add("planetNameSphereHover");
+                    planetNameContainer.classList.add("planetNameSphereHover");
                 }
                 document.body.style.cursor = "pointer";
                 // Select Planet
@@ -738,29 +741,35 @@ window.addEventListener('load', function()
     {
         let themeButtonsContainer = document.getElementById("themeButtonsContainer");
         themeButtonsContainer.innerHTML = "";
-        if (allThemesNames.length > 1)
+        // allThemesNames from "question.js" file
+        for (let theme = 0, themesLength = allThemesNames.length; theme < themesLength; theme++)
         {
-            // allThemesNames from "question.js" file
-            for (let theme = 0, themesLength = allThemesNames.length; theme < themesLength; theme++)
+            let newElemAttributes = [["class"],["themeButton buttonDefault"]];
+            let button = createDomElem("button", newElemAttributes);
+            if (currentTheme != allThemesNames[theme])
             {
-                let newElemAttributes = [["class"],["themeButton buttonDefault"]];
-                let button = createDomElem("button", newElemAttributes);
-                if (currentTheme != allThemesNames[theme])
-                {
-                    themeName = allThemesNames[theme];
-                    button.innerText = allThemesNames[theme];
-                    themeButtonsContainer.appendChild(button);
-                }
-                else
-                {
-                    
-                    themeName = "average";
-                    button.innerText = "tous les thèmes";
-                    themeButtonsContainer.insertBefore(button, themeButtonsContainer.firstChild);
-                }
-                button.onclick = loadStatsPannel.bind(this, studentsList, themeName);
+                themeName = allThemesNames[theme];
+                button.innerText = allThemesNames[theme];
+                themeButtonsContainer.appendChild(button);
             }
+            else
+            {
+                
+                themeName = "average";
+                button.innerText = "tous les thèmes";
+                themeButtonsContainer.insertBefore(button, themeButtonsContainer.firstChild);
+            }
+            button.onclick = loadStatsPannel.bind(this, studentsList, themeName);
         }
+        // theme title
+        let themeTitle = createDomElem("div", [["id", "class"],["themeTitle", "themeTitle"]]);
+        themeButtonsContainer.insertBefore(themeTitle, themeButtonsContainer.firstChild);
+        let themeTitleContent = currentTheme;
+        if (currentTheme == "average")
+        {
+            themeTitleContent = "Tous les Thèmes";
+        }
+        themeTitle.innerText = themeTitleContent.toUpperCase();
     }
     // active rotation if we have at least 2 planets (create planet + another one)
     if (planetsList.length > 1)

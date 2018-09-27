@@ -29,7 +29,9 @@ ob_start();
             ?>
             </div>
         </div>
-        <a class="buttonDefault leaveGameButton leaveGameButtonAdmin" href="../../library.php">Quitter le Jeu</a>
+        <div class="leaveGameButtonContainer">
+            <a class="buttonDefault leaveGameButton leaveGameButtonAdmin" href="../../library.php">Quitter le Jeu</a>
+        </div>
         <div id="step_scores" class="step_scores step_scoresAdmin statsPlanetContainer">
             <div class="statsContainer titleEnv">
                 <div id="stats_environnement" class="statsBar envi"></div>
@@ -44,7 +46,10 @@ ob_start();
                 <p>Social</p>
             </div>
         </div>
-        <p id="planetName" class="planetName"></p>
+        <div class="planetNameContainer">
+            <span id="planetName" class="planetName"></span>
+            <span id="planetOnOffButton" class="onOffButton"></span>
+        </div>
     </div>
 <?php
 $content = ob_get_clean();

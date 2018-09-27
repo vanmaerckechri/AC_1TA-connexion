@@ -107,3 +107,28 @@
 		background-color: rgb(255, 255, 255);
 	}
 }
+
+.leaveGameButtonContainer
+{
+	position: relative;
+	left: 50%;
+	bottom: 130px;
+	max-width: 1920px;
+	width: 100%;
+	transform: translateX(-50%);
+}
+
+.onOffButton
+{
+	border-radius: 50%;
+	border: 2px solid rgba(255, 255, 255, .3);
+	width: 36px;
+	height: 36px;
+	background-color: rgba(25, 200, 75, .6);
+	transition: background-color .2s;
+	&:hover
+	{
+		cursor: pointer;
+		background-color: rgba(200, 25, 75, .6);
+	}
+}

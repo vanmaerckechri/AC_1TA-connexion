@@ -174,28 +174,52 @@ body {
     color: #003c78;
     background-color: white; }
 
+.leaveGameButtonContainer {
+  position: relative;
+  left: 50%;
+  bottom: 130px;
+  max-width: 1920px;
+  width: 100%;
+  transform: translateX(-50%); }
+
+.onOffButton {
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  width: 36px;
+  height: 36px;
+  background-color: rgba(25, 200, 75, 0.6);
+  transition: background-color .2s; }
+  .onOffButton:hover {
+    cursor: pointer;
+    background-color: rgba(200, 25, 75, 0.6); }
+
 #container {
   position: fixed; }
 
-.ui .planetName {
+.ui .planetNameContainer {
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 10px;
+  padding: 10px 4rem;
   position: absolute;
-  left: 0;
+  left: 50%;
   bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  min-height: 50px;
   text-align: center;
-  letter-spacing: 1.05rem;
-  font-family: "Orbitron", sans-serif;
-  font-size: 2rem;
+  width: 100%;
+  max-width: 1920px;
+  min-height: 50px;
   color: rgba(255, 255, 255, 0.9);
   background-color: rgba(0, 40, 80, 0.2);
-  transition: color .2s, background-color .2s, text-shadow .3s, box-shadow .4s;
+  transform: translateX(-50%);
+  transition: transform .2s, color .2s, background-color .2s, text-shadow .3s, box-shadow .4s;
   z-index: 2; }
+  .ui .planetNameContainer .planetName {
+    letter-spacing: 1.05rem;
+    font-family: "Orbitron", sans-serif;
+    font-size: 2rem; }
+  .ui .planetNameContainer .onOffButton {
+    margin-left: 20px; }
 .ui .planetNameSphereHover {
   color: white;
   text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.75);
@@ -250,13 +274,14 @@ body {
       .ui .planetInfosContainer .planetDeleteContainer .deleteValidationContainer .deleteValidationYes {
         margin-right: 1rem; }
   .ui .planetInfosContainer .planetInfosTitleContainer {
-    display: flex;
+    /*display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;*/
+    position: relative;
     height: 50px; }
     .ui .planetInfosContainer .planetInfosTitleContainer .planetInfosTitle {
       display: inline-block;
-      width: calc(100% - 154px);
+      width: 100%;
       font-family: "Orbitron", sans-serif;
       font-size: 1.3rem; }
   .ui .planetInfosContainer .freeClassroom {
@@ -324,18 +349,21 @@ body {
       margin-left: 5px;
       display: inline-block;
       font-style: italic; }
-  .ui .planetInfosContainer .previousNextPlButtonsContainer {
-    margin-right: 1rem;
+  .ui .planetInfosContainer .themeTitle {
     display: inline-block; }
+  .ui .planetInfosContainer .previousNextPlButtonsContainer {
+    position: absolute;
+    right: 4rem;
+    top: 0; }
   .ui .planetInfosContainer .themeButtonsContainer, .ui .planetInfosContainer .categoryButtonContainer {
     height: 50px; }
   .ui .planetInfosContainer .themeButtonsContainer .buttonDefault, .ui .planetInfosContainer .categoryButtonContainer .buttonDefault, .ui .planetInfosContainer .previousNextPlButtonsContainer .buttonDefault {
-    margin: 0 10px;
+    margin: 0 0 0 20px;
     position: static; }
 .ui .leaveGameButtonAdmin {
-  position: fixed;
+  position: absolute;
   right: 4rem;
-  bottom: 130px;
+  bottom: 0;
   z-index: 1; }
 .ui .step_scoresAdmin {
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -349,9 +377,10 @@ body {
   border-top-right-radius: 12px;
   padding: 0 4rem;
   position: fixed;
-  left: 0;
+  left: 50%;
   bottom: 0;
   display: block;
+  max-width: 1920px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -363,6 +392,7 @@ body {
   color: white;
   opacity: 1;
   background-color: rgba(32, 52, 72, 0.5);
+  transform: translateX(-50%);
   transition: all .5s; }
   .step_scores h3 {
     margin-right: 8px;
