@@ -103,15 +103,19 @@
 				}
 			}
 		}
-		.planetInfosTitle, .planetInfosThemeTitle
-		{    
-			margin-bottom: 1rem;
-			font-family: $fontFamTitles;
-			font-size: 1.3rem;
-		}
-		.planetInfosThemeTitle
+		.planetInfosTitleContainer
 		{
-			font-size: 1.1rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 50px;
+			.planetInfosTitle
+			{    
+				display: inline-block;
+				width: calc(100% - 154px);
+				font-family: $fontFamTitles;
+				font-size: 1.3rem;
+			}
 		}
 		.freeClassroom
 		{
@@ -179,20 +183,52 @@
 				}
 			}
 		}
-		.question
+		.questionsRepliesContainer, .populationContainer
 		{
-			font-weight: bold;
+			border-top: 1px solid rgba(255, 255, 255, .4);
+			border-bottom: 1px solid rgba(255, 255, 255, .4);
+			height: calc(100% - 366px);
+			overflow-y: auto;
+			background-color: rgba(0, 60, 120, .7);
 		}
-		.reply
+		.questionIntro
 		{
-			margin-bottom: 10px;
+			padding: 8px 20px;
+			width: 100%;
+			display: inline-block;
+			color: rgb(0, 60, 120);
+			background-color: rgba(255, 255, 255, .8);
+		}
+		.questionReplyRow
+		{
+			margin: 10px 0;
+			padding: 8px 20px;
+			.question
+			{
+				display: inline-block;
+			}
+			.reply
+			{
+				margin-left: 5px;
+				display: inline-block;
+				font-style: italic;
+			}
 		}
 		// buttons
-		.themeButtonsContainer, .categoryButtonContainer, .previousNextPlButtonsContainer
+		.previousNextPlButtonsContainer
 		{
+			margin-right: 1rem;
+			display: inline-block;
+		}
+		.themeButtonsContainer, .categoryButtonContainer
+		{
+			height: 50px;
+		}
+		.themeButtonsContainer, .categoryButtonContainer, .previousNextPlButtonsContainer
+		{	
 			.buttonDefault
 			{
-				margin: 0 10px 10px;
+				margin: 0 10px;
 				position: static;
 			}
 		}

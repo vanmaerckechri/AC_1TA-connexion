@@ -333,6 +333,8 @@ window.addEventListener('load', function()
     {
         // Population Infos
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        let planetInfosTitleContainer = document.querySelector('.planetInfosTitleContainer');
+
         let planetInfosTitle = document.querySelector('.planetInfosTitle');
         planetInfosTitle.innerText = "Statistiques";
 
@@ -357,6 +359,10 @@ window.addEventListener('load', function()
         let statsDbTitle = ["stats_envi", "stats_sante", "stats_social", "stats_average"];
         let statsDbPlanetTitle = ["stats_environnement", "stats_sante", "stats_social", "stats_average"];
         let statsTitle = ["Environnement", "Santé", "Social", "Moyenne"];
+
+        deleteElement(["previousNextPlButtonsContainer"], ["id"]);
+        let previousNextPlButtonsContainer = createDomElem("div", [["id", "class"],["previousNextPlButtonsContainer","previousNextPlButtonsContainer"]]);
+        planetInfosTitleContainer.appendChild(previousNextPlButtonsContainer)
 
         // change row order and refresh at click
         let changeRowOrder = function(col, byWhat)
@@ -406,15 +412,23 @@ window.addEventListener('load', function()
                     let replyName = "reply"+replyIndexName;
                     let reply = createDomElem("p", [["class"],["reply"]]);
                     let propositionName = "proposition0"+[replies[replyName]];
-                    question.innerText = quiz[questionName]["question"];
+                    question.innerText = replyIndexName+". "+quiz[questionName]["question"]+" =>";
+
+                    if (questionIndex == 0)
+                    {
+                        let intro = createDomElem("p", [["class"],["questionIntro"]]);
+                        intro.innerText = quiz[questionName]["intro"];
+                        questionsRepliesContainer.appendChild(intro);
+                    }
 
                     if (replies != "-")
                     {
+
                         reply.innerText = quiz[questionName][propositionName]["proposition"];
                     }
                     else
                     {
-                        reply.innerText = "-"
+                        reply.innerText = "..."
                     }
                     questionReplyRow.appendChild(question);
                     questionReplyRow.appendChild(reply);
@@ -439,7 +453,7 @@ window.addEventListener('load', function()
                 };
             }
             // create previous/next player buttons
-            deleteElement("previousNextPlButtonsContainer", "id");
+            deleteElement(["previousNextPlButtonsContainer"], ["id"]);
             let previousNextPlButtonsContainer = createDomElem("div", [["id", "class"],["previousNextPlButtonsContainer","previousNextPlButtonsContainer"]]);
             let previousPlayerButton = createDomElem("button", [["id", "class"],["previousPlayerButton","previousPlayerButton buttonDefault"]]);
             previousPlayerButton.innerText = "<<<";
@@ -447,7 +461,7 @@ window.addEventListener('load', function()
             nextPlayerButton.innerText = ">>>";
             previousNextPlButtonsContainer.appendChild(previousPlayerButton);
             previousNextPlButtonsContainer.appendChild(nextPlayerButton);
-            questionsRepliesContainer.appendChild(previousNextPlButtonsContainer);
+            planetInfosTitleContainer.appendChild(previousNextPlButtonsContainer)
 
             let loadAnotherStudent = function(direction)
             {
@@ -625,7 +639,6 @@ window.addEventListener('load', function()
                 {                
                     document.body.style.cursor = "auto";
                     let planetInfosTitle = document.getElementById('planetInfosTitle');
-                    let planetInfosThemeTitle = document.getElementById("planetInfosThemeTitle");
                     let uiBackground = document.querySelector('.uiBackground');
                     // Display free classrooms list to create a planet
                     if (planetNameText == "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
@@ -636,7 +649,9 @@ window.addEventListener('load', function()
 
                         // clean old content
                         document.getElementById("themeButtonsContainer").innerHTML = "";
-                        document.getElementById("planetInfosThemeTitle").innerHTML = "";
+                        planetInfosTitle.innerHTML = "";
+                        deleteElement(["categoryButtonContainer"], ["id"]);
+                        deleteElement(["previousNextPlButtonsContainer"], ["id"]);                 
 
                         if (freeClassroomLength > 0)
                         {

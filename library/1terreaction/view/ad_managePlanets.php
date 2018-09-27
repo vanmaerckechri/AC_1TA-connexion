@@ -13,8 +13,9 @@ ob_start();
                 </div>
             </div>
             <div id="themeButtonsContainer" class="themeButtonsContainer"></div>
-            <h3 id="planetInfosTitle" class="planetInfosTitle"></h3>
-            <h2 id="planetInfosThemeTitle" class="planetInfosThemeTitle"></h2>
+            <div id="planetInfosTitleContainer" class="planetInfosTitleContainer">
+                <h3 id="planetInfosTitle" class="planetInfosTitle"></h3>
+            </div>
             <div class="freeClassroomsContainer disabled">
             <?php
             foreach ($freeClassrooms as $freeCr)
