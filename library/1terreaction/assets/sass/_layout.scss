@@ -32,9 +32,25 @@
 	    	font-family: $fontFamTitles;
 			font-size: 2rem;
 		}
-		.onOffButton
+		.activationButtonOn
 		{
-			margin-left: 20px;
+			&:hover
+			{
+				&::after
+				{
+					content: "désactiver la planète";
+				}
+			}
+		}
+		.activationButtonOff
+		{
+			&:hover
+			{
+				&::after
+				{
+					content: "activer la planète";
+				}
+			}
 		}
 	}
 	.planetNameSphereHover
@@ -243,9 +259,21 @@
 		{	
 			.buttonDefault
 			{
-				margin: 0 0 0 20px;
 				position: static;
 			}
+		}
+		.themeButtonsContainer, .previousNextPlButtonsContainer
+		{	
+			.buttonDefault
+			{
+				margin: 0 0 0 20px;
+			}
+		}
+		.themeButtonsContainer
+		{
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 	.leaveGameButtonAdmin

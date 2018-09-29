@@ -22,7 +22,7 @@ class ManagePlanets
 		$db = self::loadDb();
 
 		// Planets List
-		$req = $db->prepare("SELECT id_classroom, stats_environnement, stats_sante, stats_social FROM 1ta_planets WHERE id_admin = :idAd ");
+		$req = $db->prepare("SELECT activation, id_classroom, stats_environnement, stats_sante, stats_social FROM 1ta_planets WHERE id_admin = :idAd ");
 		$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
 		$req->execute();
 		$planetsStats = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -158,9 +158,25 @@ class ManagePlanets
 		$req = NULL;
 		return $classroomsInfo;
 	}
+	public static function recordModifications($idCrs, $activationStatus)
+	{
+		$idsCr = [];
+
+		$db = self::loadDb();
+
+		// Check if classroom belongs to this admin
+		$req = $db->prepare("UPDATE 1ta_planets SET activation = :activation WHERE id_classroom = :idCr AND id_admin = :idAd");
+		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		foreach ($idCrs as $index => $idCr)
+		{
+			$req->bindValue(':idCr', intval($idCr), PDO::PARAM_INT);
+			$req->bindValue(':activation', intval($activationStatus[$index]), PDO::PARAM_INT);
+			$req->execute();
+		}
+	}
 	public static function create($idCr)
 	{
-		$classroomsInfo = [];
+		//$classroomsInfo = [];
 
 		$db = self::loadDb();
 

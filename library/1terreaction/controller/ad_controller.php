@@ -11,6 +11,10 @@ Authentification::startSession();
 
 function loadMainView()
 {
+	if (isset($_POST["inputPlanetActivationIdCrList"]) && !empty($_POST["inputPlanetActivationIdCrList"]))
+	{
+		ManagePlanets::recordModifications($_POST["inputPlanetActivationIdCrList"], $_POST["inputPlanetActivationStatusList"]);
+	}
 	$planetList = ManagePlanets::callPlanetList($_SESSION['id']);
 	$studentsInfos = ManagePlanets::callStudentsList($planetList);
 	$freeClassrooms = ManagePlanets::callFreeClassroomsList($_SESSION['id']);

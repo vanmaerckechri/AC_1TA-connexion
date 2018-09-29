@@ -116,19 +116,68 @@
 	max-width: 1920px;
 	width: 100%;
 	transform: translateX(-50%);
+	.recordModifications
+	{
+		position: absolute;
+		bottom: 0;
+		left: 4rem;
+		z-index: 10;
+	}
 }
 
-.onOffButton
+.activationButtonOn, .activationButtonOff
 {
+	margin: 0 8px;
+	position: relative;
 	border-radius: 50%;
 	border: 2px solid rgba(255, 255, 255, .3);
-	width: 36px;
-	height: 36px;
-	background-color: rgba(25, 200, 75, .6);
-	transition: background-color .2s;
+	min-width: 36px;
+	min-height: 36px;
+	max-width: 36px;
+	max-height: 36px;
+	background-color: rgba(200, 25, 75, .6);
+	transition: all .2s;
 	&:hover
 	{
 		cursor: pointer;
-		background-color: rgba(200, 25, 75, .6);
+		box-shadow: 0 0px 20px 0 rgba(200, 25, 75, .6), 0 0px 20px 0 rgba(200, 25, 75, .6);
+		&::after
+		{
+			border: 1px solid rgba(255, 255, 255, .9);
+			border-radius: 8px;
+			padding: 4px 8px;
+			content: "activer la planète";
+			position: absolute;
+			top: -4px;
+			left: 50%;
+			color: black;
+			transform: translate(-50%, -100%);
+			background-color: rgba(255, 255, 255, .7);
+		}
+	}
+}
+
+.activationButtonOn
+{
+	background-color: rgba(25, 200, 75, .6);
+	&:hover
+	{
+		box-shadow: 0 0px 20px 0 rgba(25, 200, 75, .6), 0 0px 20px 0 rgba(25, 200, 75, .6);
+		&::after
+		{
+			content: "désactiver";
+		}
+	}
+}
+.activationButtonOff
+{
+	background-color: rgba(200, 25, 75, .6);
+	&:hover
+	{
+		box-shadow: 0 0px 20px 0 rgba(200, 25, 75, .6), 0 0px 20px 0 rgba(200, 25, 75, .6);
+		&::after
+		{
+			content: "activer";
+		}
 	}
 }

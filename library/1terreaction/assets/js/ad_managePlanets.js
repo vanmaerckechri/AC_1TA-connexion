@@ -190,35 +190,6 @@ window.addEventListener('load', function()
         displayScoresBar();
     }
 
-    let updatePlanetName = function(direction = false)
-    {
-        if (direction == "left")
-        {
-            planetListIndex = planetListIndex > 0 ? planetListIndex - 1 : planetsLength - 1;
-        }
-        else if (direction == "right")
-        {
-            planetListIndex = planetListIndex < planetsLength - 1 ? planetListIndex + 1 : 0;
-        }
-        let planetName = document.querySelector('.planetName');
-        planetName.innerText = planetsList[planetListIndex].name;
-
-        updatePlanetStats(planetsList[planetListIndex]["id_classroom"]);
-    }
-
-    let randPlanetNameLetters = function()
-    {
-        let planetName = document.querySelector('.planetName');
-        let randText = planetName.innerText;
-        let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        //let chars = "電电電買买買車车車紅红紅無无無東东東馬马馬風风風時时時鳥鸟鳥語语語頭头頭魚鱼魚園园園長长長島岛島愛爱愛紙纸紙書书書見见見佛佛仏德德徳拜拜拝黑黑黒冰冰氷兔兔兎妒妒妬每每毎壤壤壌步步歩巢巢巣惠惠恵鞋鞋靴莓莓苺圓圆円聽听聴實实実證证証龍龙竜賣卖売龜龟亀藝艺芸戰战戦繩绳縄關关関鐵铁鉄圖图図團团団轉转転廣广広惡恶悪豐丰豊腦脑脳雜杂雑壓压圧雞鸡鶏價价価樂乐楽氣气気廳厅庁發发発勞劳労劍剑剣歲岁歳權权権燒烧焼贊赞賛兩两両觀观観營营営處处処齒齿歯驛驿駅櫻樱桜產产産讀读読顏颜顔學学学體体体點点点麥麦麦蟲虫虫舊旧旧萬万万盜盗盗寶宝宝國国国醫医医雙双双晝昼昼觸触触來来来畫画画黃黄黄區区区";
-
-        let randNumberOfLetter = Math.floor(Math.random() * randText.length);
-        let letterIndex = Math.floor(Math.random() * randText.length);
-        randText = randText.substr(0, letterIndex) + chars[Math.floor(Math.random() * chars.length)] + randText.substr(letterIndex + 1);
-        planetName.innerText = randText;
-    }
-
     let deleteElement = function(element, type)
     {
         for (let i = element.length - 1; i >= 0; i--)
@@ -237,6 +208,169 @@ window.addEventListener('load', function()
                 elementTarget.remove();
             }
         }
+    }
+
+    let recordModifications = function()
+    {
+        let planetActivationList = [];
+        let form = createDomElem("form", [["id", "action", "method", "class"], ["recordModifications", "admin.php", "post", "disabled"]]);
+        for (let planetIndex = planetsList.length - 1; planetIndex >= 0; planetIndex--)
+        {
+            if (planetsList[planetIndex]["activationOriginStatus"] && planetsList[planetIndex]["activationOriginStatus"] != planetsList[planetIndex]["activation"])
+            {
+                let idCr = planetsList[planetIndex]["id_classroom"];
+                let activation = planetsList[planetIndex]["activation"];
+                planetActivationList.push([idCr, activation]);
+
+                let inputPlanetActivationIdCrList = createDomElem("input", [["name", "value", "type"], ["inputPlanetActivationIdCrList[]", idCr, "hidden"]]);
+                let inputPlanetActivationStatusList = createDomElem("input", [["name", "value", "type"], ["inputPlanetActivationStatusList[]", activation, "hidden"]]);
+                form.appendChild(inputPlanetActivationIdCrList);
+                form.appendChild(inputPlanetActivationStatusList);
+            }
+        }
+        if (planetActivationList.length > 0)
+        {
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
+    let displayRecordModificationsButton = function()
+    {
+        deleteElement(["recordModifications"], ["id"]);
+        for (let planetIndex = planetsList.length - 1; planetIndex >= 0; planetIndex--)
+        {
+            if (planetsList[planetIndex]["activationOriginStatus"] && planetsList[planetIndex]["activationOriginStatus"] != planetsList[planetIndex]["activation"])
+            {
+                recordModificationsButton = createDomElem("button", [["id", "class"],["recordModifications", "recordModifications buttonDefault"]]);
+                recordModificationsButton.innerText = "Enregistrer les Modifications";
+                document.querySelector(".leaveGameButtonContainer").appendChild(recordModificationsButton);
+                recordModificationsButton.onclick = recordModifications;
+                return;
+            }
+        }
+    }
+
+    let createThemeButtons = function(studentsList, currentTheme)
+    {
+        let themeButtonsContainer = document.getElementById("themeButtonsContainer");
+        let indexCurrentTheme;
+        themeButtonsContainer.innerHTML = "";
+        // allThemesNames from "question.js" file
+        for (let theme = 0, themesLength = allThemesNames.length; theme < themesLength; theme++)
+        {
+            let newElemAttributes = [["class"],["themeButton buttonDefault"]];
+            let button = createDomElem("button", newElemAttributes);
+            if (currentTheme != allThemesNames[theme])
+            {
+                themeName = allThemesNames[theme];
+                button.innerText = themeName;
+                themeButtonsContainer.appendChild(button);
+            }
+            else
+            {  
+                indexCurrentTheme = theme;
+                themeName = "average";
+                button.innerText = "tous les thèmes";
+                themeButtonsContainer.insertBefore(button, themeButtonsContainer.firstChild);
+            }
+            button.onclick = loadStatsPannel.bind(this, studentsList, themeName);
+        }
+        // theme title
+        let themeTitle = createDomElem("div", [["id", "class"],["themeTitle", "themeTitle"]]);
+        themeButtonsContainer.insertBefore(themeTitle, themeButtonsContainer.firstChild);
+        let themeTitleContent = currentTheme;
+        if (currentTheme == "average")
+        {
+            themeTitleContent = "Tous les Thèmes";
+        }
+        themeTitle.innerText = themeTitleContent.toUpperCase();
+
+        // theme activation button
+        if (planetsList[planetListIndex]["activation"] == true)
+        {
+            themeActivationButton = createDomElem("div", [["id", "class"],["themeActivationButton", "activationButtonOn"]])
+        }
+        else
+        {
+            themeActivationButton = createDomElem("div", [["id", "class"],["themeActivationButton", "activationButtonOff"]])
+        }
+        themeButtonsContainer.insertBefore(themeActivationButton, themeButtonsContainer.firstChild);
+    }
+
+    let manageActivationPlanet = function(planet)
+    {
+        let changeActivationPlanetStatus = function()
+        {
+            if (!planet.activationOriginStatus)
+            {
+                planet.activationOriginStatus = planet.activation;
+            }
+            if (planet.activation == 1)
+            {
+                planet.activation = 0;
+            }
+            else
+            {
+                planet.activation = 1;
+            }
+            updateActivationPlanetButton();
+            displayRecordModificationsButton();
+        }
+
+        let updateActivationPlanetButton = function()
+        {
+            if (planet.name != "Créer une Nouvelle Planète")
+            {
+                let planetNameContainer = document.querySelector(".planetNameContainer");
+                let planetOnOffButton;
+                deleteElement(["planetActivationButton"], ["id"]);
+                if (planet.activation == 1)
+                {
+                    planetOnOffButton = createDomElem("div", [["id", "class"],["planetActivationButton", "activationButtonOn"]])
+                }
+                else
+                {
+                    planetOnOffButton = createDomElem("div", [["id", "class"],["planetActivationButton", "activationButtonOff"]])
+                }
+                planetNameContainer.appendChild(planetOnOffButton);
+                planetOnOffButton.onclick = changeActivationPlanetStatus;
+            }
+            else
+            {
+                deleteElement(["planetActivationButton"], ["id"]);
+            }
+        }
+        updateActivationPlanetButton();
+    }
+
+    let updatePlanetName = function(direction = false)
+    {
+        if (direction == "left")
+        {
+            planetListIndex = planetListIndex > 0 ? planetListIndex - 1 : planetsLength - 1;
+        }
+        else if (direction == "right")
+        {
+            planetListIndex = planetListIndex < planetsLength - 1 ? planetListIndex + 1 : 0;
+        }
+        let planetName = document.querySelector('.planetName');
+        planetName.innerText = planetsList[planetListIndex].name;
+        manageActivationPlanet(planetsList[planetListIndex]);
+        updatePlanetStats(planetsList[planetListIndex]["id_classroom"]);
+    }
+
+    let randPlanetNameLetters = function()
+    {
+        let planetName = document.querySelector('.planetName');
+        let randText = planetName.innerText;
+        let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        //let chars = "電电電買买買車车車紅红紅無无無東东東馬马馬風风風時时時鳥鸟鳥語语語頭头頭魚鱼魚園园園長长長島岛島愛爱愛紙纸紙書书書見见見佛佛仏德德徳拜拜拝黑黑黒冰冰氷兔兔兎妒妒妬每每毎壤壤壌步步歩巢巢巣惠惠恵鞋鞋靴莓莓苺圓圆円聽听聴實实実證证証龍龙竜賣卖売龜龟亀藝艺芸戰战戦繩绳縄關关関鐵铁鉄圖图図團团団轉转転廣广広惡恶悪豐丰豊腦脑脳雜杂雑壓压圧雞鸡鶏價价価樂乐楽氣气気廳厅庁發发発勞劳労劍剑剣歲岁歳權权権燒烧焼贊赞賛兩两両觀观観營营営處处処齒齿歯驛驿駅櫻樱桜產产産讀读読顏颜顔學学学體体体點点点麥麦麦蟲虫虫舊旧旧萬万万盜盗盗寶宝宝國国国醫医医雙双双晝昼昼觸触触來来来畫画画黃黄黄區区区";
+
+        let randNumberOfLetter = Math.floor(Math.random() * randText.length);
+        let letterIndex = Math.floor(Math.random() * randText.length);
+        randText = randText.substr(0, letterIndex) + chars[Math.floor(Math.random() * chars.length)] + randText.substr(letterIndex + 1);
+        planetName.innerText = randText;
     }
 
     let closePlanetInfos = function(event)
@@ -736,41 +870,6 @@ window.addEventListener('load', function()
 
     window.addEventListener("resize", adaptUi, false);
 
-    // -- BUTTONS --
-    let createThemeButtons = function(studentsList, currentTheme)
-    {
-        let themeButtonsContainer = document.getElementById("themeButtonsContainer");
-        themeButtonsContainer.innerHTML = "";
-        // allThemesNames from "question.js" file
-        for (let theme = 0, themesLength = allThemesNames.length; theme < themesLength; theme++)
-        {
-            let newElemAttributes = [["class"],["themeButton buttonDefault"]];
-            let button = createDomElem("button", newElemAttributes);
-            if (currentTheme != allThemesNames[theme])
-            {
-                themeName = allThemesNames[theme];
-                button.innerText = allThemesNames[theme];
-                themeButtonsContainer.appendChild(button);
-            }
-            else
-            {
-                
-                themeName = "average";
-                button.innerText = "tous les thèmes";
-                themeButtonsContainer.insertBefore(button, themeButtonsContainer.firstChild);
-            }
-            button.onclick = loadStatsPannel.bind(this, studentsList, themeName);
-        }
-        // theme title
-        let themeTitle = createDomElem("div", [["id", "class"],["themeTitle", "themeTitle"]]);
-        themeButtonsContainer.insertBefore(themeTitle, themeButtonsContainer.firstChild);
-        let themeTitleContent = currentTheme;
-        if (currentTheme == "average")
-        {
-            themeTitleContent = "Tous les Thèmes";
-        }
-        themeTitle.innerText = themeTitleContent.toUpperCase();
-    }
     // active rotation if we have at least 2 planets (create planet + another one)
     if (planetsList.length > 1)
     {

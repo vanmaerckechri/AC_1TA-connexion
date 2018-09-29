@@ -12,7 +12,9 @@ ob_start();
                     <img class="previous" src="assets/img/previous_light.svg" alt="retour à l'écran précédent">
                 </div>
             </div>
-            <div id="themeButtonsContainer" class="themeButtonsContainer"></div>
+            <div id="themeButtonsContainer" class="themeButtonsContainer">
+                <span id="planetOnOffButton" class="onOffButton"></span>
+            </div>
             <div id="planetInfosTitleContainer" class="planetInfosTitleContainer">
                 <h3 id="planetInfosTitle" class="planetInfosTitle"></h3>
             </div>
@@ -48,7 +50,6 @@ ob_start();
         </div>
         <div class="planetNameContainer">
             <span id="planetName" class="planetName"></span>
-            <span id="planetOnOffButton" class="onOffButton"></span>
         </div>
     </div>
 <?php

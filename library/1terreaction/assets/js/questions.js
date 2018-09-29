@@ -4,8 +4,8 @@ let waitForAnswer = false;
 let questionList = [];
 let answerList = [];
 let currentQuestion = "01";
-let allThemesNames = ["alimentation"];
-let allThemes = ["quizA1"];
+let allThemesNames = ["alimentation", "test"];
+let allThemes = ["quizA1", "quizA2"];
 const quizA1 = 
 {
 	question01: 

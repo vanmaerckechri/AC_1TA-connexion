@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, fieldset, label, legend {
   margin: 0;
   padding: 0;
@@ -181,17 +182,51 @@ body {
   max-width: 1920px;
   width: 100%;
   transform: translateX(-50%); }
+  .leaveGameButtonContainer .recordModifications {
+    position: absolute;
+    bottom: 0;
+    left: 4rem;
+    z-index: 10; }
 
-.onOffButton {
+.activationButtonOn, .activationButtonOff {
+  margin: 0 8px;
+  position: relative;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  width: 36px;
-  height: 36px;
-  background-color: rgba(25, 200, 75, 0.6);
-  transition: background-color .2s; }
-  .onOffButton:hover {
+  min-width: 36px;
+  min-height: 36px;
+  max-width: 36px;
+  max-height: 36px;
+  background-color: rgba(200, 25, 75, 0.6);
+  transition: all .2s; }
+  .activationButtonOn:hover, .activationButtonOff:hover {
     cursor: pointer;
-    background-color: rgba(200, 25, 75, 0.6); }
+    box-shadow: 0 0px 20px 0 rgba(200, 25, 75, 0.6), 0 0px 20px 0 rgba(200, 25, 75, 0.6); }
+    .activationButtonOn:hover::after, .activationButtonOff:hover::after {
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      padding: 4px 8px;
+      content: "activer la planète";
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      color: black;
+      transform: translate(-50%, -100%);
+      background-color: rgba(255, 255, 255, 0.7); }
+
+.activationButtonOn {
+  background-color: rgba(25, 200, 75, 0.6); }
+  .activationButtonOn:hover {
+    box-shadow: 0 0px 20px 0 rgba(25, 200, 75, 0.6), 0 0px 20px 0 rgba(25, 200, 75, 0.6); }
+    .activationButtonOn:hover::after {
+      content: "désactiver"; }
+
+.activationButtonOff {
+  background-color: rgba(200, 25, 75, 0.6); }
+  .activationButtonOff:hover {
+    box-shadow: 0 0px 20px 0 rgba(200, 25, 75, 0.6), 0 0px 20px 0 rgba(200, 25, 75, 0.6); }
+    .activationButtonOff:hover::after {
+      content: "activer"; }
 
 #container {
   position: fixed; }
@@ -218,8 +253,10 @@ body {
     letter-spacing: 1.05rem;
     font-family: "Orbitron", sans-serif;
     font-size: 2rem; }
-  .ui .planetNameContainer .onOffButton {
-    margin-left: 20px; }
+  .ui .planetNameContainer .activationButtonOn:hover::after {
+    content: "désactiver la planète"; }
+  .ui .planetNameContainer .activationButtonOff:hover::after {
+    content: "activer la planète"; }
 .ui .planetNameSphereHover {
   color: white;
   text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.75);
@@ -358,8 +395,13 @@ body {
   .ui .planetInfosContainer .themeButtonsContainer, .ui .planetInfosContainer .categoryButtonContainer {
     height: 50px; }
   .ui .planetInfosContainer .themeButtonsContainer .buttonDefault, .ui .planetInfosContainer .categoryButtonContainer .buttonDefault, .ui .planetInfosContainer .previousNextPlButtonsContainer .buttonDefault {
-    margin: 0 0 0 20px;
     position: static; }
+  .ui .planetInfosContainer .themeButtonsContainer .buttonDefault, .ui .planetInfosContainer .previousNextPlButtonsContainer .buttonDefault {
+    margin: 0 0 0 20px; }
+  .ui .planetInfosContainer .themeButtonsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
 .ui .leaveGameButtonAdmin {
   position: absolute;
   right: 4rem;
