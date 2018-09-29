@@ -40,6 +40,7 @@ class Update1TerreActionDb
 		$delPop = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt");
 		$delReplies = $db->prepare("DELETE FROM 1ta_replies WHERE id_student = :idSt");
 		$delStats = $db->prepare("DELETE FROM 1ta_stats WHERE id_student = :idSt");
+
 		foreach ($idsSt as $idSt)
 		{		
 			$delPop->bindParam(':idSt', $idSt, PDO::PARAM_INT);
@@ -95,6 +96,11 @@ class Update1TerreActionDb
 			if (!empty($planetExist))
 			{
 				$del = $db->prepare("DELETE FROM 1ta_planets WHERE id_classroom = :idCr AND id_admin = :idAd");
+				$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+				$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
+				$del->execute();
+
+				$del = $db->prepare("DELETE FROM 1ta_themes WHERE id_classroom = :idCr AND id_admin = :idAd");
 				$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
 				$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);      
 				$del->execute();
