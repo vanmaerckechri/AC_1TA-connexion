@@ -183,26 +183,48 @@ class ManagePlanets
 
 	public static function recordPlanetActivationModifications($idCrs, $activationStatus)
 	{
-		$idsCr = [];
-
 		$db = self::loadDb();
 
 		$req = $db->prepare("UPDATE 1ta_planets SET activation = :activation WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+
+		$del = $db->prepare("DELETE FROM pe_rel_cr_library WHERE id_classroom = :idCr");
+		$rec = $db->prepare("INSERT INTO pe_rel_cr_library (id_classroom, id_library) VALUES (:idCr, :idLib)");
+
 		foreach ($idCrs as $index => $idCr)
 		{
-			$req->bindValue(':idCr', intval($idCr), PDO::PARAM_INT);
+			$req->bindParam(':idCr', intval($idCr), PDO::PARAM_INT);
 			$req->bindValue(':activation', intval($activationStatus[$index]), PDO::PARAM_INT);
 			$req->execute();
+			if ($activationStatus[$index] == 0)
+			{
+				$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+				$del->execute();
+			}
+			else
+			{
+				$req = $db->prepare("SELECT id FROM pe_rel_cr_library WHERE id_classroom = :idCr");
+				$req->bindValue(':idCr', intval($idCr), PDO::PARAM_INT);
+				$req->execute();
+				$alreadyExist = $req->fetch();
+				if (empty($alreadyExist))
+				{
+					$rec->bindParam(':idCr', intval($idCr), PDO::PARAM_INT);
+					$rec->bindValue(':idLib', 1, PDO::PARAM_INT);
+					$rec->execute();
+				}
+			}
 		}
 		$req->closeCursor();
 		$req = NULL;
+		$del->closeCursor();
+		$del = NULL;
+		$rec->closeCursor();
+		$rec = NULL;
 	}
 
 	public static function recordThemeActivationModifications($idCrs, $themes, $activationStatus)
 	{
-		$idsCr = [];
-
 		$db = self::loadDb();
 
 		// Check if classroom belongs to this admin
