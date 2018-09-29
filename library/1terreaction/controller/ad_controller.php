@@ -13,11 +13,16 @@ function loadMainView()
 {
 	if (isset($_POST["inputPlanetActivationIdCrList"]) && !empty($_POST["inputPlanetActivationIdCrList"]))
 	{
-		ManagePlanets::recordModifications($_POST["inputPlanetActivationIdCrList"], $_POST["inputPlanetActivationStatusList"]);
+		ManagePlanets::recordPlanetActivationModifications($_POST["inputPlanetActivationIdCrList"], $_POST["inputPlanetActivationStatusList"]);
+	}
+	if (isset($_POST["inputThemeActivationIdCrList"]) && !empty($_POST["inputThemeActivationIdCrList"]))
+	{
+		ManagePlanets::recordThemeActivationModifications($_POST["inputThemeActivationIdCrList"], $_POST["inputThemeActivationNameList"], $_POST["inputThemeActivationStatusList"]);
 	}
 	$planetList = ManagePlanets::callPlanetList($_SESSION['id']);
 	$studentsInfos = ManagePlanets::callStudentsList($planetList);
 	$freeClassrooms = ManagePlanets::callFreeClassroomsList($_SESSION['id']);
+	$themeActivationList = ManagePlanets::callOpenQuestionAndActivationStatusThemes($_SESSION['id']);
 	require('./view/ad_managePlanets.php');
 }
 

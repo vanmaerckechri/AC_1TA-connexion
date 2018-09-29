@@ -213,6 +213,7 @@ window.addEventListener('load', function()
     let recordModifications = function()
     {
         let planetActivationList = [];
+        let themeNewActivationList = [];
         let form = createDomElem("form", [["id", "action", "method", "class"], ["recordModifications", "admin.php", "post", "disabled"]]);
         for (let planetIndex = planetsList.length - 1; planetIndex >= 0; planetIndex--)
         {
@@ -228,7 +229,24 @@ window.addEventListener('load', function()
                 form.appendChild(inputPlanetActivationStatusList);
             }
         }
-        if (planetActivationList.length > 0)
+        for (let i = themeActivationList.length - 1; i >= 0; i--)
+        {
+            if (themeActivationList[i]["activationOriginStatus"] && themeActivationList[i]["activationOriginStatus"] != themeActivationList[i]["activation"])
+            {
+                let idCr = themeActivationList[i]["id_classroom"];
+                let activation = themeActivationList[i]["activation"];
+                let themeName = themeActivationList[i]["theme"];
+                themeNewActivationList.push([idCr, themeName, activation]);
+
+                let inputThemeActivationIdCrList = createDomElem("input", [["name", "value", "type"], ["inputThemeActivationIdCrList[]", idCr, "hidden"]]);
+                let inputThemeActivationNameList = createDomElem("input", [["name", "value", "type"], ["inputThemeActivationNameList[]", themeName, "hidden"]]);
+                let inputThemeActivationStatusList = createDomElem("input", [["name", "value", "type"], ["inputThemeActivationStatusList[]", activation, "hidden"]]);
+                form.appendChild(inputThemeActivationIdCrList);
+                form.appendChild(inputThemeActivationNameList);
+                form.appendChild(inputThemeActivationStatusList);
+            }
+        }
+        if (planetActivationList.length > 0 || themeNewActivationList.length > 0)
         {
             document.body.appendChild(form);
             form.submit();
@@ -249,12 +267,25 @@ window.addEventListener('load', function()
                 return;
             }
         }
+        for (let i = themeActivationList.length - 1; i >= 0; i--)
+        {
+            if (themeActivationList[i]["activationOriginStatus"] && themeActivationList[i]["activationOriginStatus"] != themeActivationList[i]["activation"])
+            {
+                recordModificationsButton = createDomElem("button", [["id", "class"],["recordModifications", "recordModifications buttonDefault"]]);
+                recordModificationsButton.innerText = "Enregistrer les Modifications";
+                document.querySelector(".leaveGameButtonContainer").appendChild(recordModificationsButton);
+                recordModificationsButton.onclick = recordModifications;
+                return;               
+            }
+        }
     }
 
     let createThemeButtons = function(studentsList, currentTheme)
     {
         let themeButtonsContainer = document.getElementById("themeButtonsContainer");
         let indexCurrentTheme;
+        let themeActivationIdsList = []
+        let themeActivationStatusList = []
         themeButtonsContainer.innerHTML = "";
         // allThemesNames from "question.js" file
         for (let theme = 0, themesLength = allThemesNames.length; theme < themesLength; theme++)
@@ -287,15 +318,72 @@ window.addEventListener('load', function()
         themeTitle.innerText = themeTitleContent.toUpperCase();
 
         // theme activation button
-        if (planetsList[planetListIndex]["activation"] == true)
+        let changeActivationThemeStatus = function(themePlanet)
         {
-            themeActivationButton = createDomElem("div", [["id", "class"],["themeActivationButton", "activationButtonOn"]])
+            if (!themePlanet.activationOriginStatus)
+            {
+                themePlanet.activationOriginStatus = themePlanet.activation;
+            }
+            if (themePlanet.activation == 1)
+            {
+                themePlanet.activation = 0;
+            }
+            else
+            {
+                themePlanet.activation = 1;
+            }
+            updateActivationThemeButton();
+            displayRecordModificationsButton();
         }
-        else
+
+        let updateActivationThemeButton = function()
         {
-            themeActivationButton = createDomElem("div", [["id", "class"],["themeActivationButton", "activationButtonOff"]])
+            deleteElement(["themeActivationButton"], ["id"]);
+            if (typeof indexCurrentTheme != "undefined")
+            {
+                if (studentsList.length > 0)
+                {
+                    let idCr = studentsList[0]["idCr"];
+                    let themeActivationButton;
+                    for (let index = themeActivationList.length -1; index >= 0; index--)
+                    {
+                        if (themeActivationList[index]["id_classroom"] == idCr)
+                        {
+                            if (themeActivationList[index]["theme"] == currentTheme)
+                            {
+                                if (themeActivationList[index]["activation"] == 1)
+                                {
+                                    themeActivationButton = createDomElem("div", [["id", "class"],["themeActivationButton", "activationButtonOn"]]);
+
+                                    themeButtonsContainer.insertBefore(themeActivationButton, themeButtonsContainer.firstChild);
+                                    themeActivationButton.onclick = changeActivationThemeStatus.bind(this, themeActivationList[index]);                       
+                                    return;
+
+                                }
+                                else
+                                {
+                                    themeActivationButton = createDomElem("div", [["id", "class"],["themeActivationButton", "activationButtonOff"]]);
+
+                                    themeButtonsContainer.insertBefore(themeActivationButton, themeButtonsContainer.firstChild);
+                                    themeActivationButton.onclick = changeActivationThemeStatus.bind(this, themeActivationList[index]);                        
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    newThemeActivationElem = {};
+                    newThemeActivationElem["id_classroom"] = idCr;
+                    newThemeActivationElem["theme"] = currentTheme;
+                    newThemeActivationElem["activation"] = 1;
+                    themeActivationList.push(newThemeActivationElem);
+                    themeActivationButton = createDomElem("div", [["id", "class"],["themeActivationButton", "activationButtonOn"]]);
+
+                    themeButtonsContainer.insertBefore(themeActivationButton, themeButtonsContainer.firstChild);
+                    themeActivationButton.onclick = changeActivationThemeStatus.bind(this, themeActivationList[themeActivationList.length - 1]);
+                }
+            }
         }
-        themeButtonsContainer.insertBefore(themeActivationButton, themeButtonsContainer.firstChild);
+        updateActivationThemeButton();
     }
 
     let manageActivationPlanet = function(planet)

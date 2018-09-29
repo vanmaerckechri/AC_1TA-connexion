@@ -99,7 +99,7 @@ class ManagePlanets
 						$rebuildStats[$serie["serie"]] += ["replies" => $serie];
 						unset($rebuildStats[$serie["serie"]]["replies"]["serie"]);
 					}
-					array_push($studentsInfos[$idCr], ["id" => $student["id"], "nickname" => $student["nickname"], "theme" => $rebuildStats]);
+					array_push($studentsInfos[$idCr], ["id" => $student["id"], "idCr" => $idCr, "nickname" => $student["nickname"], "theme" => $rebuildStats]);
 				}
 			}
 		}
@@ -158,13 +158,35 @@ class ManagePlanets
 		$req = NULL;
 		return $classroomsInfo;
 	}
-	public static function recordModifications($idCrs, $activationStatus)
+
+	public static function callOpenQuestionAndActivationStatusThemes($idAd)
+	{
+		$db = self::loadDb();
+
+		// Planets list for this admin
+		$req = $db->prepare("SELECT id_classroom, openquestion, theme, activation FROM 1ta_themes WHERE id_admin = :idAd");
+		$req->bindValue(':idAd', $idAd, PDO::PARAM_INT);
+		$req->execute();
+		$activationStatusThemesList = $req->fetchAll(PDO::FETCH_ASSOC);
+		$req->closeCursor();
+		$req = NULL;
+
+		foreach ($activationStatusThemesList as $key => $value)
+		{
+			$activationStatusThemesList[$key]["id_classroom"] = htmlspecialchars($activationStatusThemesList[$key]["id_classroom"], ENT_NOQUOTES);
+			$activationStatusThemesList[$key]["openquestion"] = htmlspecialchars($activationStatusThemesList[$key]["openquestion"], ENT_NOQUOTES);
+			$activationStatusThemesList[$key]["theme"] = htmlspecialchars($activationStatusThemesList[$key]["theme"], ENT_NOQUOTES);
+			$activationStatusThemesList[$key]["activation"] = htmlspecialchars($activationStatusThemesList[$key]["activation"], ENT_NOQUOTES);
+		}
+		return $activationStatusThemesList;
+	}
+
+	public static function recordPlanetActivationModifications($idCrs, $activationStatus)
 	{
 		$idsCr = [];
 
 		$db = self::loadDb();
 
-		// Check if classroom belongs to this admin
 		$req = $db->prepare("UPDATE 1ta_planets SET activation = :activation WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		foreach ($idCrs as $index => $idCr)
@@ -173,7 +195,56 @@ class ManagePlanets
 			$req->bindValue(':activation', intval($activationStatus[$index]), PDO::PARAM_INT);
 			$req->execute();
 		}
+		$req->closeCursor();
+		$req = NULL;
 	}
+
+	public static function recordThemeActivationModifications($idCrs, $themes, $activationStatus)
+	{
+		$idsCr = [];
+
+		$db = self::loadDb();
+
+		// Check if classroom belongs to this admin
+		$req = $db->prepare("SELECT id FROM 1ta_themes WHERE id_admin = :idAd AND id_classroom = :idCr AND theme = :theme");
+		$updt = $db->prepare("UPDATE 1ta_themes SET activation = :activation WHERE id = :id AND id_admin = :idAd");
+		$rec = $db->prepare("INSERT INTO 1ta_themes (id_admin, id_classroom, theme, activation) VALUES (:idAd, :idCr, :theme, :activation)");
+
+		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		$updt->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		$rec->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+
+		foreach ($idCrs as $key => $idCr)
+		{
+			$req->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+			$rec->bindValue(':idCr', $idCr, PDO::PARAM_INT);
+
+			$req->bindValue(':theme', $themes[$key], PDO::PARAM_STR);
+			$rec->bindValue(':theme', $themes[$key], PDO::PARAM_STR);
+
+			$req->execute();
+			$idRow = $req->fetch();
+
+			if (isset($idRow) && !empty($idRow))
+			{
+				$updt->bindValue(':activation', intval($activationStatus[$key]), PDO::PARAM_INT);
+				$updt->bindValue(':id', $idRow["id"], PDO::PARAM_INT);
+				$updt->execute();
+			}
+			else
+			{
+				$rec->bindValue(':activation', intval($activationStatus[$key]), PDO::PARAM_INT);
+				$rec->execute();
+			}
+		}
+		$req->closeCursor();
+		$req = NULL;
+		$updt->closeCursor();
+		$updt = NULL;
+		$rec->closeCursor();
+		$rec = NULL;
+	}
+
 	public static function create($idCr)
 	{
 		//$classroomsInfo = [];

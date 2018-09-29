@@ -58,11 +58,13 @@ $content = ob_get_clean();
     // transmit information from planets to javascript
 $planetList = json_encode($planetList);
 $studentsInfos = json_encode($studentsInfos);
+$themeActivationList = json_encode($themeActivationList);
 ob_start();
 ?>
     <script>
         let planetsList = <?=$planetList?>;
         let studentsInfos = <?=$studentsInfos?>;
+        let themeActivationList = <?=$themeActivationList?>;
         let freeClassroomLength = <?=count($freeClassrooms)?>;
         planetsList.push({name: "Créer une Nouvelle Planète"});
     </script>
