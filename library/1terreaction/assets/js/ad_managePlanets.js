@@ -214,6 +214,7 @@ window.addEventListener('load', function()
     {
         let planetActivationList = [];
         let themeNewActivationList = [];
+        let newOpenQuestionList = [];
         let form = createDomElem("form", [["id", "action", "method", "class"], ["recordModifications", "admin.php", "post", "disabled"]]);
         for (let planetIndex = planetsList.length - 1; planetIndex >= 0; planetIndex--)
         {
@@ -231,11 +232,11 @@ window.addEventListener('load', function()
         }
         for (let i = themeActivationList.length - 1; i >= 0; i--)
         {
+            let idCr = themeActivationList[i]["id_classroom"];
+            let themeName = themeActivationList[i]["theme"];
             if (themeActivationList[i]["activationOriginStatus"] && themeActivationList[i]["activationOriginStatus"] != themeActivationList[i]["activation"])
             {
-                let idCr = themeActivationList[i]["id_classroom"];
                 let activation = themeActivationList[i]["activation"];
-                let themeName = themeActivationList[i]["theme"];
                 themeNewActivationList.push([idCr, themeName, activation]);
 
                 let inputThemeActivationIdCrList = createDomElem("input", [["name", "value", "type"], ["inputThemeActivationIdCrList[]", idCr, "hidden"]]);
@@ -245,8 +246,20 @@ window.addEventListener('load', function()
                 form.appendChild(inputThemeActivationNameList);
                 form.appendChild(inputThemeActivationStatusList);
             }
+            if (themeActivationList[i]["originOpenQuestion"] && themeActivationList[i]["originOpenQuestion"] != themeActivationList[i]["openquestion"])
+            {
+                let openQuestionContent = themeActivationList[i]["openquestion"];
+                newOpenQuestionList.push([idCr, openQuestionContent]);
+
+                let inputOpenQuestionIdCrList = createDomElem("input", [["name", "value", "type"], ["inputOpenQuestionIdCrList[]", idCr, "hidden"]]);
+                let inputThemeNameList = createDomElem("input", [["name", "value", "type"], ["inputThemeNameList[]", themeName, "hidden"]]);
+                let inputOpenQuestionContentList = createDomElem("input", [["name", "value", "type"], ["inputOpenQuestionContentList[]", openQuestionContent, "hidden"]]);
+                form.appendChild(inputOpenQuestionIdCrList);
+                form.appendChild(inputThemeNameList);
+                form.appendChild(inputOpenQuestionContentList);
+            }
         }
-        if (planetActivationList.length > 0 || themeNewActivationList.length > 0)
+        if (planetActivationList.length > 0 || themeNewActivationList.length > 0 || newOpenQuestionList.length > 0)
         {
             document.body.appendChild(form);
             form.submit();
@@ -256,25 +269,35 @@ window.addEventListener('load', function()
     let displayRecordModificationsButton = function()
     {
         deleteElement(["recordModifications"], ["id"]);
+        let createButtonToSaveModifications = function()
+        {
+            recordModificationsButton = createDomElem("button", [["id", "class"],["recordModifications", "recordModifications buttonDefault"]]);
+            recordModificationsButton.innerText = "Enregistrer les Modifications";
+            document.querySelector(".leaveGameButtonContainer").appendChild(recordModificationsButton);
+            recordModificationsButton.onclick = recordModifications;           
+        }
         for (let planetIndex = planetsList.length - 1; planetIndex >= 0; planetIndex--)
         {
+            // test planet status activation modification
             if (planetsList[planetIndex]["activationOriginStatus"] && planetsList[planetIndex]["activationOriginStatus"] != planetsList[planetIndex]["activation"])
             {
-                recordModificationsButton = createDomElem("button", [["id", "class"],["recordModifications", "recordModifications buttonDefault"]]);
-                recordModificationsButton.innerText = "Enregistrer les Modifications";
-                document.querySelector(".leaveGameButtonContainer").appendChild(recordModificationsButton);
-                recordModificationsButton.onclick = recordModifications;
+                createButtonToSaveModifications();
                 return;
             }
         }
         for (let i = themeActivationList.length - 1; i >= 0; i--)
         {
+            // test theme status activation modification
             if (themeActivationList[i]["activationOriginStatus"] && themeActivationList[i]["activationOriginStatus"] != themeActivationList[i]["activation"])
             {
-                recordModificationsButton = createDomElem("button", [["id", "class"],["recordModifications", "recordModifications buttonDefault"]]);
-                recordModificationsButton.innerText = "Enregistrer les Modifications";
-                document.querySelector(".leaveGameButtonContainer").appendChild(recordModificationsButton);
+                createButtonToSaveModifications();
                 recordModificationsButton.onclick = recordModifications;
+                return;               
+            }
+            // test open question modification
+            if (themeActivationList[i]["originOpenQuestion"] && themeActivationList[i]["originOpenQuestion"] != themeActivationList[i]["openquestion"])
+            {
+                createButtonToSaveModifications();
                 return;               
             }
         }
@@ -629,33 +652,55 @@ window.addEventListener('load', function()
             {
                 if (studentsList[0])
                 {
-                    if (themeActivationList[i]["id_classroom"] == studentsList[0]["idCr"] && themeActivationList[i]["theme"] == currentTheme)
+                    if (themeActivationList[i]["id_classroom"] == studentsList[0]["idCr"])
                     {
-                        if (themeActivationList[i]["openquestion"] != "")
+                        if (themeActivationList[i]["theme"] == currentTheme)
                         {
-                            openQuestion.innerText = themeActivationList[i]["openquestion"];
+                            if (themeActivationList[i]["openquestion"] != "")
+                            {
+                                openQuestion.innerText = themeActivationList[i]["openquestion"];
+                                openQuestionIndex = i;
+                                break;
+                            }
+                            else
+                            {
+                                let defaultQuestion = allThemes[quizIndex];
+                                defaultQuestion = defaultQuestion.slice(0, defaultQuestion.length - 1);
+                                defaultQuestion += 3;
+                                defaultQuestion = eval(defaultQuestion);
+                                openQuestion.innerText = defaultQuestion["question03"]["openQuestion"];
+                                openQuestionIndex = i;
+                                break;
+                            }
                         }
-                        else
-                        {
-                            let defaultQuestion = allThemes[quizIndex];
-                            defaultQuestion = defaultQuestion.slice(0, defaultQuestion.length - 1);
-                            defaultQuestion += 3;
-                            defaultQuestion = eval(defaultQuestion);
-                            openQuestion.innerText = defaultQuestion["question03"]["openQuestion"];
-                        }
-                        openQuestionIndex = i;
-                        openQuestionEdit.value = openQuestion.innerText;
-                        openQuestion.innerText += " =>";
-                        openQuestionTitle.innerText = "Question Ouverte"
-                        questionReplyRow.appendChild(openQuestionEditImg);
-                        questionReplyRow.appendChild(openQuestionEdit);
-                        questionReplyRow.appendChild(openQuestion);
-                        questionsRepliesContainer.appendChild(openQuestionTitle);
-                        questionsRepliesContainer.appendChild(questionReplyRow);
-                        break;
                     }
                 }
             }
+            if (openQuestion.innerText == "undefined" || openQuestion.innerText == "")
+            {
+                let defaultQuestion = allThemes[quizIndex];
+                defaultQuestion = defaultQuestion.slice(0, defaultQuestion.length - 1);
+                defaultQuestion += 3;
+                defaultQuestion = eval(defaultQuestion);
+                openQuestion.innerText = defaultQuestion["question03"]["openQuestion"];
+                let newInput = 
+                {
+                    activation: 1,
+                    openquestion: defaultQuestion["question03"]["openQuestion"],
+                    theme: currentTheme,
+                    id_classroom: studentsList[0]["idCr"]
+                }
+                themeActivationList.push(newInput);
+                openQuestionIndex = themeActivationList.length - 1;
+            }
+            openQuestionEdit.value = openQuestion.innerText;
+            openQuestion.innerText += " =>";
+            openQuestionTitle.innerText = "Question Ouverte"
+            questionReplyRow.appendChild(openQuestionEditImg);
+            questionReplyRow.appendChild(openQuestionEdit);
+            questionReplyRow.appendChild(openQuestion);
+            questionsRepliesContainer.appendChild(openQuestionTitle);
+            questionsRepliesContainer.appendChild(questionReplyRow);
             // display open question => reply
             if (studentsList[studentIndex]["theme"][currentTheme])
             {
@@ -676,6 +721,7 @@ window.addEventListener('load', function()
                     openQuestion.classList.remove("disabled");
                     openQuestion.innerText = openQuestionEdit.value + " =>";
                     themeActivationList[openQuestionIndex]["openquestion"] = openQuestionEdit.value;
+                    displayRecordModificationsButton();
                 }
 
                 let testKey = function(event)
@@ -686,7 +732,6 @@ window.addEventListener('load', function()
                         openQuestionEdit.removeEventListener("keydown", testKey, false);
                     }
                 }
-
                 if (!themeActivationList[openQuestionIndex]["originOpenQuestion"] && themeActivationList[openQuestionIndex]["originOpenQuestion"] != "")
                 {
                     let textClean = openQuestion.innerText;

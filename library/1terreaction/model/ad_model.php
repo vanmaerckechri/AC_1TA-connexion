@@ -185,17 +185,17 @@ class ManagePlanets
 	{
 		$db = self::loadDb();
 
-		$req = $db->prepare("UPDATE 1ta_planets SET activation = :activation WHERE id_classroom = :idCr AND id_admin = :idAd");
-		$req->bindValue(':idAd', $_SESSION['id'], PDO::PARAM_INT);
-
+		$updt = $db->prepare("UPDATE 1ta_planets SET activation = :activation WHERE id_classroom = :idCr AND id_admin = :idAd");
 		$del = $db->prepare("DELETE FROM pe_rel_cr_library WHERE id_classroom = :idCr");
+		$req = $db->prepare("SELECT id FROM pe_rel_cr_library WHERE id_classroom = :idCr");
 		$rec = $db->prepare("INSERT INTO pe_rel_cr_library (id_classroom, id_library) VALUES (:idCr, :idLib)");
 
+		$updt->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
 		foreach ($idCrs as $index => $idCr)
 		{
-			$req->bindParam(':idCr', intval($idCr), PDO::PARAM_INT);
-			$req->bindValue(':activation', intval($activationStatus[$index]), PDO::PARAM_INT);
-			$req->execute();
+			$updt->bindParam(':idCr', intval($idCr), PDO::PARAM_INT);
+			$updt->bindValue(':activation', intval($activationStatus[$index]), PDO::PARAM_INT);
+			$updt->execute();
 			if ($activationStatus[$index] == 0)
 			{
 				$del->bindParam(':idCr', $idCr, PDO::PARAM_INT);
@@ -203,7 +203,6 @@ class ManagePlanets
 			}
 			else
 			{
-				$req = $db->prepare("SELECT id FROM pe_rel_cr_library WHERE id_classroom = :idCr");
 				$req->bindValue(':idCr', intval($idCr), PDO::PARAM_INT);
 				$req->execute();
 				$alreadyExist = $req->fetch();
@@ -215,6 +214,8 @@ class ManagePlanets
 				}
 			}
 		}
+		$updt->closeCursor();
+		$updt = NULL;
 		$req->closeCursor();
 		$req = NULL;
 		$del->closeCursor();
@@ -256,6 +257,51 @@ class ManagePlanets
 			else
 			{
 				$rec->bindValue(':activation', intval($activationStatus[$key]), PDO::PARAM_INT);
+				$rec->execute();
+			}
+		}
+		$req->closeCursor();
+		$req = NULL;
+		$updt->closeCursor();
+		$updt = NULL;
+		$rec->closeCursor();
+		$rec = NULL;
+	}
+
+	public static function recordOpenQuestionModifications($idCrs, $themes, $openQuestion)
+	{
+		$db = self::loadDb();
+
+		// Check if classroom belongs to this admin
+		$req = $db->prepare("SELECT id FROM 1ta_themes WHERE id_admin = :idAd AND id_classroom = :idCr AND theme = :theme");
+		$updt = $db->prepare("UPDATE 1ta_themes SET openquestion = :openquestion WHERE id = :id AND id_admin = :idAd");
+		$rec = $db->prepare("INSERT INTO 1ta_themes (id_admin, id_classroom, theme, activation, openquestion) VALUES (:idAd, :idCr, :theme, :activation, :openquestion)");
+
+		$req->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		$updt->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+		$rec->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);
+
+		foreach ($idCrs as $key => $idCr)
+		{
+			$req->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+			$rec->bindParam(':idCr', $idCr, PDO::PARAM_INT);
+
+			$req->bindParam(':theme', $themes[$key], PDO::PARAM_STR);
+			$rec->bindParam(':theme', $themes[$key], PDO::PARAM_STR);
+
+			$req->execute();
+			$idRow = $req->fetch();
+
+			if (isset($idRow) && !empty($idRow))
+			{
+				$updt->bindParam(':id', $idRow["id"], PDO::PARAM_INT);
+				$updt->bindParam(':openquestion', $openQuestion[$key], PDO::PARAM_STR);
+				$updt->execute();
+			}
+			else
+			{
+				$rec->bindParam(':openquestion', $openQuestion[$key], PDO::PARAM_STR);
+				$rec->bindValue(':activation', 1, PDO::PARAM_INT);
 				$rec->execute();
 			}
 		}
