@@ -99,6 +99,17 @@ class GameInfos
 		$req = NULL;
 		return $gameInfos;
 	}
+
+	public static function getThemeActivationStatus()
+	{
+		$db = self::loadDb();
+
+		$req = $db->prepare("SELECT openquestion, theme, activation FROM 1ta_themes WHERE id_classroom = :idSt");
+		$req->bindParam(':idSt', $_SESSION['id_classroom'], PDO::PARAM_INT);
+		$req->execute();
+		$themeList = $req->fetchAll(PDO::FETCH_ASSOC);
+		return $themeList;
+	}
 }
 
 class RecordReplies

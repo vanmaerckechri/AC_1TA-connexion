@@ -1,5 +1,9 @@
 let currentTheme;
 let bonusGameAlreadyPlayed = [false, false];
+let indexAllActiveThemes = [];
+let openQuestions = [];
+let openQuestion;
+
 // -- DISPLAY THEMES MENU --
 // Hide
 let closeThemesMenu = function()
@@ -122,6 +126,7 @@ let saveAnswer = function(answerIndex, blockBonus)
     questionContainer.classList.add("disabled_v2");
     answerList.push(answerIndex + 1);
     waitForAnswer = false;
+
     // check the answers to find out what to do next
     if (answerList.length == 3)
     {
@@ -148,11 +153,11 @@ let saveAnswer = function(answerIndex, blockBonus)
     }
     else if (answerList.length == 9)
     {
-        if (gameInfos["openquestion"] != false)
+        /*if (gameInfos["openquestion"] != false)
         {
             let themeIndex = currentTheme.slice(0, 1).charCodeAt() - 65//(A = first theme = 65)
             if (gameInfos["openquestion"]["serie"] == allThemesNames[themeIndex])
-            {
+            {*/
                 let propositionsContainer = document.getElementById("propositionsContainer");
                 let openQuestionTextArea = document.getElementById("openQuestionTextArea");
                 let step_questions = document.getElementById("step_questions");
@@ -160,7 +165,14 @@ let saveAnswer = function(answerIndex, blockBonus)
                 document.getElementById("questionIntro").innerText = "";   
                 openQuestionTextArea.classList.remove("disabled");
                 openQuestionTextArea.focus();
-                document.getElementById("question").innerText = gameInfos["openquestion"]["question"];
+                if (openQuestion != "")
+                {
+                    document.getElementById("question").innerText = openQuestion;
+                }
+                else
+                {
+                    document.getElementById("question").innerText = quiz["question03"]["openQuestion"];
+                }
 
                 fitBackgroundQuestions();               
 
@@ -172,8 +184,8 @@ let saveAnswer = function(answerIndex, blockBonus)
                 sendAnswersToDbButton.setAttribute("class", "buttonDefault sendAnswersToDbButton");
                 step_questions.appendChild(sendAnswersToDbButton);
                 sendAnswersToDbButton.addEventListener("click", sendToDb, false);
-            }
-        }
+            //}
+        //}
     }
 }
 
@@ -216,6 +228,7 @@ let backOnPreviousQuestion = function()
     }
     else if (answerList.length == 8)
     {
+        console.log("ok")
         document.getElementById("openQuestionTextArea").classList.add("disabled");
         document.getElementById("questionContainer").classList.add("disabled_v2");
         document.getElementById("propositionsContainer").classList.remove("disabled_v2");
@@ -385,7 +398,7 @@ let loadQuestions = function(themePosition)
         minimizeIntroductionQuestions();
     }, 8000);
 }
-let launchGame = function(themePosition)
+let launchGame = function(themePosition, indexOpenQuestion)
 {
     loadQuestions(themePosition);
     closeThemesMenu();
@@ -403,6 +416,7 @@ let launchGame = function(themePosition)
         document.getElementById("homeSms").remove();
     }
     document.getElementById("mainMenuContainer").remove();
+    openQuestion = openQuestions[indexOpenQuestion]
 }
 // Display
 let launchThemesMenu = function(event)
@@ -424,12 +438,13 @@ let launchThemesMenu = function(event)
     }
     // Active Theme Buttons
     let themeButtons = document.querySelectorAll(".themeButton");
-    let buttonQuizList = ["A1", "B1"];
+
     for (let i = themeButtons.length - 1; i >= 0; i--)
     {
+        let buttonQuiz = allThemes[indexAllActiveThemes[i]].replace("quiz", "");
         if (themeButtons[i].classList.contains("unlocked"))
         {
-            themeButtons[i].addEventListener("click", launchGame.bind(this, buttonQuizList[i]), false);
+            themeButtons[i].addEventListener("click", launchGame.bind(this, buttonQuiz, i), false);
         }
     }
 }
@@ -515,6 +530,34 @@ let fitBackgroundQuestions = function()
         quiz[question]["tag"].style.height = ((themeBackground.offsetWidth / 100) * quiz[question]["sizeOrigin"]) + (quiz[question]["sizeOrigin"] * ratioBgWindow) + "px";
     }
 }
+let initThemes = function()
+{
+    let themesContainer = document.getElementById("themesContainer");
+    for (let j = allThemesNames.length - 1; j >= 0; j--)
+    {
+        for (let i = allThemesActivation.length - 1; i >= 0; i--)
+        {
+            if (allThemesActivation[i]["theme"] == allThemesNames[j] && allThemesActivation[i]["activation"] == 1)
+            {
+                let themeButton = document.createElement("div");
+                themeButton.setAttribute("class", "themeButton unlocked");
+
+                let themeNameButton = document.createElement("div");
+                themeNameButton.setAttribute("class", "theme");
+                themeNameButton.innerText = allThemesActivation[i]["theme"];
+
+                themeButton.appendChild(themeNameButton);
+                themesContainer.appendChild(themeButton);
+
+                indexAllActiveThemes.push(j);
+                openQuestions.push(allThemesActivation[i]["openquestion"]);
+                break;
+            }
+        }
+    }
+}
+
+initThemes();
 
 window.addEventListener("resize", fitBackgroundQuestions, false);
 

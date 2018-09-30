@@ -37,9 +37,9 @@ ob_start();
         </div>
         <div id="step_chooseTheme" class="disabled">
             <div id="themesContainer" class="themesContainer">
-                <h2>Thèmes</h2>
+                <h2>Thème(s)</h2>
             <?php
-                foreach ($allThemes as $key => $theme)
+               /* foreach ($allThemes as $key => $theme)
                 {
                     $unLockedClass = "unlocked";
                     if ($key >= $gameInfos->playerGameInfos['unlocked_theme'])
@@ -52,7 +52,7 @@ ob_start();
                         <div class="theme"><?=$theme?></div>
                     </div>
                 <?php
-                }
+                }*/
             ?>
                 <div id="backToLocalBgContainer" class="backToLocalBgContainer previousContainer"><img class="previous" src="assets/img/previous_dark.svg" alt="boutton page précédente"></div>
             </div>
@@ -148,6 +148,7 @@ ob_start();
 ?>
     <script>
         let gameInfos = <?=json_encode($gameInfos)?>;
+        let allThemesActivation = <?=json_encode($allThemes)?>;
     </script>
     
     <script type= "text/javascript" src="assets/js/questions.js"></script>

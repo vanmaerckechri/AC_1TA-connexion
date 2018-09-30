@@ -51,11 +51,13 @@ function loadGameView($activeScoreTab = false, $statsEnvThemefromLastGame = fals
 	// load game infos (averages player stats, questions and propositions with score, ...)
 	// $gamesInfos = object[playerStats: assoc array, questions: assoc array, propositions: assoc array];
 	$gameInfos = GameInfos::call();
+
 	// load background images for local impact
 	$imgNumber = round($gameInfos->playerStats['stats_envi']);
 	$localBgAir_imgSrc = "assets/img/local_0".$imgNumber.".jpg";
+
 	// load themes
-	$allThemes = ["alimentation", "Thème 2", "Thème 3", "Thème 4", "Thème 5", "Thème 6"];
+	$allThemes = GameInfos::getThemeActivationStatus();
 
 	//$currentThemeIndex = ord(strtolower($gameInfos->openquestion["serie"])) - 97;
 	$currentTheme = $gameInfos->openquestion["serie"];

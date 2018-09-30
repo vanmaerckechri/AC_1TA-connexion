@@ -321,6 +321,7 @@ const quizA3 =
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
-	    }
+	    },
+	    openQuestion: "blablabla question par defaut"
 	}
 };
