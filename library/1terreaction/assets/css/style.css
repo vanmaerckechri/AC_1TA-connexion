@@ -228,6 +228,21 @@ body {
     .activationButtonOff:hover::after {
       content: "activer"; }
 
+.buttonRename {
+  margin: 0 10px 18px;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  background-image: url("../img/rename.svg");
+  cursor: pointer; }
+  .buttonRename:hover {
+    background-image: url("../img/rename_hover.svg"); }
+  .buttonRename img, .buttonRename p {
+    display: none; }
+
+.openQuestionEdit {
+  width: 100%; }
+
 #container {
   position: fixed; }
 
@@ -379,13 +394,17 @@ body {
     background-color: rgba(255, 255, 255, 0.8); }
   .ui .planetInfosContainer .questionReplyRow {
     margin: 10px 0;
-    padding: 8px 20px; }
-    .ui .planetInfosContainer .questionReplyRow .question {
-      display: inline-block; }
+    padding: 8px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; }
     .ui .planetInfosContainer .questionReplyRow .reply {
+      width: 100%;
       margin-left: 5px;
-      display: inline-block;
       font-style: italic; }
+    .ui .planetInfosContainer .questionReplyRow .question {
+      width: 100%; }
   .ui .planetInfosContainer .themeTitle {
     display: inline-block; }
   .ui .planetInfosContainer .previousNextPlButtonsContainer {

@@ -615,8 +615,101 @@ window.addEventListener('load', function()
                     quizIndex = themeIndex;
                 }
             }
-            // display questions / replies
+            // display open question => question
             let questionsRepliesContainer = createDomElem("div", [["id", "class"], ["questionsRepliesContainer", "questionsRepliesContainer"]])
+            let questionReplyRow = createDomElem("div", [["class"],["questionReplyRow"]]);
+            let openQuestionTitle = createDomElem("p", [["class"],["questionIntro"]]);
+            let openQuestionEditImg = createDomElem("img", [["class", "src"],["buttonRename", ""]]);
+            let openQuestion = createDomElem("p", [["id", "class"],["openQuestion", "question"]]);
+            let openQuestionEdit = createDomElem("input", [["id", "class", "type"],["openQuestionEdit", "question openQuestionEdit disabled", "text"]]);
+            let openReply = createDomElem("p", [["class"],["reply"]]);
+            let openQuestionIndex;
+
+            for (let i = themeActivationList.length - 1; i >= 0; i--)
+            {
+                if (studentsList[0])
+                {
+                    if (themeActivationList[i]["id_classroom"] == studentsList[0]["idCr"] && themeActivationList[i]["theme"] == currentTheme)
+                    {
+                        if (themeActivationList[i]["openquestion"] != "")
+                        {
+                            openQuestion.innerText = themeActivationList[i]["openquestion"];
+                        }
+                        else
+                        {
+                            let defaultQuestion = allThemes[quizIndex];
+                            defaultQuestion = defaultQuestion.slice(0, defaultQuestion.length - 1);
+                            defaultQuestion += 3;
+                            defaultQuestion = eval(defaultQuestion);
+                            openQuestion.innerText = defaultQuestion["question03"]["openQuestion"];
+                        }
+                        openQuestionIndex = i;
+                        openQuestionEdit.value = openQuestion.innerText;
+                        openQuestion.innerText += " =>";
+                        openQuestionTitle.innerText = "Question Ouverte"
+                        questionReplyRow.appendChild(openQuestionEditImg);
+                        questionReplyRow.appendChild(openQuestionEdit);
+                        questionReplyRow.appendChild(openQuestion);
+                        questionsRepliesContainer.appendChild(openQuestionTitle);
+                        questionsRepliesContainer.appendChild(questionReplyRow);
+                        break;
+                    }
+                }
+            }
+            // display open question => reply
+            if (studentsList[studentIndex]["theme"][currentTheme])
+            {
+                openReply.innerText = studentsList[studentIndex]["theme"][currentTheme]["replies"]["open_reply"];
+            }
+            else
+            {
+                openReply.innerText = "..."
+            }
+            questionReplyRow.appendChild(openReply);
+
+            // edit open question
+            let editOpenQuestion = function()
+            {
+                let recordOpenQuestion = function()
+                {
+                    openQuestionEdit.classList.add("disabled");
+                    openQuestion.classList.remove("disabled");
+                    openQuestion.innerText = openQuestionEdit.value + " =>";
+                    themeActivationList[openQuestionIndex]["openquestion"] = openQuestionEdit.value;
+                }
+
+                let testKey = function(event)
+                {
+                    if (event.keyCode == 13)
+                    {
+                        recordOpenQuestion();
+                        openQuestionEdit.removeEventListener("keydown", testKey, false);
+                    }
+                }
+
+                if (!themeActivationList[openQuestionIndex]["originOpenQuestion"] && themeActivationList[openQuestionIndex]["originOpenQuestion"] != "")
+                {
+                    let textClean = openQuestion.innerText;
+                    textClean = textClean.slice(0, textClean.length - 3)
+                    themeActivationList[openQuestionIndex]["openquestion"] = textClean;
+                    themeActivationList[openQuestionIndex]["originOpenQuestion"] = textClean;
+                }
+                //let openQuestion = document.getElementById("openQuestion");
+                // active edit
+                if (!openQuestion.classList.contains("disabled"))
+                {
+                    openQuestion.classList.add("disabled");
+                    openQuestionEdit.classList.remove("disabled");
+                }
+                else
+                {
+                    recordOpenQuestion();
+                }
+                openQuestionEdit.addEventListener("keydown", testKey, false);
+            }
+            openQuestionEditImg.onclick = editOpenQuestion;
+
+            // display questions / replies
             let quizName = allThemes[quizIndex];
             let replyIndexName = 0;
             for (let quizPart = 1; quizPart < 4; quizPart++)
@@ -629,7 +722,7 @@ window.addEventListener('load', function()
                 {
                     replyIndexName++; 
                     let replies = studentsList[studentIndex]["theme"][currentTheme] && studentsList[studentIndex]["theme"][currentTheme]["replies"] ? studentsList[studentIndex]["theme"][currentTheme]["replies"] : "-";
-                    let questionReplyRow = createDomElem("div", [["class"],["questionReplyRow"]]);
+                    questionReplyRow = createDomElem("div", [["class"],["questionReplyRow"]]);
                     let questionName = "question0"+(questionIndex+1);
                     let question = createDomElem("p", [["class"],["question"]]);
                     let replyName = "reply"+replyIndexName;

@@ -229,15 +229,19 @@
 		{
 			margin: 10px 0;
 			padding: 8px 20px;
-			.question
-			{
-				display: inline-block;
-			}
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
 			.reply
 			{
+				width: 100%;
 				margin-left: 5px;
-				display: inline-block;
 				font-style: italic;
+			}
+			.question
+			{
+				width: 100%;
 			}
 		}
 		.themeTitle
