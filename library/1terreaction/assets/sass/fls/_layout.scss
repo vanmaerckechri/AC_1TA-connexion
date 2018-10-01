@@ -26,13 +26,93 @@ body
   }
 	.flsTutoContainer
 	{
+    margin: 0 auto;
 		padding: 20px 0 40px;
+    max-width: 768px;
 		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
 		align-items: center;
 		font-family: $font-main;
+    .flsDateSeasonContainer
+    {
+      margin: 10px 0;
+      .flsDummyBoxFlex
+      {
+        margin-right: 10px;
+        letter-spacing: normal;
+        transition: all 1s;
+        animation: swingLeftRight 1s ease alternate-reverse infinite;
+      }
+      .flsDummyBoxFlex, .flsSeason, .flsDateContainer
+      {
+        flex: auto;
+      }
+    }
+    .flsRulesText
+    {
+      letter-spacing: normal;
+    }
+    .flsRulesCell
+    {
+      margin: 10px 0;
+      padding: 0 10px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, .5);
+    }
+    .flsExampleFruitLegImgContainer
+    {
+      .flsExamplePotironImg
+      {
+        width: 128px;
+        height: 128px;
+        transition: all 1s;
+        animation: movePotiron 6s ease infinite;
+      }
+      .flsExampleTomateImg
+      {
+        width: 128px;
+        height: 128px;
+        transition: all 1s;
+        animation: moveTomate 6s ease infinite;        
+      }
+    }
+    .flsExempleAnswerImgContainer
+    {
+      position: relative;
+      left: 50%;
+      height: 64px;
+      width: 128px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      transform: translateX(-50%);
+      &::before
+      {
+        content: "+100";
+        position: absolute;
+        top: 50%;
+        right: 4px;
+        transform: translateY(-50%);
+        animation: changeTutoScore 2s ease alternate infinite; 
+      }
+      .flsExampleGoodAnswerImg, .flsExampleWrongAnswerImg
+      {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 64px;
+        height: 64px;
+        transition: all 1s;
+      }
+      .flsExampleGoodAnswerImg
+      {
+        opacity: 1;
+        animation: goodAnswerBecomeWrong 2s ease alternate infinite;      
+      }
+      .flsExampleWrongAnswerImg
+      {
+        opacity: 0;
+        animation: wrongAnswerBecomeGood 2s ease alternate infinite;
+      }
+    }
 		.flsTutoTitle
 		{
 		}

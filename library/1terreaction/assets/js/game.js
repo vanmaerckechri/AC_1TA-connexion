@@ -438,14 +438,13 @@ let launchThemesMenu = function(event)
     }
     // Active Theme Buttons
     let themeButtons = document.querySelectorAll(".themeButton");
-
     for (let i = themeButtons.length - 1; i >= 0; i--)
     {
         let buttonQuiz = allThemes[indexAllActiveThemes[i]].replace("quiz", "");
-        if (themeButtons[i].classList.contains("unlocked"))
-        {
+        /*if (themeButtons[i].classList.contains("unlocked"))
+        {*/
             themeButtons[i].addEventListener("click", launchGame.bind(this, buttonQuiz, i), false);
-        }
+        //}
     }
 }
 
@@ -532,6 +531,7 @@ let fitBackgroundQuestions = function()
 }
 let initThemes = function()
 {
+    // create theme buttons into "choose theme pannel"
     let themesContainer = document.getElementById("themesContainer");
     for (let j = allThemesNames.length - 1; j >= 0; j--)
     {
@@ -555,9 +555,19 @@ let initThemes = function()
             }
         }
     }
+    // if only 1 theme exist (don t need to display "choose theme pannel" when player click on play button)
+    let themeButtons = document.querySelectorAll(".themeButton");
+    let launchThemesMenuButton = document.querySelector("#launchThemesMenuButton");
+    if (themeButtons.length == 1)
+    {
+        let buttonQuiz = allThemes[indexAllActiveThemes[0]].replace("quiz", "");
+        launchThemesMenuButton.addEventListener("click", launchGame.bind(this, buttonQuiz, 0), false);
+    }
+    else
+    {
+        launchThemesMenuButton.addEventListener("click", launchThemesMenu, false);
+    }
 }
-
-initThemes();
 
 window.addEventListener("resize", fitBackgroundQuestions, false);
 
@@ -568,8 +578,7 @@ document.getElementById("questionButton03").addEventListener("click", displayQue
 
 // -- BUTTONS --
 // Display themes menu
-let launchThemesMenuButton = document.querySelector("#launchThemesMenuButton");
-launchThemesMenuButton.addEventListener("click", launchThemesMenu, false);
+initThemes();
 // Back to local UI
 let backToLocalBgButton = document.querySelector("#backToLocalBgContainer");
 backToLocalBgButton.addEventListener("click", closeThemesMenu, false);
