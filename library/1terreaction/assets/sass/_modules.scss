@@ -116,13 +116,6 @@
 	max-width: 1920px;
 	width: 100%;
 	transform: translateX(-50%);
-	.recordModifications
-	{
-		position: absolute;
-		bottom: 0;
-		left: 4rem;
-		z-index: 10;
-	}
 }
 
 .activationButtonOn, .activationButtonOff
@@ -153,6 +146,7 @@
 			color: black;
 			transform: translate(-50%, -100%);
 			background-color: rgba(255, 255, 255, .7);
+			z-index: 11;
 		}
 	}
 }
@@ -165,7 +159,7 @@
 		box-shadow: 0 0px 20px 0 rgba(25, 200, 75, .6), 0 0px 20px 0 rgba(25, 200, 75, .6);
 		&::after
 		{
-			content: "désactiver";
+			content: "désactiver le thème";
 		}
 	}
 }
@@ -177,7 +171,7 @@
 		box-shadow: 0 0px 20px 0 rgba(200, 25, 75, .6), 0 0px 20px 0 rgba(200, 25, 75, .6);
 		&::after
 		{
-			content: "activer";
+			content: "activer le thème";
 		}
 	}
 }

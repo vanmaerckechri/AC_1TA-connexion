@@ -10,7 +10,6 @@
 	.planetNameContainer
 	{
 		border: 1px solid rgba(255, 255, 255, .1);
-		padding: 10px 4rem;
 		position: absolute;
 		left: 50%;
 		bottom: 0;
@@ -21,6 +20,7 @@
 		width: 100%;
 		max-width: 1920px;
 		min-height: 50px;
+		max-height: 50px;
 		color: rgba(255, 255, 255, .9);
 		background-color: rgba(0, 40, 80, .2);
 		transform: translateX(-50%);
@@ -28,9 +28,12 @@
 		z-index: 2;
 		.planetName
 		{
-			letter-spacing: 1.05rem;
+			letter-spacing: .8rem;
 	    	font-family: $fontFamTitles;
-			font-size: 2rem;
+			font-size: 1.5rem;
+			max-width: calc(100% - 50px);
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 		.activationButtonOn
 		{
@@ -72,6 +75,8 @@
 		height: 100%;
 		position: absolute;
 		z-index: 2;
+		display: flex;
+		flex-direction: column;
 		left: 50%;
 		top: 0;
 		color: white;
@@ -130,15 +135,17 @@
 		}
 		.planetInfosTitleContainer
 		{
-			/*display: flex;
-			justify-content: center;
-			align-items: center;*/
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
 			position: relative;
 			height: 50px;
+			.planetInfosTitleDummy, .planetInfosTitle, .previousNextPlButtonsContainer
+			{
+				flex: 1;
+			}
 			.planetInfosTitle
 			{    
-				display: inline-block;
-				width: 100%;
 				font-family: $fontFamTitles;
 				font-size: 1.3rem;
 			}
@@ -172,7 +179,8 @@
 			margin: 0 auto;
 			padding: .5rem 1rem;
 			display: block;
-			max-width: 720px;
+			max-width: 1920px;
+			width: 100%;
 			font-family: $fontFamMain;
 			font-size: 1rem;
 			color: white;
@@ -191,29 +199,34 @@
 				width: 100%;
 				display: flex;
 				justify-content: space-between;
+				p, .stats
+				{
+					text-overflow: ellipsis;
+					overflow: hidden;
+				}
 				p
 				{
-					flex: 1;
+					width: 20%;
 					text-align: left;
 				}
 				.statsContainer
 				{
+					width: 80%;
 					display: flex;
-					flex: 2;
 					.stats
 					{
 						margin: 0 .2rem;
-						flex: 2;
-						min-width: 130px;
+						width: 25%;
 					}
 				}
 			}
 		}
 		.questionsRepliesContainer, .populationContainer
 		{
+			margin-bottom: 48px;
 			border-top: 1px solid rgba(255, 255, 255, .4);
 			border-bottom: 1px solid rgba(255, 255, 255, .4);
-			height: calc(100% - 366px);
+			flex: 1;
 			overflow-y: auto;
 			background-color: rgba(0, 60, 120, .7);
 		}
@@ -249,15 +262,9 @@
 			display: inline-block;
 		}
 		// buttons
-		.previousNextPlButtonsContainer
-		{
-			position: absolute;
-			right: 4rem;
-			top: 0;
-		}
 		.themeButtonsContainer, .categoryButtonContainer
 		{
-			height: 50px;
+			min-height: 50px;
 		}
 		.themeButtonsContainer, .categoryButtonContainer, .previousNextPlButtonsContainer
 		{	
@@ -270,7 +277,7 @@
 		{	
 			.buttonDefault
 			{
-				margin: 0 0 0 20px;
+				margin: 0 0 10px 10px;
 			}
 		}
 		.themeButtonsContainer
@@ -278,21 +285,33 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			flex-wrap: wrap;
 		}
 	}
-	.leaveGameButtonAdmin
+	.leaveGameButtonContainer
 	{
-		position: absolute;
-		right: 4rem;
-		bottom: 0;
-		z-index: 1;
+		padding: 0 4rem;
+		bottom: 110px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		.leaveGameButtonAdmin
+		{
+			margin-left: auto;
+			position: static;
+			order: 2;
+		}
+		.recordModifications
+		{
+			position: static;
+		}
 	}
 	.step_scoresAdmin
 	{
 		border: 1px solid rgba(255, 255, 255, 0.1);
-		bottom: 59px;
+		bottom: 49px;
 		background-color: rgba(0, 40, 80, 0.2);
-		z-index: 2;
+		//z-index: 2;
 	}
 }
 // -- STUDENT --
@@ -358,7 +377,6 @@
 		}
 		.envi, .sante, .social
 		{
-			margin-top: 8px;
 			border: 1px solid rgba(255, 255, 255, .3);
 			border-radius: 2px 8px 8px 2px;
 			width: 100%;
@@ -391,12 +409,9 @@
 			}
 		}
 	}
-	.statsContainer:last-of-type
-	{
-		margin-right: 0;
-	}
 	.titleEnv
 	{
+		margin-left: 0;
 		color: rgb(100, 210, 25);
 	}
 	.titleSante
@@ -405,6 +420,7 @@
 	}
 	.titleSocial
 	{
+		margin-right: 0;
 		color: rgb(255, 92, 65);
 	}
 	.scoresContainerCloseButton
