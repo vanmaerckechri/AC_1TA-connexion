@@ -172,7 +172,14 @@ let Fruilegsais = class
 		else
 		{
 			this.currentDay = 1;
-			this.currentMonth += 1;
+			if (this.currentMonth < this.monthList.length - 1)
+			{
+				this.currentMonth += 1;
+			}
+			else
+			{
+				this.currentMonth = 0;
+			}
 			document.getElementById("flsDateDay").innerText = this.currentDay;
 			document.getElementById("flsDateMonth").innerText = this.monthList[this.currentMonth];
 		}
@@ -219,7 +226,7 @@ let Fruilegsais = class
 
 	countTime(milliSec)
 	{
-		if (this.currentDay == 29 && this.currentMonth == 11)
+		if (this.currentDay == 20 && this.currentMonth == 0)
 		{
 			//fin de la partie
 		}
@@ -499,7 +506,7 @@ let Fruilegsais = class
 			}
 
 			// game cycle
-			this.countTime(50);
+			this.countTime(150);
 			this.choseRandFruitLegume();
 			this.refreshGameLoop = window.requestAnimationFrame(this.refreshGame.bind(this));
 		}
@@ -591,6 +598,7 @@ let Fruilegsais = class
 		let flsDateDay = createElem("span", ["id", "class"], ["flsDateDay", "flsDateDay"]);
 		let flsDateMonth = createElem("span", ["id", "class"], ["flsDateMonth", "flsDateMonth"]);
 
+		flsDummyBoxFlex.innerText = "Belgique:";
 		flsDateDay.innerText = this.currentDay;
 		flsDateMonth.innerText = this.monthList[this.currentMonth];
 		flsSeason.innerText = "Printemps";
@@ -620,39 +628,51 @@ let Fruilegsais = class
 
 	launchMainMenu()
 	{
-		let flsContainer = document.getElementById("flsContainer");
+		const req = new XMLHttpRequest();
+		req.onreadystatechange = function(event)
+		{
+		    if (this.readyState === XMLHttpRequest.DONE)
+		    {
+		        if (this.status === 200)
+		        {
+		            let flsContainer = document.getElementById('flsContainer');
+					flsContainer.innerHTML = req.responseText;
 
-		let flsTutoContainer = createElem("div", "class", "flsTutoContainer");
+					let flsButtonsContainer = createElem("div", ["id", "class"], ["flsButtonsContainer", "flsButtonsContainer"]);
+					let flsLaunchGameButton = createElem("button", ["id", "class"], ["flsLaunchGameButton", "flsButton flsLaunchGameButton"]);
+					flsLaunchGameButton.innerText = "commencer"
+					let flsPassBonusButton = createElem("button", ["id", "class"], ["flsPassBonusButton", "flsButton flsPassBonusButton"]);
+					flsPassBonusButton.innerText = "passer"
+
+					flsButtonsContainer.appendChild(flsLaunchGameButton);
+					flsButtonsContainer.appendChild(flsPassBonusButton);
+					flsContainer.appendChild(flsButtonsContainer);
+
+					flsLaunchGameButton.onclick = function()
+					{
+						flsButtonsContainer.classList.add("flexEnd");
+						flsTutoContainer.remove();
+						flsLaunchGameButton.remove();
+						fruitlegsais.launch();
+					}
+					flsPassBonusButton.onclick = function()
+					{
+						document.getElementById("flsContainer").classList.toggle("disabled");
+						fruitlegsais.closeGame();
+					}
+				}
+		    }
+		};
+		req.open('GET', 'view/st_game_flstuto.html', true);
+		req.send(null);
+		/*let flsTutoContainer = createElem("div", "class", "flsTutoContainer");
 		let flsTutoTitle = createElem("h2", "class", "flsTutoTitle");
 		flsTutoTitle.innerText = "Partie Bonus";
 		let flsTutoContent = createElem("p", "class", "flsTutoContent");
 		flsTutoContent.innerHTML = "Bonjour,</br> Un petit Tuto illustré sera présent sur cette page.";
-
-		let flsButtonsContainer = createElem("div", ["id", "class"], ["flsButtonsContainer", "flsButtonsContainer"]);
-		let flsLaunchGameButton = createElem("button", ["id", "class"], ["flsLaunchGameButton", "flsButton flsLaunchGameButton"]);
-		flsLaunchGameButton.innerText = "commencer"
-		let flsPassBonusButton = createElem("button", ["id", "class"], ["flsPassBonusButton", "flsButton flsPassBonusButton"]);
-		flsPassBonusButton.innerText = "passer"
-
 		flsTutoContainer.appendChild(flsTutoTitle);
 		flsTutoContainer.appendChild(flsTutoContent);
-
-		flsButtonsContainer.appendChild(flsLaunchGameButton);
-		flsButtonsContainer.appendChild(flsPassBonusButton);
-		flsTutoContainer.appendChild(flsButtonsContainer);
-
-		flsContainer.appendChild(flsTutoContainer);
-
-		flsLaunchGameButton.onclick = function()
-		{
-			flsTutoContainer.remove();
-			fruitlegsais.launch();
-		}
-		flsPassBonusButton.onclick = function()
-		{
-			document.getElementById("flsContainer").classList.toggle("disabled");
-			fruitlegsais.closeGame();
-		}
+		flsContainer.appendChild(flsTutoContainer);*/
 	}
 
 	closeGame()

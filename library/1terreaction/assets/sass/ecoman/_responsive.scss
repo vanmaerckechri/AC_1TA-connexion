@@ -9,10 +9,17 @@
  		align-items: flex-start;
  	}
 }*/
- @media only screen and (orientation:landscape) and (max-width: 1024px)
+ @media only screen and (orientation:landscape) and (max-width: 812px)
  {
+ 	.pacmanContainer
+	{
+		.tutoButtonContainer
+		{
+			padding: 0 20px 10px;
+		}
+	}
  }
- // responsive landscape with js
+ // responsive landscape with js =>
 .pacmanLandscape
 {
 	flex-wrap: wrap;

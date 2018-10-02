@@ -161,7 +161,7 @@ let launchPacmanGame = function()
 		let tutoButtonContainer = document.createElement("div");
 		tutoButtonContainer.setAttribute("class", "tutoButtonContainer");
 		let passGameButton = document.createElement("button");
-		passGameButton.setAttribute("class", "pacmanButton buttonDefault");
+		passGameButton.setAttribute("class", "passGameButton buttonDefault");
 		passGameButton.setAttribute("id", "passBreakGame");
 		passGameButton.innerText = "passer";
 		tutoButtonContainer.appendChild(passGameButton);
@@ -222,8 +222,8 @@ let launchPacmanHome = function()
 		passGameButton.innerText = "passer";
 		tuto.appendChild(tutoTitle);
 		tuto.appendChild(tutoContent);
-		tutoButtonContainer.appendChild(passGameButton);
 		tutoButtonContainer.appendChild(launchGameButton);
+		tutoButtonContainer.appendChild(passGameButton);
 		tuto.appendChild(tutoButtonContainer);
 
 		pacmanContainer.appendChild(tuto);

@@ -41,15 +41,28 @@ body {
     .pacmanContainer .pacmanTuto .tutoContent {
       font-size: 1rem; }
   .pacmanContainer .tutoButtonContainer {
+    padding: 0 4rem 20px;
     position: fixed;
+    left: 0;
     bottom: 0;
-    right: 0;
     width: 100%;
-    text-align: right; }
-    .pacmanContainer .tutoButtonContainer .launchGameButton {
-      margin-left: 10px;
-      font-family: 'Orbitron', sans-serif;
-      align-self: flex-end; }
+    display: flex;
+    justify-content: space-between;
+    z-index: 10; }
+    .pacmanContainer .tutoButtonContainer .launchGameButton, .pacmanContainer .tutoButtonContainer .passGameButton {
+      border: 1px solid white;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-family: "Ubuntu", sans-serif;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      font-weight: bold;
+      background-color: #003c78;
+      transition: all .5s; }
+      .pacmanContainer .tutoButtonContainer .launchGameButton:hover, .pacmanContainer .tutoButtonContainer .passGameButton:hover {
+        cursor: pointer;
+        color: black;
+        background-color: white; }
   .pacmanContainer .ui .scoreContainer {
     font-family: 'Orbitron', sans-serif;
     color: white; }
@@ -130,6 +143,9 @@ body {
  		align-items: flex-start;
  	}
 }*/
+@media only screen and (orientation: landscape) and (max-width: 812px) {
+  .pacmanContainer .tutoButtonContainer {
+    padding: 0 20px 10px; } }
 .pacmanLandscape {
   flex-wrap: wrap;
   justify-content: center;

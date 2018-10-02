@@ -1,5 +1,5 @@
 @import "variables";
-@media (max-width: 768px)
+@media (max-width: 812px)
 {
 	.flsButtonsContainer
 	{
@@ -16,16 +16,15 @@
 	  			font-size: .9rem;
 	  			.flsDummyBoxFlex
 	  			{
-	  				//flex: 0;
+	  				text-align: left;
 	  			}
 	  			.flsDateContainer	
 	  			{
-	  				flex: 3;
+	  				flex: 2;
 	  				padding-right: 0px;
 		  		}
 		  		.flsSeason
 	  			{
-	  				flex: 2;
 	  				text-align: left;
 	  			}
 	  		}
@@ -161,7 +160,7 @@
 	  	}
 	}
 }
- @media only screen and (orientation:landscape) and (max-width: 768px)
+ @media only screen and (orientation:landscape) and (max-width: 812px)
  {
  	.flsContainer
 	{

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gestion des Planètes</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/ecoman_style.css">
+    <link rel="stylesheet" href="assets/css/fls_style.css">
+</head>
+	<body>
+	  <div id="main">
+	    <div id="flsContainer" class="flsContainer">
+
+	    </div>
+	</div>
+	<script>
+	/*const req = new XMLHttpRequest();
+	req.open('GET', 'aaa.html/', false); 
+	req.send(null);
+
+	if (req.status === 200) {
+	    console.log("Réponse reçue: %s", req.responseText);
+	} else {
+	    console.log("Status de la réponse: %d (%s)", req.status, req.statusText);
+	}*/
+
+const req = new XMLHttpRequest();
+
+req.onreadystatechange = function(event) {
+    // XMLHttpRequest.DONE === 4
+    if (this.readyState === XMLHttpRequest.DONE) {
+        if (this.status === 200) {
+            console.log("Réponse reçue: %s", this.responseText);
+            	let flsContainer = document.getElementById('flsContainer');
+	flsContainer.innerHTML = req.responseText;		
+        } else {
+            console.log("Status de la réponse: %d (%s)", this.status, this.statusText);
+        }
+    }
+};
+
+req.open('GET', 'aaa.html', true);
+req.send(null);
+
+
+	</script>
+</body>
+</html>

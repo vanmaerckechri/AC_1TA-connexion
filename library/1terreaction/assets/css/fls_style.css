@@ -101,16 +101,28 @@ body {
     display: none; }
   .flsContainer .flsTutoContainer {
     margin: 0 auto;
-    padding: 20px 0 40px;
+    padding: 20px 0 0;
     max-width: 768px;
-    height: 100%;
+    height: calc(100% - 60px);
     align-items: center;
-    font-family: "Open Sans", sans-serif; }
+    font-family: "Open Sans", sans-serif;
+    overflow-y: auto;
+    overflow-x: hidden; }
+    .flsContainer .flsTutoContainer h2, .flsContainer .flsTutoContainer h3 {
+      font-family: "Orbitron", sans-serif; }
+    .flsContainer .flsTutoContainer h2 {
+      margin: 25px auto;
+      font-size: 1.2rem; }
+    .flsContainer .flsTutoContainer h3 {
+      margin-bottom: 15px;
+      font-size: 1.1rem; }
     .flsContainer .flsTutoContainer .flsDateSeasonContainer {
       margin: 10px 0; }
       .flsContainer .flsTutoContainer .flsDateSeasonContainer .flsDummyBoxFlex {
         margin-right: 10px;
+        font-family: "Open Sans", sans-serif;
         letter-spacing: normal;
+        text-align: left;
         transition: all 1s;
         animation: swingLeftRight 1s ease alternate-reverse infinite; }
       .flsContainer .flsTutoContainer .flsDateSeasonContainer .flsDummyBoxFlex, .flsContainer .flsTutoContainer .flsDateSeasonContainer .flsSeason, .flsContainer .flsTutoContainer .flsDateSeasonContainer .flsDateContainer {
@@ -288,7 +300,8 @@ body {
   bottom: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  z-index: 10; }
   .flsButtonsContainer .flsButton {
     border: 1px solid white;
     border-radius: 8px;
@@ -303,6 +316,9 @@ body {
       cursor: pointer;
       color: black;
       background-color: white; }
+
+.flexEnd {
+  justify-content: flex-end; }
 
 .flsBodyOverflowOn {
   height: auto;
@@ -328,7 +344,7 @@ body {
   border-bottom: 1px solid rgba(213, 209, 255, 0.8);
   background-color: rgba(213, 209, 255, 0.4); }
 
-@media (max-width: 768px) {
+@media (max-width: 812px) {
   .flsButtonsContainer {
     padding: 0 20px 10px; }
 
@@ -337,11 +353,12 @@ body {
     .flsContainer .flsUiContainer .flsDateSeasonContainer {
       padding: 10px;
       font-size: .9rem; }
+      .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDummyBoxFlex {
+        text-align: left; }
       .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDateContainer {
-        flex: 3;
+        flex: 2;
         padding-right: 0px; }
       .flsContainer .flsUiContainer .flsDateSeasonContainer .flsSeason {
-        flex: 2;
         text-align: left; }
     .flsContainer .flsScoreFinalContainer {
       padding: 0 20px; }
@@ -385,7 +402,7 @@ body {
         margin: 0 0 0 4px;
         width: 64px;
         height: 64px; } }
-@media only screen and (orientation: landscape) and (max-width: 768px) {
+@media only screen and (orientation: landscape) and (max-width: 812px) {
   .flsContainer .flsFruitLegumeContainer {
     height: calc(100% - 75px); }
     .flsContainer .flsFruitLegumeContainer .flsFruitLegumeImg, .flsContainer .flsFruitLegumeContainer .flsAnswerImg {

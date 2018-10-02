@@ -8,6 +8,7 @@
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	z-index: 10;
 	.flsButton
 	{
 		border: 1px solid white;
@@ -26,6 +27,10 @@
 			background-color: white;
 		}
 	}
+}
+.flexEnd
+{
+	justify-content: flex-end;
 }
 .flsBodyOverflowOn
 {

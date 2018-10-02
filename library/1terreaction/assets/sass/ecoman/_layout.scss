@@ -40,17 +40,32 @@ body
 		}
 	}
 	.tutoButtonContainer
-		{
+	{
+		padding: 0 4rem 20px;
 		position: fixed;
+		left: 0;
 		bottom: 0;
-		right: 0;
 		width: 100%;
-		text-align: right;
-		.launchGameButton
+		display: flex;
+		justify-content: space-between;
+		z-index: 10;
+		.launchGameButton, .passGameButton
 		{
-			margin-left: 10px;
-			font-family: 'Orbitron', sans-serif;
-			align-self: flex-end;
+			border: 1px solid white;
+			border-radius: 8px;
+			padding: 8px 10px;
+			font-family: $font-title;
+			color: rgba(255, 255, 255, .9);
+			font-size: 1rem;
+			font-weight: bold;
+			background-color: #003c78;
+			transition: all .5s;
+			&:hover
+			{
+				cursor: pointer;
+				color: black;
+				background-color: white;
+			}
 		}
 	}
   	.ui

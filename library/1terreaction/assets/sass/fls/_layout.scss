@@ -27,18 +27,36 @@ body
 	.flsTutoContainer
 	{
     margin: 0 auto;
-		padding: 20px 0 40px;
+		padding: 20px 0 0;
     max-width: 768px;
-		height: 100%;
+		height: calc(100% - 60px);
 		align-items: center;
 		font-family: $font-main;
+    overflow-y: auto;
+    overflow-x: hidden;
+    h2, h3
+    {
+      font-family: $font-title;
+    }
+    h2
+    {
+      margin: 25px auto;
+      font-size: 1.2rem;
+    }
+    h3
+    {
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
     .flsDateSeasonContainer
     {
       margin: 10px 0;
       .flsDummyBoxFlex
       {
         margin-right: 10px;
+        font-family: $font-main;
         letter-spacing: normal;
+        text-align: left;
         transition: all 1s;
         animation: swingLeftRight 1s ease alternate-reverse infinite;
       }
