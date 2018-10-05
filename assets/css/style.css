@@ -116,8 +116,9 @@ input {
     padding: 20px;
     display: flex;
     align-items: center;
-    background-color: white; }
-    .modalContainer .modalBox p, .modalContainer .closedQuestionAlert p {
+    background-color: white;
+    text-align: center; }
+    .modalContainer .modalBox p, .modalContainer .modalBox label, .modalContainer .closedQuestionAlert p, .modalContainer .closedQuestionAlert label {
       margin-bottom: 20px;
       width: 100%; }
     .modalContainer .modalBox .leaveModalButton, .modalContainer .closedQuestionAlert .leaveModalButton {
@@ -152,6 +153,8 @@ input {
       border: 1px solid rgba(0, 0, 0, 0.5);
       border-radius: 8px;
       width: 100%; }
+  .modalContainer .wrongInput {
+    margin-top: -10px; }
 
 #main .connexion {
   border-bottom-right-radius: 10px;

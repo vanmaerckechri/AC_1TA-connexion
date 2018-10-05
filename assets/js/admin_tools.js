@@ -11,10 +11,10 @@ window.addEventListener('load', function()
     	return newElem;
     }
 
-
+    // -- CALL A MODAL --
     let loadModal = function(type)
     {
-        let modalContainer = createDomElem("div", [["class"], ["modalContainer"]]);
+        let modalContainer = createDomElem("div", [["id", "class"], ["modalContainer", "modalContainer"]]);
         let modalBox = createDomElem("div", [["id", "class"], ["modalBox", "modalBox"]]);
         let modalContent = createDomElem("div", [["class"], ["modalContent"]]);
         let leaveModalButton = createDomElem("p", [["class"], ["leaveModalButton"]]);
@@ -40,7 +40,7 @@ window.addEventListener('load', function()
         {
             modalBox.className = "closedQuestionAlert";
 
-            postYesButton = createDomElem("button", [["id", "class"], ["modalPostYes", "formButton postYesButton"]]);
+            postYesButton = createDomElem("button", [["id", "class"], ["postYesButton", "formButton postYesButton"]]);
             postYesButton.innerHTML = "Oui";
             postNoButton = createDomElem("button", [["id", "class"], ["postNoButton", "formButton"]]);
             postNoButton.innerHTML = "Non";
@@ -65,7 +65,6 @@ window.addEventListener('load', function()
     	// -- VALIDATION WINDOW --
     	let validate = function(form, action, text)
     	{
-    		// Create Modal
             textContainer = loadModal("closedQuestionAlert");
     		textContainer.innerHTML = text;
 
@@ -76,7 +75,7 @@ window.addEventListener('load', function()
         		form.submit();
         	}
 
-    		document.getElementById("modalPostYes").addEventListener('click', validateYes, false);
+    		document.getElementById("postYesButton").addEventListener('click', validateYes, false);
     	}
     	// -- CLOSE TOOLS --
     	let closeTools = function(close)
@@ -220,18 +219,59 @@ window.addEventListener('load', function()
         let launchChangePasswordManagement = function()
         {
             let modalContent = loadModal("classic");
-            modalContent.innerHTML += "<p>Mot de Passe Actuel<input type='password' name='oldPwd'></p>";
-            modalContent.innerHTML += "<p>Nouveau Mot de Passe<input type='password' name='newPwd'></p>";
-            modalContent.innerHTML += "<p>Répeter le Nouveau Mot de Passe<input type='password' name='newPwd2'></p>";
+            let modalPost = document.getElementById("modalPost");
+            let form = createDomElem("form", [["method"], ["post"]]);
+            modalContent.appendChild(form);
+            form.innerHTML += "<label>Mot de Passe Actuel<input id='oldPwd' class='newPwdInput' type='password' name='oldPwd'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Nouveau Mot de Passe<input id='newPwd' class='newPwdInput' type='password' name='newPwd'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Répeter le Nouveau Mot de Passe<input id='newPwd2' class='newPwdInput' type='password' name='newPwd2'><p class='smsAlert wrongInput'></p></label>";
+            let oldPwd = document.getElementById("oldPwd");
+            let newPwd = document.getElementById("newPwd");
+            let newPwd2 = document.getElementById("newPwd2");
+
+            modalPost.onclick = function()
+            {
+                if (oldPwd.value.length >= 5 && newPwd.value.length >= 5 && newPwd.value === newPwd2.value)
+                {
+                    form.action = 'admin.php?action=changPwd';
+                    form.submit();
+                }
+                else
+                {
+                    let inputs = document.querySelectorAll(".newPwdInput");
+                    let alertInfo = document.querySelectorAll(".wrongInput");
+                    for (let i = inputs.length - 1; i >= 0; i--)
+                    {
+                        alertInfo[i].innerText = "";
+                        if (inputs[i].value.length < 5)
+                        {
+                            alertInfo[i].innerText = "Ce champ doit contenir au moins 5 caractères!";
+                        }
+                    }
+
+                    if (newPwd.value !== newPwd2.value)
+                    {
+                        alertInfo[2].innerText += "Le nouveau mot de passe n'a pas été répeté correctement!";
+                    }
+                }
+            }
         }
 
-        let launchdeleteAccountManagement = function()
+        let launchDeleteAccountManagement = function()
         {
             let modalContent = loadModal("closedQuestionAlert");
             modalContent.innerHTML += "<p class='smsAlert'>Cette action supprimera votre compte ainsi que celui de tous vos élèves et ce de façon irréversible!</p>";
+
+            // replace old yes button by a simple link with a "get" value
+            let oldPostYesButton = document.getElementById("postYesButton");
+            let newPostYesButton = createDomElem("a", [["id", "class", "href"], ["postYesButton", "formButton postYesButton", "admin.php?action=deleteAccount"]]);
+            newPostYesButton.innerText = "OUI"
+            oldPostYesButton.setAttribute("id", "");
+            oldPostYesButton.parentNode.insertBefore(newPostYesButton, oldPostYesButton);
+            oldPostYesButton.remove();
         }
 
         changePassword.addEventListener('click', launchChangePasswordManagement, false);
-        deleteAccount.addEventListener('click', launchdeleteAccountManagement, false);
+        deleteAccount.addEventListener('click', launchDeleteAccountManagement, false);
     }
 }, false);
