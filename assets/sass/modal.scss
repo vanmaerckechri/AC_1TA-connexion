@@ -1,0 +1,75 @@
+.modalContainer
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(255, 255, 255, .5);
+	.modalBox, .closedQuestionAlert
+	{
+		border-radius: 12px;
+		padding: 20px;
+		display: flex;
+		align-items: center;
+		background-color: white;
+		p
+		{
+			margin-bottom: 20px;
+			width: 100%;
+		}
+		.leaveModalButton
+		{
+			margin-bottom: 10px;
+			width: 100%;
+			text-align: right;
+			font-size: 1.2rem;
+			font-weight: bold;
+			&:hover
+			{
+				cursor: pointer;
+			}
+		}
+	}
+	.closedQuestionAlert
+	{
+		border: 1px solid $enabel-red;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		max-width: 480px;
+		.formButton
+		{
+			margin-left: 0;
+		}
+		.postYesButton
+		{
+			transition: all .3s;
+			&:hover
+			{
+				color: white;
+				background-color: rgb(200, 25, 50);
+				box-shadow: 0px 0px 20px 0px rgb(200, 25, 50);
+			}
+		}
+		.smsAlert
+		{
+			color: $enabel-red;
+		}
+	}
+	.modalBox
+	{
+		border: 1px solid $ac-blue;
+		flex-direction: column;
+		justify-content: center;
+		input
+		{
+			margin: 10px 0 20px;
+			border: 1px solid rgba(0, 0, 0, .5);
+			border-radius: 8px;
+			width: 100%;
+		}
+	}
+}

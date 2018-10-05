@@ -21,7 +21,7 @@
             <div style="width: 90px;"></div>
             <div>
     	    	<button id="button_create" class="<?=$buttonStatus?>">Ajouter</button>
-    	    	<button id="delete" class="formButton">Effacer</button>
+    	    	<button id="delete" class="formButton deleteSomething">Effacer</button>
             </div>			
             <div style="width: 90px;"></div>
 	    </div>
@@ -62,7 +62,7 @@
             let detectDeleteElement = "classroom";
             let deleteElementPartofLink = "";
         </script>
-        <script src="js/admin_tools.js"></script>
+        <script src="assets/js/admin_tools.js"></script>
     <?php $script = ob_get_clean();?>
 
 <?php require('./view/ad_template.php'); ?>

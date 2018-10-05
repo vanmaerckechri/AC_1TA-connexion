@@ -295,6 +295,29 @@
 				margin: 0 auto 10px;
 			}
 		}
+		// Profil Options
+		.profilInfos
+		{
+			p
+			{
+				margin-bottom: 15px;
+				font-size: 1rem;
+				.adminAtColor
+				{
+					color: $ac-blue;
+				}
+				.deleteSomething
+				{
+					margin-top: 15px;
+				}
+			}
+			.accountName
+			{
+				margin-bottom: 15px;
+				border-bottom: 1px solid rgba(0, 0, 0, .2);
+				padding-bottom: 10px;
+			}
+		}
 	}
 }
 .producer

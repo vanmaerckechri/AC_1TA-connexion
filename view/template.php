@@ -21,6 +21,6 @@
         </div>
         <p><?=$_SESSION['smsAlert']['default']?></p>
     </div>
-    <script defer src="assets/js/fontawesome-all.min.js"></script>
+    <!--<script defer src="assets/js/fontawesome-all.min.js"></script>-->
 </body>
 </html>

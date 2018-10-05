@@ -18,7 +18,7 @@
             </div>
             <div class="headerProfile">
                 <div class="profile">
-                    <?=$_SESSION['nickname']?>
+                    <a href="admin.php?action=profil" class="ad_nick"><?=$_SESSION['nickname']?></a>
                     <a href="admin.php?action=disco" class="disconnect">X</a>
                 </div>
             </div>

@@ -22,12 +22,22 @@
 	text-decoration: none;
 	background-color: rgba(74, 180, 241, .4);
 	box-shadow: -1px 2px 3px 1px rgba(0, 0, 60, .4);
-	transition: background-color .3s;
+	transition: all .3s;
 	&:hover
 	{
 		cursor: pointer;
 		background-color: $ac-blue;
 		box-shadow: 0px 0px 20px 0px $ac-blue;
+	}
+}
+.deleteSomething
+{
+	transition: all .3s;
+	&:hover
+	{
+		color: white;
+		background-color: rgb(200, 25, 50);
+		box-shadow: 0px 0px 20px 0px rgb(200, 25, 50);
 	}
 }
 .hide
@@ -52,40 +62,6 @@
 		color: $enabel-red;
 		text-decoration: none;
 	}	
-}
-
-.modalContainer
-{
-	position: absolute;
-	left: 0;
-	top: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255, 255, 255, .5);
-	.validationBox
-	{
-		border: 1px solid $enabel-red;
-		border-radius: 12px;
-		padding: 20px;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		align-items: center;
-		max-width: 480px;
-		background-color: rgb(255, 255, 255);
-		p
-		{
-			margin-bottom: 20px;
-			width: 100%;
-		}
-		.formButton
-		{
-			margin-left: 0;
-		}
-	}
 }
 
 .disabled

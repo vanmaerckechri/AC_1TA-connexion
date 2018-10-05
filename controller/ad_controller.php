@@ -99,11 +99,14 @@ function loadManageThisClassroom()
 {
 	require('./view/ad_manageThisClassroomView.php');	
 }
+function loadProfilInfos()
+{
+	require('./view/ad_manageProfilView.php');
+}
 function loadLibrary()
 {
 	header('Location: ./library.php');	
 }
-
 function disconnect()
 {
 	$_SESSION = array();

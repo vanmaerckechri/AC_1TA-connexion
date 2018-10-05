@@ -79,6 +79,16 @@ if (isset($_GET['action']))
 	{
 		deleteStudents();
 	}
+	// Profil
+	else if ($_GET['action'] == 'profil')
+	{
+		loadProfilInfos();
+	}
+	// Profil, change mail
+	else if ($_GET['action'] == 'changeMail')
+	{
+		loadProfilInfos();
+	}
 	// Library
 	else if ($_GET['action'] == 'library')
 	{

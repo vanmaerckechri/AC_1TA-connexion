@@ -64,11 +64,18 @@ input {
   text-decoration: none;
   background-color: rgba(74, 180, 241, 0.4);
   box-shadow: -1px 2px 3px 1px rgba(0, 0, 60, 0.4);
-  transition: background-color .3s; }
+  transition: all .3s; }
   .formButton:hover {
     cursor: pointer;
     background-color: #4ab4f1;
     box-shadow: 0px 0px 20px 0px #4ab4f1; }
+
+.deleteSomething {
+  transition: all .3s; }
+  .deleteSomething:hover {
+    color: white;
+    background-color: #c81932;
+    box-shadow: 0px 0px 20px 0px #c81932; }
 
 .hide {
   display: none;
@@ -87,6 +94,13 @@ input {
     color: #ce1d21;
     text-decoration: none; }
 
+.disabled {
+  display: none !important; }
+
+.selected {
+  border: 3px solid #4ab4f1 !important;
+  background-color: rgba(74, 180, 241, 0.2); }
+
 .modalContainer {
   position: absolute;
   left: 0;
@@ -94,31 +108,50 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(255, 255, 255, 0.5); }
-  .modalContainer .validationBox {
-    border: 1px solid #ce1d21;
+  .modalContainer .modalBox, .modalContainer .closedQuestionAlert {
     border-radius: 12px;
     padding: 20px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
-    max-width: 480px;
     background-color: white; }
-    .modalContainer .validationBox p {
+    .modalContainer .modalBox p, .modalContainer .closedQuestionAlert p {
       margin-bottom: 20px;
       width: 100%; }
-    .modalContainer .validationBox .formButton {
+    .modalContainer .modalBox .leaveModalButton, .modalContainer .closedQuestionAlert .leaveModalButton {
+      margin-bottom: 10px;
+      width: 100%;
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold; }
+      .modalContainer .modalBox .leaveModalButton:hover, .modalContainer .closedQuestionAlert .leaveModalButton:hover {
+        cursor: pointer; }
+  .modalContainer .closedQuestionAlert {
+    border: 1px solid #ce1d21;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 480px; }
+    .modalContainer .closedQuestionAlert .formButton {
       margin-left: 0; }
-
-.disabled {
-  display: none !important; }
-
-.selected {
-  border: 3px solid #4ab4f1 !important;
-  background-color: rgba(74, 180, 241, 0.2); }
+    .modalContainer .closedQuestionAlert .postYesButton {
+      transition: all .3s; }
+      .modalContainer .closedQuestionAlert .postYesButton:hover {
+        color: white;
+        background-color: #c81932;
+        box-shadow: 0px 0px 20px 0px #c81932; }
+    .modalContainer .closedQuestionAlert .smsAlert {
+      color: #ce1d21; }
+  .modalContainer .modalBox {
+    border: 1px solid #4ab4f1;
+    flex-direction: column;
+    justify-content: center; }
+    .modalContainer .modalBox input {
+      margin: 10px 0 20px;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      width: 100%; }
 
 #main .connexion {
   border-bottom-right-radius: 10px;
@@ -314,6 +347,17 @@ input {
       text-align: center; }
       .admin #main .form_create input {
         margin: 0 auto 10px; }
+    .admin #main .profilInfos p {
+      margin-bottom: 15px;
+      font-size: 1rem; }
+      .admin #main .profilInfos p .adminAtColor {
+        color: #4ab4f1; }
+      .admin #main .profilInfos p .deleteSomething {
+        margin-top: 15px; }
+    .admin #main .profilInfos .accountName {
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      padding-bottom: 10px; }
 
 .producer {
   text-align: right; }

@@ -1,4 +1,17 @@
 <?php
+function connect()
+{
+	try
+	{
+	    $db = connectDB();
+	    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	} 
+	catch (Exception $e)
+	{
+	    die('Erreur : ' . $e->getMessage());
+	}
+	return $db;
+}
 class Classrooms
 {
 	private function connect()
@@ -301,4 +314,19 @@ class Classrooms
 		header('Location: admin.php?action=manageThisClassroom&idcr='.$idcr);	  
 		return $result;  	
 	}
+}
+
+function getMailAdress()
+{
+	$db = connect();
+	$req = $db->prepare("SELECT mail FROM pe_adminaccounts WHERE id = :idadmin AND password = :pwd");
+	$req->bindParam(':idadmin', $_SESSION['id'], PDO::PARAM_INT);
+	$req->bindParam(':pwd', $_SESSION["password"], PDO::PARAM_STR);
+
+	$req->execute();
+	$mail = $req->fetch();
+	$req->closeCursor();
+	$req = NULL;
+	
+	return htmlspecialchars($mail[0], ENT_NOQUOTES);
 }

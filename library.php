@@ -232,7 +232,7 @@ $avatarCustom = ob_get_clean();
     <script>
         let firsCo = <?=$firsCo?>;
     </script>
-    <script type= "text/javascript" src="js/avatar.js"></script>
+    <script type= "text/javascript" src="assets/js/avatar.js"></script>
 </body>
 </html>
 
