@@ -90,6 +90,25 @@ function deleteStudents()
 	}
 }
 
+// -- PROFILS OPTIONS --
+function newPasswordView($isPost = false)
+{
+	if ($isPost == true)
+	{
+		$pwd1 = checkInput($_POST['newPassword'], 'password', 'default');
+		$pwd2 = checkInput($_POST['newPassword2'], 'password', 'default');
+		if ($pwd1 && $pwd2)
+		{
+			if ($pwd1 === $pwd2)
+			{
+				$pwd1 = hash('sha256', $pwd1);
+				UpdatePassword::start($pwd1, $_SESSION['id']);
+				$_SESSION["password"] = $pwd1;
+			}
+		}
+	}
+}
+
 // VIEWS!
 function loadManageClassrooms()
 {

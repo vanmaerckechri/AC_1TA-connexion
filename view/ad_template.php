@@ -34,6 +34,12 @@
     <div id="main">
         <?=$tools?>
         <?=$content?>
+        <?php
+            if (isset($_SESSION["smsAlert"]) && isset($_SESSION["smsAlert"]['default']))
+            {
+                echo $_SESSION["smsAlert"]["default"];
+            }
+        ?>
     </div>
     <footer>
         <div class="producer">

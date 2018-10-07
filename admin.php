@@ -84,6 +84,26 @@ if (isset($_GET['action']))
 	{
 		loadProfilInfos();
 	}
+	// Profil, change password
+	else if ($_GET['action'] == 'changePwd')
+	{
+		if (isset($_POST['oldPwd']) && hash('sha256', $_POST['oldPwd']) === $_SESSION['password'])
+		{
+			if (isset($_POST['newPassword']) && isset($_POST['newPassword2']) && strlen($_POST['newPassword']) >= 5 && strlen($_POST['newPassword']) <= 30 && $_POST['newPassword'] === $_POST['newPassword2'])
+			{
+				newPasswordView(true);
+			}
+			else
+			{
+				$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Une erreur est survenue!</span>';
+			}
+		}
+		else
+		{
+			$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Mot de passe incorrect!</span>';
+		}
+		loadProfilInfos();
+	}
 	// Profil, change mail
 	else if ($_GET['action'] == 'changeMail')
 	{

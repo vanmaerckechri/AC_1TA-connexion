@@ -223,17 +223,17 @@ window.addEventListener('load', function()
             let form = createDomElem("form", [["method"], ["post"]]);
             modalContent.appendChild(form);
             form.innerHTML += "<label>Mot de Passe Actuel<input id='oldPwd' class='newPwdInput' type='password' name='oldPwd'><p class='smsAlert wrongInput'></p></label>";
-            form.innerHTML += "<label>Nouveau Mot de Passe<input id='newPwd' class='newPwdInput' type='password' name='newPwd'><p class='smsAlert wrongInput'></p></label>";
-            form.innerHTML += "<label>Répeter le Nouveau Mot de Passe<input id='newPwd2' class='newPwdInput' type='password' name='newPwd2'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Nouveau Mot de Passe<input id='newPassword' class='newPwdInput' type='password' name='newPassword'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Répeter le Nouveau Mot de Passe<input id='newPassword2' class='newPwdInput' type='password' name='newPassword2'><p class='smsAlert wrongInput'></p></label>";
             let oldPwd = document.getElementById("oldPwd");
-            let newPwd = document.getElementById("newPwd");
-            let newPwd2 = document.getElementById("newPwd2");
+            let newPwd = document.getElementById("newPassword");
+            let newPwd2 = document.getElementById("newPassword2");
 
             modalPost.onclick = function()
             {
-                if (oldPwd.value.length >= 5 && newPwd.value.length >= 5 && newPwd.value === newPwd2.value)
+                if (oldPwd.value.length >= 5 && oldPwd.value.length <= 30 && newPwd.value.length >= 5 && newPwd.value.length <= 30 && newPwd.value === newPwd2.value)
                 {
-                    form.action = 'admin.php?action=changPwd';
+                    form.action = 'admin.php?action=changePwd';
                     form.submit();
                 }
                 else
@@ -243,15 +243,15 @@ window.addEventListener('load', function()
                     for (let i = inputs.length - 1; i >= 0; i--)
                     {
                         alertInfo[i].innerText = "";
-                        if (inputs[i].value.length < 5)
+                        if (inputs[i].value.length < 5 || inputs[i].value.length > 30)
                         {
-                            alertInfo[i].innerText = "Ce champ doit contenir au moins 5 caractères!";
+                            alertInfo[i].innerText = "Ce champ doit contenir de 5 à 30 caractères!";
                         }
                     }
 
                     if (newPwd.value !== newPwd2.value)
                     {
-                        alertInfo[2].innerText += "Le nouveau mot de passe n'a pas été répeté correctement!";
+                        alertInfo[2].innerText += "Vos nouveaux mots de passe ne correspondent pas!";
                     }
                 }
             }

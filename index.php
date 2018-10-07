@@ -15,7 +15,7 @@ require('./controller/controller.php');
 
 	//admin
 	$_SESSION['nickname'] = "admin@Chri";
-	$_SESSION['password'] = 'f3029a66c61b61b41b428963a2fc134154a5383096c776f3b4064733c5463d90';
+	$_SESSION['password'] = '68a55e5b1e43c67f4ef34065a86c4c583f532ae8e3cda7e36cc79b611802ac07';
 	$_SESSION['classroom'] = "";
 	$_SESSION['id_classroom'] = "";
 	$_SESSION['id'] = 31;
