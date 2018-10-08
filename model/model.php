@@ -9,8 +9,8 @@ else
 {
 	function connectDB()
 	{
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
 	}
 	function getSecretCaptchaKey()
@@ -515,7 +515,7 @@ class ModifyAdminAccount
 		if (ctype_alnum ($newMailCode) == true && strlen($newMailCode) == 8)
 		{
 			$db = connectDb();
-			$req = $db->prepare("UPDATE pe_adminaccounts SET newMail = :newMail WHERE id = :id AND nickname = :nick AND password = :pwd");
+			$req = $db->prepare("UPDATE pe_adminaccounts SET newMailCode = :newMail WHERE id = :id AND nickname = :nick AND password = :pwd");
 			$req->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
 			$req->bindParam(':nick', $_SESSION["nickname"], PDO::PARAM_STR);
 			$req->bindParam(':pwd', $_SESSION["password"], PDO::PARAM_STR);
@@ -526,10 +526,26 @@ class ModifyAdminAccount
 		}
 	}
 
+	static function updateDeleteAccountCode($code)
+	{
+		if (ctype_alnum ($code) == true && strlen($code) == 8)
+		{
+			$db = connectDb();
+			$req = $db->prepare("UPDATE pe_adminaccounts SET deleteAccountCode = :deleteCode WHERE id = :id AND nickname = :nick AND password = :pwd");
+			$req->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
+			$req->bindParam(':nick', $_SESSION["nickname"], PDO::PARAM_STR);
+			$req->bindParam(':pwd', $_SESSION["password"], PDO::PARAM_STR);
+			$req->bindParam(':deleteCode', $code, PDO::PARAM_STR);
+			$req->execute();
+			$req->closeCursor();
+			$req = NULL;
+		}
+	}
+
 	static function updateNewMail($newMailCode, $newMail)
 	{
 		$db = connectDb();
-		$req = $db->prepare("UPDATE pe_adminaccounts SET mail = :mail, newMail = :resetNewMail WHERE id = :id AND nickname = :nick AND password = :pwd AND newMail = :newMailCode");
+		$req = $db->prepare("UPDATE pe_adminaccounts SET mail = :mail, newMailCode = :resetNewMail WHERE id = :id AND nickname = :nick AND password = :pwd AND newMailCode = :newMailCode");
 		$req->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
 		$req->bindParam(':nick', $_SESSION["nickname"], PDO::PARAM_STR);
 		$req->bindParam(':pwd', $_SESSION["password"], PDO::PARAM_STR);
@@ -539,6 +555,12 @@ class ModifyAdminAccount
 		$req->execute();
 		$req->closeCursor();
 		$req = NULL;
+		exit;
+	}
+
+	static function deleteAdAccount($code)
+	{
+		exit;
 	}
 }
 
@@ -548,7 +570,7 @@ class SendMail
 	public function default($mail, $sujet, $message)
 	{
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
-		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Type: text/html; charset=\"UTF-8\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 
 		$_sendMail = mail($mail, $sujet, $message, $_headers);
@@ -562,7 +584,7 @@ class SendMail
 
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
 		//$_headers .= "Reply-To: admin@cvm.one\n";
-		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Type: text/html; charset=\"UTF-8\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
 	}
@@ -575,7 +597,7 @@ class SendMail
 
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
 		//$_headers .= "Reply-To: admin@cvm.one\n";
-		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Type: text/html; charset=\"UTF-8\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
 	}
@@ -587,7 +609,7 @@ class SendMail
 
 		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
 		//$_headers .= "Reply-To: admin@cvm.one\n";
-		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Type: text/html; charset=\"UTF-8\"\n";
 		$_headers .= "Content-Transfer-Encoding: 8bit";
 		$_sendMail = mail($_destinataire, $_sujet, $_message, $_headers);
 	}

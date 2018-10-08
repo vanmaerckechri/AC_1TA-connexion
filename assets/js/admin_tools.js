@@ -257,7 +257,7 @@ window.addEventListener('load', function()
             }
         }
 
-        let launchDeleteAccountManagement = function()
+        /*let launchDeleteAccountManagement = function()
         {
             let modalContent = loadModal("closedQuestionAlert");
             modalContent.innerHTML += "<p class='smsAlert'>Cette action supprimera votre compte ainsi que celui de tous vos élèves et ce de façon irréversible!</p>";
@@ -269,23 +269,23 @@ window.addEventListener('load', function()
             oldPostYesButton.setAttribute("id", "");
             oldPostYesButton.parentNode.insertBefore(newPostYesButton, oldPostYesButton);
             oldPostYesButton.remove();
-        }
+        }*/
 
         changePassword.addEventListener('click', launchChangePasswordManagement, false);
-        deleteAccount.addEventListener('click', launchDeleteAccountManagement, false);
+        //deleteAccount.addEventListener('click', launchDeleteAccountManagement, false);
 
-        // init
+        // load change mail modal
         if (adAccountState == "changeMailWaitingCode")
         {
             let modalContent = loadModal("classic");
             let modalPost = document.getElementById("modalPost");
             let form = createDomElem("form", [["method"], ["post"]]);
             modalContent.appendChild(form);
-            form.innerHTML += "<label>Code de Validation<input id='newMailCode' class='newPwdInput' type='password' name='newMailCode'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Code de Validation<input id='mailCode' class='newPwdInput' type='password' name='mailCode'><p class='smsAlert wrongInput'></p></label>";
             form.innerHTML += "<label>Mot de Passe<input id='pwd' class='newPwdInput' type='password' name='pwd'><p class='smsAlert wrongInput'></p></label>";
             form.innerHTML += "<label>Nouvelle Adresse Mail<input id='newMail' class='newPwdInput' type='email' name='newMail'><p class='smsAlert wrongInput'></p></label>";
             form.innerHTML += "<label>Répeter la Nouvelle Adresse Mail<input id='newMail2' class='newPwdInput' type='email' name='newMail2'><p class='smsAlert wrongInput'></p></label>";
-            let newMailCode = document.getElementById("newMailCode");
+            let mailCode = document.getElementById("mailCode");
             let pwd = document.getElementById("pwd");
             let newMail = document.getElementById("newMail");
             let newMail2 = document.getElementById("newMail2");
@@ -299,7 +299,7 @@ window.addEventListener('load', function()
             }
             modalPost.onclick = function()
             {
-                if (newMailCode.value.length == 8 && newMail.value.length >= 5 && newMail.value.length <= 78 && newMail.value === newMail2.value && pwd.value.length >= 5 && pwd.value.length <= 30)
+                if (mailCode.value.length == 8 && newMail.value.length >= 5 && newMail.value.length <= 78 && newMail.value === newMail2.value && pwd.value.length >= 5 && pwd.value.length <= 30)
                 {
                     form.action = 'admin.php?action=changeMail';
                     form.submit();
@@ -310,16 +310,9 @@ window.addEventListener('load', function()
                     for (let i = inputs.length - 1; i >= 0; i--)
                     {
                         alertInfo[i].innerText = "";
-                        if (inputs[i].value.length < 5 || inputs[i].value.length > 78)
-                        {
-                            if (i != 0)
-                            {
-                                alertInfo[i].innerText = "Ce champ doit contenir de 5 à 78 caractères!";
-                            }
-                        }
                     }
 
-                    if (newMailCode.value.length != 8)  
+                    if (mailCode.value.length != 8)  
                     {
                         alertInfo[0].innerText = "Ce code doit contenir 8 caractères (il vous a été envoyé par mail)!"; 
                     }
@@ -329,12 +322,78 @@ window.addEventListener('load', function()
                         alertInfo[1].innerText = "Ce champ doit contenir de 5 à 30 caractères!"; 
                     }
 
+                    if (newMail.value.length < 5 || newMail.value.length > 78)
+                    {
+                        alertInfo[2].innerText += "Ce champ doit contenir de 5 à 78 caractères!";
+                    }
+
+                    if (newMail.value.length < 5 || newMail.value.length > 78)
+                    {
+                        alertInfo[3].innerText += "Ce champ doit contenir de 5 à 78 caractères!";
+                        alertInfo[3].innerHTML += "<br>";
+                    }
+
                     if (newMail.value !== newMail2.value)
                     {
-                        alertInfo[2].innerText += "Vous avez mal répété la nouvelle adresse mail!";
+                        alertInfo[3].innerText += "Vous avez mal répété la nouvelle adresse mail!";
                     }
                     smsInfo.remove();
                 }
+            }
+        }
+
+        // load delete admin account modal
+        if (adAccountState == "deleteAccountWaitingCode")
+        {
+            let modalContent = loadModal("closedQuestionAlert");
+            modalContent.innerHTML += "<p class='smsAlert'>Cette action supprimera votre compte ainsi que celui de tous vos élèves et ce de façon irréversible!</p>";
+            let modalPost = document.getElementById("modalPost");
+            let form = createDomElem("form", [["method"], ["post"]]);
+            modalContent.appendChild(form);
+
+            form.innerHTML += "<label>Code de Validation<input id='code' class='newPwdInput' type='password' name='code'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Mot de Passe<input id='pwd' class='newPwdInput' type='password' name='pwd'><p class='smsAlert wrongInput'></p></label>";
+
+            let code = document.getElementById("code");
+            let pwd = document.getElementById("pwd");
+
+            let postYes = document.getElementById("postYesButton");
+            let postNo = document.getElementById("postNoButton");
+
+            let inputs = document.querySelectorAll(".newPwdInput");
+            let smsAlert = document.querySelector(".smsAlert");
+            let smsInfo = document.querySelector(".smsInfo");
+            if (smsInfo)
+            {
+                smsInfo.innerHTML += "<br><br>";
+                form.appendChild(smsInfo);
+            }
+            postYes.onclick = function()
+            {
+                let alertInfo = document.querySelectorAll(".wrongInput");
+
+                if (pwd.value.length >= 5 && pwd.value.length <= 30 && code.value.length === 8)  
+                {
+                    form.action = 'admin.php?action=deleteAccount';
+                    form.submit();
+                }
+                else
+                {
+                    let alertInfo = document.querySelectorAll(".wrongInput");
+                    for (let i = inputs.length - 1; i >= 0; i--)
+                    {
+                        alertInfo[i].innerText = "";
+                    }
+                    if (code.value.length !== 8)
+                    {
+                        alertInfo[0].innerText = "Ce code doit contenir 8 caractères (il vous a été envoyé par mail)!"; 
+                    }
+                    if (pwd.value.length < 5 || pwd.value.length > 30)  
+                    {
+                        alertInfo[1].innerText = "Ce champ doit contenir de 5 à 30 caractères!"; 
+                    }
+                }
+                smsInfo.remove();
             }
         }
     }

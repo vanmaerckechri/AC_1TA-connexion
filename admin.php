@@ -107,12 +107,12 @@ if (isset($_GET['action']))
 	// Profil, change mail
 	else if ($_GET['action'] == 'changeMail')
 	{
-		if (isset($_POST['newMailCode']) && !empty($_POST['newMailCode']) && isset($_POST['pwd']) && !empty($_POST['pwd']) && isset($_POST['newMail']) && !empty($_POST['newMail']))
+		if (isset($_POST['mailCode']) && !empty($_POST['mailCode']) && isset($_POST['pwd']) && !empty($_POST['pwd']) && isset($_POST['newMail']) && !empty($_POST['newMail']))
 		{
 			$hashPwd = hash('sha256', $_POST['pwd']);
-			if (filter_var($_POST['newMail'], FILTER_VALIDATE_EMAIL) && ctype_alnum($_POST['newMailCode']) && strlen($_POST['newMailCode']) == 8 && strlen($_POST['newMail']) >= 5 && strlen($_POST['newMail']) <= 78 && $hashPwd === $_SESSION["password"]) 
+			if (filter_var($_POST['newMail'], FILTER_VALIDATE_EMAIL) && ctype_alnum($_POST['mailCode']) && strlen($_POST['mailCode']) == 8 && strlen($_POST['newMail']) >= 5 && strlen($_POST['newMail']) <= 78 && $hashPwd === $_SESSION["password"]) 
 			{
-				ModifyAdminAccount::updateNewMail($_POST['newMailCode'], $_POST['newMail']);
+				ModifyAdminAccount::updateNewMail($_POST['mailCode'], $_POST['newMail']);
 				$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Votre adresse mail vient d\'être modifiée!</span>';
 			}
 			else
@@ -123,11 +123,44 @@ if (isset($_GET['action']))
 		}
 		else
 		{
-			$adAccountState = sendValidationCodeToChangeMail();
+			$adAccountState = "changeMailWaitingCode";
+			$sendBol = sendValidationCodeToChangeMail();
+			if ($sendBol == false)
+			{
+				$adAccountState = false;
+			}
 			loadProfilInfos($adAccountState);
 		}
 	}
-	// Library
+	// Profil, delete admin account
+	else if ($_GET['action'] == 'deleteAccount')
+	{
+		if (isset($_POST['code']) && !empty($_POST['code']) && isset($_POST['pwd']) && !empty($_POST['pwd']))
+		{
+			$hashPwd = hash('sha256', $_POST['pwd']);
+			if (ctype_alnum($_POST['code']) && strlen($_POST['code']) == 8 && $hashPwd === $_SESSION["password"]) 
+			{
+				ModifyAdminAccount::deleteAdAccount($_POST['code']);
+				$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Compte supprimé!</span>';
+			}
+			else
+			{
+				$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Une erreur est survenue!</span>';
+			}
+			loadProfilInfos();
+		}
+		else
+		{
+			$adAccountState = "deleteAccountWaitingCode";
+			$sendBol = sendValidationCodeToDeleteAccount();
+			if ($sendBol == false)
+			{
+				$adAccountState = false;
+			}
+			loadProfilInfos($adAccountState);
+		}
+	}
+	// -- LIBRARY --
 	else if ($_GET['action'] == 'library')
 	{
 		loadLibrary();

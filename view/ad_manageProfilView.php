@@ -8,7 +8,7 @@
 			<p class="accountName">Compte: <span class="adminAtColor">admin@</span><?=$nickname?></p>
 			<p><a href="admin.php?action=changeMail" id="changeMail" class="formButton">Modifier votre Adresse Mail</a></p>
 			<p><button id="changePassword" class="formButton">Modifier votre Mot de Passe</button></p>
-			<p><button id="deleteAccount" class="formButton deleteSomething">Effacer ce Compte</button></p>
+			<p><a href="admin.php?action=deleteAccount" id="deleteAccount" class="formButton deleteSomething">Effacer ce Compte</a></p>
 	    </div>
 	<?php 
 	$tools = "";

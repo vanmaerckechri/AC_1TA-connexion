@@ -206,7 +206,7 @@ $avatarCustom = ob_get_clean();
                     <div id="avatarContainer" class="avatarContainer">
                         <?=$avatarContent?>
                     </div>
-                    <?=$_SESSION['nickname']?>
+                    <a href="admin.php?action=profil" class="ad_nick"><?=$_SESSION['nickname']?></a>
                     <a href="library.php?action=disco" class="disconnect">X</a>
                 </div>
             </div>

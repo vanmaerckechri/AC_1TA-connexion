@@ -12,10 +12,10 @@ const quizA1 =
 	{
 		intro: "« Il est très important de prendre un bon petit déjeuner le matin ! » Aujourd’hui, tu peux choisir ce que tu prends ! Que choisis-tu ?",
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 30,
-	    yOrigin: 30,
+	    xOrigin: 60,
+	    yOrigin: 32,
 	    tag: document.getElementById("questionButton01"),
 	    question: "Que vas-tu manger ?",
 	    proposition01: 
@@ -46,10 +46,10 @@ const quizA1 =
 	question02: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 50,
-	    yOrigin: 75,
+	    xOrigin: 70,
+	    yOrigin: 50,
 	   	tag: document.getElementById("questionButton02"),
 	    question: "Que bois-tu le matin ?",
 	    proposition01: 
@@ -80,10 +80,10 @@ const quizA1 =
 	question03: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 60,
-	    yOrigin: 20,
+	    xOrigin: 50,
+	    yOrigin: 45,
 	   	tag: document.getElementById("questionButton03"),
 	    question: "Qu’emmènes-tu comme collation pour l’école ?",
 	    proposition01: 

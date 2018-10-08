@@ -3,10 +3,33 @@ require('./model/model.php');
 require('./model/ad_model.php');
 require('./model/1ta_update.php');
 
-// ACTIVATE SESSION!
+// -- ACTIVATE SESSION! --
 Authentification::startSession();
 
-// TOOLS!
+// -- TEST SPAM --
+function testSpam()
+{
+	if (!isset($_SESSION["lastRequest"]))
+	{
+		$_SESSION["lastRequest"] = microtime(true);
+		return true;
+	}
+	else
+	{
+		if (microtime(true) - $_SESSION["lastRequest"] > 120)
+		{
+			$_SESSION["lastRequest"] = microtime(true);
+			return true;
+		}
+		else
+		{
+			$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Vous venez d\'effectuer une action similaire, veuillez attendre avant de la réitérer!</span>';
+			return false;
+		}
+	}
+}
+
+// -- TOOLS! --
 function createClassrooms()
 {
 	if (isset($_POST['newClassName']))
@@ -111,18 +134,49 @@ function newPasswordView($isPost = false)
 
 function sendValidationCodeToChangeMail()
 {
-	$mail = ModifyAdminAccount::getMail();
-	$code = generateCode(8);
-	ModifyAdminAccount::updateNewMailCode($code);
-	if (isset($mail) && !empty($mail))
+	$testRequestTime = testSpam();
+	if ($testRequestTime == true)
 	{
-		$sujet = "Demande de Changement d'Adresse eMail";
-		$message = '<p>Bonjour, vous venez de faire une demande pour changer votre adresse Mail. Voici le code de sécurité pour finaliser la procédure: '.$code.'</p>';
-		$sendLogin = new SendMail();
-		$sendLogin->default($mail, $sujet, $message);
-		$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Le code de validation vient de vous être envoyé par mail!</span>';
-		$adAccountState = "changeMailWaitingCode";
-		return $adAccountState;
+		$mail = ModifyAdminAccount::getMail();
+		$code = generateCode(8);
+		ModifyAdminAccount::updateNewMailCode($code);
+		if (isset($mail) && !empty($mail))
+		{
+			$sujet = "Demande de Changement d'Adresse eMail";
+			$message = '<p>Bonjour, vous venez de faire une demande pour changer votre adresse Mail. Voici le code de sécurité pour finaliser la procédure: '.$code.'</p>';
+			$sendLogin = new SendMail();
+			$sendLogin->default($mail, $sujet, $message);
+			$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Le code de validation vient de vous être envoyé par mail!</span>';
+		}
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function sendValidationCodeToDeleteAccount()
+{
+	$testRequestTime = testSpam();
+	if ($testRequestTime == true)
+	{
+		$mail = ModifyAdminAccount::getMail();
+		$code = generateCode(8);
+		ModifyAdminAccount::updateDeleteAccountCode($code);
+		if (isset($mail) && !empty($mail))
+		{
+			$sujet = "Demande de Suppression de votre Compte";
+			$message = '<p>Bonjour, vous venez de faire une demande pour supprimer votre compte. Voici le code de sécurité pour finaliser la procédure: '.$code.'</p>';
+			$sendLogin = new SendMail();
+			$sendLogin->default($mail, $sujet, $message);
+			$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Le code de validation vient de vous être envoyé par mail!</span>';
+		}
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 

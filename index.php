@@ -7,20 +7,18 @@ require('./controller/controller.php');
 
 //TEMP POUR TESTS
 	//student
-	/*$_SESSION['nickname'] = "Martin";
+	$_SESSION['nickname'] = "Martin";
 	$_SESSION['password'] = '12345678';
 	$_SESSION['classroom'] = "Classe de Test 01";
 	$_SESSION['id_classroom'] = "5";
-	$_SESSION['id'] = 19;*/
+	$_SESSION['id'] = 19;
 
 	//admin
-	$_SESSION['nickname'] = "admin@Chri";
+	/*$_SESSION['nickname'] = "admin@Chri";
 	$_SESSION['password'] = 'ed968e840d10d2d313a870bc131a4e2c311d7ad09bdf32b3418147221f51a6e2';
 	$_SESSION['classroom'] = "";
 	$_SESSION['id_classroom'] = "";
-	$_SESSION['id'] = 31;
-
-	//ed968e840d10d2d313a870bc131a4e2c311d7ad09bdf32b3418147221f51a6e2 => aaaaa
+	$_SESSION['id'] = 31;*/
 
 function checkSession()
 {
