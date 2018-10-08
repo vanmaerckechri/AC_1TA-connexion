@@ -15,10 +15,12 @@
 	$content = ob_get_clean();
 
     ob_start();
+    $adAccountState = isset($adAccountState) ? $adAccountState : false;
 	?>
-	    <script>
-        </script>
-        <script src="../assets/js/admin_tools.js"></script>
+		<script>
+	        let adAccountState = <?=json_encode($adAccountState)?>;
+	    </script>
+        <script src="assets/js/admin_tools.js"></script>
     <?php $script = ob_get_clean();?>
 
 <?php require('./view/ad_template.php'); ?>

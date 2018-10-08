@@ -41,9 +41,9 @@ window.addEventListener('load', function()
             modalBox.className = "closedQuestionAlert";
 
             postYesButton = createDomElem("button", [["id", "class"], ["postYesButton", "formButton postYesButton"]]);
-            postYesButton.innerHTML = "Oui";
+            postYesButton.innerHTML = "OUI";
             postNoButton = createDomElem("button", [["id", "class"], ["postNoButton", "formButton"]]);
-            postNoButton.innerHTML = "Non";
+            postNoButton.innerHTML = "NON";
             modalBox.appendChild(modalContent);
             modalBox.appendChild(postYesButton);
             modalBox.appendChild(postNoButton);
@@ -251,7 +251,7 @@ window.addEventListener('load', function()
 
                     if (newPwd.value !== newPwd2.value)
                     {
-                        alertInfo[2].innerText += "Vos nouveaux mots de passe ne correspondent pas!";
+                        alertInfo[2].innerText += "Vous avez mal répété votre nouveau mot de passe!";
                     }
                 }
             }
@@ -273,5 +273,69 @@ window.addEventListener('load', function()
 
         changePassword.addEventListener('click', launchChangePasswordManagement, false);
         deleteAccount.addEventListener('click', launchDeleteAccountManagement, false);
+
+        // init
+        if (adAccountState == "changeMailWaitingCode")
+        {
+            let modalContent = loadModal("classic");
+            let modalPost = document.getElementById("modalPost");
+            let form = createDomElem("form", [["method"], ["post"]]);
+            modalContent.appendChild(form);
+            form.innerHTML += "<label>Code de Validation<input id='newMailCode' class='newPwdInput' type='password' name='newMailCode'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Mot de Passe<input id='pwd' class='newPwdInput' type='password' name='pwd'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Nouvelle Adresse Mail<input id='newMail' class='newPwdInput' type='email' name='newMail'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Répeter la Nouvelle Adresse Mail<input id='newMail2' class='newPwdInput' type='email' name='newMail2'><p class='smsAlert wrongInput'></p></label>";
+            let newMailCode = document.getElementById("newMailCode");
+            let pwd = document.getElementById("pwd");
+            let newMail = document.getElementById("newMail");
+            let newMail2 = document.getElementById("newMail2");
+
+            let inputs = document.querySelectorAll(".newPwdInput");
+            let smsInfo = document.querySelector(".smsInfo");
+            if (smsInfo)
+            {
+                smsInfo.innerHTML += "<br><br>";
+                form.appendChild(smsInfo);
+            }
+            modalPost.onclick = function()
+            {
+                if (newMailCode.value.length == 8 && newMail.value.length >= 5 && newMail.value.length <= 78 && newMail.value === newMail2.value && pwd.value.length >= 5 && pwd.value.length <= 30)
+                {
+                    form.action = 'admin.php?action=changeMail';
+                    form.submit();
+                }
+                else
+                {
+                    let alertInfo = document.querySelectorAll(".wrongInput");
+                    for (let i = inputs.length - 1; i >= 0; i--)
+                    {
+                        alertInfo[i].innerText = "";
+                        if (inputs[i].value.length < 5 || inputs[i].value.length > 78)
+                        {
+                            if (i != 0)
+                            {
+                                alertInfo[i].innerText = "Ce champ doit contenir de 5 à 78 caractères!";
+                            }
+                        }
+                    }
+
+                    if (newMailCode.value.length != 8)  
+                    {
+                        alertInfo[0].innerText = "Ce code doit contenir 8 caractères (il vous a été envoyé par mail)!"; 
+                    }
+
+                    if (pwd.value.length < 5 || pwd.value.length > 30)  
+                    {
+                        alertInfo[1].innerText = "Ce champ doit contenir de 5 à 30 caractères!"; 
+                    }
+
+                    if (newMail.value !== newMail2.value)
+                    {
+                        alertInfo[2].innerText += "Vous avez mal répété la nouvelle adresse mail!";
+                    }
+                    smsInfo.remove();
+                }
+            }
+        }
     }
 }, false);

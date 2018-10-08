@@ -107,7 +107,25 @@ if (isset($_GET['action']))
 	// Profil, change mail
 	else if ($_GET['action'] == 'changeMail')
 	{
-		loadProfilInfos();
+		if (isset($_POST['newMailCode']) && !empty($_POST['newMailCode']) && isset($_POST['pwd']) && !empty($_POST['pwd']) && isset($_POST['newMail']) && !empty($_POST['newMail']))
+		{
+			$hashPwd = hash('sha256', $_POST['pwd']);
+			if (filter_var($_POST['newMail'], FILTER_VALIDATE_EMAIL) && ctype_alnum($_POST['newMailCode']) && strlen($_POST['newMailCode']) == 8 && strlen($_POST['newMail']) >= 5 && strlen($_POST['newMail']) <= 78 && $hashPwd === $_SESSION["password"]) 
+			{
+				ModifyAdminAccount::updateNewMail($_POST['newMailCode'], $_POST['newMail']);
+				$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Votre adresse mail vient d\'être modifiée!</span>';
+			}
+			else
+			{
+				$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Une erreur est survenue!</span>';
+			}
+			loadProfilInfos();
+		}
+		else
+		{
+			$adAccountState = sendValidationCodeToChangeMail();
+			loadProfilInfos($adAccountState);
+		}
 	}
 	// Library
 	else if ($_GET['action'] == 'library')

@@ -102,10 +102,27 @@ function newPasswordView($isPost = false)
 			if ($pwd1 === $pwd2)
 			{
 				$pwd1 = hash('sha256', $pwd1);
-				UpdatePassword::start($pwd1, $_SESSION['id']);
+				ModifyAdminAccount::UpdatePassword($pwd1, $_SESSION['id']);
 				$_SESSION["password"] = $pwd1;
 			}
 		}
+	}
+}
+
+function sendValidationCodeToChangeMail()
+{
+	$mail = ModifyAdminAccount::getMail();
+	$code = generateCode(8);
+	ModifyAdminAccount::updateNewMailCode($code);
+	if (isset($mail) && !empty($mail))
+	{
+		$sujet = "Demande de Changement d'Adresse eMail";
+		$message = '<p>Bonjour, vous venez de faire une demande pour changer votre adresse Mail. Voici le code de sécurité pour finaliser la procédure: '.$code.'</p>';
+		$sendLogin = new SendMail();
+		$sendLogin->default($mail, $sujet, $message);
+		$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Le code de validation vient de vous être envoyé par mail!</span>';
+		$adAccountState = "changeMailWaitingCode";
+		return $adAccountState;
 	}
 }
 
@@ -118,7 +135,7 @@ function loadManageThisClassroom()
 {
 	require('./view/ad_manageThisClassroomView.php');	
 }
-function loadProfilInfos()
+function loadProfilInfos($adAccountState = false)
 {
 	require('./view/ad_manageProfilView.php');
 }

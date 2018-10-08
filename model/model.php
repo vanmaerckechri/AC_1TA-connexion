@@ -9,8 +9,8 @@ else
 {
 	function connectDB()
 	{
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
 	}
 	function getSecretCaptchaKey()
@@ -18,6 +18,7 @@ else
 		return "";
 	}
 }
+
 
 // FILTRES!
 
@@ -62,7 +63,7 @@ function generateCode($codeLength = 10)
     $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charLength = strlen($char);
     $randCode = '';
-    for ($i = 0; $i < $length; $i++)
+    for ($i = 0; $i < $codeLength; $i++)
     {
         $randCode .= $char[rand(0, $charLength - 1)];
     }
@@ -129,15 +130,7 @@ class Authentification
 
 	public function checkSession()
 	{
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
+		$db = connectDb();
 		// admin
 		if (strstr($this->_sessionNickname, 'admin@'))
 		{
@@ -227,6 +220,14 @@ class Authentification
 			}
 		}
 	}
+
+	/*public function checkAdminNickname()
+	{
+		if (strpos($_SESSION["nickname"], "admin@") === 0)
+		{
+			return true;
+		}
+	}*/
 }
 
 // ENREGISTREMENT!
@@ -358,15 +359,9 @@ class checkCode
 {
 	static function start($code, $type)
 	{
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
+
+		$db = connectDB();
+
 		if ($type == 'resetpwd')
 		{
 			$req = $db->prepare("SELECT id FROM pe_adminaccounts WHERE pwdreset = :code");		
@@ -416,15 +411,7 @@ class Recover
 
 	static function start($email, $type)
 	{
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
+		$db = connectDB();
 
 		// Envoyer un lien de réinitialisation pour le mot de passe si le nom d'utilisateur et l'adresse mail correspondent
 		if ($type == 'pwd')
@@ -467,20 +454,33 @@ class Recover
 	}
 }
 
-class UpdatePassword
+class ModifyAdminAccount
 {
-	static function start($pwd, $id)
+
+	static function genCode($length)
+	{
+		$code = "";
+		for ($i = $length - 1; $i >= 0; $i--)
+		{
+			$randResult;
+			$letterOrNum = rand(1, 2);
+			if ($letterOrNum == 1)
+			{
+				$randResult = chr(rand(65, 90));
+			}
+			else
+			{
+				$randResult = rand(0, 9);
+			}
+			$code .= $randResult;
+		}
+		return $code;
+	}
+
+	static function UpdatePassword($pwd, $id)
 	{
 		$reset = "0";
-		try
-		{
-		    $db = connectDB();
-		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} 
-		catch (Exception $e)
-		{
-		    die('Erreur : ' . $e->getMessage());
-		}
+		$db = connectDb();
 		$req = $db->prepare("UPDATE pe_adminaccounts SET password = :pwd, pwdreset = :reset WHERE id = :idAccount");
 		$req->bindValue(':pwd', $pwd, PDO::PARAM_STR);
 		$req->bindValue(':idAccount', $id, PDO::PARAM_INT);
@@ -490,11 +490,69 @@ class UpdatePassword
 		$req = NULL;
 		$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Votre mot de passe a bien été modifié!</span>";
 	}
+
+	static function getMail()
+	{
+
+		$db = connectDb();
+		$req = $db->prepare("SELECT mail FROM pe_adminaccounts WHERE id = :id AND nickname = :nick AND password = :pwd");
+		$req->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
+		$req->bindParam(':nick', $_SESSION["nickname"], PDO::PARAM_STR);
+		$req->bindParam(':pwd', $_SESSION["password"], PDO::PARAM_STR);
+		$req->execute();
+		$email = $req->fetch(PDO::FETCH_NUM);
+		$req->closeCursor();
+		$req = NULL;
+
+		if (!empty($email) && isset($email[0]))
+		{
+			return $email[0];
+		}
+	}
+
+	static function updateNewMailCode($newMailCode)
+	{
+		if (ctype_alnum ($newMailCode) == true && strlen($newMailCode) == 8)
+		{
+			$db = connectDb();
+			$req = $db->prepare("UPDATE pe_adminaccounts SET newMail = :newMail WHERE id = :id AND nickname = :nick AND password = :pwd");
+			$req->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
+			$req->bindParam(':nick', $_SESSION["nickname"], PDO::PARAM_STR);
+			$req->bindParam(':pwd', $_SESSION["password"], PDO::PARAM_STR);
+			$req->bindParam(':newMail', $newMailCode, PDO::PARAM_STR);
+			$req->execute();
+			$req->closeCursor();
+			$req = NULL;
+		}
+	}
+
+	static function updateNewMail($newMailCode, $newMail)
+	{
+		$db = connectDb();
+		$req = $db->prepare("UPDATE pe_adminaccounts SET mail = :mail, newMail = :resetNewMail WHERE id = :id AND nickname = :nick AND password = :pwd AND newMail = :newMailCode");
+		$req->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
+		$req->bindParam(':nick', $_SESSION["nickname"], PDO::PARAM_STR);
+		$req->bindParam(':pwd', $_SESSION["password"], PDO::PARAM_STR);
+		$req->bindParam(':newMailCode', $newMailCode, PDO::PARAM_STR);
+		$req->bindValue(':resetNewMail', 0, PDO::PARAM_INT);
+		$req->bindParam(':mail', $newMail, PDO::PARAM_STR);
+		$req->execute();
+		$req->closeCursor();
+		$req = NULL;
+	}
 }
 
 // MAILS!
 class SendMail
 {
+	public function default($mail, $sujet, $message)
+	{
+		$_headers = "From: \"Plateforme Éducative\"<robot@cvm.one>\n";
+		$_headers .= "Content-Type: text/html; charset=\"ISO-8859-1\"\n";
+		$_headers .= "Content-Transfer-Encoding: 8bit";
+
+		$_sendMail = mail($mail, $sujet, $message, $_headers);
+	}
 	public function activeAccount($mail, $code)
 	{
 		$_sujet = "Lien d'Activation du Compte!";
