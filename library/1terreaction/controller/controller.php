@@ -60,7 +60,8 @@ function loadGameView($activeScoreTab = false, $statsEnvThemefromLastGame = fals
 	$allThemes = GameInfos::getThemeActivationStatus();
 
 	//$currentThemeIndex = ord(strtolower($gameInfos->openquestion["serie"])) - 97;
-	$currentTheme = $gameInfos->openquestion["serie"];
+	$currentTheme = isset($_POST["cleanReplies"]) ? htmlspecialchars(ucfirst ($_POST["cleanReplies"][10]), ENT_NOQUOTES) : "";
+	//$currentTheme = $gameInfos->openquestion["serie"];
 
 	$avatarContent = loadAvatar();
 	require('./view/st_game.php');

@@ -531,6 +531,15 @@ let fitBackgroundQuestions = function()
 }
 let initThemes = function()
 {
+    // if no one theme have informations from db for this planet => active the first theme
+    if (allThemesActivation.length === 0)
+    {
+        allThemesActivation[0] = [];
+        allThemesActivation[0]["theme"] = allThemesNames[0];
+        allThemesActivation[0]["activation"] = 1;
+        allThemesActivation[0]["openquestion"] = quizA3["question03"]["openQuestion"];
+        console.log(allThemesActivation)
+    }
     // create theme buttons into "choose theme pannel"
     let themesContainer = document.getElementById("themesContainer");
     for (let j = allThemesNames.length - 1; j >= 0; j--)

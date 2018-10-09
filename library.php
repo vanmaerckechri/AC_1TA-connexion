@@ -206,7 +206,20 @@ $avatarCustom = ob_get_clean();
                     <div id="avatarContainer" class="avatarContainer">
                         <?=$avatarContent?>
                     </div>
-                    <a href="admin.php?action=profil" class="ad_nick"><?=$_SESSION['nickname']?></a>
+                    <?php
+                        // admin nickname with link to manage her account
+                        if (stripos($_SESSION['nickname'], "admin@") === 0)
+                        {
+                        ?>
+                            <a href="admin.php?action=profil" class="ad_nick"><?=$_SESSION['nickname']?></a>
+                        <?php
+                        }
+                        // student nickname
+                        else
+                        {
+                            echo $_SESSION['nickname'];
+                        }
+                    ?>
                     <a href="library.php?action=disco" class="disconnect">X</a>
                 </div>
             </div>

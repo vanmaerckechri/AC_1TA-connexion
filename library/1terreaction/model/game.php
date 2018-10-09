@@ -71,10 +71,14 @@ class GameInfos
 		// planet stats average
 		$planetStats = self::getPlanetStatsAverage();
 		// open question
-		$req = $db->prepare("SELECT serie, question FROM 1ta_openquestions WHERE id_classroom = :idCr");
+		$req = $db->prepare("SELECT theme, openquestion FROM 1ta_themes WHERE id_classroom = :idCr");
 		$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
 		$req->execute();
 		$openquestions = $req->fetch(PDO::FETCH_ASSOC);
+		if (!isset($openquestions) || empty($openquestions))
+		{
+			$openquestions = [];
+		}
 		foreach ($openquestions as $key => $openquestion) 
 		{
 			$openquestions[$key] = htmlspecialchars($openquestion, ENT_QUOTES);

@@ -118,7 +118,7 @@ const quizA2 =
 	{
 		intro: "« AUCUN TEXTE D'INTRO!? »",
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
 	    xOrigin: 30,
 	    yOrigin: 25,
@@ -152,7 +152,7 @@ const quizA2 =
 	question02: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
 	    xOrigin: 65,
 	    yOrigin: 60,
@@ -186,7 +186,7 @@ const quizA2 =
 	question03: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
 	    xOrigin: 40,
 	    yOrigin: 70,
@@ -224,7 +224,7 @@ const quizA3 =
 	{
 		intro: "« Tu pars faire les courses avec les parents. Tu t’emmitoufles dans ton manteau parce qu’il fait très froid en ce mois de décembre. Que mettez-vous dans le caddie ? »",
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
 	    xOrigin: 30,
 	    yOrigin: 30,
@@ -258,7 +258,7 @@ const quizA3 =
 	question02: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
 	    xOrigin: 50,
 	    yOrigin: 75,
@@ -292,7 +292,7 @@ const quizA3 =
 	question03: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.jpg",
+		imageSrc: "assets/img/alim_bg01.svg",
 	    sizeOrigin: 4,
 	    xOrigin: 60,
 	    yOrigin: 20,
