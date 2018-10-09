@@ -493,7 +493,6 @@ class ModifyAdminAccount
 
 	static function getMail()
 	{
-
 		$db = connectDb();
 		$req = $db->prepare("SELECT mail FROM pe_adminaccounts WHERE id = :id AND nickname = :nick AND password = :pwd");
 		$req->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
@@ -542,6 +541,32 @@ class ModifyAdminAccount
 		}
 	}
 
+	static function checkCode($type, $code)
+	{
+		$db = connectDb();
+		// delete admin account code
+		if ($type == "deleteAccount")
+		{
+			$req = $db->prepare("SELECT deleteAccountCode FROM pe_adminaccounts WHERE id = :id AND nickname = :nick AND password = :pwd");
+		}
+		// change mail code
+		else
+		{
+			$req = $db->prepare("SELECT newMailCode FROM pe_adminaccounts WHERE id = :id AND nickname = :nick AND password = :pwd");
+		}
+		$req->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
+		$req->bindParam(':nick', $_SESSION["nickname"], PDO::PARAM_STR);
+		$req->bindParam(':pwd', $_SESSION["password"], PDO::PARAM_STR);
+		$req->execute();
+		$reqCode = $req->fetch(PDO::FETCH_NUM);
+		$req->closeCursor();
+		$req = NULL;
+		if ($reqCode[0] === $code)
+		{
+			return true;
+		}
+	}
+
 	static function updateNewMail($newMailCode, $newMail)
 	{
 		$db = connectDb();
@@ -559,7 +584,7 @@ class ModifyAdminAccount
 
 	static function deleteAdAccount($code)
 	{
-		exit;
+		//exit;
 	}
 }
 

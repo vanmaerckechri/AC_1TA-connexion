@@ -110,10 +110,25 @@ if (isset($_GET['action']))
 		if (isset($_POST['mailCode']) && !empty($_POST['mailCode']) && isset($_POST['pwd']) && !empty($_POST['pwd']) && isset($_POST['newMail']) && !empty($_POST['newMail']))
 		{
 			$hashPwd = hash('sha256', $_POST['pwd']);
-			if (filter_var($_POST['newMail'], FILTER_VALIDATE_EMAIL) && ctype_alnum($_POST['mailCode']) && strlen($_POST['mailCode']) == 8 && strlen($_POST['newMail']) >= 5 && strlen($_POST['newMail']) <= 78 && $hashPwd === $_SESSION["password"]) 
+			if (filter_var($_POST['newMail'], FILTER_VALIDATE_EMAIL) && ctype_alnum($_POST['mailCode']) && strlen($_POST['mailCode']) == 8 && strlen($_POST['newMail']) >= 5 && strlen($_POST['newMail']) <= 78) 
 			{
-				ModifyAdminAccount::updateNewMail($_POST['mailCode'], $_POST['newMail']);
-				$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Votre adresse mail vient d\'être modifiée!</span>';
+				$testCode = ModifyAdminAccount::checkCode("changeMail", $_POST['mailCode']);
+				if ($testCode === true)
+				{
+					if ($hashPwd === $_SESSION["password"])
+					{
+						ModifyAdminAccount::updateNewMail($_POST['mailCode'], $_POST['newMail']);
+						$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Votre adresse mail vient d\'être modifiée!</span>';
+					}
+					else
+					{
+						$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Mot de passe incorrect!</span>';	
+					}
+				}
+				else
+				{
+					$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Code incorrect!</span>';
+				}
 			}
 			else
 			{
@@ -138,10 +153,25 @@ if (isset($_GET['action']))
 		if (isset($_POST['code']) && !empty($_POST['code']) && isset($_POST['pwd']) && !empty($_POST['pwd']))
 		{
 			$hashPwd = hash('sha256', $_POST['pwd']);
-			if (ctype_alnum($_POST['code']) && strlen($_POST['code']) == 8 && $hashPwd === $_SESSION["password"]) 
+			if (ctype_alnum($_POST['code']) && strlen($_POST['code']) == 8) 
 			{
-				ModifyAdminAccount::deleteAdAccount($_POST['code']);
-				$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Compte supprimé!</span>';
+				$testCode = ModifyAdminAccount::checkCode("deleteAccount", $_POST['code']);
+				if ($testCode === true)
+				{
+					if ($hashPwd === $_SESSION["password"])
+					{
+						deleteAccount();
+						$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Compte supprimé!</span>';
+					}
+					else
+					{
+						$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Mot de passe incorrect!</span>';	
+					}
+				}
+				else
+				{
+					$_SESSION['smsAlert']['default'] = '<span class="smsAlert">Code incorrect!</span>';
+				}
 			}
 			else
 			{

@@ -351,7 +351,7 @@ window.addEventListener('load', function()
             let form = createDomElem("form", [["method"], ["post"]]);
             modalContent.appendChild(form);
 
-            form.innerHTML += "<label>Code de Validation<input id='code' class='newPwdInput' type='password' name='code'><p class='smsAlert wrongInput'></p></label>";
+            form.innerHTML += "<label>Code de Validation<input id='code' class='newPwdInput' type='text' name='code'><p class='smsAlert wrongInput'></p></label>";
             form.innerHTML += "<label>Mot de Passe<input id='pwd' class='newPwdInput' type='password' name='pwd'><p class='smsAlert wrongInput'></p></label>";
 
             let code = document.getElementById("code");
