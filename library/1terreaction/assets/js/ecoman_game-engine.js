@@ -300,4 +300,5 @@ function closeGame()
 	}
 	pacmanGameLaunched = false;
 	document.getElementById("pacmanContainer").classList.toggle("disabled");
+	document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
 }

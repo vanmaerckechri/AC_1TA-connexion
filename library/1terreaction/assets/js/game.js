@@ -398,7 +398,41 @@ let loadQuestions = function(themePosition)
         minimizeIntroductionQuestions();
     }, 8000);
 }
-let launchGame = function(themePosition, indexOpenQuestion)
+
+let launchVideo = function(file)
+{
+
+    let videoContainer = document.createElement("div");
+    let video = document.createElement("VIDEO");
+
+    if (video.canPlayType("video/mp4"))
+    {
+        video.setAttribute("src", file);
+    } 
+    else 
+    {
+        //video.setAttribute("src","movie.ogg");
+    }
+
+    /*video.setAttribute("width", "320");
+    video.setAttribute("height", "240");
+    video.requestFullscreen();*/
+    video.play();
+    video.volume = 0.5;
+    //video.setAttribute("controls", "controls");
+    video.classList.add("videoContent");
+    videoContainer.classList.add("videoContainer");
+    videoContainer.appendChild(video);
+    document.body.appendChild(videoContainer);
+
+    videoContainer.addEventListener("click", function()
+    {
+        document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
+        videoContainer.remove();
+    }, false);
+}
+
+let launchGame = function(themePosition, themeIndex)
 {
     loadQuestions(themePosition);
     closeThemesMenu();
@@ -416,7 +450,8 @@ let launchGame = function(themePosition, indexOpenQuestion)
         document.getElementById("homeSms").remove();
     }
     document.getElementById("mainMenuContainer").remove();
-    openQuestion = openQuestions[indexOpenQuestion]
+    openQuestion = openQuestions[themeIndex]
+    launchVideo("assets/videos/"+allThemesNames[themeIndex]+"_intro.mp4");
 }
 // Display
 let launchThemesMenu = function(event)
@@ -538,7 +573,6 @@ let initThemes = function()
         allThemesActivation[0]["theme"] = allThemesNames[0];
         allThemesActivation[0]["activation"] = 1;
         allThemesActivation[0]["openquestion"] = quizA3["question03"]["openQuestion"];
-        console.log(allThemesActivation)
     }
     // create theme buttons into "choose theme pannel"
     let themesContainer = document.getElementById("themesContainer");

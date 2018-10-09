@@ -196,3 +196,20 @@
 {
 	width: 100%;
 }
+
+.videoContainer
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	background-color: black;
+	z-index: 3;
+	.videoContent
+	{
+		max-width: 100vw;
+		max-height: 100vh;
+	}
+}
