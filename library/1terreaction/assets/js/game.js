@@ -432,7 +432,10 @@ let launchVideo = function(file)
     }
 
     videoContainer.addEventListener("click", closeVideo, false);
-    videoContainer.addEventListener("ended", closeVideo, false);
+    video.addEventListener("ended", closeVideo, false);
+    
+    //video.onload = function(){console.log(video)};
+
 }
 
 let launchGame = function(themePosition, themeIndex)
