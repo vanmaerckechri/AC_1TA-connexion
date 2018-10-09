@@ -1009,7 +1009,8 @@ window.addEventListener('load', function()
                         let freeClassroomsContainer = document.querySelector('.freeClassroomsContainer');
                         planetInfosContainer.classList.remove("disabled");
                         freeClassroomsContainer.classList.remove("disabled");
-
+                        // center title
+                        document.querySelector(".planetInfosTitleDummy").style.flex = "initial";
                         // clean old content
                         document.getElementById("themeButtonsContainer").innerHTML = "";
                         planetInfosTitle.innerHTML = "";
@@ -1028,6 +1029,8 @@ window.addEventListener('load', function()
                     // Display Planet Infos (population, stats, etc)
                     else if (planetNameText != "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
                     {
+                        // center title
+                        document.querySelector(".planetInfosTitleDummy").style = "";
                         // Delete Pannel
                         let themeButtonsContainer = document.getElementById("themeButtonsContainer");
                         let deleteContainer = document.querySelector('.planetDeleteContainer');

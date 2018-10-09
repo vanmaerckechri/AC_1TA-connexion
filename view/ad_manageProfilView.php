@@ -6,6 +6,7 @@
 	?>
 		<div class="profilInfos">
 			<p class="accountName">Compte: <span class="adminAtColor">admin@</span><?=$nickname?></p>
+			<p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
 			<p><a href="admin.php?action=changeMail" id="changeMail" class="formButton">Modifier votre Adresse Mail</a></p>
 			<p><button id="changePassword" class="formButton">Modifier votre Mot de Passe</button></p>
 			<p><a href="admin.php?action=deleteAccount" id="deleteAccount" class="formButton deleteSomething">Effacer ce Compte</a></p>

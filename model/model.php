@@ -555,7 +555,6 @@ class ModifyAdminAccount
 		$req->execute();
 		$req->closeCursor();
 		$req = NULL;
-		exit;
 	}
 
 	static function deleteAdAccount($code)

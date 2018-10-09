@@ -46,6 +46,7 @@ input {
   display: block; }
 
 .smsAlert {
+  display: inline-block;
   color: #ce1d21; }
 
 .smsInfo {
@@ -152,7 +153,6 @@ input {
     border-radius: 8px;
     width: 100%; }
   .modalContainer p, .modalContainer label {
-    margin: 20px 0 0;
     width: 100%; }
   .modalContainer .wrongInput {
     margin: 0 0 20px;
@@ -219,7 +219,6 @@ input {
       width: 100%;
       text-align: left; }
 #main p {
-  margin-bottom: 10px;
   width: 100%;
   font-size: .8rem; }
 
@@ -358,11 +357,14 @@ input {
       .admin #main .profilInfos p .adminAtColor {
         color: #4ab4f1; }
       .admin #main .profilInfos p .deleteSomething {
-        margin-top: 15px; }
+        margin-top: 15px;
+        display: inline-block; }
     .admin #main .profilInfos .accountName {
       margin-bottom: 15px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
       padding-bottom: 10px; }
+    .admin #main .profilInfos .smsAlert {
+      margin-bottom: 10px; }
 
 .producer {
   text-align: right; }
