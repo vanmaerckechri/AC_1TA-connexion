@@ -425,11 +425,14 @@ let launchVideo = function(file)
     videoContainer.appendChild(video);
     document.body.appendChild(videoContainer);
 
-    videoContainer.addEventListener("click", function()
+    let closeVideo = function()
     {
         document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
-        videoContainer.remove();
-    }, false);
+        videoContainer.remove(); 
+    }
+
+    videoContainer.addEventListener("click", closeVideo, false);
+    videoContainer.addEventListener("ended", closeVideo, false);
 }
 
 let launchGame = function(themePosition, themeIndex)
