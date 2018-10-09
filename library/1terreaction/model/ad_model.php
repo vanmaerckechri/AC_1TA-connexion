@@ -358,14 +358,14 @@ class ManagePlanets
 				$req->execute();
 				$studentsId = $req->fetchAll(PDO::FETCH_COLUMN);
 
-				$req = $db->prepare("INSERT INTO 1ta_populations (id_student) VALUES (:idSt)");
+				/*$req = $db->prepare("INSERT INTO 1ta_populations (id_student) VALUES (:idSt)");
 				foreach ($studentsId as $idSt)
 				{
 					$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 					$req->execute();	
 				}
 				// link population stats
-				/*$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
+				$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
 				foreach ($studentsId as $idSt)
 				{
 					$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);

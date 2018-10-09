@@ -15,18 +15,23 @@ class Update1TerreActionDb
 		}
 	}
 
-	public static function createPop($idSt)
-	{
+	/*public static function createPop($idSt)
+	{		
 		$db = self::loadDb();
-		$req = $db->prepare("INSERT INTO 1ta_populations (id_student) VALUES (:idSt)");
+		$req = $db->prepare("
+			INSERT INTO 1ta_populations (id_student)
+			SELECT id_student
+			FROM 1ta_populations 
+			WHERE id_student != :idSt");
+		$req = $db->prepare("INSERT INTO 1ta_populations (id_student) VALUES (:idSt) WHERE Select * from NOT EXISTS (SELECT * FROM 1ta_populations WHERE id_student = :idSt)");
 		$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 		$req->execute();
 
-		/*$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
+		$req = $db->prepare("INSERT INTO 1ta_stats (id_student, serie) VALUES (:idSt, :serie)");
 		$req->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 		$req->bindValue(':serie', "average", PDO::PARAM_STR);
-		$req->execute();*/
-	}
+		$req->execute();
+	}*/
 
 	public static function deletePopulation($idCr, $idsSt)
 	{
@@ -37,14 +42,14 @@ class Update1TerreActionDb
 			$idsSt = [$idsSt];
 		}
 
-		$delPop = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt");
+		//$delPop = $db->prepare("DELETE FROM 1ta_populations WHERE id_student = :idSt");
 		$delReplies = $db->prepare("DELETE FROM 1ta_replies WHERE id_student = :idSt");
 		$delStats = $db->prepare("DELETE FROM 1ta_stats WHERE id_student = :idSt");
 
 		foreach ($idsSt as $idSt)
 		{		
-			$delPop->bindParam(':idSt', $idSt, PDO::PARAM_INT);
-			$delPop->execute();
+			/*$delPop->bindParam(':idSt', $idSt, PDO::PARAM_INT);
+			$delPop->execute();*/
 
 			$delReplies->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 			$delReplies->execute();
@@ -52,8 +57,8 @@ class Update1TerreActionDb
 			$delStats->bindParam(':idSt', $idSt, PDO::PARAM_INT);
 			$delStats->execute();
 		}
-		$delPop->closeCursor();
-		$delPop = NULL;	
+		/*$delPop->closeCursor();
+		$delPop = NULL;	*/
 		$delReplies->closeCursor();
 		$delReplies = NULL;		
 		$delStats->closeCursor();

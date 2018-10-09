@@ -62,10 +62,11 @@ class GameInfos
 	{
 		$db = self::loadDb();
 		// player game infos
-		$req = $db->prepare("SELECT unlocked_theme FROM 1ta_populations WHERE id_student = :idSt");
+		/*$req = $db->prepare("SELECT unlocked_theme FROM 1ta_populations WHERE id_student = :idSt");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->execute();
-		$playerGameInfos = $req->fetch(PDO::FETCH_ASSOC);
+		$playerGameInfos = $req->fetch(PDO::FETCH_ASSOC);*/
+
 		// player stats average
 		$playerStats = self::getPlayerStats("average");
 		// planet stats average
@@ -93,7 +94,7 @@ class GameInfos
 		}
 		$gameInfos = (object) 
 		[
-			'playerGameInfos' => $playerGameInfos,
+			//'playerGameInfos' => $playerGameInfos,
 		    'playerStats' => $playerStats,
 		    'planetStats' => $planetStats,
 		    'openquestion' => $openquestions
@@ -264,11 +265,12 @@ class RecordReplies
 	{
 		$db = self::loadDb();
 		// check if the planet still exists and if player still exists on it
-		$req = $db->prepare("SELECT 1ta_planets.id FROM 1ta_planets, 1ta_populations WHERE 1ta_planets.id_classroom = :idCr AND 1ta_populations.id_student = :idSt");
+		$req = $db->prepare("SELECT 1ta_planets.id FROM 1ta_planets, pe_students WHERE 1ta_planets.id_classroom = :idCr AND pe_students.id = :idSt");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
 		$req->execute();
 		$planetAndPopExists = $req->fetch(PDO::FETCH_ASSOC);
+
 		if (isset($planetAndPopExists) && !empty($planetAndPopExists) && $planetAndPopExists != false)
 		{
 			// check if already exist replies for this serie

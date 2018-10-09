@@ -80,10 +80,10 @@ function createStudents()
 		if ($filteredNickname != false && $filteredPassword != false)
 		{
 			$idSt = Classrooms::createStudent($_SESSION['id'], $filteredNickname, $filteredPassword, $_GET['idcr']);
-			if ($idSt != false)
+			/*if ($idSt != false)
 			{
 				Update1TerreActionDb::createPop($idSt);
-			}
+			}*/
 		}
 	}
 	$form_createOpen = true;
