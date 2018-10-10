@@ -75,7 +75,7 @@ function createStudents()
 {
 	if (isset($_POST['newStudentNickname']) && isset($_POST['newStudentPassword']) && isset($_GET['idcr']))
 	{
-		$filteredNickname = checkInput($_POST['newStudentNickname'], 'nickname', 'nickname');
+		$filteredNickname = checkInput($_POST['newStudentNickname'], 'loginRecord', 'nickname');
 		$filteredPassword = checkInput($_POST['newStudentPassword'], 'password', 'password');
 		if ($filteredNickname != false && $filteredPassword != false)
 		{

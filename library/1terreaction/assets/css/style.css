@@ -503,7 +503,7 @@ body {
       z-index: 1;
       color: white;
       font-weight: bold;
-      transform: translate(-50%, -25%); }
+      transform: translate(-50%, -50%); }
     .step_scores .statsContainer .fluidForScore {
       position: absolute;
       border-radius: 2px 8px 8px 2px;
@@ -842,7 +842,7 @@ body {
           border: 2px solid rgba(100, 210, 25, 0.9);
           padding: 0 20px;
           width: 100%;
-          height: 33%;
+          min-height: 33%;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -856,17 +856,16 @@ body {
             background-color: rgba(255, 135, 0, 0.7);
             cursor: pointer; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionImgContainer {
-            position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            opacity: .1; }
+            opacity: .3; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionText {
             width: 80%;
             text-align: center; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .proposition {
-            max-width: 100%;
+            width: 128px;
             height: auto; }
         #main #step_questions .questionContainer .propositionsContainer .propositionContainerMid {
           margin: 5px 0; }

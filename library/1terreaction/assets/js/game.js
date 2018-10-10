@@ -57,7 +57,10 @@ let launchVideo = function(file)
     //video.onload = function(){console.log(video)};
 
 }
-launchVideo("assets/videos/intro.mp4");
+if (launchIntroVideo === true)
+{
+    launchVideo("assets/videos/intro.mp4");
+}
 
 // -- DISPLAY THEMES MENU --
 // Hide
@@ -232,7 +235,7 @@ let saveAnswer = function(answerIndex, blockBonus)
                 fitBackgroundQuestions();               
 
                 questionContainer.classList.remove("disabled_v2");
-                propositionsContainer.classList.add("disabled_v2");
+                propositionsContainer.classList.add("disabled");
 
                 let sendAnswersToDbButton = document.createElement("button");
                 sendAnswersToDbButton.innerText = "valider";
@@ -286,7 +289,7 @@ let backOnPreviousQuestion = function()
         console.log("ok")
         document.getElementById("openQuestionTextArea").classList.add("disabled");
         document.getElementById("questionContainer").classList.add("disabled_v2");
-        document.getElementById("propositionsContainer").classList.remove("disabled_v2");
+        document.getElementById("propositionsContainer").classList.remove("disabled");
 
         document.querySelector(".sendAnswersToDbButton").remove();
     }

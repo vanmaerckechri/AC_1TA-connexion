@@ -92,7 +92,7 @@ ob_start();
             <div id="backOnPreviousQuestionButton" class="backOnPreviousQuestionButton previousContainer disabled_v2">
                 <img class="backOnPreviousQuestionImg previous" src="assets/img/previous_darkfill.svg">
             </div>
-            <a class="buttonDefault abandonGame" href="index.php?action=game">abandonner</a>
+            <a class="buttonDefault abandonGame" href="index.php?action=game&video=false">abandonner</a>
         </div>
         <div class="step_scores statsLocalAverageContainer disabled_v2">
             <h3>Moyennes:</h3>
@@ -149,6 +149,7 @@ ob_start();
     <script>
         let gameInfos = <?=json_encode($gameInfos)?>;
         let allThemesActivation = <?=json_encode($allThemes)?>;
+        let launchIntroVideo = <?=json_encode($GLOBALS['launchIntroVideo'])?>;
     </script>
     
     <script type= "text/javascript" src="assets/js/questions.js"></script>
