@@ -475,6 +475,7 @@ let Fruilegsais = class
 			flsContainer.remove();
 			fruitlegsais.closeGame();
 		}
+		document.getElementById("flsPassBonusButton").remove();
 	}
 
 	callFinalScreen()
@@ -681,7 +682,7 @@ let Fruilegsais = class
 		let flsContainerChilds = document.querySelectorAll("#flsContainer div");
 		for (let i = flsContainerChilds.length - 1; i >= 0; i--)
 		{
-			document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
+	        maximizeIntroductionQuestions();
 			flsContainerChilds[i].remove();
 			fruitlegsais = null;
 		}

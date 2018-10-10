@@ -4,6 +4,63 @@ let indexAllActiveThemes = [];
 let openQuestions = [];
 let openQuestion;
 
+let launchVideo = function(file)
+{
+
+    let videoContainer = document.createElement("div");
+    let video = document.createElement("VIDEO");
+
+    if (video.canPlayType("video/mp4"))
+    {
+        video.setAttribute("src", file);
+    } 
+    else 
+    {
+        //video.setAttribute("src","movie.ogg");
+    }
+
+    /*video.setAttribute("width", "320");
+    video.setAttribute("height", "240");
+    video.requestFullscreen();*/
+    video.play();
+    video.volume = 0.5;
+    //video.setAttribute("controls", "controls");
+    video.classList.add("videoContent");
+    videoContainer.classList.add("videoContainer");
+    videoContainer.appendChild(video);
+    document.body.appendChild(videoContainer);
+
+    let closeVideo = function()
+    {
+        textValidation = document.createElement("p")
+        textValidation.classList.add("textValidation");
+        textValidation.innerText = "Appuyez sur une touche, sur l'écran tactile ou cliquez avec le bouton de la souris pour passer la vidéo!"
+        videoContainer.appendChild(textValidation);
+
+        validationCloseVideo = function()
+        {
+            videoContainer.remove();
+        }
+
+        questionIntroTimeToDisplay = setTimeout(function()
+        {
+            textValidation.remove();
+            videoContainer.onclick = closeVideo;
+            video.onended = closeVideo;
+        }, 3000);
+
+        videoContainer.onclick = validationCloseVideo;
+        video.onended = validationCloseVideo;
+    }
+
+    videoContainer.onclick = closeVideo;
+    video.onended = closeVideo;
+    
+    //video.onload = function(){console.log(video)};
+
+}
+launchVideo("assets/videos/intro.mp4");
+
 // -- DISPLAY THEMES MENU --
 // Hide
 let closeThemesMenu = function()
@@ -240,12 +297,27 @@ let backOnPreviousQuestion = function()
     document.getElementById("questionButton0" + questionIndex).classList.remove("questionButtonClosed");
 }
 
+let questionIntroTimeToDisplay;
 let minimizeIntroductionQuestions = function()
 {
+    clearTimeout(questionIntroTimeToDisplay);
     if (!document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
     {
         document.getElementById("questionIntro").classList.add("questionIntroMinimize")
     };
+}
+let maximizeIntroductionQuestions = function()
+{
+    clearTimeout(questionIntroTimeToDisplay);
+    if (document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
+    {
+        document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
+    };
+    // hide the question intro 8s after it loaded
+    questionIntroTimeToDisplay = setTimeout(function()
+    {
+        minimizeIntroductionQuestions();
+    }, 8000);   
 }
 
 // Load Questions and Propositions
@@ -359,7 +431,7 @@ let updateQuiz = function(themePosition)
             break;
     }
 }
-let questionIntroTimeToDisplay;
+
 let loadQuestions = function(themePosition)
 {
     // cleartimeout to prevent the previous influence the following 
@@ -388,54 +460,7 @@ let loadQuestions = function(themePosition)
         document.getElementById("themeBackground").onload = null;
     }
     // display question intro when it's a new one.
-    if (document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
-    {
-        document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
-    };
-    // hide the question intro 8s after it loaded
-    questionIntroTimeToDisplay = setTimeout(function()
-    {
-        minimizeIntroductionQuestions();
-    }, 8000);
-}
-
-let launchVideo = function(file)
-{
-
-    let videoContainer = document.createElement("div");
-    let video = document.createElement("VIDEO");
-
-    if (video.canPlayType("video/mp4"))
-    {
-        video.setAttribute("src", file);
-    } 
-    else 
-    {
-        //video.setAttribute("src","movie.ogg");
-    }
-
-    /*video.setAttribute("width", "320");
-    video.setAttribute("height", "240");
-    video.requestFullscreen();*/
-    video.play();
-    video.volume = 0.5;
-    //video.setAttribute("controls", "controls");
-    video.classList.add("videoContent");
-    videoContainer.classList.add("videoContainer");
-    videoContainer.appendChild(video);
-    document.body.appendChild(videoContainer);
-
-    let closeVideo = function()
-    {
-        document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
-        videoContainer.remove(); 
-    }
-
-    videoContainer.addEventListener("click", closeVideo, false);
-    video.addEventListener("ended", closeVideo, false);
-    
-    //video.onload = function(){console.log(video)};
-
+    maximizeIntroductionQuestions();
 }
 
 let launchGame = function(themePosition, themeIndex)
@@ -457,7 +482,6 @@ let launchGame = function(themePosition, themeIndex)
     }
     document.getElementById("mainMenuContainer").remove();
     openQuestion = openQuestions[themeIndex]
-    launchVideo("assets/videos/"+allThemesNames[themeIndex]+"_intro.mp4");
 }
 // Display
 let launchThemesMenu = function(event)
@@ -659,6 +683,12 @@ document.getElementById("backOnPreviousQuestionButton").addEventListener("click"
 // Maximize/Minimize question Intro
 document.getElementById("questionIntro").addEventListener("click", function()
 {
-    clearTimeout(questionIntroTimeToDisplay);
-    document.getElementById("questionIntro").classList.toggle("questionIntroMinimize");
+    if (document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
+    {
+        maximizeIntroductionQuestions();
+    }
+    else
+    {
+        minimizeIntroductionQuestions();
+    }
 }, false);
