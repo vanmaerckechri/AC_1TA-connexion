@@ -1,5 +1,10 @@
-$fontFamTitles: 'Orbitron', sans-serif;
+//$fontFamTitles: 'Orbitron', sans-serif;
 $fontFamMain: 'Open Sans', sans-serif;
+
+@font-face {
+    font-family: fontFamTitles;
+    src: url(assets/fonts/brauerneue.otf);
+}
 
 $background: #0e1215;
 $grenade: rgb(97, 38, 51);
