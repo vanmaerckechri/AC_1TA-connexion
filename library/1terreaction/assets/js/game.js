@@ -30,6 +30,11 @@ let launchVideo = function(file)
     videoContainer.appendChild(video);
     document.body.appendChild(videoContainer);
 
+    let validationCloseVideo = function()
+    {
+        videoContainer.remove();
+    }
+
     let closeVideo = function()
     {
         textValidation = document.createElement("p")
@@ -37,24 +42,17 @@ let launchVideo = function(file)
         textValidation.innerText = "Appuyez sur une touche, sur l'écran tactile ou cliquez avec le bouton de la souris pour passer la vidéo!"
         videoContainer.appendChild(textValidation);
 
-        validationCloseVideo = function()
-        {
-            videoContainer.remove();
-        }
-
         questionIntroTimeToDisplay = setTimeout(function()
         {
             textValidation.remove();
             videoContainer.onclick = closeVideo;
-            video.onended = closeVideo;
         }, 3000);
 
         videoContainer.onclick = validationCloseVideo;
-        video.onended = validationCloseVideo;
     }
 
     videoContainer.onclick = closeVideo;
-    video.onended = closeVideo;
+    video.onended = validationCloseVideo;
     
     //video.onload = function(){console.log(video)};
 
