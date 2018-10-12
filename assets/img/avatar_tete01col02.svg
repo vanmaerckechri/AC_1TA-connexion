@@ -16,11 +16,11 @@
    viewBox="0 0 340 340"
    style="enable-background:new 0 0 340 340;"
    xml:space="preserve"
-   sodipodi:docname="avatar_tetecol02.svg"
+   sodipodi:docname="avatar_tete01col02.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"><metadata
    id="metadata970"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
    id="defs968"><linearGradient
      id="SVGID_1_-0"
      gradientUnits="userSpaceOnUse"
@@ -49,7 +49,7 @@
    showguides="true"
    inkscape:guide-bbox="true"
    inkscape:zoom="1.8031223"
-   inkscape:cx="210.28646"
+   inkscape:cx="109.07314"
    inkscape:cy="142.83442"
    inkscape:window-x="-8"
    inkscape:window-y="100"
@@ -90,12 +90,7 @@
    id="stop942" />
 </linearGradient>
 
-<polygon
-   class="st0"
-   points="301.4,47.8 309.7,275.4 113.2,326.8 30.3,155.7 162.1,8.4 "
-   id="polygon1039"
-   style="fill:url(#SVGID_1_-0)"
-   transform="translate(1.052025,5.2440095)" /><path
+<path
    class="st2"
    d="m 111.08824,152 c -0.7,-6.3 -12.6,-10.1 -12.6,-10.1 l -10.1,12.6 17.4,22.3 c 0,0 7.5,-4.4 7.1,-8.8 -0.3,-3.2 -1.4,-12.4 -1.8,-16 z"
    id="path1053"

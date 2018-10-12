@@ -92,7 +92,7 @@ if (isset($_POST["filesSrcList"]) && !empty($_POST["filesSrcList"]))
         {
             if ($i == 0)
             {
-                Avatar::update($_POST["filesSrcList"][0], $_POST["filesSrcList"][1], $_POST["filesSrcList"][2], $_POST["filesSrcList"][3], $_POST["filesSrcList"][4], $_POST["filesSrcList"][5]);
+                Avatar::update($_POST["filesSrcList"][0], $_POST["filesSrcList"][1], $_POST["filesSrcList"][2], $_POST["filesSrcList"][3], $_POST["filesSrcList"][4], $_POST["filesSrcList"][5], $_POST["filesSrcList"][6]);
             }
         }
         else
@@ -113,7 +113,7 @@ if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
         if ($avatarSrc !== 1 && strlen($avatarSrc) === 7)
         {
             ?>
-            <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName.$avatarSrc?>.svg" alt="">
+            <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName.htmlspecialchars($avatarSrc, ENT_QUOTES)?>.svg" alt="">
             <?php
         }
         else if ($avatarSrc == "")
@@ -134,7 +134,7 @@ if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
 }
 $avatarContent = ob_get_clean();
 
-$avatarCustomList = ["avatarCustomPeau" => [], "avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg"), "avatarCustomCorps" => glob("assets/img/avatar_corps*col01.svg")];
+$avatarCustomList = ["avatarCustomBack" => [], "avatarCustomPeau" => [], "avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg"), "avatarCustomCorps" => glob("assets/img/avatar_corps*col01.svg")];
 
 ob_start();
 ?>
@@ -143,6 +143,7 @@ ob_start();
         <?=$avatarContent?>
     </div>
     <div id="avatarCustomButtons" class="avatarCustomButtons">
+        <button id="avatarCustomBackButton" class="avatarCustomBackButton">Arrière Plan</button>
         <button id="avatarCustomPeauButton" class="avatarCustomPeauButton">Peau</button>
         <button id="avatarCustomYeuxButton" class="avatarCustomYeuxButton">Yeux</button>
         <button id="avatarCustomLunettesButton" class="avatarCustomLunettesButton">Lunettes</button>

@@ -437,12 +437,12 @@ input {
         border: 3px solid #4ab4f1;
         cursor: pointer;
         background-color: white; }
-  #main .avatarCustomContainer .avatarCustomYeuxContainer img, #main .avatarCustomContainer .avatarCustomLunettesContainer img, #main .avatarCustomContainer .avatarCustomBoucheContainer img, #main .avatarCustomContainer .avatarCustomCheveuxContainer img, #main .avatarCustomContainer .avatarCustomCorpsContainer img {
+  #main .avatarCustomContainer .avatarCustomYeuxContainer img, #main .avatarCustomContainer .avatarCustomLunettesContainer img, #main .avatarCustomContainer .avatarCustomBoucheContainer img, #main .avatarCustomContainer .avatarCustomCheveuxContainer img, #main .avatarCustomContainer .avatarCustomCorpsContainer img, #main .avatarCustomContainer .avatarCustomBackContainer img {
     border: 1px solid rgba(74, 180, 241, 0.5);
     border-radius: 12px;
     width: 128px;
     height: 128px; }
-    #main .avatarCustomContainer .avatarCustomYeuxContainer img:hover, #main .avatarCustomContainer .avatarCustomLunettesContainer img:hover, #main .avatarCustomContainer .avatarCustomBoucheContainer img:hover, #main .avatarCustomContainer .avatarCustomCheveuxContainer img:hover, #main .avatarCustomContainer .avatarCustomCorpsContainer img:hover {
+    #main .avatarCustomContainer .avatarCustomYeuxContainer img:hover, #main .avatarCustomContainer .avatarCustomLunettesContainer img:hover, #main .avatarCustomContainer .avatarCustomBoucheContainer img:hover, #main .avatarCustomContainer .avatarCustomCheveuxContainer img:hover, #main .avatarCustomContainer .avatarCustomCorpsContainer img:hover, #main .avatarCustomContainer .avatarCustomBackContainer img:hover {
       cursor: pointer;
       background-color: rgba(74, 180, 241, 0.2); }
   #main .avatarCustomContainer .avatarCustomResult {
@@ -459,9 +459,9 @@ input {
       width: 256px;
       height: 256px;
       transform: translate(-50%, -50%); }
-  #main .avatarCustomContainer .avatarCustomYeuxContainer, #main .avatarCustomContainer .avatarCustomLunettesContainer, #main .avatarCustomContainer .avatarCustomBoucheContainer, #main .avatarCustomContainer .avatarCustomCheveuxContainer, #main .avatarCustomContainer .avatarCustomCorpsContainer {
+  #main .avatarCustomContainer .avatarCustomYeuxContainer, #main .avatarCustomContainer .avatarCustomLunettesContainer, #main .avatarCustomContainer .avatarCustomBoucheContainer, #main .avatarCustomContainer .avatarCustomCheveuxContainer, #main .avatarCustomContainer .avatarCustomCorpsContainer, #main .avatarCustomContainer .avatarCustomBackContainer {
     width: 100%; }
-    #main .avatarCustomContainer .avatarCustomYeuxContainer div, #main .avatarCustomContainer .avatarCustomLunettesContainer div, #main .avatarCustomContainer .avatarCustomBoucheContainer div, #main .avatarCustomContainer .avatarCustomCheveuxContainer div, #main .avatarCustomContainer .avatarCustomCorpsContainer div {
+    #main .avatarCustomContainer .avatarCustomYeuxContainer div, #main .avatarCustomContainer .avatarCustomLunettesContainer div, #main .avatarCustomContainer .avatarCustomBoucheContainer div, #main .avatarCustomContainer .avatarCustomCheveuxContainer div, #main .avatarCustomContainer .avatarCustomCorpsContainer div, #main .avatarCustomContainer .avatarCustomBackContainer div {
       padding-bottom: 10px; }
   #main .avatarCustomContainer .customColor {
     margin: 5px;

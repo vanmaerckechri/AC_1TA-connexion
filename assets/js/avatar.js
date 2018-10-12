@@ -22,10 +22,10 @@ window.addEventListener("load", function(event)
 			}
 		}
 		// if skin section is disabled, active it
-		if (!document.getElementById("avatarCustomPeauButton").classList.contains("selected"))
+		if (!document.getElementById("avatarCustomBackButton").classList.contains("selected"))
 		{
-			document.getElementById("avatarCustomPeauButton").classList.add("selected")
-			document.getElementById("avatarCustomPeauContainer").classList.remove("disabled")
+			document.getElementById("avatarCustomBackButton").classList.add("selected")
+			document.getElementById("avatarCustomBackContainer").classList.remove("disabled")
 		}
 	}
 
@@ -55,7 +55,11 @@ window.addEventListener("load", function(event)
 	let updateAvatarCustom = function(color, theme, aucun = false)
 	{
 		let newSrc;
-		if (theme.indexOf("Peau") != -1)
+		if (theme.indexOf("Back") != -1)
+		{
+			classname = "avatar_back";
+		}
+		else if (theme.indexOf("Peau") != -1)
 		{
 			classname = "avatar_tete";
 		}
@@ -183,6 +187,7 @@ window.addEventListener("load", function(event)
 			buttons[i].addEventListener("click", selectAvatarCustomTheme, false);
 		}
 
+		document.getElementById("avatarCustomBackContainer").addEventListener("click", selectAvatarCustomElement, false);
 		document.getElementById("avatarCustomYeuxContainer").addEventListener("click", selectAvatarCustomElement, false);
 		document.getElementById("avatarCustomLunettesContainer").addEventListener("click", selectAvatarCustomElement, false);
 		document.getElementById("avatarCustomBoucheContainer").addEventListener("click", selectAvatarCustomElement, false);
@@ -192,20 +197,22 @@ window.addEventListener("load", function(event)
 		document.getElementById("avatarContainer").addEventListener("click", openAvatarCustomSystem, false);
 
 		// colors
+		let backColorsContainer = document.getElementById("avatarCustomBackColorsContainer");
 		let peauColorsContainer = document.getElementById("avatarCustomPeauColorsContainer");
 		let yeuxColorsContainer = document.getElementById("avatarCustomYeuxColorsContainer");
 		let lunettesColorsContainer = document.getElementById("avatarCustomLunettesColorsContainer");
 		let cheveuxColorsContainer = document.getElementById("avatarCustomCheveuxColorsContainer");
 		let corpsColorContainer = document.getElementById("avatarCustomCorpsColorsContainer");
 
-		let colorsContainerList = [peauColorsContainer, yeuxColorsContainer, lunettesColorsContainer, cheveuxColorsContainer, corpsColorContainer];
+		let colorsContainerList = [backColorsContainer, peauColorsContainer, yeuxColorsContainer, lunettesColorsContainer, cheveuxColorsContainer, corpsColorContainer];
 
+		let backColorsList = ["#d5e7e3", "#ebdcc8", "#9f745b", "#8e9272", "#7d2c1f", "#5c5882", "#222b00", "black"];
 		let peauColorsList = ["#f4d4b8", "#e5ab86", "#eea791", "#a56951", "#754133"];
-		let yeuxColorsList = ["black", "brown", "blue", "green"];
-		let lunettesColorsList = ["black", "blue", "white"];
-		let CheveuxColorsList = ["black", "brown", "yellow", "orange"];
-		let CorpsColorsList = ["black", "brown", "yellow", "orange"];
-		let allColorsByTheme = [peauColorsList, yeuxColorsList, lunettesColorsList, CheveuxColorsList, CorpsColorsList];
+		let yeuxColorsList = ["black", "#aa4400", "#aad400", "blue"];
+		let lunettesColorsList = [];
+		let CheveuxColorsList = ["black", "#a05a2c", "#ffcc00", "#ff6600"];
+		let CorpsColorsList = ["#495caa", "#aa0000", "#ffcc00", "#ff6600"];
+		let allColorsByTheme = [backColorsList, peauColorsList, yeuxColorsList, lunettesColorsList, CheveuxColorsList, CorpsColorsList];
 
 		for (let i = colorsContainerList.length - 1; i >= 0; i--)
 		{
