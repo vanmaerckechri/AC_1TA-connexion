@@ -17,7 +17,7 @@ class Avatar
 	public static function load()
 	{
 		$db = self::loadDb();
-		$req = $db->prepare("SELECT avatar_tete, avatar_yeux, avatar_lunettes, avatar_bouche, avatar_cheveux FROM pe_students WHERE id = :idSt AND password = :password");
+		$req = $db->prepare("SELECT avatar_tete, avatar_yeux, avatar_lunettes, avatar_bouche, avatar_cheveux, avatar_corps FROM pe_students WHERE id = :idSt AND password = :password");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->bindParam(':password', $_SESSION['password'], PDO::PARAM_STR);
 		$req->execute();
@@ -26,10 +26,10 @@ class Avatar
 		$req = NULL;
 		return $avatarInfos;
 	}
-	public static function update($tete, $yeux, $lunettes, $bouche, $cheveux)
+	public static function update($tete, $yeux, $lunettes, $bouche, $cheveux, $corps)
 	{
 		$db = self::loadDb();
-	    $req = $db->prepare("UPDATE pe_students SET avatar_tete = :avatar_tete, avatar_yeux = :avatar_yeux, avatar_lunettes = :avatar_lunettes, avatar_bouche = :avatar_bouche, avatar_cheveux = :avatar_cheveux WHERE id = :idSt AND password = :password");
+	    $req = $db->prepare("UPDATE pe_students SET avatar_tete = :avatar_tete, avatar_yeux = :avatar_yeux, avatar_lunettes = :avatar_lunettes, avatar_bouche = :avatar_bouche, avatar_cheveux = :avatar_cheveux, avatar_corps = :avatar_corps WHERE id = :idSt AND password = :password");
 		$req->bindParam(':idSt', $_SESSION['id'], PDO::PARAM_INT);
 		$req->bindParam(':password', $_SESSION['password'], PDO::PARAM_STR);
 		$req->bindParam(':avatar_tete', $tete, PDO::PARAM_STR);
@@ -37,6 +37,7 @@ class Avatar
 		$req->bindParam(':avatar_lunettes', $lunettes, PDO::PARAM_STR);
 		$req->bindParam(':avatar_bouche', $bouche, PDO::PARAM_STR);
 		$req->bindParam(':avatar_cheveux', $cheveux, PDO::PARAM_STR);
+		$req->bindParam(':avatar_corps', $corps, PDO::PARAM_STR);
 		$req->execute();
 		$req->closeCursor();
 		$req = NULL;

@@ -426,7 +426,7 @@
 				}
 			}
 		}
-		.avatarCustomYeuxContainer, .avatarCustomLunettesContainer, .avatarCustomBoucheContainer, .avatarCustomCheveuxContainer
+		.avatarCustomYeuxContainer, .avatarCustomLunettesContainer, .avatarCustomBoucheContainer, .avatarCustomCheveuxContainer, .avatarCustomCorpsContainer
 		{
 			img
 			{
@@ -459,7 +459,7 @@
 				transform: translate(-50%, -50%);
 			}
 		}
-		.avatarCustomYeuxContainer, .avatarCustomLunettesContainer, .avatarCustomBoucheContainer, .avatarCustomCheveuxContainer
+		.avatarCustomYeuxContainer, .avatarCustomLunettesContainer, .avatarCustomBoucheContainer, .avatarCustomCheveuxContainer, .avatarCustomCorpsContainer
 		{
 			width: 100%;
 			div
@@ -480,42 +480,6 @@
 				transform: scale(1.2, 1.2);
 				cursor: pointer;
 			}
-		}
-		.black
-		{
-			background-color: black;
-		}
-		.brown
-		{
-			background-color: SaddleBrown;
-		}
-		.yellow
-		{
-			background-color: yellow;
-		}
-		.orange
-		{
-			background-color: orange;
-		}
-		.green
-		{
-			background-color: green;
-		}
-		.blue
-		{
-			background-color: #4d6bc0;
-		}
-		.white
-		{
-			background-color: white;
-		}
-		.pink
-		{
-			background-color: pink;
-		}
-		.red
-		{
-			background-color: red;
 		}
 		.avatarRecordButtonContainer
 		{

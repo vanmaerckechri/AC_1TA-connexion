@@ -87,11 +87,12 @@ if (isset($_POST["filesSrcList"]) && !empty($_POST["filesSrcList"]))
 {
     for ($i = count($_POST["filesSrcList"]) - 1; $i >= 0; $i--)
     {
-        if (substr($_POST["filesSrcList"][$i], -4) == ".svg" || $_POST["filesSrcList"][$i] == "")
+
+        if (ctype_alnum ($_POST["filesSrcList"][$i]) || $_POST["filesSrcList"][$i] == "")
         {
             if ($i == 0)
             {
-                Avatar::update($_POST["filesSrcList"][0], $_POST["filesSrcList"][1], $_POST["filesSrcList"][2], $_POST["filesSrcList"][3], $_POST["filesSrcList"][4]);
+                Avatar::update($_POST["filesSrcList"][0], $_POST["filesSrcList"][1], $_POST["filesSrcList"][2], $_POST["filesSrcList"][3], $_POST["filesSrcList"][4], $_POST["filesSrcList"][5]);
             }
         }
         else
@@ -109,10 +110,10 @@ if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
     foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
     {
         // avatarSrc = 1 for a new account. Student need to create an avatar to first connexion.
-        if ($avatarSrc != 1 && (substr($avatarSrc, -4) == ".svg"))
+        if ($avatarSrc !== 1 && strlen($avatarSrc) === 7)
         {
             ?>
-            <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarSrc?>"" alt="">
+            <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName.$avatarSrc?>.svg" alt="">
             <?php
         }
         else if ($avatarSrc == "")
@@ -133,7 +134,7 @@ if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
 }
 $avatarContent = ob_get_clean();
 
-$avatarCustomList = ["avatarCustomPeau" => [], "avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg")];
+$avatarCustomList = ["avatarCustomPeau" => [], "avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg"), "avatarCustomCorps" => glob("assets/img/avatar_corps*col01.svg")];
 
 ob_start();
 ?>
@@ -147,6 +148,7 @@ ob_start();
         <button id="avatarCustomLunettesButton" class="avatarCustomLunettesButton">Lunettes</button>
         <button id="avatarCustomBoucheButton" class="avatarCustomBoucheButton">Bouches</button>
         <button id="avatarCustomCheveuxButton" class="avatarCustomCheveuxButton">Cheveux</button>
+        <button id="avatarCustomCorpsButton" class="avatarCustomCorpsButton">Vêtements</button>
     </div>
     <?php
     foreach ($avatarCustomList as $avatarCustomThemeName => $avatarCustomImagesSrcList)

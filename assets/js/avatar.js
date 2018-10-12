@@ -75,6 +75,10 @@ window.addEventListener("load", function(event)
 		{
 			classname = "avatar_bouche";
 		}
+		else if (theme.indexOf("Corps") != -1)
+		{
+			classname = "avatar_corps";
+		}
 		if (color.length == 5)
 		{
 			newSrc = document.querySelector(".avatarCustomResult ."+classname).src;
@@ -129,7 +133,7 @@ window.addEventListener("load", function(event)
 		updateAvatarCustom(color, parentId.id)
 	}
 
-	let cutAfterWord = function(stringToCut, stringAfterWich)
+	/*let cutAfterWord = function(stringToCut, stringAfterWich)
 	{
 		let indexBegin;
 		let result;
@@ -143,7 +147,7 @@ window.addEventListener("load", function(event)
 			result = "";
 		}
 		return result;
-	}
+	}*/
 
 	let recordAvatar = function()
 	{
@@ -154,11 +158,18 @@ window.addEventListener("load", function(event)
 		form.setAttribute("class", "disabled");
 		for (let i = 0, length = avatarCustomResult.length; i < length; i++)
 		{
-			let relativeSrc = cutAfterWord(avatarCustomResult[i].src, "/img/");
+			let relativeSrc = avatarCustomResult[i].src.slice(-11);
+			relativeSrc = relativeSrc.replace(".svg", "");
+			if (relativeSrc =="library.php")
+			{
+				relativeSrc = "";
+			}
+			//let relativeSrc = cutAfterWord(avatarCustomResult[i].src, "/img/");
 			let output = document.createElement("input");
 			output.setAttribute("name", "filesSrcList[]");
 			output.setAttribute("value", relativeSrc);
 			form.appendChild(output);
+			console.log(relativeSrc);
 		}
 		document.body.appendChild(form);
 		form.submit();
@@ -176,6 +187,7 @@ window.addEventListener("load", function(event)
 		document.getElementById("avatarCustomLunettesContainer").addEventListener("click", selectAvatarCustomElement, false);
 		document.getElementById("avatarCustomBoucheContainer").addEventListener("click", selectAvatarCustomElement, false);
 		document.getElementById("avatarCustomCheveuxContainer").addEventListener("click", selectAvatarCustomElement, false);
+		document.getElementById("avatarCustomCorpsContainer").addEventListener("click", selectAvatarCustomElement, false);
 
 		document.getElementById("avatarContainer").addEventListener("click", openAvatarCustomSystem, false);
 
@@ -184,13 +196,16 @@ window.addEventListener("load", function(event)
 		let yeuxColorsContainer = document.getElementById("avatarCustomYeuxColorsContainer");
 		let lunettesColorsContainer = document.getElementById("avatarCustomLunettesColorsContainer");
 		let cheveuxColorsContainer = document.getElementById("avatarCustomCheveuxColorsContainer");
-		let colorsContainerList = [peauColorsContainer, yeuxColorsContainer, lunettesColorsContainer, cheveuxColorsContainer];
+		let corpsColorContainer = document.getElementById("avatarCustomCorpsColorsContainer");
 
-		let peauColorsList = ["pink", "black", "brown", "yellow", "red"];
+		let colorsContainerList = [peauColorsContainer, yeuxColorsContainer, lunettesColorsContainer, cheveuxColorsContainer, corpsColorContainer];
+
+		let peauColorsList = ["#f4d4b8", "#e5ab86", "#eea791", "#a56951", "#754133"];
 		let yeuxColorsList = ["black", "brown", "blue", "green"];
 		let lunettesColorsList = ["black", "blue", "white"];
 		let CheveuxColorsList = ["black", "brown", "yellow", "orange"];
-		let allColorsByTheme = [peauColorsList, yeuxColorsList, lunettesColorsList, CheveuxColorsList];
+		let CorpsColorsList = ["black", "brown", "yellow", "orange"];
+		let allColorsByTheme = [peauColorsList, yeuxColorsList, lunettesColorsList, CheveuxColorsList, CorpsColorsList];
 
 		for (let i = colorsContainerList.length - 1; i >= 0; i--)
 		{
@@ -199,8 +214,10 @@ window.addEventListener("load", function(event)
 				let index = j + 1;
 				let colNumber = allColorsByTheme[i].length < 10 ? "0"+index : index;
 				let buttonColor = document.createElement("button");
-				let buttonClass = "customColor col"+colNumber+" "+allColorsByTheme[i][j];
+				//let buttonClass = "customColor col"+colNumber+" "+allColorsByTheme[i][j];
+				let buttonClass = "customColor col"+colNumber;
 				buttonColor.setAttribute("class", buttonClass);
+				buttonColor.style.backgroundColor = allColorsByTheme[i][j];
 				colorsContainerList[i].appendChild(buttonColor);
 
 				buttonColor.addEventListener("click", changeColor.bind(this, "col"+colNumber));
