@@ -187,7 +187,7 @@ window.addEventListener("load", function(event)
 		{
 			let themeContainer = document.getElementById(customElementTypeList[i]);
 			let imgFromThisTheme = themeContainer.querySelectorAll("img");
-			let randImgIndex = Math.floor((Math.random() * imgFromThisTheme.length) + 0);
+			let randImgIndex = Math.floor((Math.random() * imgFromThisTheme.length) + 1);
 			let randImg = imgFromThisTheme[randImgIndex];
 
 			if (typeof randImg.src != "undefined")
@@ -270,8 +270,8 @@ window.addEventListener("load", function(event)
 		if (!typeof firsCo!= "undefined" && firsCo == 1)
 		{
 			openAvatarCustomSystem();
+			randAvatar(colorsContainerList);
 		}
-		randAvatar(colorsContainerList);
 	}
 
 	document.getElementById("avatarRecordButton").addEventListener("click", recordAvatar, false);
