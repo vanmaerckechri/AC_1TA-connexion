@@ -179,6 +179,43 @@ window.addEventListener("load", function(event)
 		form.submit();
 	}
 
+	let randAvatar = function(colorsContainerList)
+	{
+		let customElementTypeList = ["avatarCustomYeuxContainer", "avatarCustomLunettesContainer", "avatarCustomBoucheContainer", "avatarCustomCheveuxContainer", "avatarCustomCorpsContainer"];
+		//theme
+		for (let i = customElementTypeList.length - 1; i >= 0; i--)
+		{
+			let themeContainer = document.getElementById(customElementTypeList[i]);
+			let imgFromThisTheme = themeContainer.querySelectorAll("img");
+			let randImgIndex = Math.floor((Math.random() * imgFromThisTheme.length) + 0);
+			let randImg = imgFromThisTheme[randImgIndex];
+
+			if (typeof randImg.src != "undefined")
+			{
+				let aucun = false;
+				if (randImg.classList.contains("aucun"))
+				{
+					aucun = true;
+				}
+				let parentId = randImg.parentElement.id;
+				let newSrc = randImg.src;
+				updateAvatarCustom(newSrc, parentId, aucun);
+			}
+		}				
+		//color
+		for (let i = colorsContainerList.length - 1; i >= 0; i--)
+		{
+			let parentContainer = colorsContainerList[i].parentElement;
+			let colors = colorsContainerList[i].querySelectorAll("button");
+			if (colors.length > 0)
+			{
+				let colorButtonIndex = Math.floor((Math.random() * colors.length) + 1);
+				let randColor = "col0"+colorButtonIndex;
+				updateAvatarCustom(randColor, parentContainer.id)
+			}
+		}
+	}
+
 	let initAvatarCustom = function()
 	{
 		let buttons = document.querySelectorAll("#avatarCustomButtons button");
@@ -187,7 +224,7 @@ window.addEventListener("load", function(event)
 			buttons[i].addEventListener("click", selectAvatarCustomTheme, false);
 		}
 
-		document.getElementById("avatarCustomBackContainer").addEventListener("click", selectAvatarCustomElement, false);
+		//document.getElementById("avatarCustomBackContainer").addEventListener("click", selectAvatarCustomElement, false);
 		document.getElementById("avatarCustomYeuxContainer").addEventListener("click", selectAvatarCustomElement, false);
 		document.getElementById("avatarCustomLunettesContainer").addEventListener("click", selectAvatarCustomElement, false);
 		document.getElementById("avatarCustomBoucheContainer").addEventListener("click", selectAvatarCustomElement, false);
@@ -234,6 +271,7 @@ window.addEventListener("load", function(event)
 		{
 			openAvatarCustomSystem();
 		}
+		randAvatar(colorsContainerList);
 	}
 
 	document.getElementById("avatarRecordButton").addEventListener("click", recordAvatar, false);

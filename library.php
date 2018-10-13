@@ -82,6 +82,10 @@ foreach ($libraryList as $libElem)
 $content = ob_get_clean();
 
 // AVATARS
+
+    // Files List
+$avatarCustomList = ["avatarCustomBack" => [], "avatarCustomPeau" => [], "avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg"), "avatarCustomCorps" => glob("assets/img/avatar_corps*col01.svg")];
+
     // Record
 if (isset($_POST["filesSrcList"]) && !empty($_POST["filesSrcList"]))
 {
@@ -133,8 +137,6 @@ if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
     }
 }
 $avatarContent = ob_get_clean();
-
-$avatarCustomList = ["avatarCustomBack" => [], "avatarCustomPeau" => [], "avatarCustomYeux" => glob("assets/img/avatar_yeux*col01.svg"), "avatarCustomLunettes" => glob("assets/img/avatar_lunettes*col01.svg"), "avatarCustomBouche" => glob("assets/img/avatar_bouche*col01.svg"), "avatarCustomCheveux" => glob("assets/img/avatar_cheveux*col01.svg"), "avatarCustomCorps" => glob("assets/img/avatar_corps*col01.svg")];
 
 ob_start();
 ?>
