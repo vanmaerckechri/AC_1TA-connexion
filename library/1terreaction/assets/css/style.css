@@ -813,18 +813,20 @@ body {
       transform: translateX(-50%) scaleY(0.2);
       color: #003c78; }
     #main #step_questions .questionContainer {
+      border-radius: 18px;
       position: absolute;
       left: 50%;
       top: 0;
       max-width: 1920px;
-      width: 100%;
-      height: calc(100% - 106px);
+      width: 90%;
+      height: calc(100% - 100px);
       display: flex;
       flex-direction: column;
       opacity: 1;
       transform: translateX(-50%);
       transition: opacity 1s;
-      z-index: 2; }
+      z-index: 2;
+      background-color: rgba(255, 255, 255, 0.9); }
       #main #step_questions .questionContainer .question {
         border-top-right-radius: 12px;
         border-top-left-radius: 12px;
@@ -834,9 +836,9 @@ body {
         justify-content: center;
         align-items: center;
         text-align: center;
-        font-size: 1rem;
-        color: #003c78;
-        background-color: white; }
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: black; }
       #main #step_questions .questionContainer .openQuestionTextArea {
         padding: 20px 20px 140px 20px;
         min-width: 50vw;
@@ -846,22 +848,23 @@ body {
         color: white;
         background-color: #003c78; }
       #main #step_questions .questionContainer .propositionsContainer {
-        max-width: 100%;
+        margin: 0 auto;
+        width: 90%;
         flex: 1;
         opacity: 1;
         transition: opacity 1s; }
         #main #step_questions .questionContainer .propositionsContainer .propositionContainer {
-          border: 2px solid rgba(100, 210, 25, 0.9);
           padding: 0 20px;
+          position: relative;
           width: 100%;
           min-height: 33%;
           display: flex;
           justify-content: center;
           align-items: center;
           text-align: center;
-          color: white;
+          color: black;
           font-size: 1rem;
-          background-color: rgba(100, 210, 25, 0.7);
+          background-color: white;
           transition: all .5s; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer:hover {
             border: 2px solid rgba(255, 135, 0, 0.9);
@@ -870,13 +873,15 @@ body {
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionImgContainer {
             padding-right: 20px;
             flex: 1;
-            text-align: right;
-            overflow: hidden;
-            opacity: .3; }
+            text-align: center;
+            overflow: hidden; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .propositionText {
-            flex: 1;
+            flex: 3;
             text-align: left; }
           #main #step_questions .questionContainer .propositionsContainer .propositionContainer .proposition {
+            position: absolute;
+            top: -20px;
+            left: 20px;
             width: 128px;
             height: auto; }
         #main #step_questions .questionContainer .propositionsContainer .propositionContainerMid {

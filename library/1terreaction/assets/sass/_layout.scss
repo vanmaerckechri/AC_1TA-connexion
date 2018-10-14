@@ -781,18 +781,20 @@
 
 		.questionContainer
 		{
+			border-radius: 18px;
 			position: absolute;
 			left: 50%;
 			top: 0;
 			max-width: 1920px;
-			width: 100%;
-			height: calc(100% - 106px);
+			width: 90%;
+			height: calc(100% - 100px);
 			display: flex;
 			flex-direction: column;
 			opacity: 1;
 			transform: translateX(-50%);
 			transition: opacity 1s;
 			z-index: 2;
+			background-color: rgba(255, 255, 255, .9);
 			.question
 			{
 				border-top-right-radius: 12px;
@@ -803,9 +805,9 @@
 				justify-content: center;
 				align-items: center;
 				text-align: center;
-				font-size: 1rem;
-				color: rgba(0, 60, 120, 1);
-				background-color: white;
+				font-size: 1.2rem;
+				font-weight: bold;
+				color: black;
 			}
 			.openQuestionTextArea
 			{
@@ -819,23 +821,24 @@
 			}
 			.propositionsContainer
 			{
-				max-width: 100%;
+				margin: 0 auto;
+				width: 90%;
 				flex: 1;
 				opacity: 1;
 				transition: opacity 1s;
 				.propositionContainer
 				{
-					border: 2px solid rgba(100, 210, 25, 0.9);
 					padding: 0 20px;
+					position: relative;
 					width: 100%;
 					min-height: 33%;
 					display: flex;
 					justify-content: center;
 					align-items: center;
 					text-align: center;
-					color: white;
+					color: black;
 					font-size: 1rem;
-					background-color: rgba(100, 210, 25, 0.7);
+					background-color: white;
 					transition: all .5s;
 					&:hover
 					{
@@ -847,17 +850,19 @@
 					{
 						padding-right: 20px;
 						flex: 1;
-						text-align: right;
+						text-align: center;
 						overflow: hidden;
-						opacity: .3;
 					}
 					.propositionText
 					{
-						flex: 1;
+						flex: 3;
 						text-align: left;
 					}
 					.proposition
 					{
+						position: absolute;
+						top: -20px;
+						left: 20px;
 						width: 128px;
 						height: auto;
 					}
