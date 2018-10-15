@@ -158,24 +158,98 @@ body
   			{
   				flex: 1;
   			}	
-  			.flsDateContainer	
-  			{
-  				text-align: right;
-	  			.flsDateDay, .flsDateMonth
-	  			{
-	  				display: inline-block;
-	  			}
-	  			.flsDateDay
-	  			{
-	  				padding-right: 8px;
-	  				min-width: 30px;
-	  				text-align: right;
-	  			}
-	  		}
-	  		.flsSeason
-  			{
-  			}
+        .flsDummyBoxFlex, .flsSeason, .flsDateContainer
+        {
+          position: relative;
+          &::after
+          {
+            content: "";
+            position: absolute;
+            top: -5px;
+            width: 32px;
+            height: 32px;
+            z-index: 10;
+            background-size: 32px 32px;
+          }
+        }
+        .flsDummyBoxFlex
+        {
+          padding-left: 6px;
+          text-align: left;
+        }
+        .flsDateContainer 
+        {
+          padding-right: 6px;
+          text-align: right;
+          .flsDateDay, .flsDateMonth
+          {
+            display: inline-block;
+          }
+          .flsDateDay
+          {
+            padding-right: 8px;
+            min-width: 30px;
+            text-align: right;
+          }
+        }
+        .flsDummyBoxFlex::after
+        {
+          border: 1px solid black;
+          border-radius: 50%;
+          background-image: url("../img/earth.svg");
+          left: 0;
+          transform: translate(-100%);
+        }
+        .flsSeason::before
+        {
+          content: "";
+          position: absolute;
+          top: -5px;
+          width: 32px;
+          height: 32px;
+          z-index: 10;
+          background-size: 32px 32px;
+          left: 0;
+        }
+        .flsSeason::after
+        {
+          right: 0;
+        }
+        .flsDateContainer::after
+        {
+          background-image: url("../img/calendar.svg");
+          right: 0;
+          transform: translate(100%);
+        }
   		}
+      .flsDateSeasonContainer.flsBgPrintemps
+      {
+        .flsSeason::before, .flsSeason::after
+        {
+          background-image: url("../img/spring.svg");
+        }
+      }
+      .flsDateSeasonContainer.flsBgEte
+      {
+        .flsSeason::before, .flsSeason::after
+        {
+          background-image: url("../img/summer.svg");
+        }
+      }
+      .flsDateSeasonContainer.flsBgAutomne
+      {
+        .flsSeason::before, .flsSeason::after
+        {
+          background-image: url("../img/autumn.svg");
+        }
+      }
+      .flsDateSeasonContainer.flsBgHiver
+      {
+        .flsSeason::before, .flsSeason::after
+        {
+          background-image: url("../img/winter.svg");
+        }
+      }
   	}
   	.flsCanvasContainer
   	{

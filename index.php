@@ -7,17 +7,17 @@ require('./controller/controller.php');
 
 //TEMP POUR TESTS
 	//student
-	$_SESSION['nickname'] = "azerty";
+	/*$_SESSION['nickname'] = "azerty";
 	$_SESSION['password'] = '12345';
 	$_SESSION['classroom'] = "tttttttt";
 	$_SESSION['id_classroom'] = "21";
 	$_SESSION['id'] = 74;
-
-	/*$_SESSION['nickname'] = "Martin";
+*/
+	$_SESSION['nickname'] = "Martin";
 	$_SESSION['password'] = '12345678';
 	$_SESSION['classroom'] = "Classe de Test 01";
 	$_SESSION['id_classroom'] = "5";
-	$_SESSION['id'] = 19;*/
+	$_SESSION['id'] = 19;
 
 	//admin
 	/*$_SESSION['nickname'] = "admin@Test";

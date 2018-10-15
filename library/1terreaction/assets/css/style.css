@@ -20,6 +20,9 @@ button {
 @font-face {
   font-family: fontFamTitles;
   src: url(assets/fonts/brauerneue.otf); }
+@font-face {
+  font-family: fontFamMain;
+  src: url(minionpro_regular.ttf); }
 /*@keyframes mainMenuOpenButton01
 {
     0%
@@ -87,9 +90,12 @@ button {
 @font-face {
   font-family: fontFamTitles;
   src: url(assets/fonts/brauerneue.otf); }
+@font-face {
+  font-family: fontFamMain;
+  src: url(minionpro_regular.ttf); }
 html {
   background-color: #e3e9ea;
-  font-family: 'Oswald', sans-serif; }
+  font-family: fontFamMain; }
 
 body {
   display: flex;
@@ -100,6 +106,9 @@ body {
 @font-face {
   font-family: fontFamTitles;
   src: url(assets/fonts/brauerneue.otf); }
+@font-face {
+  font-family: fontFamMain;
+  src: url(minionpro_regular.ttf); }
 #container {
   background-image: url("../img/stars.jpg");
   background-repeat: repeat-x repeat-y; }
@@ -128,13 +137,13 @@ body {
   .headerProfile .profile {
     white-space: nowrap;
     color: white;
-    font-family: "Open Sans", sans-serif; }
+    font-family: fontFamMain; }
     .headerProfile .profile .avatarContainer {
       position: relative; }
       .headerProfile .profile .avatarContainer img {
         position: absolute;
-        left: -72px;
-        top: -32px;
+        left: -80px;
+        top: -28px;
         width: 64px;
         height: 64px; }
     .headerProfile .profile .disconnect {
@@ -144,7 +153,7 @@ body {
       text-decoration: none; }
 
 .appTitle {
-  font-family: "Open Sans", sans-serif;
+  font-family: fontFamMain;
   font-size: 2rem;
   letter-spacing: .2rem;
   color: white; }
@@ -169,7 +178,7 @@ body {
   position: absolute;
   right: 4rem;
   bottom: 2rem;
-  font-family: "Open Sans", sans-serif;
+  font-family: fontFamMain;
   font-size: 1rem;
   color: white;
   color: white;
@@ -274,6 +283,9 @@ body {
 @font-face {
   font-family: fontFamTitles;
   src: url(assets/fonts/brauerneue.otf); }
+@font-face {
+  font-family: fontFamMain;
+  src: url(minionpro_regular.ttf); }
 #container {
   position: fixed; }
 
@@ -376,7 +388,7 @@ body {
     padding: .5rem 1rem; }
     .ui .planetInfosContainer .freeClassroom .freeClassroomName {
       display: block;
-      font-family: "Open Sans", sans-serif;
+      font-family: fontFamMain;
       font-size: 1rem;
       color: white;
       text-decoration: none; }
@@ -394,7 +406,7 @@ body {
     display: block;
     max-width: 1920px;
     width: 100%;
-    font-family: "Open Sans", sans-serif;
+    font-family: fontFamMain;
     font-size: 1rem;
     color: white;
     list-style: none; }
@@ -901,6 +913,9 @@ body {
 @font-face {
   font-family: fontFamTitles;
   src: url(assets/fonts/brauerneue.otf); }
+@font-face {
+  font-family: fontFamMain;
+  src: url(minionpro_regular.ttf); }
 @media (max-width: 930px) {
   .step_scores .statsContainer {
     flex: 1; } }
@@ -936,8 +951,8 @@ body {
     .headerProfile .profile {
       margin: 0; }
       .headerProfile .profile .avatarContainer img {
-        left: -42px;
-        top: -15px;
+        left: -46px;
+        top: -13px;
         width: 40px;
         height: 40px; }
 

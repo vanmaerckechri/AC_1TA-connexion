@@ -127,7 +127,7 @@ const quizA2 =
 	    proposition01: 
 	    {
 	    	proposition: "Du poisson pané",
-	    	imageSrc: "assets/img/fruit_pomme.png",
+	    	imageSrc: "assets/img/fish_breaded.svg",
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
 	    	stats_social: 0
@@ -135,7 +135,7 @@ const quizA2 =
 	    proposition02: 
 	    {
 	    	proposition: "Du saumon élevé en Ecosse",
-	    	imageSrc: "assets/img/fruit_banane.png",
+	    	imageSrc: "assets/img/salmon.svg",
 	    	stats_environnement: 0,
 	    	stats_sante: 1,
 	    	stats_social: 0
@@ -143,7 +143,7 @@ const quizA2 =
 	    proposition03: 
 	    {
 	    	proposition: "Du poisson issu de la pêche durable",
-	    	imageSrc: "assets/img/fruit_kiwi.png",
+	    	imageSrc: "assets/img/fish.svg",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
@@ -249,7 +249,7 @@ const quizA3 =
 	    proposition03: 
 	    {
 	    	proposition: "Un burger végé",
-	    	imageSrc: "assets/img/fruit_kiwi.png",
+	    	imageSrc: "assets/img/burger_green.svg",
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 1

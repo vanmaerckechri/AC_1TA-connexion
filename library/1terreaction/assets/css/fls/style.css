@@ -215,6 +215,8 @@ body {
           min-width: 30px;
           text-align: right; }
       .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDummyBoxFlex::after {
+        border: 1px solid black;
+        border-radius: 50%;
         background-image: url("../img/earth.svg");
         left: 0;
         transform: translate(-100%); }
@@ -485,4 +487,4 @@ body {
       width: auto;
       height: 100%; } }
 
-/*# sourceMappingURL=fls_style.css.map */
+/*# sourceMappingURL=style.css.map */

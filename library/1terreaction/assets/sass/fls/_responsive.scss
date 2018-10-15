@@ -27,6 +27,21 @@
 	  			{
 	  				text-align: left;
 	  			}
+	  			.flsDummyBoxFlex, .flsSeason, .flsDateContainer
+		        {
+		        	&::after
+		        	{
+		        		display: none;
+		        	}
+		        }
+		        .flsSeason
+		        {
+		        	padding-left: 6px;
+		        	&::before
+		        	{
+		        		display: none;
+		        	}
+		        }
 	  		}
 	  	}
 	  	 .flsScoreFinalContainer
