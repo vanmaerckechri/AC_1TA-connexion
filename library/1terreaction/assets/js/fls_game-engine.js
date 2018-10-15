@@ -188,26 +188,36 @@ let Fruilegsais = class
 		{
 			let flsSeason = document.getElementById("flsSeason");
 			let flsDateSeasonContainer = document.getElementById("flsDateSeasonContainer");
+			let flsSeasonImg = document.querySelector(".flsSeasonImg");
+
+			flsSeason.innerText = "";
+
 			switch(this.currentMonth)
 			{
 			    case 0:
 			    	if (flsSeason.innerText != "Printemps")
 			    	{
-						flsSeason.innerText = "Printemps";
+			    		flsSeasonImg.src = "assets/img/spring.svg";
+						flsSeason.appendChild(flsSeasonImg)
+						flsSeason.innerHTML += "Printemps";
 					}
 			        break;
 			    case 3:
 			    	if (flsSeason.innerText != "Été")
 			    	{
-						flsSeason.innerText = "Été";
-						flsDateSeasonContainer.classList.remove("flsBgPrintemps");
+			    		flsSeasonImg.src = "assets/img/summer.svg";
+						flsSeason.appendChild(flsSeasonImg);
+			    		flsSeason.innerHTML += "Été";
+			    		flsDateSeasonContainer.classList.remove("flsBgPrintemps");
 						flsDateSeasonContainer.classList.add("flsBgEte");
 					}
 			        break;
 			    case 6:
 			    	if (flsSeason.innerText != "Automne")
 			    	{
-						flsSeason.innerText = "Automne";
+			    		flsSeasonImg.src = "assets/img/autumn.svg";
+						flsSeason.appendChild(flsSeasonImg)
+						flsSeason.innerHTML += "Automne";
 						flsDateSeasonContainer.classList.remove("flsBgEte");
 						flsDateSeasonContainer.classList.add("flsBgAutomne");
 					}
@@ -215,7 +225,9 @@ let Fruilegsais = class
 			    case 9:
 			    	if (flsSeason.innerText != "Hiver")
 			    	{
-						flsSeason.innerText = "Hiver";
+						flsSeasonImg.src = "assets/img/winter.svg";
+						flsSeason.appendChild(flsSeasonImg)
+						flsSeason.innerHTML += "Hiver";
 						flsDateSeasonContainer.classList.remove("flsBgAutomne");
 						flsDateSeasonContainer.classList.add("flsBgHiver");
 					}
@@ -599,10 +611,18 @@ let Fruilegsais = class
 		let flsDateDay = createElem("span", ["id", "class"], ["flsDateDay", "flsDateDay"]);
 		let flsDateMonth = createElem("span", ["id", "class"], ["flsDateMonth", "flsDateMonth"]);
 
-		flsDummyBoxFlex.innerText = "Belgique:";
+		let flsDummyBoxImg = createElem("img", ["class", "src", "alt"], ["flsDummyBoxImg", "assets/img/earth.svg", "dessin de planète"]);
+		let flsSeasonImg = createElem("img", ["class", "src", "alt"], ["flsSeasonImg", "assets/img/spring.svg", "dessin représentant la saison en cours"]);
+		let flsDateImg = createElem("img", ["class", "src", "alt"], ["flsDateImg", "assets/img/calendar.svg", "dessin de calendrier"]);
+
+		flsDummyBoxFlex.appendChild(flsDummyBoxImg);
+		flsSeason.appendChild(flsSeasonImg);
+		flsDateContainer.appendChild(flsDateImg);
+
+		flsDummyBoxFlex.innerHTML += "Belgique:";
 		flsDateDay.innerText = this.currentDay;
 		flsDateMonth.innerText = this.monthList[this.currentMonth];
-		flsSeason.innerText = "Printemps";
+		flsSeason.innerHTML += "Printemps";
 
 		flsDateSeasonContainer.appendChild(flsDummyBoxFlex);
 		flsDateSeasonContainer.appendChild(flsSeason);
@@ -652,7 +672,7 @@ let Fruilegsais = class
 					flsLaunchGameButton.onclick = function()
 					{
 						flsButtonsContainer.classList.add("flexEnd");
-						flsTutoContainer.remove();
+						document.getElementById("flsTuto").remove();
 						flsLaunchGameButton.remove();
 						fruitlegsais.launch();
 					}

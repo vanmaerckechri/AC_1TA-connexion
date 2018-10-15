@@ -173,7 +173,6 @@ window.addEventListener("load", function(event)
 			output.setAttribute("name", "filesSrcList[]");
 			output.setAttribute("value", relativeSrc);
 			form.appendChild(output);
-			console.log(relativeSrc);
 		}
 		document.body.appendChild(form);
 		form.submit();
@@ -188,7 +187,6 @@ window.addEventListener("load", function(event)
 			let themeContainer = document.getElementById(customElementTypeList[i]);
 			let imgFromThisTheme = themeContainer.querySelectorAll("img");
 			let randImgIndex = Math.floor((Math.random() * (imgFromThisTheme.length - 1)) + 0);
-			console.log(randImgIndex)
 			let randImg = imgFromThisTheme[randImgIndex];
 
 			if (typeof randImg.src != "undefined")
@@ -212,7 +210,6 @@ window.addEventListener("load", function(event)
 			{
 				let colorButtonIndex = Math.floor((Math.random() * colors.length) + 1);
 				let randColor = "col0"+colorButtonIndex;
-				console.log(randColor);
 				updateAvatarCustom(randColor, parentContainer.id)
 			}
 		}

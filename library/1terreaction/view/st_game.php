@@ -94,22 +94,28 @@ ob_start();
             </div>
             <a class="buttonDefault abandonGame" href="index.php?action=game&video=false">abandonner</a>
         </div>
-        <div class="step_scores statsLocalAverageContainer disabled_v2">
-            <h3>Moyennes:</h3>
-            <div class="statsContainer titleEnv">
-                <div class="statsBar envi"><?=$gameInfos->playerStats["stats_envi"]?></div>
-                <p>Env.</p>
+        <?php 
+            if ($GLOBALS["playerHaveStats"] === true)
+            {
+        ?>
+            <div class="step_scores statsLocalAverageContainer disabled_v2">
+                    <h3>Moyennes:</h3>
+                    <div class="statsContainer titleEnv">
+                        <div class="statsBar envi"><?=$gameInfos->playerStats["stats_envi"]?></div>
+                        <p>Env.</p>
+                    </div>
+                    <div class="statsContainer titleSante">
+                        <div class="statsBar sante"><?=$gameInfos->playerStats["stats_sante"]?></div>
+                        <p>Santé</p>
+                    </div>
+                    <div class="statsContainer titleSocial">
+                        <div class="statsBar social"><?=$gameInfos->playerStats["stats_social"]?></div>
+                        <p>Social</p>
+                    </div>
+
             </div>
-            <div class="statsContainer titleSante">
-                <div class="statsBar sante"><?=$gameInfos->playerStats["stats_sante"]?></div>
-                <p>Santé</p>
-            </div>
-            <div class="statsContainer titleSocial">
-                <div class="statsBar social"><?=$gameInfos->playerStats["stats_social"]?></div>
-                <p>Social</p>
-            </div>
-        </div>
         <?php
+            }
             if ($activeScoreTab == true)
             {
         ?>

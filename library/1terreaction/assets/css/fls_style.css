@@ -94,87 +94,85 @@ body {
   left: 0;
   text-align: center;
   height: 100%;
-  background-color: #141517;
+  background-color: #2c2e35;
   color: white;
   font-family: "Orbitron", sans-serif; }
   .flsContainer .flsCanvasContainer {
     display: none; }
-  .flsContainer .flsTutoContainer {
-    margin: 0 auto;
-    padding: 20px 0 0;
-    max-width: 768px;
-    height: calc(100% - 60px);
+  .flsContainer .flsTuto {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    font-family: "Open Sans", sans-serif;
     overflow-y: auto;
     overflow-x: hidden; }
+  .flsContainer .flsTutoContainer {
+    margin: 0 auto;
+    padding: 20px 60px;
+    border-radius: 24px;
+    position: relative;
+    max-width: 768px;
+    font-family: font-main;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.9); }
     .flsContainer .flsTutoContainer h2, .flsContainer .flsTutoContainer h3 {
-      font-family: "Orbitron", sans-serif; }
-    .flsContainer .flsTutoContainer h2 {
-      margin: 25px auto;
-      font-size: 1.2rem; }
-    .flsContainer .flsTutoContainer h3 {
-      margin-bottom: 15px;
-      font-size: 1.1rem; }
-    .flsContainer .flsTutoContainer .flsDateSeasonContainer {
-      margin: 10px 0; }
-      .flsContainer .flsTutoContainer .flsDateSeasonContainer .flsDummyBoxFlex {
-        margin-right: 10px;
-        font-family: "Open Sans", sans-serif;
-        letter-spacing: normal;
-        text-align: left;
-        transition: all 1s;
-        animation: swingLeftRight 1s ease alternate-reverse infinite; }
-      .flsContainer .flsTutoContainer .flsDateSeasonContainer .flsDummyBoxFlex, .flsContainer .flsTutoContainer .flsDateSeasonContainer .flsSeason, .flsContainer .flsTutoContainer .flsDateSeasonContainer .flsDateContainer {
-        flex: auto; }
-    .flsContainer .flsTutoContainer .flsRulesText {
-      letter-spacing: normal; }
-    .flsContainer .flsTutoContainer .flsRulesCell {
-      margin: 10px 0;
-      padding: 0 10px 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
-    .flsContainer .flsTutoContainer .flsExampleFruitLegImgContainer .flsExamplePotironImg {
-      width: 128px;
-      height: 128px;
-      transition: all 1s;
-      animation: movePotiron 6s ease infinite; }
-    .flsContainer .flsTutoContainer .flsExampleFruitLegImgContainer .flsExampleTomateImg {
-      width: 128px;
-      height: 128px;
-      transition: all 1s;
-      animation: moveTomate 6s ease infinite; }
-    .flsContainer .flsTutoContainer .flsExempleAnswerImgContainer {
+      margin: 30px 0;
       position: relative;
-      left: 50%;
-      height: 64px;
-      width: 128px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      transform: translateX(-50%); }
-      .flsContainer .flsTutoContainer .flsExempleAnswerImgContainer::before {
-        content: "+100";
-        position: absolute;
-        top: 50%;
-        right: 4px;
-        transform: translateY(-50%);
-        animation: changeTutoScore 2s ease alternate infinite; }
-      .flsContainer .flsTutoContainer .flsExempleAnswerImgContainer .flsExampleGoodAnswerImg, .flsContainer .flsTutoContainer .flsExempleAnswerImgContainer .flsExampleWrongAnswerImg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 64px;
-        height: 64px;
-        transition: all 1s; }
-      .flsContainer .flsTutoContainer .flsExempleAnswerImgContainer .flsExampleGoodAnswerImg {
-        opacity: 1;
-        animation: goodAnswerBecomeWrong 2s ease alternate infinite; }
-      .flsContainer .flsTutoContainer .flsExempleAnswerImgContainer .flsExampleWrongAnswerImg {
-        opacity: 0;
-        animation: wrongAnswerBecomeGood 2s ease alternate infinite; }
-    .flsContainer .flsTutoContainer .flsTutoContent {
-      margin: 10px;
-      flex: 1; }
+      z-index: 2;
+      font-family: font-title;
+      font-weight: bold;
+      letter-spacing: normal; }
+    .flsContainer .flsTutoContainer h2 {
+      font-size: 1.4rem; }
+    .flsContainer .flsTutoContainer h3 {
+      font-size: 1.3rem; }
+    .flsContainer .flsTutoContainer .flsTutoContent p {
+      margin-bottom: 20px;
+      position: relative;
+      padding: 0 30px;
+      text-align: left;
+      letter-spacing: normal;
+      line-height: 1.3rem;
+      z-index: 2; }
+    .flsContainer .flsTutoContainer .flsTutoContent .flsTutoControls {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: 1px solid black;
+      border-radius: 24px;
+      background-color: white; }
+    .flsContainer .flsTutoContainer .flsTutoContent .flsTutoImgArrow {
+      margin: 0 4px 0 6px;
+      width: 32px;
+      height: auto;
+      vertical-align: middle; }
+    .flsContainer .flsTutoContainer .flsTutoContent .flsTutoPoints {
+      margin-left: 80px; }
+    .flsContainer .flsTutoContainer .flsTutoImgPotiron, .flsContainer .flsTutoContainer .flsTutoImgPoire, .flsContainer .flsTutoContainer .flsTutoImgTomate, .flsContainer .flsTutoContainer .flsTutoImgAutumn, .flsContainer .flsTutoContainer .flsTutoImgSpring {
+      position: absolute;
+      width: 96px;
+      height: auto;
+      opacity: .9; }
+    .flsContainer .flsTutoContainer .flsTutoImgPotiron {
+      left: 20%;
+      top: 17px;
+      transform: rotate(7deg); }
+    .flsContainer .flsTutoContainer .flsTutoImgPoire {
+      left: 9%;
+      top: 50px;
+      transform: rotate(12deg); }
+    .flsContainer .flsTutoContainer .flsTutoImgTomate {
+      right: 0;
+      top: 168px;
+      transform: rotate(50deg); }
+    .flsContainer .flsTutoContainer .flsTutoImgAutumn {
+      left: 2%;
+      top: 446px;
+      transform: rotate(-20deg); }
+    .flsContainer .flsTutoContainer .flsTutoImgSpring {
+      right: 8%;
+      top: 24px;
+      transform: rotate(9deg); }
   .flsContainer .flsUiContainer {
     width: 100%;
     letter-spacing: .2rem; }
@@ -188,6 +186,10 @@ body {
       justify-content: space-between;
       align-items: baseline;
       transition: background-color 1s; }
+      .flsContainer .flsUiContainer .flsDateSeasonContainer img {
+        width: 32px;
+        height: auto;
+        vertical-align: middle; }
       .flsContainer .flsUiContainer .flsDateSeasonContainer span {
         flex: 1; }
       .flsContainer .flsUiContainer .flsDateSeasonContainer .flsDateContainer {
@@ -243,7 +245,7 @@ body {
       .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsCellColor, .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsCellColor {
         background-color: rgba(225, 225, 255, 0.2); }
     .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer .flsMonthToEat {
-      background-color: rgba(0, 60, 120, 0.8); }
+      background-color: #3c865f; }
     .flsContainer .flsFinalAnwsersBoardContainer .flsFinalAnwserContainer span {
       display: flex;
       justify-content: center;
@@ -401,7 +403,33 @@ body {
       .flsContainer .flsFinalAnwsersBoardContainer .boardContainer .flsWidthImgDummy {
         margin: 0 0 0 4px;
         width: 64px;
-        height: 64px; } }
+        height: 64px; }
+    .flsContainer .flsTutoContainer {
+      padding: 20px 20px; }
+      .flsContainer .flsTutoContainer h3 {
+        margin: 50px 0; }
+      .flsContainer .flsTutoContainer .flsTutoContent p {
+        text-align: center; }
+      .flsContainer .flsTutoContainer .flsTutoContent .flsTutoPoints {
+        margin-left: 0; }
+      .flsContainer .flsTutoContainer .flsTutoImgPotiron, .flsContainer .flsTutoContainer .flsTutoImgPoire, .flsContainer .flsTutoContainer .flsTutoImgTomate, .flsContainer .flsTutoContainer .flsTutoImgAutumn, .flsContainer .flsTutoContainer .flsTutoImgSpring {
+        opacity: .1; }
+      .flsContainer .flsTutoContainer .flsTutoImgPotiron, .flsContainer .flsTutoContainer .flsTutoImgSpring {
+        display: none; }
+      .flsContainer .flsTutoContainer .flsTutoImgPoire {
+        left: 0%;
+        top: 40px;
+        transform: rotate(0deg); }
+      .flsContainer .flsTutoContainer .flsTutoImgTomate {
+        right: auto;
+        left: 18%;
+        top: 56px;
+        transform: rotate(25deg); }
+      .flsContainer .flsTutoContainer .flsTutoImgAutumn {
+        left: auto;
+        right: 3%;
+        top: 50px;
+        transform: rotate(9deg); } }
 @media only screen and (orientation: landscape) and (max-width: 812px) {
   .flsContainer .flsFruitLegumeContainer {
     height: calc(100% - 75px); }

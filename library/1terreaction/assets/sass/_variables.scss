@@ -1,9 +1,14 @@
 //$fontFamTitles: 'Orbitron', sans-serif;
-$fontFamMain: 'Open Sans', sans-serif;
+//$fontFamMain: 'Open Sans', sans-serif;
 
 @font-face {
     font-family: fontFamTitles;
     src: url(assets/fonts/brauerneue.otf);
+}
+
+@font-face {
+    font-family: fontFamMain;
+    src: url(minionpro_regular.ttf);
 }
 
 $background: #0e1215;

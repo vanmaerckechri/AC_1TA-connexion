@@ -19,6 +19,10 @@ ob_start();
     </div>
     <div class="ui uiMainMenuStudent">
          <div class="step_scores statsPlanetContainer disabled_v2">
+        <?php
+            if ($GLOBALS["planetHaveStats"] == 0)
+            {
+        ?>
             <div class="statsContainer titleEnv">
                 <div class="statsBar envi"><?=$planetStats["stats_environnement"]?></div>
                 <p>Env.</p>
@@ -31,6 +35,9 @@ ob_start();
                 <div class="statsBar social"><?=$planetStats["stats_social"]?></div>
                 <p>Social</p>
             </div>
+        <?php
+            }
+        ?>
             <a class="leaveGameButton" href="../../library.php">Quitter le Jeu</a>
         </div>
     </div>

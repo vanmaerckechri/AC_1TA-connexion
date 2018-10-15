@@ -1,4 +1,6 @@
 <?php
+$playerHaveStats = true;
+$planetHaveStats = true;
 class GameInfos
 {
 	public static function loadDb()
@@ -18,10 +20,14 @@ class GameInfos
 	public static function getPlanetStatsAverage()
 	{
 		$db = self::loadDb();
-		$req = $db->prepare("SELECT stats_environnement, stats_sante, stats_social FROM 1ta_planets WHERE id_classroom = :idCr");
+		$req = $db->prepare("SELECT virgin, stats_environnement, stats_sante, stats_social FROM 1ta_planets WHERE id_classroom = :idCr");
 		$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
 		$req->execute();
 		$planetStatsAverage = $req->fetchAll(PDO::FETCH_ASSOC);
+
+		$GLOBALS["planetHaveStats"] = $planetStatsAverage[0]["virgin"];
+		unset($planetStatsAverage[0]["virgin"]);
+
 		$planetStatsAverage = $planetStatsAverage[0];
 		$req->closeCursor();
 		$req = NULL;
@@ -47,6 +53,7 @@ class GameInfos
 				$playerStats["stats_envi"] = 1;
 				$playerStats["stats_sante"] = 1;
 				$playerStats["stats_social"] = 1;
+				$GLOBALS["playerHaveStats"] = false;
 			}
 			$req->closeCursor();
 			$req = NULL;
@@ -99,7 +106,6 @@ class GameInfos
 		    'planetStats' => $planetStats,
 		    'openquestion' => $openquestions
 		];
-
 		$req->closeCursor();
 		$req = NULL;
 		return $gameInfos;
@@ -250,11 +256,12 @@ class RecordReplies
 		}
 		// update average serie stats
 		$averagePlanet = self::calculStatsAverages($statsAverageFromStudents);
-		$req = $db->prepare("UPDATE 1ta_planets SET stats_environnement = :stats_envi, stats_sante = :stats_sante, stats_social = :stats_social WHERE id_classroom = :idCr");
+		$req = $db->prepare("UPDATE 1ta_planets SET virgin = :virgin, stats_environnement = :stats_envi, stats_sante = :stats_sante, stats_social = :stats_social WHERE id_classroom = :idCr");
 		$req->bindParam(':idCr', $_SESSION['id_classroom'], PDO::PARAM_INT);
 		$req->bindParam(':stats_envi', $averagePlanet["stats_enviAverage"], PDO::PARAM_STR);
 		$req->bindParam(':stats_sante', $averagePlanet["stats_santeAverage"], PDO::PARAM_STR);
 		$req->bindParam(':stats_social', $averagePlanet["stats_socialAverage"], PDO::PARAM_STR);
+		$req->bindValue(':virgin', 0, PDO::PARAM_STR);
 		$req->execute();
 
 		$req->closeCursor();
