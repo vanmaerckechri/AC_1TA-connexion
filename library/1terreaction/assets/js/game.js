@@ -163,8 +163,14 @@ let dezoomBackground = function()
     let imgBg = document.getElementById("themeBackground");
     let questionButtons = document.querySelectorAll(".questionButton");
 
+    let questionIntro = document.getElementById("questionIntro");
+
+    questionIntro.classList.remove("disabled");
+
+    imgBg.style.transition = "all .2s";
+    imgBg.style.transform = "translate3d(0, 0, 0) scale3d(1, 1, 1)";
+
     imgBgContainer.style = "";
-    imgBg.style = "";
     for (let i = questionButtons.length - 1; i >= 0; i--)
     {
         questionButtons[i].style.display = "block";
@@ -286,7 +292,6 @@ let backOnPreviousQuestion = function()
     }
     else if (answerList.length == 8)
     {
-        console.log("ok")
         document.getElementById("openQuestionTextArea").classList.add("disabled");
         document.getElementById("questionContainer").classList.add("disabled_v2");
         document.getElementById("propositionsContainer").classList.remove("disabled");
@@ -360,7 +365,7 @@ let displayQuestion = function(questionIndex, event)
 
             //document.getElementById("propositionsContainer").classList.toggle("disabled_v2");
             document.getElementById("questionContainer").classList.toggle("disabled_v2");
-            document.getElementById("themeBackground").classList.toggle("disabled_v2");
+            //document.getElementById("themeBackground").classList.toggle("disabled_v2");
         }
 
         let zoomOnQuestionArea = function(event)
@@ -381,13 +386,14 @@ let displayQuestion = function(questionIndex, event)
 
             imgBgContainer.style.width = imgBgWidth + "px";
             imgBgContainer.style.height = imgBgHeight + questionIntro.offsetHeight + "px";
-            imgBgContainer.style.overflow = "hidden";
+            //imgBgContainer.style.overflow = "hidden";
 
             let translateX = ((imgBgWidth / 2) - questionAreaPosX) * 3;
             let translateY = ((imgBgHeight / 2) - questionAreaPosY) * 3;
 
-            imgBg.style.transition = "all 2s";
-            imgBg.style.transform = "translate("+translateX+"px, "+translateY+"px) scale(3)";
+            imgBg.style.transition = "all 1s";
+            imgBg.style.transform = "translate3d("+translateX+"px, "+translateY+"px, 0) scale3d(3, 3, 3)";
+            questionIntro.classList.add("disabled");
 
             for (let i = questionButtons.length - 1; i >= 0; i--)
             {
@@ -396,7 +402,7 @@ let displayQuestion = function(questionIndex, event)
             let waitForGetQuestion = setTimeout(function()
             {
                 getQuestion();
-            }, 500);
+            }, 250);
         }
         zoomOnQuestionArea(event);
         propositions[2].onload = function()
@@ -584,7 +590,7 @@ let fitBackgroundQuestions = function()
     //questionContainer.style.width = themeBackground.offsetWidth + "px";
 
     //questionContainer.style.left = themeBackground.offsetLeft + "px";
-    questionContainer.style.top = themeBackground.offsetTop + "px";
+    //questionContainer.style.top = themeBackground.offsetTop + "px";
 
     // circles position(button to call a question)
     for(let question in quiz) 

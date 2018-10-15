@@ -118,10 +118,10 @@ const quizA2 =
 	{
 		intro: "« C'est l'heure du souper ! »",
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		imageSrc: "assets/img/alim_bg02.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 30,
-	    yOrigin: 25,
+	    xOrigin: 27,
+	    yOrigin: 65,
 	    tag: document.getElementById("questionButton01"),
 	    question: "Aujourd’hui, c’est jour de poisson ! Vous allez manger",
 	    proposition01: 
@@ -152,10 +152,10 @@ const quizA2 =
 	question02: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		imageSrc: "assets/img/alim_bg02.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 65,
-	    yOrigin: 60,
+	    xOrigin: 60,
+	    yOrigin: 30,
 	   	tag: document.getElementById("questionButton02"),
 	    question: "Miam des fruits! Que choisis-tu pour le desert?",
 	    proposition01: 
@@ -186,10 +186,10 @@ const quizA2 =
 	question03: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		imageSrc: "assets/img/alim_bg02.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 40,
-	    yOrigin: 70,
+	    xOrigin: 25,
+	    yOrigin: 39,
 	   	tag: document.getElementById("questionButton03"),
 	    question: "À la tv, on parle des agriculteurs brésiliens qui ne sont pas contents parce qu’ils ont faim. Que fais-tu ?",
 	   	proposition01: 
@@ -224,10 +224,10 @@ const quizA3 =
 	{
 		intro: "« Tu pars faire les courses avec les parents. Tu t’emmitoufles dans ton manteau parce qu’il fait très froid en ce mois de décembre. Que mettez-vous dans le caddie ? »",
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		imageSrc: "assets/img/alim_bg03.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 30,
-	    yOrigin: 30,
+	    xOrigin: 74,
+	    yOrigin: 45,
 	    tag: document.getElementById("questionButton01"),
 	    question: "Au rayon boucherie, que préfères-tu ?",
 	    proposition01: 
@@ -258,10 +258,10 @@ const quizA3 =
 	question02: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		imageSrc: "assets/img/alim_bg03.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 50,
-	    yOrigin: 75,
+	    xOrigin: 53,
+	    yOrigin: 41,
 	   	tag: document.getElementById("questionButton02"),
 	    question: "Au magain, tu vois les bouteilles d'eau dont tu as vu la pub le matin à la tv...",
 	    proposition01: 
@@ -292,10 +292,10 @@ const quizA3 =
 	question03: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		imageSrc: "assets/img/alim_bg03.svg",
 	    sizeOrigin: 4,
-	    xOrigin: 60,
-	    yOrigin: 20,
+	    xOrigin: 35,
+	    yOrigin: 45,
 	   	tag: document.getElementById("questionButton03"),
 	    question: "Tu as un petit creux, tes parents te laissent choisir un produit. Lequel choisis-tu ?",
 	    proposition01: 

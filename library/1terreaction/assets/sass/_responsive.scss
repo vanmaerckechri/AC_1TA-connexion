@@ -110,7 +110,9 @@
 			}
 			.questionContainer
 			{
-				height: calc(100% - 47px);
+				//height: calc(100% - 47px);
+				margin-top: 0;
+				max-height: calc(100vh - 42px);
 				.question
 				{
 					font-size: .8rem;
@@ -121,6 +123,7 @@
 					{
 						.proposition
 						{
+							position: static;
 							max-width: 64px;
 						}
 						.propositionText
