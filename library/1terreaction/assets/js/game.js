@@ -386,8 +386,8 @@ let displayQuestion = function(questionIndex, event)
 
             minimizeIntroductionQuestions();
 
-            imgBgContainer.style.width = imgBgWidth + "px";
-            imgBgContainer.style.height = imgBgHeight + questionIntro.offsetHeight + "px";
+            /*imgBgContainer.style.width = imgBgWidth + "px";
+            imgBgContainer.style.height = imgBgHeight + questionIntro.offsetHeight + "px";*/
             //imgBgContainer.style.overflow = "hidden";
 
             let translateX = ((imgBgWidth / 2) - questionAreaPosX) * 3;
