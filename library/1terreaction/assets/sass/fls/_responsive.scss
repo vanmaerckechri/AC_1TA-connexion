@@ -173,8 +173,13 @@
 	  			}
 	  		}
 	  	}
+	  	.flsTuto
+		{
+		    justify-content: flex-start;
+		}
 	  	.flsTutoContainer
 	  	{
+	  		border-radius: 0;
 	  		padding: 20px 20px;
 	  		h3
 	  		{
@@ -189,36 +194,20 @@
 		  		.flsTutoPoints
 		  		{
 		  			margin-left: 0;
+		  			flex-wrap: wrap;
+		  			justify-content: space-between;
+		  			p
+		  			{
+		  				width: 100%;
+		  			}
+		  		}
+		  		.flsTutoFruitLegShadow
+		  		{
+		  			display: inline-block;
+		  			top: unset;
+		  			left: unset;
 		  		}
 		  	}
-	  		.flsTutoImgPotiron, .flsTutoImgPoire, .flsTutoImgTomate, .flsTutoImgAutumn, .flsTutoImgSpring
-    		{
-    			opacity: .1;
-    		}
-    		.flsTutoImgPotiron, .flsTutoImgSpring
-		    {
-		    	display: none;
-		    }
-		    .flsTutoImgPoire
-		    {
-		      left: 0%;
-		      top: 40px;
-		      transform: rotate(0deg);
-		    }
-		    .flsTutoImgTomate
-		    {
-		      right: auto;
-		      left: 18%;
-		      top: 56px;
-		      transform: rotate(25deg);      
-		    }
-		    .flsTutoImgAutumn
-		    {
-		      left: auto;
-		      right: 3%;
-		      top: 50px;
-		      transform: rotate(9deg);
-		    }
 	  	}
 	}
 }

@@ -408,7 +408,7 @@ let displayQuestion = function(questionIndex, event)
         propositions[2].onload = function()
         {
             fitBackgroundQuestions();
-             propositions[2].onload = null;
+            propositions[2].onload = null;
         }
     }
 }

@@ -29,6 +29,7 @@ body
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow-y: auto;
@@ -90,45 +91,61 @@ body
       }
       .flsTutoPoints
       {
-        margin-left: 80px;
+        position: relative;
+        display: flex;
       }
     }
-    .flsTutoImgPotiron, .flsTutoImgPoire, .flsTutoImgTomate, .flsTutoImgAutumn, .flsTutoImgSpring
+    .flsTutoFruitLegShadow
     {
-      position: absolute;
+      position: relative;
       width: 96px;
-      height: auto;
+      height: 96px;
+      left: 0;
+      top: 0;
       opacity: .9;
+      &::after
+      {
+        border-radius: 50%;
+        position: absolute;
+        content: "";
+        left: 50%;
+        bottom: 0;
+        width: 64px;
+        height: 64px;
+        background-color: black;
+        opacity: .5;
+        color: red;
+        z-index: 1;
+        transform-origin: bottom;
+        transform: translate(-50%, -5%) scale(.8, .2);
+        animation: jumpTomateShadow 1s linear infinite;
+      }
     }
-    .flsTutoImgPotiron
+    .flsTutoFruitLeg
     {
-      left: 20%;
-      top: 17px;
-      transform: rotate(7deg);
+      position: relative;
+      width: 96px;
+      height: 96px;
+      transform-origin: bottom;
+      animation: jumpTomate 1s linear infinite;
+      z-index: 2;
     }
-    .flsTutoImgPoire
+    .flsTutoTomate
     {
-      left: 9%;
-      top: 50px;
-      transform: rotate(12deg);
+      left: 40px;
     }
-    .flsTutoImgTomate
+    .flsTutoPotiron
     {
-      right: 0;
-      top: 168px;
-      transform: rotate(50deg);      
-    }
-    .flsTutoImgAutumn
-    {
-      left: 2%;
-      top: 446px;
-      transform: rotate(-20deg);
-    }
-    .flsTutoImgSpring
-    {
-      right: 8%;
-      top: 24px;
-      transform: rotate(9deg);
+      left: 150px;
+      top: -15px;
+      &::after
+      {
+        animation-delay: -1.3s;
+      }
+      .flsTutoFruitLeg
+      {
+        animation-delay: -1.3s;
+      }
     }
 	}
   	.flsUiContainer
