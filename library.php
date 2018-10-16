@@ -129,7 +129,7 @@ if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
         else
         {
             $firsCo = "true";
-            $_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Bienvenue! Pour votre première connexion veuillez personnaliser votre avatar.</span>";
+            $_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Bienvenue! Veuillez personnaliser votre avatar.</span>";
             ?>
             <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
             <?php
@@ -244,7 +244,7 @@ $avatarCustom = ob_get_clean();
     </div>
     <footer>
         <div class="producer">
-            <a href="http://www.annoncerlacouleur.be/" target="_blank" rel="noopener">Annoncer la Couleur</a>
+            <p><a href="http://www.wikicm.be" target="_blank" rel="noopener">WikiCM</a>, centre de connaissances coordonné par <a href="http://www.annoncerlacouleur.be" target="_blank" rel="noopener">Annoncer la Couleur</a>
         </div>
     </footer>
     <script>

@@ -310,15 +310,15 @@ const quizA3 =
 	    {
 	    	proposition: "Des bonbons",
 	    	imageSrc: "assets/img/candy.svg",
-	    	stats_environnement: 0,
-	    	stats_sante: 0,
-	    	stats_social: 0
+	    	stats_environnement: 1,
+	    	stats_sante: 1,
+	    	stats_social: 1
 	    },	   
 	    proposition03: 
 	    {
 	    	proposition: "Du chocolat équitable",
 	    	imageSrc: "assets/img/chocolate.svg",
-	    	stats_environnement: 0,
+	    	stats_environnement: 2,
 	    	stats_sante: 1,
 	    	stats_social: 2
 	    },

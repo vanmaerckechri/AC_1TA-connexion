@@ -1,4 +1,14 @@
-$ac-blue: #4ab4f1;
+@font-face {
+    font-family: 'fontFamTitles';
+    src: url(../fonts/brauerneue.otf);
+}
+
+@font-face {
+    font-family: 'fontFamMain';
+    src: url(../fonts/minionpro_regular.otf);
+}
+
+$ac-blue: #5cbced;
 $enabel-red: #ce1d21;
 $enabel-grey: #575656;
 $enabel-yellow: #fcc004;

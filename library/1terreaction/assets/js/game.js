@@ -89,17 +89,19 @@ let sendToDb = function()
     {
         let index = cycleShift + questionList[i] - 1;
         cleanReplies[index] = answerList[i];
+
+        statsEnv[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_environnement"];
+        statsSan[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_sante"];
+        statsSo[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_social"];
+
         if (i == 2 || i == 5)
         {
             currentTheme = currentTheme[0] + ((1 * currentTheme[1]) + 1);
             updateQuiz(currentTheme);
             cycleShift += 3;
         }
-        statsEnv[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_environnement"];
-        statsSan[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_sante"];
-        statsSo[index] = quiz["question0"+questionList[i]]["proposition0"+answerList[i]]["stats_social"];
-
     }
+
     cleanReplies.push(document.getElementById("openQuestionTextArea").value);
 
     let themeIndex = currentTheme.slice(0, 1).charCodeAt() - 65//(A = first theme = 65)

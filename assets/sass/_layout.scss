@@ -3,6 +3,7 @@
 {
 	.connexion
 	{
+		margin-bottom: 10px;
 		border-bottom-right-radius: 10px;
 		border-top-right-radius: 10px;
 		padding: 10px;
@@ -131,7 +132,7 @@
 						img
 						{
 							position: absolute;
-							left: -64px;
+							left: -75px;
 							top: -24px;
 							width: 64px;
 							height: 64px;
@@ -160,7 +161,7 @@
 			letter-spacing: 1.1px;
 			.classname
 			{
-				font-family: 'Open Sans', sans-serif;
+				font-family: 'fontFamTitles';
 				font-size: 1rem;
 			}
 		}
@@ -323,24 +324,38 @@
 			}
 		}
 	}
+	footer
+	{
+		box-shadow: 0px 0px 3px 1px rgba(0, 0, 50, .2);
+	}
+
 }
 .producer
 {
-	text-align: right;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	p
+	{
+		font-size: .8rem;
+	}
 	a
 	{
-		margin-left: 10px;
 		border-bottom: 2px solid white;
 		text-decoration: none;
-		color: $enabel-grey;
-		font-size: .8rem;
 		font-style: italic;
 		transition: color .3s, border-color .5s;
+		color: $ac-blue;
 		&:hover
 		{
 			border-color: $ac-blue;
 			color: black;
 		}
+	}
+	img
+	{
+		width: 64px;
+		height: auto;
 	}
 }
 
@@ -416,7 +431,7 @@
 				border: 3px solid transparent;
 				border-radius: 8px;
 				padding: 4px 6px;
-				font-family: 'Open Sans', sans-serif;
+				font-family: 'fontFamTitles';
 				transition: all .3s;
 				&:hover
 				{
@@ -491,7 +506,7 @@
 				border: 3px solid transparent;
 				border-radius: 8px;
 				padding: 4px 6px;
-				font-family: 'Open Sans', sans-serif;
+				font-family: 'fontFamTitles';
 				transition: all .3s;
 				&:hover
 				{

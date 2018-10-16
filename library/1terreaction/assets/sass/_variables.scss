@@ -2,13 +2,13 @@
 //$fontFamMain: 'Open Sans', sans-serif;
 
 @font-face {
-    font-family: fontFamTitles;
-    src: url(assets/fonts/brauerneue.otf);
+    font-family: 'fontFamTitles';
+    src: url(../../../../assets/fonts/brauerneue.otf);
 }
 
 @font-face {
-    font-family: fontFamMain;
-    src: url(minionpro_regular.ttf);
+    font-family: 'fontFamMain';
+    src: url(../../../../assets/fonts/minionpro_regular.otf);
 }
 
 $background: #0e1215;

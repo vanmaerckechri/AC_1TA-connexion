@@ -18,11 +18,11 @@ button {
   outline: 0; }
 
 @font-face {
-  font-family: fontFamTitles;
-  src: url(assets/fonts/brauerneue.otf); }
+  font-family: 'fontFamTitles';
+  src: url(../../../../assets/fonts/brauerneue.otf); }
 @font-face {
-  font-family: fontFamMain;
-  src: url(minionpro_regular.ttf); }
+  font-family: 'fontFamMain';
+  src: url(../../../../assets/fonts/minionpro_regular.otf); }
 /*@keyframes mainMenuOpenButton01
 {
     0%
@@ -88,14 +88,14 @@ button {
   100% {
     opacity: 0; } }
 @font-face {
-  font-family: fontFamTitles;
-  src: url(assets/fonts/brauerneue.otf); }
+  font-family: 'fontFamTitles';
+  src: url(../../../../assets/fonts/brauerneue.otf); }
 @font-face {
-  font-family: fontFamMain;
-  src: url(minionpro_regular.ttf); }
+  font-family: 'fontFamMain';
+  src: url(../../../../assets/fonts/minionpro_regular.otf); }
 html {
   background-color: #e3e9ea;
-  font-family: fontFamMain; }
+  font-family: 'fontFamMain'; }
 
 body {
   display: flex;
@@ -104,11 +104,11 @@ body {
   min-height: 100vh; }
 
 @font-face {
-  font-family: fontFamTitles;
-  src: url(assets/fonts/brauerneue.otf); }
+  font-family: 'fontFamTitles';
+  src: url(../../../../assets/fonts/brauerneue.otf); }
 @font-face {
-  font-family: fontFamMain;
-  src: url(minionpro_regular.ttf); }
+  font-family: 'fontFamMain';
+  src: url(../../../../assets/fonts/minionpro_regular.otf); }
 #container {
   background-image: url("../img/stars.jpg");
   background-repeat: repeat-x repeat-y; }
@@ -137,7 +137,7 @@ body {
   .headerProfile .profile {
     white-space: nowrap;
     color: white;
-    font-family: fontFamMain; }
+    font-family: 'fontFamMain'; }
     .headerProfile .profile .avatarContainer {
       position: relative; }
       .headerProfile .profile .avatarContainer img {
@@ -153,7 +153,7 @@ body {
       text-decoration: none; }
 
 .appTitle {
-  font-family: fontFamMain;
+  font-family: 'fontFamMain';
   font-size: 2rem;
   letter-spacing: .2rem;
   color: white; }
@@ -178,7 +178,7 @@ body {
   position: absolute;
   right: 4rem;
   bottom: 2rem;
-  font-family: fontFamMain;
+  font-family: 'fontFamMain';
   font-size: 1rem;
   color: white;
   color: white;
@@ -281,11 +281,11 @@ body {
     background-color: rgba(0, 0, 0, 0.9); }
 
 @font-face {
-  font-family: fontFamTitles;
-  src: url(assets/fonts/brauerneue.otf); }
+  font-family: 'fontFamTitles';
+  src: url(../../../../assets/fonts/brauerneue.otf); }
 @font-face {
-  font-family: fontFamMain;
-  src: url(minionpro_regular.ttf); }
+  font-family: 'fontFamMain';
+  src: url(../../../../assets/fonts/minionpro_regular.otf); }
 #container {
   position: fixed; }
 
@@ -309,7 +309,7 @@ body {
   z-index: 2; }
   .ui .planetNameContainer .planetName {
     letter-spacing: .8rem;
-    font-family: fontFamTitles;
+    font-family: 'fontFamTitles';
     font-size: 1.5rem;
     max-width: calc(100% - 50px);
     overflow: hidden;
@@ -382,13 +382,13 @@ body {
     .ui .planetInfosContainer .planetInfosTitleContainer .planetInfosTitleDummy, .ui .planetInfosContainer .planetInfosTitleContainer .planetInfosTitle, .ui .planetInfosContainer .planetInfosTitleContainer .previousNextPlButtonsContainer {
       flex: 1; }
     .ui .planetInfosContainer .planetInfosTitleContainer .planetInfosTitle {
-      font-family: fontFamTitles;
+      font-family: 'fontFamTitles';
       font-size: 1.3rem; }
   .ui .planetInfosContainer .freeClassroom {
     padding: .5rem 1rem; }
     .ui .planetInfosContainer .freeClassroom .freeClassroomName {
       display: block;
-      font-family: fontFamMain;
+      font-family: 'fontFamMain';
       font-size: 1rem;
       color: white;
       text-decoration: none; }
@@ -406,7 +406,7 @@ body {
     display: block;
     max-width: 1920px;
     width: 100%;
-    font-family: fontFamMain;
+    font-family: 'fontFamMain';
     font-size: 1rem;
     color: white;
     list-style: none; }
@@ -502,7 +502,7 @@ body {
   justify-content: center;
   align-items: baseline;
   text-align: right;
-  font-family: fontFamTitles;
+  font-family: 'fontFamTitles';
   font-size: 1rem;
   font-weight: bold;
   color: white;
@@ -566,7 +566,7 @@ body {
     right: 10px;
     top: 20px;
     border: none;
-    font-family: fontFamTitles;
+    font-family: 'fontFamTitles';
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
@@ -612,6 +612,7 @@ body {
     color: white;
     font-size: 1.5rem;
     letter-spacing: .2rem;
+    font-family: 'fontFamTitles';
     font-weight: bold;
     white-space: nowrap;
     background-color: rgba(0, 0, 55, 0.1);
@@ -645,7 +646,7 @@ body {
         padding: 1rem 0;
         width: 100px;
         height: 100px;
-        font-family: fontFamTitles;
+        font-family: 'fontFamTitles';
         font-size: .8rem;
         letter-spacing: .2rem;
         color: #003c78;
@@ -697,7 +698,7 @@ body {
       align-items: center;
       min-width: 75vw;
       min-height: 75vh;
-      font-family: fontFamTitles;
+      font-family: 'fontFamTitles';
       font-size: 1rem;
       color: black;
       background-color: rgba(0, 60, 120, 0.2); }
@@ -745,7 +746,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100%;
-    font-family: fontFamTitles;
+    font-family: 'fontFamTitles';
     background-color: black; }
     #main #step_questions .backOnPreviousQuestionButton {
       border: none;
@@ -911,11 +912,11 @@ body {
           margin: 30px 0; }
 
 @font-face {
-  font-family: fontFamTitles;
-  src: url(assets/fonts/brauerneue.otf); }
+  font-family: 'fontFamTitles';
+  src: url(../../../../assets/fonts/brauerneue.otf); }
 @font-face {
-  font-family: fontFamMain;
-  src: url(minionpro_regular.ttf); }
+  font-family: 'fontFamMain';
+  src: url(../../../../assets/fonts/minionpro_regular.otf); }
 @media (max-width: 930px) {
   .step_scores .statsContainer {
     flex: 1; } }

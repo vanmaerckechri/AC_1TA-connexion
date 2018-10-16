@@ -7,13 +7,25 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
   font: inherit;
   font-weight: normal; }
 
+@font-face {
+  font-family: 'fontFamTitles';
+  src: url(../fonts/brauerneue.otf); }
+@font-face {
+  font-family: 'fontFamMain';
+  src: url(../fonts/minionpro_regular.otf); }
+@font-face {
+  font-family: 'fontFamTitles';
+  src: url(../fonts/brauerneue.otf); }
+@font-face {
+  font-family: 'fontFamMain';
+  src: url(../fonts/minionpro_regular.otf); }
 body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'fontFamMain';
   background-color: white; }
 
 footer {
@@ -21,15 +33,14 @@ footer {
   justify-content: center;
   align-items: center;
   height: 40px;
-  width: 100%;
-  box-shadow: 0px 0px 3px 1px rgba(0, 0, 50, 0.2); }
+  width: 100%; }
 
 #main {
   width: 360px;
   text-align: center; }
 
 h1, h2, label {
-  font-family: 'Oswald', sans-serif; }
+  font-family: 'fontFamTitles'; }
 
 h1 {
   font-size: 1.5rem;
@@ -45,6 +56,12 @@ p {
 input {
   display: block; }
 
+@font-face {
+  font-family: 'fontFamTitles';
+  src: url(../fonts/brauerneue.otf); }
+@font-face {
+  font-family: 'fontFamMain';
+  src: url(../fonts/minionpro_regular.otf); }
 .smsAlert {
   display: inline-block;
   color: #ce1d21; }
@@ -68,8 +85,8 @@ input {
   transition: all .3s; }
   .formButton:hover {
     cursor: pointer;
-    background-color: #4ab4f1;
-    box-shadow: 0px 0px 20px 0px #4ab4f1; }
+    background-color: #5cbced;
+    box-shadow: 0px 0px 20px 0px #5cbced; }
 
 .deleteSomething {
   transition: all .3s; }
@@ -83,8 +100,8 @@ input {
   pointer-events: none; }
 
 .toolFocus {
-  background-color: #4ab4f1;
-  box-shadow: 0px 0px 20px 0px #4ab4f1; }
+  background-color: #5cbced;
+  box-shadow: 0px 0px 20px 0px #5cbced; }
 
 .profile {
   margin-left: 10px;
@@ -99,7 +116,7 @@ input {
   display: none !important; }
 
 .selected {
-  border: 3px solid #4ab4f1 !important;
+  border: 3px solid #5cbced !important;
   background-color: rgba(74, 180, 241, 0.2); }
 
 .modalContainer {
@@ -144,7 +161,7 @@ input {
       margin: 0 0 20px;
       color: #ce1d21; }
   .modalContainer .modalBox {
-    border: 1px solid #4ab4f1;
+    border: 1px solid #5cbced;
     flex-direction: column;
     justify-content: center; }
   .modalContainer input {
@@ -158,7 +175,14 @@ input {
     margin: 0 0 20px;
     font-size: .9rem; }
 
+@font-face {
+  font-family: 'fontFamTitles';
+  src: url(../fonts/brauerneue.otf); }
+@font-face {
+  font-family: 'fontFamMain';
+  src: url(../fonts/minionpro_regular.otf); }
 #main .connexion {
+  margin-bottom: 10px;
   border-bottom-right-radius: 10px;
   border-top-right-radius: 10px;
   padding: 10px;
@@ -170,7 +194,7 @@ input {
   #main .connexion .userInfosLink {
     border-bottom: 2px solid white;
     text-decoration: none;
-    color: #4ab4f1;
+    color: #5cbced;
     font-size: .8rem;
     font-style: italic;
     background-color: transparent;
@@ -201,12 +225,12 @@ input {
       background-color: rgba(74, 180, 241, 0.2);
       transition: background-color .5s; }
       #main .connexion form .formInput:focus {
-        border-color: #4ab4f1;
+        border-color: #5cbced;
         background-color: transparent; }
     #main .connexion form a {
       border-bottom: 2px solid white;
       text-decoration: none;
-      color: #4ab4f1;
+      color: #5cbced;
       font-size: .8rem;
       font-style: italic;
       background-color: transparent;
@@ -239,14 +263,14 @@ input {
         display: inline-block; }
       .admin header .headerContainer .headerTitle h1, .admin header .headerContainer .headerProfile h1 {
         margin-right: 20px;
-        color: #4ab4f1; }
+        color: #5cbced; }
       .admin header .headerContainer .headerTitle h2, .admin header .headerContainer .headerProfile h2 {
         font-weight: 300; }
       .admin header .headerContainer .headerTitle .profile .avatarContainer, .admin header .headerContainer .headerProfile .profile .avatarContainer {
         position: relative; }
         .admin header .headerContainer .headerTitle .profile .avatarContainer img, .admin header .headerContainer .headerProfile .profile .avatarContainer img {
           position: absolute;
-          left: -64px;
+          left: -75px;
           top: -24px;
           width: 64px;
           height: 64px; }
@@ -264,7 +288,7 @@ input {
       margin-bottom: 5px;
       letter-spacing: 1.1px; }
       .admin .navBar h2 .classname {
-        font-family: 'Open Sans', sans-serif;
+        font-family: 'fontFamTitles';
         font-size: 1rem; }
     .admin .navBar .navBar_buttonsContainer {
       white-space: nowrap; }
@@ -317,14 +341,14 @@ input {
         .admin #main .list .listElementsContainer a.listElementName, .admin #main .list .listElementsContainer p.listElementName {
           padding: 8px;
           border-radius: 8px;
-          border: 1px solid #4ab4f1;
+          border: 1px solid #5cbced;
           width: 300px;
           font-size: 1rem;
           color: black;
           text-decoration: none; }
         .admin #main .list .listElementsContainer a.listElementName:hover {
           color: black;
-          background-color: #4ab4f1; }
+          background-color: #5cbced; }
         .admin #main .list .listElementsContainer p.listElementName {
           margin-bottom: 0; }
         .admin #main .list .listElementsContainer .listElementRenameContainer {
@@ -343,7 +367,7 @@ input {
             text-align: center; }
     .admin #main .formInput {
       border-radius: 8px;
-      border: 1px solid #4ab4f1;
+      border: 1px solid #5cbced;
       width: auto;
       display: block;
       text-align: center; }
@@ -355,7 +379,7 @@ input {
       margin-bottom: 15px;
       font-size: 1rem; }
       .admin #main .profilInfos p .adminAtColor {
-        color: #4ab4f1; }
+        color: #5cbced; }
       .admin #main .profilInfos p .deleteSomething {
         margin-top: 15px;
         display: inline-block; }
@@ -365,20 +389,27 @@ input {
       padding-bottom: 10px; }
     .admin #main .profilInfos .smsAlert {
       margin-bottom: 10px; }
+  .admin footer {
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 50, 0.2); }
 
 .producer {
-  text-align: right; }
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .producer p {
+    font-size: .8rem; }
   .producer a {
-    margin-left: 10px;
     border-bottom: 2px solid white;
     text-decoration: none;
-    color: #575656;
-    font-size: .8rem;
     font-style: italic;
-    transition: color .3s, border-color .5s; }
+    transition: color .3s, border-color .5s;
+    color: #5cbced; }
     .producer a:hover {
-      border-color: #4ab4f1;
+      border-color: #5cbced;
       color: black; }
+  .producer img {
+    width: 64px;
+    height: auto; }
 
 #main .libElemContainer {
   width: 100%;
@@ -421,7 +452,7 @@ input {
         text-align: left;
         color: white; }
     #main .libElemContainer .libElemLink:hover {
-      border: 3px solid #4ab4f1; }
+      border: 3px solid #5cbced; }
 #main .avatarCustomContainer {
   max-width: 100%; }
   #main .avatarCustomContainer .avatarCustomButtons {
@@ -431,10 +462,10 @@ input {
       border: 3px solid transparent;
       border-radius: 8px;
       padding: 4px 6px;
-      font-family: 'Open Sans', sans-serif;
+      font-family: 'fontFamTitles';
       transition: all .3s; }
       #main .avatarCustomContainer .avatarCustomButtons button:hover {
-        border: 3px solid #4ab4f1;
+        border: 3px solid #5cbced;
         cursor: pointer;
         background-color: white; }
   #main .avatarCustomContainer .avatarCustomYeuxContainer img, #main .avatarCustomContainer .avatarCustomLunettesContainer img, #main .avatarCustomContainer .avatarCustomBoucheContainer img, #main .avatarCustomContainer .avatarCustomCheveuxContainer img, #main .avatarCustomContainer .avatarCustomCorpsContainer img, #main .avatarCustomContainer .avatarCustomBackContainer img {
@@ -451,7 +482,7 @@ input {
     position: relative;
     width: 288px;
     height: 288px;
-    box-shadow: inset 0 0 8px #4ab4f1; }
+    box-shadow: inset 0 0 8px #5cbced; }
     #main .avatarCustomContainer .avatarCustomResult img {
       position: absolute;
       left: 50%;
@@ -481,12 +512,18 @@ input {
       border: 3px solid transparent;
       border-radius: 8px;
       padding: 4px 6px;
-      font-family: 'Open Sans', sans-serif;
+      font-family: 'fontFamTitles';
       transition: all .3s; }
       #main .avatarCustomContainer .avatarRecordButtonContainer .avatarRecordButton:hover {
-        border: 3px solid #4ab4f1;
+        border: 3px solid #5cbced;
         cursor: pointer; }
 
+@font-face {
+  font-family: 'fontFamTitles';
+  src: url(../fonts/brauerneue.otf); }
+@font-face {
+  font-family: 'fontFamMain';
+  src: url(../fonts/minionpro_regular.otf); }
 /*
 @media (max-width: 991px)
 {
