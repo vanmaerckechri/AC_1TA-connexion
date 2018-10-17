@@ -465,7 +465,7 @@ let Fruilegsais = class
 		}
 		let flsButtonsContainer = createElem("div", ["id", "class"], ["flsButtonsContainer", "flsButtonsContainer"]);
 
-		let flsFinishGameButton = createElem("button", ["id", "class"], ["flsLaunchGameButton", "flsButton flsLaunchGameButton"]);
+		let flsFinishGameButton = createElem("button", ["id", "class"], ["flsLaunchGameButton", "buttonDefault flsLaunchGameButton"]);
 		flsFinishGameButton.innerText = "continuer"
 
 		flsButtonsContainer.appendChild(flsFinishGameButton);
@@ -641,9 +641,9 @@ let Fruilegsais = class
 					flsContainer.innerHTML = req.responseText;
 
 					let flsButtonsContainer = createElem("div", ["id", "class"], ["flsButtonsContainer", "flsButtonsContainer"]);
-					let flsLaunchGameButton = createElem("button", ["id", "class"], ["flsLaunchGameButton", "flsButton flsLaunchGameButton"]);
+					let flsLaunchGameButton = createElem("button", ["id", "class"], ["flsLaunchGameButton", "buttonDefault flsLaunchGameButton"]);
 					flsLaunchGameButton.innerText = "commencer"
-					let flsPassBonusButton = createElem("button", ["id", "class"], ["flsPassBonusButton", "flsButton flsPassBonusButton"]);
+					let flsPassBonusButton = createElem("button", ["id", "class"], ["flsPassBonusButton", "buttonDefault flsPassBonusButton"]);
 					flsPassBonusButton.innerText = "passer"
 
 					flsButtonsContainer.appendChild(flsLaunchGameButton);
