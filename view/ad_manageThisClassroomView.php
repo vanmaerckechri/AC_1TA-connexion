@@ -51,7 +51,7 @@
             <p class='listElementName'><?=$name?></p>
             <p class='pwd' style="display: none;"><?=$pwd?></p>
             <div class="buttonRename">
-                <img src="assets/icons/rename.svg" alt="icone pour renommer une classe">
+                <img src="assets/img/rename.svg" alt="icone pour renommer une classe">
             </div>
         </div>
     <?php

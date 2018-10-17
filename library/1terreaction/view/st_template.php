@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--<meta name="description" content="">-->
     <title><?=$title?></title>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/ecoman_style.css">
     <link rel="stylesheet" href="assets/css/fls_style.css">

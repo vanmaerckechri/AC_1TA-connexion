@@ -49,8 +49,8 @@ ob_start();
     <script>
         let planetStats = <?=json_encode($planetStats)?>;
     </script>
-    <script src="assets/library/three.js"></script>
-    <script src="assets/library/OrbitControls.js"></script>
+    <script src="assets/threejs/three.js"></script>
+    <script src="assets/threejs/OrbitControls.js"></script>
     <script src="assets/js/st_mainmenu.js"></script>
     <script src="assets/js/stats.js"></script>
 <?php

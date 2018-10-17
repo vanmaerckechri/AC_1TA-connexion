@@ -69,8 +69,8 @@ ob_start();
         let freeClassroomLength = <?=count($freeClassrooms)?>;
         planetsList.push({name: "Créer une Nouvelle Planète"});
     </script>
-    <script src="assets/library/three.js"></script>
-    <script src="assets/library/OrbitControls.js"></script>
+    <script src="assets/threejs/three.js"></script>
+    <script src="assets/threejs/OrbitControls.js"></script>
     <script src="assets/js/tools.js"></script>    
     <script src="assets/js/stats.js"></script>
     <script src="assets/js/questions.js"></script>             

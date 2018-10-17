@@ -46,7 +46,7 @@
 				<input class="listElementDeleteCheck" type="checkbox" name="classrooms[]" value="<?=$row['id']?>">
 				<a class='listElementName' href='admin.php?action=manageThisClassroom&idcr=<?=$row['id']?>'><?=$name?></a>
 	            <div class="buttonRename">
-	                <img src="assets/icons/rename.svg" alt="icone pour renommer une classe">
+	                <img src="assets/img/rename.svg" alt="icone pour renommer une classe">
 	            </div>
 			</div>
 		<?php
