@@ -236,7 +236,7 @@
 			width: 100%;
 			display: inline-block;
 			color: rgb(0, 60, 120);
-			background-color: rgba(255, 255, 255, .8);
+			background-color: $ac-blue;
 		}
 		.questionReplyRow
 		{
@@ -450,9 +450,11 @@
 {
 	position: fixed;
 	top: 0;
-	left: 0;
+	left: 50%;
 	width: 100%;
+	max-width: 1920px;
 	height: 100%;
+	transform: translateX(-50%);
 	.leaveGameButton
 	{
 		margin-left: 2rem;
@@ -483,6 +485,7 @@
 			width: 100vw;
 			height: 100vh;
 			object-fit: cover;
+			pointer-events: none;
 		}
 	}
 	.homeSms
@@ -722,9 +725,9 @@
 			}
 			.questionButton
 			{
-				border: 2px solid rgba(100, 210, 25, .9);
+				border: 2px solid rgba(0, 177, 277, .9);
 				border-radius: 50%;
-				background-color: rgba(100, 210, 25, .7);
+				background-color: rgba(0, 177, 277, .7);
 				position: absolute;
 				animation: drawAttentionQuestionButton 1s infinite alternate;
 				transition: all .5s;
@@ -762,8 +765,8 @@
 			text-align: center;
 			font-size: 1rem;
 			max-width: 100%;
-			background-color: rgba(0, 60, 120, 1);
-			color: white;
+			background-color: white;
+			color: black;
 			box-shadow: 0px 3px 5px 2px rgba(24, 37, 59, 0.5);
 			transform-origin: top;
         	transform: translateX(-50%) scaleY(1);
@@ -778,7 +781,7 @@
 		{
 			overflow: hidden;
         	transform: translateX(-50%) scaleY(.2);
-        	color: rgba(0, 60, 120, 1);
+        	color: white;
 		}
 
 		.questionContainer
@@ -885,6 +888,116 @@
 				.propositionContainerMid
 				{
 					margin: 30px 0;
+				}
+			}
+		}
+	}
+}
+// about
+.aboutUsButton
+{
+	margin: 110px 0 0 4rem;
+	right: unset;
+	bottom: unset;
+	background-color: $ac-blue;
+}
+.aboutUsContainer
+{
+	margin-top: 105px;
+	position: fixed;
+	width: 100vw;
+	height: calc(100vh - 105px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(255, 255, 255, .8);
+	z-index: 2;
+	.aboutUs
+	{
+		padding: 20px 30px 0 30px;
+		border-radius: 12px;
+		width: 90vw;
+		max-height: 90vh;
+		max-width: 720px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-color: white;
+		.aboutUsCloseModalContainer
+		{
+			margin-bottom: 20px;
+			width: 100%;
+			text-align: right;
+			.aboutUsCloseModal
+			{
+				color: black;
+				font-size: 1.2rem;
+				transition: all .2s;
+				&:hover
+				{
+					cursor: pointer;
+					color: $ac-blue;
+					text-shadow: 0 0 15px $ac-blue, 0 0 30px $ac-blue;
+				}
+			}
+		}
+		.aboutUsContent
+		{
+			margin-bottom: 40px;
+			h2
+			{
+				margin-bottom: 20px;
+				padding: 4px 8px;
+				border-radius: 4px;
+				font-family: 'fontFamTitles';
+				font-size: 1.4rem;
+				background: linear-gradient(to right, rgba(0, 177, 227, .9), rgba(0, 177, 227, 0));
+			}
+			p
+			{
+				margin-bottom: 10px;
+				font-size: 1rem;
+				line-height: 1.3rem;
+				a
+				{
+					border-bottom: 2px solid transparent;
+					text-decoration: none;
+					font-style: italic;
+					color: $ac-blue;
+					transition: all .3s;
+					&:hover
+					{
+						border-bottom: 2px solid rgba(0, 177, 227, .9);
+						color: black;
+					}
+				}
+			}
+			.aboutUsPartnersContainer
+			{	
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: center;		
+				.aboutUsPartnerImg
+				{
+					margin: 0 20px;
+					border-radius: 8px;
+					flex: 1;
+					min-width: 128px;
+					img
+					{
+						border-radius: 8px;
+						width: 100%;
+					}
+				}
+				a
+				{
+					border: 2px solid transparent;
+					transition: all .3s;
+					&:hover
+					{
+						border-color: rgba(0, 177, 227, .9);
+					}
 				}
 			}
 		}

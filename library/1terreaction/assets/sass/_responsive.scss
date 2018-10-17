@@ -260,6 +260,34 @@
 			}
 		}
 	}
+	//about us
+	.ui
+	{
+		.aboutUsButton
+		{
+			margin: 50px 0 0 20px;
+			bottom: unset;
+			right: unset;
+		}
+		.aboutUsContainer
+		{
+			margin-top: 46px;
+			height: calc(100vh - 46px);
+			.aboutUs
+			{
+				.aboutUsContent
+				{
+					.aboutUsPartnersContainer
+					{	
+						.aboutUsPartnerImg
+						{
+							margin: 0 20px 20px 20px;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 //and (max-width: 820px)
 @media only screen and (max-height: 620px) and (orientation: landscape)

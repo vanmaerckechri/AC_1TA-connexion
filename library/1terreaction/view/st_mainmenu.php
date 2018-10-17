@@ -18,6 +18,7 @@ ob_start();
         </div>
     </div>
     <div class="ui uiMainMenuStudent">
+        <button id="aboutUsButton" class="buttonDefault aboutUsButton">À Propos</button>
          <div class="step_scores statsPlanetContainer disabled_v2">
         <?php
             if ($GLOBALS["planetHaveStats"] == 0)

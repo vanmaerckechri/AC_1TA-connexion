@@ -14,17 +14,18 @@
 		border: 1px solid white;
 		border-radius: 8px;
 		padding: 8px 10px;
-		font-family: $font-title;
-		color: rgba(255, 255, 255, .9);
+		font-family: 'fontFamTitles';
+		color: white;
 		font-size: 1rem;
 		font-weight: bold;
-		background-color: #003c78;
+		background-color: rgb(0, 177, 227);
 		transition: all .5s;
 		&:hover
 		{
+			border: 1px solid black;
 			cursor: pointer;
-			color: black;
-			background-color: white;
+			color: rgb(0, 60, 120);
+			background-color: rgb(255, 255, 255);
 		}
 	}
 }

@@ -95,11 +95,10 @@
 	//font-family: 'Orbitron', sans-serif;
 	font-family: 'fontFamMain';
 	font-size: 1rem;
-	color: rgb(255, 255, 255);
 	color: white;
 	font-weight: bold;
 	text-decoration: none;
-	background-color: rgb(0, 60, 120);
+	background-color: $ac-blue;
 	transition: all .5s;
 	z-index: 2;
 	&:hover

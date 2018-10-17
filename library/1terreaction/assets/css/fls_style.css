@@ -9,6 +9,8 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
   vertical-align: baseline;
   font-weight: normal; }
 
+/*$font-title: 'Orbitron', sans-serif;
+$font-main: 'Open Sans', sans-serif;*/
 @keyframes swingLeftRight {
   0% {
     transform: translateX(0px); }
@@ -43,6 +45,10 @@ html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquot
   100% {
     opacity: .3;
     transform: translate(-50%, -5%) scale(0.9, 0.2); } }
+/*$font-title: 'Orbitron', sans-serif;
+$font-main: 'Open Sans', sans-serif;*/
+/*$font-title: 'Orbitron', sans-serif;
+$font-main: 'Open Sans', sans-serif;*/
 body {
   width: 100vw;
   height: 100vh;
@@ -61,7 +67,7 @@ body {
   height: 100%;
   background-color: #2c2e35;
   color: white;
-  font-family: "Orbitron", sans-serif; }
+  font-family: 'fontFamTitles'; }
   .flsContainer .flsCanvasContainer {
     display: none; }
   .flsContainer .flsTuto {
@@ -79,14 +85,14 @@ body {
     border-radius: 24px;
     position: relative;
     max-width: 768px;
-    font-family: font-main;
+    font-family: 'fontFamMain';
     color: black;
     background-color: rgba(255, 255, 255, 0.9); }
     .flsContainer .flsTutoContainer h2, .flsContainer .flsTutoContainer h3 {
       margin: 30px 0;
       position: relative;
       z-index: 2;
-      font-family: font-title;
+      font-family: 'fontFamTitles';
       font-weight: bold;
       letter-spacing: normal; }
     .flsContainer .flsTutoContainer h2 {
@@ -112,47 +118,40 @@ body {
       width: 32px;
       height: auto;
       vertical-align: middle; }
-    .flsContainer .flsTutoContainer .flsTutoContent .flsTutoPoints {
-      position: relative;
-      display: flex; }
-    .flsContainer .flsTutoContainer .flsTutoFruitLegShadow {
-      position: relative;
-      width: 96px;
-      height: 96px;
-      left: 0;
-      top: 0;
-      opacity: .9; }
-      .flsContainer .flsTutoContainer .flsTutoFruitLegShadow::after {
-        border-radius: 50%;
-        position: absolute;
-        content: "";
-        left: 50%;
-        bottom: 0;
-        width: 64px;
-        height: 64px;
-        background-color: black;
-        opacity: .5;
-        color: red;
-        z-index: 1;
-        transform-origin: bottom;
-        transform: translate(-50%, -5%) scale(0.8, 0.2);
-        animation: jumpTomateShadow 1s linear infinite; }
+    .flsContainer .flsTutoContainer .flsTutoShadows {
+      border-radius: 50%;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      background-color: black;
+      opacity: .5;
+      color: red;
+      z-index: 1;
+      transform-origin: bottom;
+      transform: translate(-50%, -5%) scale(0.8, 0.2);
+      animation: jumpTomateShadow 1s linear infinite; }
+    .flsContainer .flsTutoContainer .flsTutoShadowsPotiron {
+      left: 650px;
+      bottom: 10px;
+      animation-delay: -1.3s; }
+    .flsContainer .flsTutoContainer .flsTutoShadowsTomate {
+      left: 408px;
+      bottom: 0;
+      animation-delay: -1.3s; }
     .flsContainer .flsTutoContainer .flsTutoFruitLeg {
-      position: relative;
+      position: absolute;
       width: 96px;
       height: 96px;
       transform-origin: bottom;
       animation: jumpTomate 1s linear infinite;
-      z-index: 2; }
+      z-index: 11; }
     .flsContainer .flsTutoContainer .flsTutoTomate {
-      left: 40px; }
+      left: 360px;
+      bottom: 0; }
     .flsContainer .flsTutoContainer .flsTutoPotiron {
-      left: 150px;
-      top: -15px; }
-      .flsContainer .flsTutoContainer .flsTutoPotiron::after {
-        animation-delay: -1.3s; }
-      .flsContainer .flsTutoContainer .flsTutoPotiron .flsTutoFruitLeg {
-        animation-delay: -1.3s; }
+      left: 600px;
+      bottom: 10px;
+      animation-delay: -1.3s; }
   .flsContainer .flsUiContainer {
     width: 100%;
     letter-spacing: .2rem; }
@@ -318,6 +317,8 @@ body {
       width: 128px;
       height: 128px; }
 
+/*$font-title: 'Orbitron', sans-serif;
+$font-main: 'Open Sans', sans-serif;*/
 .flsButtonsContainer {
   padding: 0 4rem 20px;
   position: fixed;
@@ -331,15 +332,16 @@ body {
     border: 1px solid white;
     border-radius: 8px;
     padding: 8px 10px;
-    font-family: "Orbitron", sans-serif;
-    color: rgba(255, 255, 255, 0.9);
+    font-family: 'fontFamTitles';
+    color: white;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #003c78;
+    background-color: #00b1e3;
     transition: all .5s; }
     .flsButtonsContainer .flsButton:hover {
+      border: 1px solid black;
       cursor: pointer;
-      color: black;
+      color: #003c78;
       background-color: white; }
 
 .flexEnd {
@@ -369,6 +371,8 @@ body {
   border-bottom: 1px solid rgba(213, 209, 255, 0.8);
   background-color: rgba(213, 209, 255, 0.4); }
 
+/*$font-title: 'Orbitron', sans-serif;
+$font-main: 'Open Sans', sans-serif;*/
 @media (max-width: 812px) {
   .flsButtonsContainer {
     padding: 0 20px 10px; }
@@ -442,16 +446,18 @@ body {
         margin: 50px 0; }
       .flsContainer .flsTutoContainer .flsTutoContent p {
         text-align: center; }
-      .flsContainer .flsTutoContainer .flsTutoContent .flsTutoPoints {
-        margin-left: 0;
-        flex-wrap: wrap;
-        justify-content: space-between; }
-        .flsContainer .flsTutoContainer .flsTutoContent .flsTutoPoints p {
-          width: 100%; }
-      .flsContainer .flsTutoContainer .flsTutoContent .flsTutoFruitLegShadow {
-        display: inline-block;
-        top: unset;
-        left: unset; } }
+      .flsContainer .flsTutoContainer .flsTutoContent .flsTutoShadowsPotiron {
+        left: unset;
+        right: 0;
+        bottom: 0; }
+      .flsContainer .flsTutoContainer .flsTutoContent .flsTutoShadowsTomate {
+        left: 57px; }
+      .flsContainer .flsTutoContainer .flsTutoContent .flsTutoTomate {
+        left: 10px; }
+      .flsContainer .flsTutoContainer .flsTutoContent .flsTutoPotiron {
+        left: unset;
+        right: 18px;
+        bottom: 0; } }
 @media only screen and (orientation: landscape) and (max-width: 812px) {
   .flsContainer .flsFruitLegumeContainer {
     height: calc(100% - 75px); }

@@ -173,5 +173,33 @@ let updateRender = function()
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 window.addEventListener("resize", updateRender, false);
-// -- NEXT MENU(LOCAL BACKGROUND) --
+
+// -- ABOUT US MODAL --
+let loadAboutUs = function()
+{
+    const req = new XMLHttpRequest();
+    req.onreadystatechange = function(event)
+    {
+        if (this.readyState === XMLHttpRequest.DONE)
+        {
+            if (this.status === 200)
+            {
+                document.querySelector('.uiMainMenuStudent').innerHTML += req.responseText;
+                document.getElementById('aboutUsContainer').classList.add("disabled");
+                document.getElementById('aboutUsCloseModal').onclick = function()
+                {
+                    document.getElementById('aboutUsContainer').classList.add("disabled");
+                }
+                let launchAboutUs = function()
+                {
+                    document.getElementById('aboutUsContainer').classList.remove("disabled");
+                }
+                document.getElementById("aboutUsButton").onclick = launchAboutUs;
+            }
+        }
+    };
+    req.open('GET', 'view/aboutus.html', true);
+    req.send(null);
+}
+loadAboutUs();
 });

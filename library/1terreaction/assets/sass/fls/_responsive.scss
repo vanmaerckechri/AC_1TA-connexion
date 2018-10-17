@@ -191,22 +191,26 @@
 		  		{
 		  			text-align: center;
 		  		}
-		  		.flsTutoPoints
-		  		{
-		  			margin-left: 0;
-		  			flex-wrap: wrap;
-		  			justify-content: space-between;
-		  			p
-		  			{
-		  				width: 100%;
-		  			}
-		  		}
-		  		.flsTutoFruitLegShadow
-		  		{
-		  			display: inline-block;
-		  			top: unset;
-		  			left: unset;
-		  		}
+		  		.flsTutoShadowsPotiron
+			    {
+			      left: unset;
+			      right: 0;
+			      bottom: 0;
+			    }
+			    .flsTutoShadowsTomate
+			    {
+			      left: 57px;
+			    }
+			    .flsTutoTomate
+			    {
+			      left: 10px;
+			    }
+			    .flsTutoPotiron
+			    {
+			      left: unset;
+			      right: 18px;
+			      bottom: 0;
+			    }
 		  	}
 	  	}
 	}
