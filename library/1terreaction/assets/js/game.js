@@ -200,8 +200,9 @@ let saveAnswer = function(answerIndex, blockBonus)
 
         if (bonusGameAlreadyPlayed[0] == false && blockBonus == false)
         {
-            document.getElementById("pacmanContainer").classList.toggle("disabled");
-            launchPacmanHome();
+            document.getElementById("flsContainer").classList.toggle("disabled");
+            let dgl = new DinoGameLike;
+            dgl.launchTuto(this);
             bonusGameAlreadyPlayed[0] = true;
         }
     }

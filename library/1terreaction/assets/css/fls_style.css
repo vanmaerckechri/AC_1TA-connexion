@@ -144,7 +144,7 @@ body {
       height: 96px;
       transform-origin: bottom;
       animation: jumpTomate 1s linear infinite;
-      z-index: 11; }
+      z-index: 10; }
     .flsContainer .flsTutoContainer .flsTutoTomate {
       left: 360px;
       bottom: 0; }
@@ -330,6 +330,12 @@ $font-main: 'Open Sans', sans-serif;*/
   z-index: 10; }
   .flsButtonsContainer .flsLaunchGameButton {
     right: unset; }
+  .flsButtonsContainer .buttonDefault {
+    position: static; }
+  .flsButtonsContainer .flsPassBonusButton {
+    margin-left: auto; }
+  .flsButtonsContainer .flsLaunchGameButton {
+    margin-right: auto; }
 
 .flexEnd {
   justify-content: flex-end; }

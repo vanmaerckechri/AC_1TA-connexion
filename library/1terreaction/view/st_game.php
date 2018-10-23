@@ -143,8 +143,6 @@ ob_start();
         <?php
             }
         ?>
-        <div id="pacmanContainer" class="pacmanContainer disabled">
-        </div>
         <div id="flsContainer" class="flsContainer disabled">
         </div>
     </div>
@@ -157,16 +155,13 @@ ob_start();
         let allThemesActivation = <?=json_encode($allThemes)?>;
         let launchIntroVideo = <?=json_encode($GLOBALS['launchIntroVideo'])?>;
     </script>
-    
+
+    <script type= "text/javascript" src="assets/js/dgl_game-engine.js"></script>
+    <script type= "text/javascript" src="assets/js/fls_game-engine.js"></script>
     <script type= "text/javascript" src="assets/js/questions.js"></script>
     <script type= "text/javascript" src="assets/js/game.js"></script>
-    <script src="assets/js/stats.js"></script>
-    <script type= "text/javascript" src="assets/js/ecoman_game-maps.js"></script>
-    <script type= "text/javascript" src="assets/js/ecoman_game-player.js"></script>
-    <script type= "text/javascript" src="assets/js/ecoman_game-ghosts.js"></script>
-    <script type= "text/javascript" src="assets/js/ecoman_game-pathfinder.js"></script>
-    <script type= "text/javascript" src="assets/js/ecoman_game-engine.js"></script>
-    <script type= "text/javascript" src="assets/js/fls_game-engine.js"></script>
+    <script type= "text/javascript" src="assets/js/stats.js"></script>
+    <script type= "text/javascript" src="assets/js/createDomElem.js"></script>
 <?php
 $script = ob_get_clean();
 
