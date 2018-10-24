@@ -19,14 +19,20 @@ function checkSession()
 	return $sessionResult;
 }
 $sessionResult = checkSession();
+$launchIntroVideo = true;
 // -- VIEW --
 	// Record Replies
 if (isset($_POST['cleanReplies']))
 {
+	$launchIntroVideo = false;
 	loadGameResultView();
 }
 else
 {
+	if (isset($_GET['video']) && $_GET['video'] == "false")
+	{
+		$launchIntroVideo = false;
+	}
 	if (isset($_GET['action']))
 	{
 		// Main Menu

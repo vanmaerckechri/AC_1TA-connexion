@@ -323,6 +323,16 @@
 				opacity: 1;
 			}
 		}
+		#step_questions
+		{
+			.questionContainer
+			{
+				.propositionsContainer
+				{
+					//justify-content: flex-start;
+				}
+			}
+		}
 	}
 	.statsLocalPreviousGameContainer
 	{

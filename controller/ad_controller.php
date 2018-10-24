@@ -135,7 +135,7 @@ function newPasswordView($isPost = false)
 function sendValidationCodeToChangeMail()
 {
 	$testRequestTime = testSpam();
-	$testRequestTime = true;//temp
+	//$testRequestTime = true;//temp
 	if ($testRequestTime == true)
 	{
 		$mail = ModifyAdminAccount::getMail();
@@ -160,7 +160,7 @@ function sendValidationCodeToChangeMail()
 function sendValidationCodeToDeleteAccount()
 {
 	$testRequestTime = testSpam();
-	$testRequestTime = true;//temp
+	//$testRequestTime = true;//temp
 	if ($testRequestTime == true)
 	{
 		$mail = ModifyAdminAccount::getMail();
@@ -192,7 +192,8 @@ function deleteAccount()
 	}
 	$idStudents = Classrooms::deleteClassrooms($_SESSION["id"], $idCrList);
 	Update1TerreActionDb::deletePlanet($idCrList, $idStudents);
-	// manque la suppression du compte admin dans la db
+	deleteAdminAccount();
+	header('Location: ./index.php');	
 }
 
 // VIEWS!

@@ -35,14 +35,14 @@ window.addEventListener('load', function()
                 let geometry = new THREE.SphereGeometry(600, 16, 16);
                 let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse'+imgNbr+'.jpg');
                 //let normalMap = new THREE.TextureLoader().load('assets/img/earth_normalmap.tif');
-                let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
+                //let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
                 //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular.tif');
                 let material = new THREE.MeshPhongMaterial
                 ({
                     color: 0xffffff,
                     map: diffuseMap,
-                    bumpMap: bumpMap,
-                    bumpScale: 20,
+                    //bumpMap: bumpMap,
+                    //bumpScale: 20,
                     //normalMap: normalMap,
                     //specularMap: specularMap,
                     //specular: 0x666666,
@@ -1104,6 +1104,7 @@ window.addEventListener('load', function()
     {
         document.addEventListener("touchstart", openRotationPlanet, false) || document.addEventListener("mousedown", openRotationPlanet, false);
     }
+    let container = document.getElementById("container");
     document.addEventListener("touchmove", hoverPlanet, false) || document.addEventListener("mousemove", hoverPlanet, false);
     document.querySelector('.previous').addEventListener("touchstart", closePlanetInfos, false) || document.querySelector('.previous').addEventListener("mousedown", closePlanetInfos, false);
 
@@ -1112,6 +1113,37 @@ window.addEventListener('load', function()
     updatePlanetName();
     animate();
     adaptUi();
+
+
+    // -- ABOUT US MODAL --
+    let loadAboutUs = function()
+    {
+        const req = new XMLHttpRequest();
+        req.onreadystatechange = function(event)
+        {
+            if (this.readyState === XMLHttpRequest.DONE)
+            {
+                if (this.status === 200)
+                {
+                    let uiMainMenuStudent = document.querySelector('.uiMainMenuStudent');
+                    uiMainMenuStudent.innerHTML = req.responseText;
+                    document.getElementById('aboutUsCloseModal').onclick = function()
+                    {
+                        uiMainMenuStudent.classList.add("disabled");
+                    }
+                    let launchAboutUs = function()
+                    {
+                        uiMainMenuStudent.classList.remove("disabled");
+                    }
+                    document.getElementById("aboutUsButton").onclick = launchAboutUs;
+                }
+            }
+        };
+        req.open('GET', 'view/aboutus.html', true);
+        req.send(null);
+    }
+    loadAboutUs();
+
 });
 
 /*

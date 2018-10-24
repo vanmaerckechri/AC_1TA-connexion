@@ -25,7 +25,7 @@
 		background-color: rgba(0, 40, 80, .2);
 		transform: translateX(-50%);
 		transition: transform .2s, color .2s, background-color .2s, text-shadow .3s, box-shadow .4s;
-		z-index: 2;
+		z-index: 3;
 		.planetName
 		{
 			letter-spacing: .8rem;
@@ -67,6 +67,10 @@
 
 .ui
 {
+	.aboutUsButton
+	{
+		top: 0;
+	}
 	.planetInfosContainer
 	{
 		border: 1px solid rgba(255, 255, 255, .1);
@@ -84,6 +88,7 @@
 		overflow: auto;
 		background-color: rgba(0, 60, 120, .4);
 		transform: translateX(-50%);
+		z-index: 3;
 		.planetDeleteContainer
 		{
 			margin-bottom: 1rem;
@@ -235,8 +240,8 @@
 			padding: 8px 20px;
 			width: 100%;
 			display: inline-block;
-			color: rgb(0, 60, 120);
-			background-color: $ac-blue;
+			color: black;
+			background-color: white;
 		}
 		.questionReplyRow
 		{
@@ -455,6 +460,7 @@
 	max-width: 1920px;
 	height: 100%;
 	transform: translateX(-50%);
+	z-index: 3;
 	.leaveGameButton
 	{
 		margin-left: 2rem;
@@ -799,8 +805,6 @@
 			height: 100vh;
 			overflow: auto;
 			//height: calc(100% - 100px);
-			display: flex;
-			flex-direction: column;
 			opacity: 1;
 			transform: translateX(-50%);
 			transition: opacity 1s;
@@ -812,10 +816,6 @@
 				border-top-right-radius: 12px;
 				border-top-left-radius: 12px;
 				padding: 10px;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				text-align: center;
 				font-size: 1.2rem;
 				font-weight: bold;
 				color: black;
@@ -837,7 +837,6 @@
 				margin: 0 auto;
 				padding-bottom: 20px;
 				width: 90%;
-				flex: 1;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-around;

@@ -330,3 +330,11 @@ function getMailAdress()
 	
 	return htmlspecialchars($mail[0], ENT_NOQUOTES);
 }
+
+function deleteAdminAccount()
+{
+	$db = connect();
+	$del = $db->prepare("DELETE FROM pe_adminaccounts WHERE id = :idAd");
+	$del->bindParam(':idAd', $_SESSION['id'], PDO::PARAM_INT);	
+	$del->execute();
+}

@@ -69,7 +69,7 @@ let launchVideo = function(file)
     document.body.onkeypress = closeVideo;
     video.onended = validationCloseVideo;
 }
-if (activeScoreTab === false)
+if (launchIntroVideo === true)
 {
     launchVideo("assets/videos/intro.mp4");
 }

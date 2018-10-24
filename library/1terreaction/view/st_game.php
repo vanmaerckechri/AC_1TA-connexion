@@ -153,6 +153,7 @@ ob_start();
     <script>
         let gameInfos = <?=json_encode($gameInfos)?>;
         let allThemesActivation = <?=json_encode($allThemes)?>;
+        let launchIntroVideo = <?=json_encode($GLOBALS['launchIntroVideo'])?>;
         let activeScoreTab = false;
         <?php
         if ($activeScoreTab === true)

@@ -19,8 +19,8 @@ window.addEventListener('load', function()
         let planet;
         let geometry = new THREE.SphereGeometry(100, 64, 64);
         let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse1.jpg');
-        let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
-        let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular1.jpg');
+        //let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
+        //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular1.jpg');
         let material = new THREE.MeshPhongMaterial
         ({
             color: 0xffffff,
@@ -72,6 +72,10 @@ window.addEventListener('load', function()
         geometry = new THREE.SphereGeometry(50, 64, 64);
         diffuseMap = new THREE.TextureLoader().load('assets/img/moon_diffuse.jpg');
         bumpMap = new THREE.TextureLoader().load('assets/img/moon_bump.jpg');
+        
+        diffuseMap.minFilter = THREE.LinearFilter
+        bumpMap.minFilter = THREE.LinearFilter
+
         material = new THREE.MeshPhongMaterial
         ({
             color: "grey",
