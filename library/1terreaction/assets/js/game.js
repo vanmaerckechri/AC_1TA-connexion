@@ -32,34 +32,46 @@ let launchVideo = function(file)
 
     let validationCloseVideo = function()
     {
+        document.body.onkeypress = null;
         videoContainer.remove();
+        
+        document.getElementById("homeSms").classList.add("homeSms");
     }
 
     let closeVideo = function()
     {
+        document.getElementById("homeSms").classList.remove("homeSms");
+
         textValidation = document.createElement("p")
         textValidation.classList.add("textValidation");
-        textValidation.innerText = "Appuyez sur une touche, sur l'écran tactile ou cliquez avec le bouton de la souris pour passer la vidéo!"
+        textValidation.innerText = "Appuye sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
         videoContainer.appendChild(textValidation);
 
         questionIntroTimeToDisplay = setTimeout(function()
         {
             textValidation.remove();
             videoContainer.onclick = closeVideo;
+            document.body.onkeypress = closeVideo;
         }, 3000);
 
         videoContainer.onclick = validationCloseVideo;
+        document.body.onkeypress = function(event)
+        {
+            if (event.charCode === 32)
+            {
+                validationCloseVideo();
+            }
+        };
+
     }
 
     videoContainer.onclick = closeVideo;
+    document.body.onkeypress = closeVideo;
     video.onended = validationCloseVideo;
-    
-    //video.onload = function(){console.log(video)};
-
 }
-if (launchIntroVideo === true)
+if (activeScoreTab === false)
 {
-    //launchVideo("assets/videos/intro.mp4");
+    launchVideo("assets/videos/intro.mp4");
 }
 
 // -- DISPLAY THEMES MENU --
@@ -535,7 +547,7 @@ let hideMainMenu = function()
             launchThemesMenuButtonList[i].querySelector(".menuButton").classList.add("disabled_v2");
         }
         launchThemesMenuButtonList[i].className = "menuButtonContainer";
-    }   
+    }
 }
 let displayMainMenu = function()
 {
@@ -658,7 +670,6 @@ document.getElementById("questionButton01").addEventListener("click", displayQue
 document.getElementById("questionButton02").addEventListener("click", displayQuestion.bind(this, 2), false);
 document.getElementById("questionButton03").addEventListener("click", displayQuestion.bind(this, 3), false);
 
-
 // -- BUTTONS --
 // Display themes menu
 initThemes();
@@ -702,3 +713,11 @@ document.getElementById("questionIntro").addEventListener("click", function()
         minimizeIntroductionQuestions();
     }
 }, false);
+
+// -- Invite player to look at planet stats if he is just finish to play a theme --
+
+if (activeScoreTab === true)
+{
+    displayMainMenu();
+    document.getElementById('backToSolarSystem').classList.add("backToSolarSystem");
+}

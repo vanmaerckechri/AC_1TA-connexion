@@ -23,24 +23,14 @@ button {
 @font-face {
   font-family: 'fontFamMain';
   src: url(../../../../assets/fonts/minionpro_regular.otf); }
-/*@keyframes mainMenuOpenButton01
-{
-    0%
-    {
-        transform: translateY(0px);
-        pointer-events: none;
-    }
-    99%
-    {
-    	transform: translateY(128px);
-    	pointer-events: none;
-    }
-    100%
-    {
-    	transform: translateY(128px);
-    	pointer-events: auto;
-    }
-}
+@keyframes flashButton {
+  0% {
+    box-shadow: 0 0 5px 0 white;
+    background-color: rgba(255, 255, 255, 0.8); }
+  100% {
+    box-shadow: 0 0 20px 0 white;
+    background-color: white; } }
+/*
 @keyframes mainMenuOpenButton02
 {
     0%
@@ -991,6 +981,11 @@ body {
           transition: all .3s; }
           .aboutUsContainer .aboutUs .aboutUsContent .aboutUsPartnersContainer a:hover {
             border-color: rgba(0, 177, 227, 0.9); }
+
+.backToSolarSystem {
+  font-weight: bold;
+  transition: all .2s;
+  animation: flashButton 1s infinite alternate; }
 
 @font-face {
   font-family: 'fontFamTitles';

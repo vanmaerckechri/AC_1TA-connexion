@@ -1003,3 +1003,9 @@
 		}
 	}
 }
+.backToSolarSystem
+{
+	font-weight: bold;
+	transition: all .2s;
+	animation: flashButton 1s infinite alternate;
+}

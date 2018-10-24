@@ -1,22 +1,18 @@
 @import "variables";
-/*@keyframes mainMenuOpenButton01
+@keyframes flashButton
 {
     0%
     {
-        transform: translateY(0px);
-        pointer-events: none;
-    }
-    99%
-    {
-    	transform: translateY(128px);
-    	pointer-events: none;
+        box-shadow: 0 0 5px 0 white;
+        background-color: rgba(255, 255, 255, .8);
     }
     100%
     {
-    	transform: translateY(128px);
-    	pointer-events: auto;
+        box-shadow: 0 0 20px 0 white;
+        background-color: rgba(255, 255, 255, 1);
     }
 }
+/*
 @keyframes mainMenuOpenButton02
 {
     0%

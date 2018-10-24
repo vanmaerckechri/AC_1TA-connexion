@@ -15,22 +15,22 @@ function loadAvatar()
 	foreach ($avatarInfos[0] as $avatarThemeName => $avatarSrc) 
 	{
 	    // avatarSrc = 1 for a new account. Student need to create an avatar to first connexion.
-	    if ($avatarSrc != 1 && (substr($avatarSrc, -4) == ".svg"))
+        if ($avatarSrc !== 1 && strlen($avatarSrc) === 7)
 	    {
 	        ?>
-	        <img class=<?=$avatarThemeName?> src="../../assets/img/<?=$avatarSrc?>"" alt="">
+            <img class=<?=$avatarThemeName?> src="../../assets/img/<?=$avatarThemeName.htmlspecialchars($avatarSrc, ENT_QUOTES)?>.svg" alt="">
 	        <?php
 	    }
 	    else if ($avatarSrc == "")
 	    {
 	        ?>
-	        <img class=<?=$avatarThemeName?> src="" alt="">
+            <img class=<?=$avatarThemeName?> src="" alt="">
 	        <?php
 	    }
 	    else
 	    {
 	        ?>
-	        <img class=<?=$avatarThemeName?> src="../../assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
+            <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
 	        <?php
 	    }
 	}
