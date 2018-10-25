@@ -95,7 +95,7 @@ function newPasswordView($isPost = false)
 			{
 				$pwd1 = hash('sha256', $pwd1);
 				$pwd2 = hash('sha256', $pwd2);
-				UpdatePassword::start($pwd1, $_SESSION['myId']);
+				ModifyAdminAccount::updatePassword($pwd1, $_SESSION['myId']);
 				unset($_SESSION['myId']);
 				require('./view/loginView.php');
 				exit;

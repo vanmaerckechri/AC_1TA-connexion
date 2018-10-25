@@ -193,7 +193,10 @@ function deleteAccount()
 	$idStudents = Classrooms::deleteClassrooms($_SESSION["id"], $idCrList);
 	Update1TerreActionDb::deletePlanet($idCrList, $idStudents);
 	deleteAdminAccount();
-	header('Location: ./index.php');	
+
+	$_SESSION = array();
+	$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Compte supprimé!</span>';
+	header('Location: index.php');
 }
 
 // VIEWS!

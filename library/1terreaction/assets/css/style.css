@@ -269,6 +269,21 @@ body {
     text-align: center;
     background-color: rgba(0, 0, 0, 0.9); }
 
+.youtubeVideoContainer {
+  margin-bottom: 10px;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden; }
+  .youtubeVideoContainer iframe, .youtubeVideoContainer object, .youtubeVideoContainer embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+
 @font-face {
   font-family: 'fontFamTitles';
   src: url(../../../../assets/fonts/brauerneue.otf); }
@@ -974,6 +989,7 @@ body {
             border-radius: 8px;
             width: 100%; }
         .aboutUsContainer .aboutUs .aboutUsContent .aboutUsPartnersContainer a {
+          padding: 5px;
           border: 2px solid transparent;
           transition: all .3s; }
           .aboutUsContainer .aboutUs .aboutUsContent .aboutUsPartnersContainer a:hover {

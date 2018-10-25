@@ -350,7 +350,7 @@ class RecordAccount
 		{
 			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Vous venez de recevoir un lien de validation dans votre boîte mail! Votre nom d'utilisateur est le suivant ".$this->_nickname."!</span>";
 			$sendActiveCode = new SendMail();
-			$sendActiveCode->activeAccount($this->_mail, $activationCode);
+			$sendActiveCode->activeAccount($this->_mail, $this->_nickname, $activationCode);
 		}
 	}
 }
@@ -477,7 +477,7 @@ class ModifyAdminAccount
 		return $code;
 	}
 
-	static function UpdatePassword($pwd, $id)
+	static function updatePassword($pwd, $id)
 	{
 		$reset = "0";
 		$db = connectDb();
@@ -599,10 +599,10 @@ class SendMail
 
 		$_sendMail = mail($mail, $sujet, $message, $_headers);
 	}
-	public function activeAccount($mail, $code)
+	public function activeAccount($mail, $nick, $code)
 	{
 		$_sujet = "Lien d'Activation du Compte!";
-		$_message = '<p>Bienvenue! Pour activer votre compte veuillez cliquer sur le lien suivant.
+		$_message = '<p>Bienvenue! Voici votre login: '.$nick.', n\'oubliez pas le préfixe "admin@" pour vous connecter. Pour activer votre compte veuillez cliquer sur le lien suivant.
 		<a href="https://cvm.one/test/index.php?action=activate&code='.$code.'">https://cvm.one/test/index.php?action=activate&code='.$code.'</a></p>';
 		$_destinataire = $mail;
 
