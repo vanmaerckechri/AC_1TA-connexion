@@ -168,7 +168,7 @@ window.addEventListener('load', function()
     }
 
     animate();
-    document.addEventListener("mousemove", hoverPlanetToLaunchGame, false);
+    document.getElementById("container").addEventListener("mousemove", hoverPlanetToLaunchGame, false);
 
 let updateRender = function()
 {

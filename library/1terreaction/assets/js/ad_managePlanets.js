@@ -1102,7 +1102,7 @@ window.addEventListener('load', function()
     // active rotation if we have at least 2 planets (create planet + another one)
     if (planetsList.length > 1)
     {
-        document.addEventListener("touchstart", openRotationPlanet, false) || document.addEventListener("mousedown", openRotationPlanet, false);
+        document.getElementById("container").addEventListener("touchstart", openRotationPlanet, false) || document.getElementById("container").addEventListener("mousedown", openRotationPlanet, false);
     }
     let container = document.getElementById("container");
     document.addEventListener("touchmove", hoverPlanet, false) || document.addEventListener("mousemove", hoverPlanet, false);

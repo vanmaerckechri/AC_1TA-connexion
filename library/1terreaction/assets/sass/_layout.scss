@@ -459,6 +459,7 @@
 	width: 100%;
 	max-width: 1920px;
 	height: 100%;
+	pointer-events: none;
 	transform: translateX(-50%);
 	z-index: 3;
 	.leaveGameButton
@@ -467,6 +468,7 @@
 		font-size: 1.3rem;
 		text-decoration: none;
 		color: white;
+		pointer-events: auto;
 		transition: text-shadow .5s;
 		&:hover
 		{
@@ -899,6 +901,7 @@
 	right: unset;
 	bottom: unset;
 	background-color: $ac-blue;
+	pointer-events: auto;
 }
 .aboutUsContainer
 {
@@ -911,6 +914,7 @@
 	align-items: center;
 	background-color: rgba(255, 255, 255, .8);
 	z-index: 2;
+	pointer-events: auto;
 	.aboutUs
 	{
 		padding: 20px 30px 0 30px;
@@ -942,6 +946,7 @@
 		.aboutUsContent
 		{
 			margin-bottom: 40px;
+			font-family: 'fontFamMain';
 			h2
 			{
 				margin-bottom: 20px;

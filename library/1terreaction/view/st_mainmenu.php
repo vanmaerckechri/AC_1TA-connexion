@@ -17,7 +17,7 @@ ob_start();
             <a href="index.php?action=disco" class="disconnect">X</a>
         </div>
     </div>
-    <div class="ui uiMainMenuStudent">
+    <div id="uiMainMenuStudent" class="ui uiMainMenuStudent">
         <button id="aboutUsButton" class="buttonDefault aboutUsButton">À Propos</button>
          <div class="step_scores statsPlanetContainer disabled_v2">
         <?php
