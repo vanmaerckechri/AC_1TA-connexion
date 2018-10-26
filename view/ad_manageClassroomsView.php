@@ -15,13 +15,15 @@
         $form_createOpen = "form_create hide";
         $buttonStatus = "formButton";
     }
+    // -- CREATE/DELETE --
     ob_start();
 	?>
+		<p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
 		<div class="tools">
             <div style="width: 90px;"></div>
             <div>
-    	    	<button id="button_create" class="<?=$buttonStatus?>">Ajouter</button>
-    	    	<button id="delete" class="formButton deleteSomething">Effacer</button>
+    	    	<button id="button_create" class="<?=$buttonStatus?>">Ajouter une Classe</button>
+    	    	<button id="delete" class="formButton deleteSomething">Effacer une Classe</button>
             </div>			
             <div style="width: 90px;"></div>
 	    </div>
@@ -35,7 +37,6 @@
 	// -- CLASSROOMS LIST --
 	ob_start();
 	?>
-	<p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
 	<form class="list" action="admin.php?action=renameClassroom" method="post">
 		<?php
 		foreach ($classList as $key => $row)

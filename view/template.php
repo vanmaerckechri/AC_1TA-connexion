@@ -11,17 +11,16 @@
 </head>
 <body>
     <div id="main">
+        <p><?=$_SESSION['smsAlert']['default']?></p>
         <div class="connexion">
             <h1>Plateforme Éducative</h1>
     		<?=$content?>
         </div>
         <footer>
             <div class="producer">
-                <p><a href="http://www.wikicm.be" target="_blank" rel="noopener">WikiCM</a>, centre de connaissances coordonné par <a href="http://www.annoncerlacouleur.be" target="_blank" rel="noopener">Annoncer la Couleur</a></p>
+                <p><a href="http://www.wikicm.be" target="_blank" rel="noopener">WikiCM</a>, centre de connaissances en citoyenneté mondiale coordonné par <a href="http://www.annoncerlacouleur.be" target="_blank" rel="noopener">Annoncer la Couleur</a></p>
             </div>
         </footer>
-        <p><?=$_SESSION['smsAlert']['default']?></p>
     </div>
-    <!--<script defer src="assets/js/fontawesome-all.min.js"></script>-->
 </body>
 </html>

@@ -9,7 +9,10 @@ ob_start();
         <div class="planetInfosContainer disabled">
             <div class="planetDeleteContainer">
                 <div class="previousContainer">
-                    <img class="previous" src="assets/img/previous_light.svg" alt="retour à l'écran précédent">
+                    <div class="previous">
+                        <img src="assets/img/previous_darkfill.svg" alt="retour à l'écran précédent">
+                        Retour
+                    </div>
                 </div>
             </div>
             <div id="themeButtonsContainer" class="themeButtonsContainer">
@@ -36,6 +39,8 @@ ob_start();
             <a class="buttonDefault leaveGameButton leaveGameButtonAdmin" href="../../library.php">Quitter le Jeu</a>
         </div>
         <button id="aboutUsButton" class="buttonDefault aboutUsButton">À Propos</button>
+        <button id="adminTutoButton" class="buttonDefault adminTutoButton">Développement</button>
+        <button id="dossierPeda" class="buttonDefault dossierPeda">Dossier Pédagogique</button>
         <div id="step_scores" class="step_scores step_scoresAdmin statsPlanetContainer">
             <div class="statsContainer titleEnv">
                 <div id="stats_environnement" class="statsBar envi"></div>
@@ -53,7 +58,10 @@ ob_start();
         <div class="planetNameContainer">
             <span id="planetName" class="planetName"></span>
         </div>
-        <div class="uiMainMenuStudent disabled"></div>
+        <div id="uiMainMenuStudent" class="uiMainMenuStudent disabled">
+            <div id="modalContent">
+            </div>
+        </div>
     </div>
 <?php
 $content = ob_get_clean();

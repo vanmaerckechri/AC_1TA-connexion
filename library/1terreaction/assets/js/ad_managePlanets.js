@@ -696,11 +696,13 @@ window.addEventListener('load', function()
             openQuestionEdit.value = openQuestion.innerText;
             openQuestion.innerText += " =>";
             openQuestionTitle.innerText = "Question Ouverte"
+
             questionReplyRow.appendChild(openQuestionEditImg);
             questionReplyRow.appendChild(openQuestionEdit);
             questionReplyRow.appendChild(openQuestion);
             questionsRepliesContainer.appendChild(openQuestionTitle);
             questionsRepliesContainer.appendChild(questionReplyRow);
+
             // display open question => reply
             if (studentsList[studentIndex]["theme"][currentTheme])
             {
@@ -1115,35 +1117,45 @@ window.addEventListener('load', function()
     adaptUi();
 
 
-    // -- ABOUT US MODAL --
-    let loadAboutUs = function()
-    {
-        const req = new XMLHttpRequest();
-        req.onreadystatechange = function(event)
-        {
-            if (this.readyState === XMLHttpRequest.DONE)
-            {
-                if (this.status === 200)
-                {
-                    let uiMainMenuStudent = document.querySelector('.uiMainMenuStudent');
-                    uiMainMenuStudent.innerHTML = req.responseText;
-                    document.getElementById('aboutUsCloseModal').onclick = function()
-                    {
-                        uiMainMenuStudent.classList.add("disabled");
-                    }
-                    let launchAboutUs = function()
-                    {
-                        uiMainMenuStudent.classList.remove("disabled");
-                    }
-                    document.getElementById("aboutUsButton").onclick = launchAboutUs;
-                }
-            }
-        };
-        req.open('GET', 'view/aboutus.html', true);
-        req.send(null);
-    }
-    loadAboutUs();
+    // -- MODALS --
+    let modalContents = [];
 
+    let launchModal = function(content)
+    {
+        let uiMainMenuStudent = document.getElementById("uiMainMenuStudent");
+        let modalContent = document.getElementById("modalContent");
+        modalContent.innerHTML = content;
+        uiMainMenuStudent.classList.remove("disabled");
+        document.getElementById('aboutUsCloseModal').onclick = function()
+        {
+            uiMainMenuStudent.classList.add("disabled");
+        }
+    }
+
+    let loadAllModalContents = function()
+    {
+        let views = ["aboutus.html", "maintuto.html", "peda.html"];
+        for (let i = views.length - 1; i >= 0; i--)
+        {
+            const req = new XMLHttpRequest();
+            req.onreadystatechange = function(event)
+            {
+                if (this.readyState === XMLHttpRequest.DONE)
+                {
+                    if (this.status === 200)
+                    {
+                        modalContents.push(req.responseText);
+                    }
+                }
+            };
+            req.open('GET', 'view/'+views[i], true);
+            req.send(null);
+        }
+        document.getElementById("aboutUsButton").onclick = function(){launchModal(modalContents[2])};
+        document.getElementById("adminTutoButton").onclick = function(){launchModal(modalContents[1])};
+        document.getElementById("dossierPeda").onclick = function(){launchModal(modalContents[0])};
+    }
+    loadAllModalContents();
 });
 
 /*

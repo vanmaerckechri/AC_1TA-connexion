@@ -86,7 +86,7 @@
 		color: white;
 		text-align: center;
 		overflow: auto;
-		background-color: rgba(0, 60, 120, .4);
+		background-color: rgba(44, 46, 53, .9);
 		transform: translateX(-50%);
 		z-index: 3;
 		.planetDeleteContainer
@@ -99,7 +99,7 @@
 			align-items: center;
 			width: 100%;
 			min-height: 80px;
-			background-color: rgba(0, 0, 0, .5);
+			background-color: rgba(0, 0, 0, .7);
 			.deleteButton
 			{
 				border-radius: 50%;
@@ -233,7 +233,7 @@
 			border-bottom: 1px solid rgba(255, 255, 255, .4);
 			flex: 1;
 			overflow-y: auto;
-			background-color: rgba(0, 60, 120, .7);
+			//background-color: rgba(0, 60, 120, .7);
 		}
 		.questionIntro
 		{
@@ -895,13 +895,21 @@
 	}
 }
 // about
-.aboutUsButton
+.aboutUsButton, .adminTutoButton, .dossierPeda
 {
 	margin: 110px 0 0 4rem;
 	right: unset;
 	bottom: unset;
 	background-color: $ac-blue;
 	pointer-events: auto;
+}
+.adminTutoButton
+{
+	top: 50px;
+}
+.dossierPeda
+{
+	top: 100px;
 }
 .aboutUsContainer
 {

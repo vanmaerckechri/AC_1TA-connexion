@@ -69,6 +69,10 @@ input {
 .smsInfo {
   color: #329678; }
 
+.sms {
+  margin-bottom: 10px;
+  font-size: 1.2rem; }
+
 .g-recaptcha {
   margin-bottom: 10px; }
 
@@ -243,8 +247,7 @@ input {
       width: 100%;
       text-align: left; }
 #main p {
-  width: 100%;
-  font-size: .8rem; }
+  width: 100%; }
 
 .admin {
   justify-content: space-between; }

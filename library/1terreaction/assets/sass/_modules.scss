@@ -69,16 +69,26 @@
 	transition: all .5s;
 	.previous
 	{
-		width: 32px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		height: 32px;
+		font-size: 1.2rem;
 		transition: all .5s;
+		transform: translate(0);
+		animation: backButton 1s linear alternate infinite;
+		img
+		{
+			margin-right: 5px;
+			width: 32px;
+			height: 32px;
+		}
 	}
 	&:hover
 	{
 		cursor: pointer;
 		.previous
 		{
-			width: 42px;
 			transform: translate(-10px);
 		}
 	}

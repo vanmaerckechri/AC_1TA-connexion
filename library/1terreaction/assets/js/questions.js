@@ -202,7 +202,7 @@ const quizA2 =
 	    },	   
 	    proposition02: 
 	    {
-	    	proposition: "Tu changes de chaine parce que tu n’y comprends rien (c’est un problème de grands !)",
+	    	proposition: "Tu changes de chaîne parce que tu n’y comprends rien (c’est un problème de grands !)",
 	    	imageSrc: "assets/img/controller.svg",
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
@@ -274,7 +274,7 @@ const quizA3 =
 	    },
 	    proposition02: 
 	    {
-	    	proposition: "Tu ne prends pas tu as ta gourde à la maison",
+	    	proposition: "Tu t'en fiches, tu as ta gourde à la maison",
 	    	imageSrc: "assets/img/water.svg",
 	    	stats_environnement: 2,
 	    	stats_sante: 2,

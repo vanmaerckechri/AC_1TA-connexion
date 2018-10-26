@@ -9,8 +9,8 @@ else
 {
 	function connectDB()
 	{
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
 	}
 	function getSecretCaptchaKey()
@@ -163,7 +163,7 @@ class Authentification
 						// Compte pas encore activé
 						if (isset($resultReq) && !empty($resultReq) && $resultReq[0]["activated"] != 1)
 						{
-							$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte suite à votre inscription. Un nouveau lien d'activation vient de vous être envoyé par mail!</span>";
+							$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte suite à votre inscription. Un nouveau lien d'activation va vous être envoyé par mail dans quelques instants!</span>";
 							$sendActiveCode = new SendMail();
 							$sendActiveCode->activeAccount($resultReq[0]["mail"], $resultReq[0]["activated"]);
 							$return = 'needActivation';
@@ -348,7 +348,7 @@ class RecordAccount
 
 		if ($this->_classroom == false)
 		{
-			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Vous venez de recevoir un lien de validation dans votre boîte mail! Votre nom d'utilisateur est le suivant ".$this->_nickname."!</span>";
+			$_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Vous allez recevoir un lien de validation par mail dans quelques instants! Votre nom d'utilisateur est le suivant ".$this->_nickname."</span>";
 			$sendActiveCode = new SendMail();
 			$sendActiveCode->activeAccount($this->_mail, $this->_nickname, $activationCode);
 		}

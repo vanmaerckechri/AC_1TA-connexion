@@ -16,11 +16,12 @@
     }
     ob_start();
     ?>
+        <p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
         <div class="tools">
             <div style="width: 90px;"></div>
             <div>
-                <button id="button_create" class="<?=$buttonStatus?>">Ajouter</button>
-                <button id="delete" class="formButton deleteSomething">Effacer</button>
+                <button id="button_create" class="<?=$buttonStatus?>">Ajouter un Élève</button>
+                <button id="delete" class="formButton deleteSomething">Effacer un Élève</button>
             </div>
             <div style="width: 90px;"></div>
         </div>
@@ -38,7 +39,6 @@
     // STUDENTS LIST!
     ob_start();
     ?>
-    <p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
     <form class="list" action="admin.php?action=editStudent&idcr=<?=$_GET['idcr']?>" method="post">
     <?php
     foreach ($studentsList as $key => $row)
