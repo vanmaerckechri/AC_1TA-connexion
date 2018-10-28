@@ -71,7 +71,7 @@ let launchVideo = function(file)
 }
 if (launchIntroVideo === true)
 {
-    launchVideo("assets/videos/intro.mp4");
+    //launchVideo("assets/videos/intro.mp4");
 }
 
 // -- DISPLAY THEMES MENU --

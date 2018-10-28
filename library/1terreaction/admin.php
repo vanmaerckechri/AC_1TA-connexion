@@ -40,6 +40,11 @@ if (isset($_GET['action']))
 		deletePlanetView($_GET['idcr']);
 		loadMainView();
 	}
+	// Test Game
+	else if ($_GET['action'] == 'game')
+	{
+		launchTestGame();
+	}
 	// Disconnect
 	else if ($_GET['action'] == 'disco')
 	{

@@ -804,16 +804,17 @@ let DinoGameLike = class
 		this.refreshGame(); 
 	}
 
-	closeGame()
+	closeGame(that)
 	{
-		window.cancelAnimationFrame(this.refreshGameLoop);
+		that.endOfGame = true;
+		window.cancelAnimationFrame(that.refreshGameLoop);
 		let flsContainerChilds = document.querySelectorAll("#flsContainer div");
 		for (let i = flsContainerChilds.length - 1; i >= 0; i--)
 		{
 	        //maximizeIntroductionQuestions();
 			flsContainerChilds[i].remove();
-			delete window.DinoGameLike;
 		}
+		delete window.DinoGameLike;
 		document.getElementById("flsContainer").classList.toggle("disabled");
 	}
 
@@ -842,7 +843,7 @@ let DinoGameLike = class
 						that.loadUI();
 						that.launchGame();
 					}
-					document.getElementById("dglPassBonusButton").onclick = that.closeGame;
+					document.getElementById("dglPassBonusButton").onclick = function(){that.closeGame(that)};
 				}
 		    }
 		};

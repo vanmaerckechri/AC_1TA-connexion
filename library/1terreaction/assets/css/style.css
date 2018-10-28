@@ -929,18 +929,23 @@ body {
         #main #step_questions .questionContainer .propositionsContainer .propositionContainerMid {
           margin: 30px 0; }
 
-.aboutUsButton, .adminTutoButton, .dossierPeda {
+.buttonsContainer {
   margin: 110px 0 0 4rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center; }
+
+.aboutUsButton, .adminTutoButton, .dossierPeda, .testGame {
+  margin: 5px;
+  position: static;
   right: unset;
   bottom: unset;
   background-color: #5cbced;
   pointer-events: auto; }
-
-.adminTutoButton {
-  top: 50px; }
-
-.dossierPeda {
-  top: 100px; }
 
 .aboutUsContainer {
   margin-top: 105px;
@@ -1158,8 +1163,9 @@ body {
     .admin .ui .leaveGameButtonContainer .leaveGameButtonAdmin, .admin .ui .leaveGameButtonContainer .recordModifications {
       font-size: .8rem; }
 
-  .ui .aboutUsButton, .ui .adminTutoButton, .ui .dossierPeda {
-    margin: 50px 0 0 20px;
+  .ui .buttonsContainer {
+    margin: 50px 0 0 20px; }
+  .ui .aboutUsButton, .ui .adminTutoButton, .ui .dossierPeda, .ui .testGame {
     bottom: unset;
     right: unset; }
   .ui .aboutUsContainer {

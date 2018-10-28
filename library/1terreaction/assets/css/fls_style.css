@@ -326,16 +326,14 @@ $font-main: 'Open Sans', sans-serif;*/
   bottom: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   z-index: 10; }
   .flsButtonsContainer .flsLaunchGameButton {
     right: unset; }
   .flsButtonsContainer .buttonDefault {
     position: static; }
-  .flsButtonsContainer .flsPassBonusButton {
-    margin-left: auto; }
   .flsButtonsContainer .flsLaunchGameButton {
-    margin-right: auto; }
+    margin-right: 10px; }
 
 .flexEnd {
   justify-content: flex-end; }

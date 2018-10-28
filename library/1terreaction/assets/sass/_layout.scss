@@ -895,21 +895,25 @@
 	}
 }
 // about
-.aboutUsButton, .adminTutoButton, .dossierPeda
+.buttonsContainer
 {
 	margin: 110px 0 0 4rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.aboutUsButton, .adminTutoButton, .dossierPeda, .testGame
+{
+	margin: 5px;
+	position: static;
 	right: unset;
 	bottom: unset;
 	background-color: $ac-blue;
 	pointer-events: auto;
-}
-.adminTutoButton
-{
-	top: 50px;
-}
-.dossierPeda
-{
-	top: 100px;
 }
 .aboutUsContainer
 {

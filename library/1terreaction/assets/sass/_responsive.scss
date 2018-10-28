@@ -263,9 +263,12 @@
 	//about us
 	.ui
 	{
-		.aboutUsButton, .adminTutoButton, .dossierPeda
+		.buttonsContainer
 		{
 			margin: 50px 0 0 20px;
+		}
+		.aboutUsButton, .adminTutoButton, .dossierPeda, .testGame
+		{
 			bottom: unset;
 			right: unset;
 		}

@@ -38,9 +38,18 @@ ob_start();
         <div class="leaveGameButtonContainer">
             <a class="buttonDefault leaveGameButton leaveGameButtonAdmin" href="../../library.php">Quitter le Jeu</a>
         </div>
-        <button id="aboutUsButton" class="buttonDefault aboutUsButton">À Propos</button>
-        <button id="adminTutoButton" class="buttonDefault adminTutoButton">Développement</button>
-        <button id="dossierPeda" class="buttonDefault dossierPeda">Dossier Pédagogique</button>
+        <div class="buttonsContainer">
+            <button id="aboutUsButton" class="buttonDefault aboutUsButton">À Propos</button>
+            <button id="adminTutoButton" class="buttonDefault adminTutoButton">Développement</button>
+            <button id="dossierPeda" class="buttonDefault dossierPeda">Dossier Pédagogique</button>
+            <?php
+            {
+                if (isset($planetList) && !empty($planetList));
+                {
+                    ?><a id="testGame" class="buttonDefault testGame" href="./admin.php?action=game&idCr=<?=$planetList[0]['id_classroom']?>">Tester le Jeu</a><?php
+                }
+            }?>
+        </div>
         <div id="step_scores" class="step_scores step_scoresAdmin statsPlanetContainer">
             <div class="statsContainer titleEnv">
                 <div id="stats_environnement" class="statsBar envi"></div>

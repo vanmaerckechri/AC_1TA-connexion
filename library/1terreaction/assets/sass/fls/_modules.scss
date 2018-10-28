@@ -7,7 +7,7 @@
 	bottom: 0;
 	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	z-index: 10;
 	.flsLaunchGameButton
 	{
@@ -19,11 +19,10 @@
 	}
 	.flsPassBonusButton
 	{
-		margin-left: auto;
 	}
 	.flsLaunchGameButton
 	{
-		margin-right: auto;
+		margin-right: 10px;
 	}
 }
 .flexEnd
