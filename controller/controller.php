@@ -119,7 +119,7 @@ function loadCreateAdminAccountView()
 	// Check if all inputs are corrects
 	if (isset($_POST['createAdminAccountNickname']) && isset($_POST['createAdminAccountEmail']) && isset($_POST['createAdminAccountPassword']) && isset($_POST['createAdminAccountPassword2']))
 	{
-		$filteredNickname = checkInput($_POST['createAdminAccountNickname'], 'nickname', 'nickname');
+		$filteredNickname = checkInput($_POST['createAdminAccountNickname'], 'loginRecord', 'nickname');
 		$filteredPwd = checkInput($_POST['createAdminAccountPassword'], 'password', 'password');
 		$filteredPwd2 = checkInput($_POST['createAdminAccountPassword2'], 'password', false);
 		$is_email = filter_var($_POST['createAdminAccountEmail'], FILTER_VALIDATE_EMAIL);

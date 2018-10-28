@@ -18,14 +18,14 @@ require('./controller/controller.php');
 	$_SESSION['classroom'] = "Classe de Test 01";
 	$_SESSION['id_classroom'] = "5";
 	$_SESSION['id'] = 19;
-*/
+
 	//admin
 	$_SESSION['nickname'] = "admin@Chri";
 	$_SESSION['password'] = 'ed968e840d10d2d313a870bc131a4e2c311d7ad09bdf32b3418147221f51a6e2';
 	$_SESSION['classroom'] = "";
 	$_SESSION['id_classroom'] = "";
 	$_SESSION['id'] = 32;
-/*
+
 	$_SESSION['nickname'] = "admin@test";
 	$_SESSION['password'] = 'test';
 	$_SESSION['classroom'] = "";
@@ -69,7 +69,7 @@ if (isset($_POST) && !isset($_GET['action']))
 	// Nickname
 	if (isset($_POST['nickname']))
 	{
-		$filteredInput = checkInput($_POST['nickname'], 'nickname', 'default');;
+		$filteredInput = checkInput($_POST['nickname'], 'nickname', 'default');
 		if ($filteredInput)
 		{
 			$_SESSION['nickname'] = $filteredInput;
