@@ -28,7 +28,7 @@ ob_start();
             {
                 ?>
                 <div class="freeClassroom">
-                    <a class="freeClassroomName" href="admin.php?action=createplanet&idcr=<?=$freeCr['id']?>"><?=$freeCr['name']?></a>
+                    <a class="freeClassroomName" href="admin.php?action=createplanet&idcr=<?=$freeCr['id']?>"><?=htmlspecialchars($freeCr['name'], ENT_QUOTES)?></a>
                 </div>
                 <?php
             }
@@ -38,16 +38,22 @@ ob_start();
         <div class="leaveGameButtonContainer">
             <a class="buttonDefault leaveGameButton leaveGameButtonAdmin" href="../../library.php">Quitter le Jeu</a>
         </div>
+        <?php
+            if (!isset($planetList) || empty($planetList))
+            {
+                ?><div class="clickHere"><p>Cliquez ici pour lier l'une de vos classe à une planète</p><img src="assets/img/arrow_bot.svg" alt=""></div><?php
+            }
+        ?>
         <div class="buttonsContainer">
             <button id="aboutUsButton" class="buttonDefault aboutUsButton">À Propos</button>
             <button id="adminTutoButton" class="buttonDefault adminTutoButton">Développement</button>
             <button id="dossierPeda" class="buttonDefault dossierPeda">Dossier Pédagogique</button>
             <?php
-            {
+            {/*
                 if (isset($planetList) && !empty($planetList));
                 {
                     ?><a id="testGame" class="buttonDefault testGame" href="./admin.php?action=game&idCr=<?=$planetList[0]['id_classroom']?>">Tester le Jeu</a><?php
-                }
+                }*/
             }?>
         </div>
         <div id="step_scores" class="step_scores step_scoresAdmin statsPlanetContainer">

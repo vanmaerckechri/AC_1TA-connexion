@@ -36,7 +36,16 @@
 	$tools = ob_get_clean();
 	// -- CLASSROOMS LIST --
 	ob_start();
+	if (isset($classList) && !empty($classList) && count($classList) === 1)
+	{
+		?><p>Cliquez sur votre classe pour passer à la création des élèves.</p><?php
+	}
+	else if (isset($classList) && !empty($classList) && count($classList) > 1)
+	{
+		?><p>Cliquez sur l'une de vos classes pour passer à la création des élèves.</p><?php
+	}
 	?>
+
 	<form class="list" action="admin.php?action=renameClassroom" method="post">
 		<?php
 		foreach ($classList as $key => $row)

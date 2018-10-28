@@ -506,8 +506,8 @@ let Fruilegsais = class
 		else
 		{
 			startEvent = "mousedown";
-			document.addEventListener("keydown", this.detectKey.bind(that, this), false);
 		}
+		document.addEventListener("keydown", this.detectKey.bind(that, this), false);
 		fruitLegumeContainer.addEventListener(startEvent, this.chooseAnswer.bind(that, this), false);
 	}
 

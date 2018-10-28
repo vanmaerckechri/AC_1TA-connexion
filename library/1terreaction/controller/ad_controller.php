@@ -55,7 +55,7 @@ function deletePlanetView($idCr)
 	}
 }
 
-function launchTestGame()
+/*function launchTestGame()
 {
 	$_SESSION["nickname"] = "Marie";
 	$_SESSION["password"] = "qwerty";
@@ -63,7 +63,7 @@ function launchTestGame()
 	$_SESSION["id_classroom"] = 6;
 	header('Location: ./index.php?action=game');
 	exit; 
-}
+}*/
 
 function disconnect()
 {

@@ -21,6 +21,7 @@ ob_start();
         <div class="buttonsContainer">
             <button id="aboutUsButton" class="buttonDefault aboutUsButton">À Propos</button>
         </div>
+        <div class="clickHere"><p>Clique sur ta planète pour continuer</p><img src="assets/img/arrow_bot.svg" alt=""></div>
         <div class="step_scores statsPlanetContainer disabled_v2">
         <?php
             if ($GLOBALS["planetHaveStats"] == 0)

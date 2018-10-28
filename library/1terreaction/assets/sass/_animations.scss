@@ -23,6 +23,17 @@
         transform: translate(-10px);
     }
 }
+@keyframes clickHereBottom
+{
+    0%
+    {
+        transform: translateY(0);
+    }
+    100%
+    {
+        transform: translateY(-10px);
+    }
+}
 /*
 @keyframes mainMenuOpenButton02
 {

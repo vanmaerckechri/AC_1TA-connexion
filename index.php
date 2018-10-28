@@ -25,6 +25,13 @@ require('./controller/controller.php');
 	$_SESSION['classroom'] = "";
 	$_SESSION['id_classroom'] = "";
 	$_SESSION['id'] = 32;
+/*
+	$_SESSION['nickname'] = "admin@test";
+	$_SESSION['password'] = 'test';
+	$_SESSION['classroom'] = "";
+	$_SESSION['id_classroom'] = "";
+	$_SESSION['id'] = 33;
+*/
 
 function checkSession()
 {
