@@ -129,7 +129,7 @@ if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
         else
         {
             $firsCo = "true";
-            $_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Bienvenue! Veuillez personnaliser votre avatar.</span>";
+            $_SESSION['smsAlert']['default'] = "<span class='smsInfo'>Bienvenue! Tu peux personnaliser ton avatar.</span>";
             ?>
             <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
             <?php
@@ -140,6 +140,7 @@ $avatarContent = ob_get_clean();
 
 ob_start();
 ?>
+<p class="sms"><?=$_SESSION['smsAlert']['default']?></p>
 <div id="avatarCustomContainer" class="avatarCustomContainer disabled">
     <div class="avatarCustomResult">
         <?=$avatarContent?>
@@ -239,7 +240,6 @@ $avatarCustom = ob_get_clean();
         <?=$content?>
         <?=$avatarCustom?>
         </div>
-     	<?=$_SESSION['smsAlert']['default']?>
     </div>
     <footer>
         <div class="producer">
