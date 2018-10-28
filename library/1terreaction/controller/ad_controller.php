@@ -1,5 +1,5 @@
 <?php
-require('./model/model.php');
+require('./../../model/auth.php');
 require('./model/ad_model.php');
 require('./../../model/1ta_update.php');
 

@@ -41,7 +41,7 @@ ob_start();
         <?php
             if (!isset($planetList) || empty($planetList))
             {
-                ?><div class="clickHere"><p>Cliquez ici pour lier l'une de vos classe à une planète</p><img src="assets/img/arrow_bot.svg" alt=""></div><?php
+                ?><div class="clickHere"><p>Cliquez ici pour lier l'une de vos classes à une planète</p><img src="assets/img/arrow_bot.svg" alt=""></div><?php
             }
         ?>
         <div class="buttonsContainer">

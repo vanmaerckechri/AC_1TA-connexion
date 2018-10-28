@@ -1,5 +1,5 @@
 <?php
-require('./model/model.php');
+require('./../../model/auth.php');
 require('./model/game.php');
 require('../../model/avatar.php');
 
