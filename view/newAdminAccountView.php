@@ -17,7 +17,7 @@
             <input class="formInput" type="password" name="createAdminAccountPassword2" required>
             <p><?=$_SESSION['smsAlert']['password2']?></p>
 
-            <div class="g-recaptcha" data-sitekey="6LcR3F8UAAAAAGR1kYe6ysZSf8nTpYilhJgKFcZz"></div>
+            <div class="g-recaptcha" data-sitekey="<?=getClientCaptchaKey()?>"></div>
             
             <a href="index.php">Se connecter</a>
             <input class="formButton" type="submit" value="Valider">
