@@ -44,7 +44,7 @@ let launchVideo = function(file)
 
         textValidation = document.createElement("p")
         textValidation.classList.add("textValidation");
-        textValidation.innerText = "Appuye sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
+        textValidation.innerText = "Appuie sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
         videoContainer.appendChild(textValidation);
 
         questionIntroTimeToDisplay = setTimeout(function()
@@ -213,8 +213,18 @@ let saveAnswer = function(answerIndex, blockBonus)
         if (bonusGameAlreadyPlayed[0] == false && blockBonus == false)
         {
             document.getElementById("flsContainer").classList.toggle("disabled");
-            let dgl = new DinoGameLike;
-            dgl.launchTuto(this);
+            // currentTheme = quiz A, quiz B, etc.
+            if (currentTheme == A)
+            {
+                let dgl = new DinoGameLike;
+                dgl.launchTuto(this);
+            }
+            // default launch game from quiz A (alimentation)
+            else
+            {
+                let dgl = new DinoGameLike;
+                dgl.launchTuto(this);              
+            }
             bonusGameAlreadyPlayed[0] = true;
         }
     }
@@ -225,8 +235,18 @@ let saveAnswer = function(answerIndex, blockBonus)
         if (bonusGameAlreadyPlayed[1] == false && blockBonus == false)
         {
             document.getElementById("flsContainer").classList.toggle("disabled");
-            fruitlegsais = new Fruilegsais();
-            fruitlegsais.launchMainMenu();
+            // currentTheme = quiz A, quiz B, etc.
+            if (currentTheme == A)
+            {
+                fruitlegsais = new Fruilegsais();
+                fruitlegsais.launchMainMenu();
+            }
+            // default launch game from quiz A (alimentation)
+            else
+            {
+                fruitlegsais = new Fruilegsais();
+                fruitlegsais.launchMainMenu();               
+            }
             bonusGameAlreadyPlayed[1] = true;
         }
     }
@@ -431,6 +451,8 @@ let displayQuestion = function(questionIndex, event)
 // Launch Game
 let updateQuiz = function(themePosition)
 {
+    quiz = eval("quiz"+themePosition);
+    /*
     switch(themePosition)
     {
         case "A1":
@@ -451,7 +473,7 @@ let updateQuiz = function(themePosition)
         case "B3":
             quiz = quizB3;
             break;
-    }
+    }*/
 }
 
 let loadQuestions = function(themePosition)
@@ -632,20 +654,31 @@ let initThemes = function()
     {
         for (let i = allThemesActivation.length - 1; i >= 0; i--)
         {
-            if (allThemesActivation[i]["theme"] == allThemesNames[j] && allThemesActivation[i]["activation"] == 1)
+            if ((allThemesActivation[i]["theme"] == allThemesNames[j] && allThemesActivation[i]["activation"] == 1) || (i === 0 && allThemesActivation[i]["theme"] != allThemesNames[j]))
             {
                 let themeButton = document.createElement("div");
                 themeButton.setAttribute("class", "themeButton unlocked");
 
                 let themeNameButton = document.createElement("div");
                 themeNameButton.setAttribute("class", "theme");
-                themeNameButton.innerText = allThemesActivation[i]["theme"];
+                themeNameButton.innerText = allThemesNames[j];
 
                 themeButton.appendChild(themeNameButton);
                 themesContainer.appendChild(themeButton);
 
                 indexAllActiveThemes.push(j);
-                openQuestions.push(allThemesActivation[i]["openquestion"]);
+                // if info exist in db about this theme (ex.: if he has change open question)
+                if (allThemesActivation[i]["theme"] == allThemesNames[j])
+                {
+                    openQuestions.push(allThemesActivation[i]["openquestion"]);
+                }
+                // else open question by default (in question.js)
+                else
+                {
+                    let theme = allThemes[i].slice(0, allThemes[i].length - 1)
+                    theme += 3;
+                    openQuestions.push(eval(theme)["question03"]["openQuestion"]);
+                }
                 break;
             }
         }

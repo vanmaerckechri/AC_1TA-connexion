@@ -6,6 +6,10 @@ let answerList = [];
 let currentQuestion = "01";
 let allThemesNames = ["alimentation"];
 let allThemes = ["quizA1"];
+
+// ex.:
+// let allThemesNames = ["alimentation", "dechets", "culture"];
+// let allThemes = ["quizA1", "quizB1", "quizC1"];
 const quizA1 = 
 {
 	question01: 
