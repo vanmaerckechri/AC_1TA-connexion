@@ -236,7 +236,7 @@ let launchVideo = function(theme)
     {
         textValidation = document.createElement("p")
         textValidation.classList.add("textValidation");
-        textValidation.innerText = "Appuye sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
+        textValidation.innerText = "Appuie sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
         videoContainer.appendChild(textValidation);
 
         questionIntroTimeToDisplay = setTimeout(function()

@@ -1135,6 +1135,7 @@ window.addEventListener('load', function()
     let loadAllModalContents = function()
     {
         let views = ["aboutus.html", "ad_maintuto.html", "ad_peda.html"];
+        let ids = ["aboutUsButton", "adminTutoButton", "dossierPeda"];
         for (let i = views.length - 1; i >= 0; i--)
         {
             const req = new XMLHttpRequest();
@@ -1144,16 +1145,14 @@ window.addEventListener('load', function()
                 {
                     if (this.status === 200)
                     {
-                        modalContents.push(req.responseText);
+                        modalContents[i] = req.responseText;
+                        document.getElementById(ids[i]).onclick = function(){launchModal(modalContents[i])};
                     }
                 }
             };
             req.open('GET', 'view/'+views[i], true);
             req.send(null);
         }
-        document.getElementById("aboutUsButton").onclick = function(){launchModal(modalContents[2])};
-        document.getElementById("adminTutoButton").onclick = function(){launchModal(modalContents[1])};
-        document.getElementById("dossierPeda").onclick = function(){launchModal(modalContents[0])};
     }
     loadAllModalContents();
 });
