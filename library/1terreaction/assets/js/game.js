@@ -214,7 +214,7 @@ let saveAnswer = function(answerIndex, blockBonus)
         {
             document.getElementById("flsContainer").classList.toggle("disabled");
             // currentTheme = quiz A, quiz B, etc.
-            if (currentTheme == A)
+            if (currentTheme == "A")
             {
                 let dgl = new DinoGameLike;
                 dgl.launchTuto(this);
@@ -236,7 +236,7 @@ let saveAnswer = function(answerIndex, blockBonus)
         {
             document.getElementById("flsContainer").classList.toggle("disabled");
             // currentTheme = quiz A, quiz B, etc.
-            if (currentTheme == A)
+            if (currentTheme == "A")
             {
                 fruitlegsais = new Fruilegsais();
                 fruitlegsais.launchMainMenu();
