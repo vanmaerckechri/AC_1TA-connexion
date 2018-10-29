@@ -50,6 +50,7 @@ $content = ob_get_clean();
 ob_start();
 ?>
     <script>
+        let themeVideo = <?=json_encode($themeVideo)?>;
         let planetStats = <?=json_encode($planetStats)?>;
     </script>
     <script src="assets/threejs/three.js"></script>

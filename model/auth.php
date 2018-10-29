@@ -1,5 +1,10 @@
 <?php
-if (file_exists('../../model/hum.php'))
+
+if (file_exists('model/hum.php'))
+{
+	require('model/hum.php');
+}
+else if (file_exists('../../model/hum.php'))
 {
 	require('../../model/hum.php');
 }
@@ -7,8 +12,8 @@ else
 {
 	function connectDB()
 	{
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
+		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
+		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
 		return $db;
 	}
 	function getSecretCaptchaKey()
@@ -16,6 +21,7 @@ else
 		return "";
 	}
 }
+
 class Authentification
 {
 	private $sessionNickname;
@@ -147,6 +153,7 @@ class Authentification
 				// Si la classe existe, vérifier si les données entrées par l'étudiant sont correctes
 				if (!empty($resultReq))
 				{
+					$_SESSION['id_classroom'] = $resultReq[0]["id"];
 					$req = $db->prepare("SELECT id FROM pe_students WHERE nickname = :name AND password = :pwd AND id_classroom = :idcr");
 					$req->bindValue(':name', $this->_sessionNickname, PDO::PARAM_STR);
 					$req->bindValue(':pwd', $this->_sessionPassword, PDO::PARAM_STR);
@@ -162,9 +169,11 @@ class Authentification
 					}
 				}
 				$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+				$_SESSION['id'] = "";
 				$_SESSION['nickname'] = "";
 				$_SESSION['password'] = "";
 				$_SESSION['classroom'] = "";
+				$_SESSION['id_classroom'] = "";
 				return 'wrong';
 			}
 		}

@@ -1134,7 +1134,7 @@ window.addEventListener('load', function()
 
     let loadAllModalContents = function()
     {
-        let views = ["aboutus.html", "maintuto.html", "peda.html"];
+        let views = ["aboutus.html", "ad_maintuto.html", "ad_peda.html"];
         for (let i = views.length - 1; i >= 0; i--)
         {
             const req = new XMLHttpRequest();

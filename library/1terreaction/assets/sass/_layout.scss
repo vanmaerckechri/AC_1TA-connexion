@@ -966,6 +966,15 @@
 		overflow-x: hidden;
 		overflow-y: auto;
 		background-color: white;
+		ul
+		{
+			margin-bottom: 10px;
+			li
+			{
+				margin-left: 10px;
+				list-style-type: none;
+			}
+		}
 		.aboutUsCloseModalContainer
 		{
 			margin-bottom: 20px;
@@ -1058,7 +1067,7 @@
 	&::after
 	{
 		margin: 0 0 0 10px;
-		content: "Regarde les statistiques de ta planète";
+		content: "Regarde la conclusion de Yasmina et Léo";
 		position: absolute;
 		left: 100%;
 		top: 50%;

@@ -46,7 +46,7 @@ ob_start();
         ?>
         <div class="buttonsContainer">
             <button id="aboutUsButton" class="buttonDefault aboutUsButton">À Propos</button>
-            <button id="adminTutoButton" class="buttonDefault adminTutoButton">Développement</button>
+            <button id="adminTutoButton" class="buttonDefault adminTutoButton">Déroulement</button>
             <button id="dossierPeda" class="buttonDefault dossierPeda">Dossier Pédagogique</button>
             <?php
             {/*

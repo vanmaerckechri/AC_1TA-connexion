@@ -6,7 +6,7 @@ require('./model/avatar.php');
 // SESSION
 Authentification::startSession();
 
-if (isset($_GET['action'])&& $_GET['action'] == "disco")
+if (isset($_GET['action']) && $_GET['action'] == "disco")
 {
 	$_SESSION = array();
 	$_SESSION['smsAlert']['default'] = '<span class="smsInfo">Vous êtes bien déconnecté!</span>';

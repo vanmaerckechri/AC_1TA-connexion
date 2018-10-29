@@ -39,10 +39,11 @@ function loadAvatar()
 	return $avatarContent;
 }
 
-function loadMainView()
+function loadMainView($theme = false)
 {
 	$planetStats = GameInfos::getPlanetStatsAverage();
 	$avatarContent = loadAvatar();
+	$themeVideo = $theme;
 	require('./view/st_mainmenu.php');
 }
 

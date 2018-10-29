@@ -997,6 +997,11 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     background-color: white; }
+    .aboutUsContainer .aboutUs ul {
+      margin-bottom: 10px; }
+      .aboutUsContainer .aboutUs ul li {
+        margin-left: 10px;
+        list-style-type: none; }
     .aboutUsContainer .aboutUs .aboutUsCloseModalContainer {
       margin-bottom: 20px;
       width: 100%;
@@ -1060,7 +1065,7 @@ body {
   animation: flashButton 1s infinite alternate; }
   .backToSolarSystem::after {
     margin: 0 0 0 10px;
-    content: "Regarde les statistiques de ta planète";
+    content: "Regarde la conclusion de Yasmina et Léo";
     position: absolute;
     left: 100%;
     top: 50%;

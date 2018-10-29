@@ -38,7 +38,22 @@ else
 		// Main Menu
 		if ($_GET['action'] == 'main')
 		{
-			loadMainView();
+			// Main Menu with Final Theme Video
+			if (isset($_GET['themevideo']))
+			{
+				if ($_GET['themevideo'] == "alimentation")
+				{
+					loadMainView("alimentation");
+				}
+				else
+				{
+					loadMainView();
+				}
+			}
+			else
+			{
+				loadMainView();
+			}
 		}
 		// Launch Game
 		else if ($_GET['action'] == 'game')

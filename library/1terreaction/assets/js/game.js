@@ -678,10 +678,10 @@ let backToLocalBgButton = document.querySelector("#backToLocalBgContainer");
 backToLocalBgButton.addEventListener("click", closeThemesMenu, false);
 // Back to solar system
 let backToSolarSystemButton = document.querySelector("#backToSolarSystem");
-backToSolarSystemButton.addEventListener("click", function()
+backToSolarSystemButton.onclick = function()
 {
     window.location.href = "index.php";
-}, false);
+};
 // Leave
 let leaveGameButton = document.querySelector("#leaveGame");
 leaveGameButton.addEventListener("click", function()
@@ -714,10 +714,18 @@ document.getElementById("questionIntro").addEventListener("click", function()
     }
 }, false);
 
-// -- Invite player to look at planet stats if he is just finish to play a theme --
+// -- Invite player to look at planet stats and final video theme if he is just finish to play a theme --
 
 if (activeScoreTab === true)
 {
     displayMainMenu();
-    document.getElementById('backToSolarSystem').classList.add("backToSolarSystem");
+    let backToSolarSystemButton = document.querySelector("#backToSolarSystem");
+    backToSolarSystemButton.classList.add("backToSolarSystem");
+    let themeName = document.querySelector(".statsLocalPreviousGameContainer h3").innerText;
+    themeName = themeName.toLowerCase();
+    themeName = themeName.substr(0, themeName.length-1); 
+    backToSolarSystemButton.onclick = function()
+    {
+        window.location.href = "index.php?action=main&themevideo="+themeName;
+    };
 }
