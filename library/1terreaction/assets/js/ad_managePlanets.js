@@ -970,6 +970,7 @@ window.addEventListener('load', function()
         let planetName = document.querySelector('.planetName');
         let planetNameText = planetName.innerText;
         let planetInfosContainer = document.querySelector('.planetInfosContainer');
+        let container = document.getElementById("container");
         if (planetInfosContainer.classList.contains("disabled"))
         {
             if (!intersects[0])
@@ -983,8 +984,8 @@ window.addEventListener('load', function()
                 {
                     planetNameContainer.classList.remove("planetNameSphereHover");
                 }
-                document.body.style.cursor = "auto";
-                document.onclick = null;
+                container.style.cursor = "auto";
+                container.onclick = null;
             }
             if (intersects != "" && scene.children[0].busy == false && intersects[0].object.name == planetNameText && planetInfosContainer.classList.contains("disabled"))
             {
@@ -1000,11 +1001,11 @@ window.addEventListener('load', function()
                 {
                     planetNameContainer.classList.add("planetNameSphereHover");
                 }
-                document.body.style.cursor = "pointer";
+                container.style.cursor = "pointer";
                 // Select Planet
-                document.onclick = function()
+                container.onclick = function()
                 {                
-                    document.body.style.cursor = "auto";
+                    container.style.cursor = "auto";
                     let planetInfosTitle = document.getElementById('planetInfosTitle');
                     let uiBackground = document.querySelector('.uiBackground');
                     // Display free classrooms list to create a planet
@@ -1104,11 +1105,11 @@ window.addEventListener('load', function()
     window.addEventListener("resize", adaptUi, false);
 
     // active rotation if we have at least 2 planets (create planet + another one)
+    let container = document.getElementById("container");
     if (planetsList.length > 1)
     {
-        document.getElementById("container").addEventListener("touchstart", openRotationPlanet, false) || document.getElementById("container").addEventListener("mousedown", openRotationPlanet, false);
+        container.addEventListener("touchstart", openRotationPlanet, false) || container.addEventListener("mousedown", openRotationPlanet, false);
     }
-    let container = document.getElementById("container");
     document.addEventListener("touchmove", hoverPlanet, false) || document.addEventListener("mousemove", hoverPlanet, false);
     document.querySelector('.previous').addEventListener("touchstart", closePlanetInfos, false) || document.querySelector('.previous').addEventListener("mousedown", closePlanetInfos, false);
 
