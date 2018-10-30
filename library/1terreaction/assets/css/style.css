@@ -517,6 +517,9 @@ body {
   margin: 16px 0 8px;
   font-weight: bold; }
 
+.propositionClassroomAverage {
+  margin-bottom: 4px; }
+
 .step_scores {
   border: 2px solid rgba(32, 52, 72, 0.9);
   border-top-left-radius: 12px;
