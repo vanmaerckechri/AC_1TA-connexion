@@ -616,6 +616,70 @@ window.addEventListener('load', function()
             loadStatsPannel(studentsList, currentTheme);
         }
 
+        // display question and replies from classroom
+        let switchToPlanetQuestionsAnswersAverage = function()
+        {
+            let classroomAverageAnswersBtn = document.getElementById("classroomAverageAnswersBtn");
+            let planetInfosTitle = document.getElementById("planetInfosTitle");
+            if (classroomAverageAnswersBtn.innerText == "Réponses de la Classe")
+            {
+                deleteElement(["previousNextPlButtonsContainer"], ["id"]);
+                deleteElement(["populationContainer", "questionsRepliesContainer"], ["class", "id"]);
+                let questionsRepliesContainer = createDomElem("div", [["id", "class"], ["questionsRepliesContainer", "questionsRepliesContainer"]]);
+                planetInfosContainer.appendChild(questionsRepliesContainer);
+
+                planetInfosTitle.innerText = "Réponses de la Classe";
+                classroomAverageAnswersBtn.innerText = "Réponses par Élève";
+                classroomAverageAnswersBtn.onclick = displayQuestionsReplies.bind(this, 0);
+                // Calcul Answers Average
+                let displayResult = function()
+                {
+                    // questions/anwsers content
+                    for (let length = answersAverage.length, i = 0; i < length; i++)
+                    {
+                        let questionsContainer = createDomElem("div", [["class"], ["questionClassroomAverage"]]);
+                        questionsContainer.innerHTML += questionsList[i];
+                        questionsRepliesContainer.appendChild(questionsContainer);
+                        for (let lengthPropositions = 4, j = 1; j < lengthPropositions; j++)
+                        {
+                            let answersContainer = createDomElem("div", [["class"], ["propositionClassroomAverage"]]);
+                            answersContainer.innerHTML += propositionList[i]["proposition0"+j]["proposition"]+": "+answersAverage[i][j-1];
+                            questionsRepliesContainer.appendChild(answersContainer);
+                        }
+                    }                   
+                }
+                let q1 = [0, 0, 0];
+                let q2 = [0, 0, 0];
+                let q3 = [0, 0, 0];
+                let q4 = [0, 0, 0];            
+                let q5 = [0, 0, 0];
+                let q6 = [0, 0, 0];            
+                let q7 = [0, 0, 0];
+                let q8 = [0, 0, 0];
+                let q9 = [0, 0, 0];
+                let answersAverage = [q1, q2, q3, q4, q5, q6, q7, q8, q9];
+                // students loop
+                for (let lengthStudents = studentsList.length, i = 0; i < lengthStudents; i++)
+                {
+                    if (studentsList[i]["theme"][currentTheme])
+                    {
+                        // answers loop
+                        let student = studentsList[i]["theme"][currentTheme]["replies"]
+                        let indexAnswers = 0;
+                        for (let propertyName in student)
+                        {
+                            if (propertyName != "open_reply")
+                            {
+                                answersAverage[indexAnswers][student[propertyName] - 1] += 1;
+                                indexAnswers += 1;
+                            }
+                        }
+                    }
+                }
+                displayResult();
+            }
+        }
+
         // display questions and replies from players
         let displayQuestionsReplies = function(studentIndex)
         {
@@ -761,6 +825,8 @@ window.addEventListener('load', function()
             // display questions / replies
             let quizName = allThemes[quizIndex];
             let replyIndexName = 0;
+            questionsList = [];
+            propositionList = [];
             for (let quizPart = 1; quizPart < 4; quizPart++)
             {
                 quizName = quizName.slice(0, quizName.length - 1);
@@ -778,6 +844,8 @@ window.addEventListener('load', function()
                     let reply = createDomElem("p", [["class"],["reply"]]);
                     let propositionName = "proposition0"+[replies[replyName]];
                     question.innerText = replyIndexName+". "+quiz[questionName]["question"]+" =>";
+                    questionsList.push(replyIndexName+". "+quiz[questionName]["question"]);
+                    propositionList.push(quiz[questionName]);
 
                     if (questionIndex == 0)
                     {
@@ -817,6 +885,12 @@ window.addEventListener('load', function()
                     displayQuestionsReplies(studentIndex);
                 };
             }
+            // create classroom average answers button
+            deleteElement(["classroomAverageAnswersBtn"], ["id"]);
+            let classroomAverageAnswersBtn = createDomElem("button", [["id", "class"],["classroomAverageAnswersBtn","buttonDefault classroomAverageAnswersBtn"]]);
+            classroomAverageAnswersBtn.innerText = "Réponses de la Classe";
+            planetInfosTitleContainer.insertBefore(classroomAverageAnswersBtn, planetInfosTitleContainer.firstChild);
+            classroomAverageAnswersBtn.onclick = switchToPlanetQuestionsAnswersAverage;
             // create previous/next player buttons
             deleteElement(["previousNextPlButtonsContainer"], ["id"]);
             let previousNextPlButtonsContainer = createDomElem("div", [["id", "class"],["previousNextPlButtonsContainer","previousNextPlButtonsContainer"]]);
@@ -861,6 +935,7 @@ window.addEventListener('load', function()
         // create category button
         let createCategoryButton = function(category)
         {
+            deleteElement(["classroomAverageAnswersBtn"], ["id"]);
             deleteElement(["categoryButtonContainer"], ["id"]);
             let categoryButtonContainer = createDomElem("div", [["id", "class"],["categoryButtonContainer", "categoryButtonContainer"]]);
             let categoryButton = createDomElem("button", [["id", "class"],["categoryButton", "categoryButton buttonDefault"]]);
@@ -1014,11 +1089,10 @@ window.addEventListener('load', function()
                         let freeClassroomsContainer = document.querySelector('.freeClassroomsContainer');
                         planetInfosContainer.classList.remove("disabled");
                         freeClassroomsContainer.classList.remove("disabled");
-                        // center title
-                        document.querySelector(".planetInfosTitleDummy").style.flex = "initial";
                         // clean old content
                         document.getElementById("themeButtonsContainer").innerHTML = "";
                         planetInfosTitle.innerHTML = "";
+                        deleteElement(["classroomAverageAnswersBtn"], ["id"]);
                         deleteElement(["categoryButtonContainer"], ["id"]);
                         deleteElement(["previousNextPlButtonsContainer"], ["id"]);                 
 
@@ -1034,8 +1108,6 @@ window.addEventListener('load', function()
                     // Display Planet Infos (population, stats, etc)
                     else if (planetNameText != "Créer une Nouvelle Planète" && planetInfosContainer.classList.contains("disabled") && scene.children[0].busy == false)
                     {
-                        // center title
-                        document.querySelector(".planetInfosTitleDummy").style = "";
                         // Delete Pannel
                         let themeButtonsContainer = document.getElementById("themeButtonsContainer");
                         let deleteContainer = document.querySelector('.planetDeleteContainer');

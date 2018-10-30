@@ -19,7 +19,6 @@ ob_start();
                 <span id="planetOnOffButton" class="onOffButton"></span>
             </div>
             <div id="planetInfosTitleContainer" class="planetInfosTitleContainer">
-                <div class="planetInfosTitleDummy"></div>
                 <h3 id="planetInfosTitle" class="planetInfosTitle"></h3>
             </div>
             <div class="freeClassroomsContainer disabled">

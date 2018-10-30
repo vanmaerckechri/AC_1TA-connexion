@@ -144,10 +144,6 @@
 			align-items: center;
 			position: relative;
 			height: 50px;
-			.planetInfosTitleDummy, .planetInfosTitle, .previousNextPlButtonsContainer
-			{
-				flex: 1;
-			}
 			.planetInfosTitle
 			{    
 				font-family: $fontFamTitles;
@@ -266,6 +262,11 @@
 			display: inline-block;
 		}
 		// buttons
+		.classroomAverageAnswersBtn
+		{
+			margin-right: 10px;
+			position: static;
+		}
 		.themeButtonsContainer, .categoryButtonContainer
 		{
 			min-height: 50px;
@@ -281,7 +282,7 @@
 		{	
 			.buttonDefault
 			{
-				margin: 0 0 10px 10px;
+				margin: 0 0 0 10px;
 			}
 		}
 		.themeButtonsContainer
@@ -317,6 +318,15 @@
 		background-color: rgba(0, 40, 80, 0.2);
 		//z-index: 2;
 	}
+}
+// classroom answers average
+.questionClassroomAverage
+{
+	margin: 16px 0 8px;
+	font-weight: bold;
+}
+.propositionClassroomAverage
+{
 }
 // -- STUDENT --
 

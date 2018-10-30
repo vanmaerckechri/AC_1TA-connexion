@@ -405,8 +405,6 @@ body {
     align-items: center;
     position: relative;
     height: 50px; }
-    .ui .planetInfosContainer .planetInfosTitleContainer .planetInfosTitleDummy, .ui .planetInfosContainer .planetInfosTitleContainer .planetInfosTitle, .ui .planetInfosContainer .planetInfosTitleContainer .previousNextPlButtonsContainer {
-      flex: 1; }
     .ui .planetInfosContainer .planetInfosTitleContainer .planetInfosTitle {
       font-family: "fontFamTitles";
       font-size: 1.3rem; }
@@ -484,12 +482,15 @@ body {
       width: 100%; }
   .ui .planetInfosContainer .themeTitle {
     display: inline-block; }
+  .ui .planetInfosContainer .classroomAverageAnswersBtn {
+    margin-right: 10px;
+    position: static; }
   .ui .planetInfosContainer .themeButtonsContainer, .ui .planetInfosContainer .categoryButtonContainer {
     min-height: 50px; }
   .ui .planetInfosContainer .themeButtonsContainer .buttonDefault, .ui .planetInfosContainer .categoryButtonContainer .buttonDefault, .ui .planetInfosContainer .previousNextPlButtonsContainer .buttonDefault {
     position: static; }
   .ui .planetInfosContainer .themeButtonsContainer .buttonDefault, .ui .planetInfosContainer .previousNextPlButtonsContainer .buttonDefault {
-    margin: 0 0 10px 10px; }
+    margin: 0 0 0 10px; }
   .ui .planetInfosContainer .themeButtonsContainer {
     display: flex;
     justify-content: center;
@@ -511,6 +512,10 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   bottom: 49px;
   background-color: rgba(0, 40, 80, 0.2); }
+
+.questionClassroomAverage {
+  margin: 16px 0 8px;
+  font-weight: bold; }
 
 .step_scores {
   border: 2px solid rgba(32, 52, 72, 0.9);
