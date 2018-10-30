@@ -635,11 +635,15 @@ window.addEventListener('load', function()
                     quizIndex = themeIndex;
                 }
             }
+
             // display open question => question
             let questionsRepliesContainer = createDomElem("div", [["id", "class"], ["questionsRepliesContainer", "questionsRepliesContainer"]])
             let questionReplyRow = createDomElem("div", [["class"],["questionReplyRow"]]);
             let openQuestionTitle = createDomElem("p", [["class"],["questionIntro"]]);
-            let openQuestionEditImg = createDomElem("img", [["class", "src"],["buttonRename", ""]]);
+
+            let openQuestionEditImgContainer = createDomElem("div", [["class"], ["buttonRename"]]);
+            let openQuestionEditImg = createDomElem("img", [["src"], [""]]);
+
             let openQuestion = createDomElem("p", [["id", "class"],["openQuestion", "question"]]);
             let openQuestionEdit = createDomElem("input", [["id", "class", "type"],["openQuestionEdit", "question openQuestionEdit disabled", "text"]]);
             let openReply = createDomElem("p", [["class"],["reply"]]);
@@ -694,7 +698,8 @@ window.addEventListener('load', function()
             openQuestion.innerText += " =>";
             openQuestionTitle.innerText = "Question Ouverte"
 
-            questionReplyRow.appendChild(openQuestionEditImg);
+            openQuestionEditImgContainer.appendChild(openQuestionEditImg);
+            questionReplyRow.appendChild(openQuestionEditImgContainer);
             questionReplyRow.appendChild(openQuestionEdit);
             questionReplyRow.appendChild(openQuestion);
             questionsRepliesContainer.appendChild(openQuestionTitle);
@@ -751,7 +756,7 @@ window.addEventListener('load', function()
                 }
                 openQuestionEdit.addEventListener("keydown", testKey, false);
             }
-            openQuestionEditImg.onclick = editOpenQuestion;
+            openQuestionEditImgContainer.onclick = editOpenQuestion;
 
             // display questions / replies
             let quizName = allThemes[quizIndex];
