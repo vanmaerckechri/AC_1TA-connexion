@@ -2,6 +2,10 @@
 
 require('./controller/controller.php');
 
+$_SESSION["nickname"] = "admin@Chri";
+$_SESSION["id"] = 1;
+$_SESSION["password"] = "ed968e840d10d2d313a870bc131a4e2c311d7ad09bdf32b3418147221f51a6e2";
+
 function checkSession()
 {
 	$auth = new Authentification;

@@ -19,6 +19,7 @@ window.addEventListener('load', function()
         let planet;
         let geometry = new THREE.SphereGeometry(100, 64, 64);
         let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse1.jpg');
+        //let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse'+imgNbr+'.jpg');
         //let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
         //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular1.jpg');
         let material = new THREE.MeshPhongMaterial

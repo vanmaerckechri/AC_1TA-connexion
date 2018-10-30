@@ -32,38 +32,35 @@ window.addEventListener('load', function()
             angle += (360 / planetsLength);
             if (i < planetsLengthIndex)
             {
+                // Earth
                 let geometry = new THREE.SphereGeometry(600, 16, 16);
                 let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse'+imgNbr+'.jpg');
-                //let normalMap = new THREE.TextureLoader().load('assets/img/earth_normalmap.tif');
+                //let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse'+imgNbr+'.jpg');
                 //let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
-                //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular.tif');
-                let material = new THREE.MeshPhongMaterial
+                //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular1.jpg');
+                let material = new THREE.MeshLambertMaterial
                 ({
                     color: 0xffffff,
                     map: diffuseMap,
                     //bumpMap: bumpMap,
-                    //bumpScale: 20,
-                    //normalMap: normalMap,
-                    //specularMap: specularMap,
-                    //specular: 0x666666,
+                    //bumpScale: 1,
+                    //specularMap: bumpMap,
                     transparent: false
                 })
                 planet = new THREE.Mesh(geometry, material);
                 planet.position.set(planetCoordinates[0], 0, planetCoordinates[1]);
-                planet.geometry.computeVertexNormals();
                 planet.receiveShadow = true;
                 //pivot_planets.add(mesh_earth);
-
                 pivot_planets.add(planet);
 
                 // Clouds
                 geometry = new THREE.SphereGeometry(620, 16, 16);
-                diffuseMap = new THREE.TextureLoader().load('assets/img/earth_clouds_diffuse1.jpg');
+                //diffuseMap = new THREE.TextureLoader().load('assets/img/earth_clouds_diffuse1.jpg');
                 alphaMap = new THREE.TextureLoader().load('assets/img/earth_clouds_mask.jpg');
                 material = new THREE.MeshLambertMaterial
                 ({
-                    color: 'rgb(255, 255, 255)',
-                    map: diffuseMap,
+                    color: 'rgb(175, 175, 200)',
+                    //map: diffuseMap,
                     alphaMap: alphaMap,
                     transparent: true
                 })
@@ -73,7 +70,7 @@ window.addEventListener('load', function()
 
                 // Atmosphere
                 geometry = new THREE.SphereGeometry(640, 16, 16);
-                material = new THREE.MeshBasicMaterial
+                material = new THREE.MeshLambertMaterial
                 ({
                     color: 'blue',
                     opacity: 0.15,
@@ -127,16 +124,16 @@ window.addEventListener('load', function()
 
 // -- LIGHT --
     // Frontlight
-    let directLightCoordinates = givePlanetCoordinates(0, 0, ray * 2, convertAngleToRadians(45));
-    let directLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    let directLightCoordinates = givePlanetCoordinates(-2000, 0, ray * 2, convertAngleToRadians(45));
+    let directLight = new THREE.DirectionalLight(0xffffff, 2);
     directLight.position.set(directLightCoordinates[0], 1000, directLightCoordinates[1]);
     directLight.target.position.set(0, 0, 0);
     directLight.castShadow = true;
     scene.add(directLight);
 
     // BackLight
-    let backLightCoordinates = givePlanetCoordinates(0, 0, ray * 2, convertAngleToRadians(200));
-    let backLight = new THREE.DirectionalLight( 0xffffff, 5 );
+    let backLightCoordinates = givePlanetCoordinates(0, 0, ray * 2, convertAngleToRadians(240));
+    let backLight = new THREE.DirectionalLight( "rgb(30, 30, 50)", 5 );
     backLight.position.set(backLightCoordinates[0], -500, backLightCoordinates[1]);
     backLight.target.position.set(0, 0, 0);
     scene.add(backLight);
