@@ -20,8 +20,8 @@
         <div class="tools">
             <div style="width: 90px;"></div>
             <div>
-                <button id="button_create" class="<?=$buttonStatus?>">Ajouter un Élève</button>
-                <button id="delete" class="formButton deleteSomething">Effacer un Élève</button>
+                <button id="button_create" class="<?=$buttonStatus?>">Ajouter un·e Élève</button>
+                <button id="delete" class="formButton deleteSomething">Effacer un·e Élève</button>
             </div>
             <div style="width: 90px;"></div>
         </div>

@@ -14,7 +14,7 @@ function checkInput($input, $field, $smsTitle)
 	{
 	    case "nickname":
 	    	//$regex = "/^[a-z@\d\s]{3,30}$/i";
-	    	$regex = "/^[a-zA-Z0-9@éèë]{3,30}$/i";
+	    	$regex = "/^[a-zA-Z0-9@éèë ]{3,30}$/i";
 	    	$smsAlert = "<span class='smsAlert'>Le nom d'utilisateur doit être composé de 3 à 30 caractères! Hormis le \"@\", les caractères spéciaux ne sont pas acceptés!</span>";
 	    	break;
 	    case "password":
@@ -28,7 +28,7 @@ function checkInput($input, $field, $smsTitle)
 	    case "loginRecord":
 	    	//$regex = "/^[a-z\d\s]{3,24}$/i";
 
-	    	$regex = "/^[a-zA-Z0-9éèë]{3,24}$/i";
+	    	$regex = "/^[a-zA-Z0-9éèë ]{3,24}$/i";
 
 	    	$smsAlert = "<span class='smsAlert'>Le nom d'utilisateur doit être composé de 3 à 30 caractères! Les caractères spéciaux ne sont pas acceptés!</span>";
 	    	break;
