@@ -35,6 +35,10 @@
             <input class="formButton" type="submit" value="Enregistrer">
         </form>
     <?php 
+        if (isset($studentsList) && !empty($studentsList))
+        {
+            ?><p>Une fois vos élèves créés, cliquez sur la ludothèque et ensuite sur 1TerreAction pour lier votre classe à une planète.</p><?php
+        }
     $tools = ob_get_clean();
     // STUDENTS LIST!
     ob_start();
