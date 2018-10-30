@@ -55,6 +55,7 @@ ob_start();
                     ?><a id="testGame" class="buttonDefault testGame" href="./admin.php?action=game&idCr=<?=$planetList[0]['id_classroom']?>">Tester le Jeu</a><?php
                 }*/
             }?>
+            <p class="smsInlineWithButton">Pour tester le jeu, il faut vous connecter avec un compte élève</p>
         </div>
         <div id="step_scores" class="step_scores step_scoresAdmin statsPlanetContainer">
             <div class="statsContainer titleEnv">

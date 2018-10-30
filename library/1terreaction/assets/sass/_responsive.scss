@@ -280,7 +280,13 @@
 	{
 		.buttonsContainer
 		{
-			margin: 50px 0 0 20px;
+			margin: 50px 20px 0 20px;
+			width: calc(100vw - 40px);
+			justify-content: center;
+		}
+		.smsInlineWithButton
+		{
+			text-align: center;
 		}
 		.aboutUsButton, .adminTutoButton, .dossierPeda, .testGame
 		{

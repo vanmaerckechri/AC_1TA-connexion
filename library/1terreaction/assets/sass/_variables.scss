@@ -7,9 +7,13 @@
 }
 
 @font-face {
-    font-family: 'fontFamMain';
+    font-family: 'fontFamSecond';
     src: url(../../../../assets/fonts/minionpro_regular.otf);
 }
+
+$fontFamMain: arial;
+$fontFamSecond: 'fontFamSecond';
+$fontFamTitles: 'fontFamTitles';
 
 $ac-blue: #5cbced;
 

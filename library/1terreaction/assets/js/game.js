@@ -341,7 +341,7 @@ let backOnPreviousQuestion = function()
 let questionIntroTimeToDisplay;
 let minimizeIntroductionQuestions = function()
 {
-    clearTimeout(questionIntroTimeToDisplay);
+    /*clearTimeout(questionIntroTimeToDisplay);*/
     if (!document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
     {
         document.getElementById("questionIntro").classList.add("questionIntroMinimize")
@@ -349,16 +349,18 @@ let minimizeIntroductionQuestions = function()
 }
 let maximizeIntroductionQuestions = function()
 {
-    clearTimeout(questionIntroTimeToDisplay);
+    /*clearTimeout(questionIntroTimeToDisplay);*/
     if (document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
     {
         document.getElementById("questionIntro").classList.remove("questionIntroMinimize");
     };
+    /*
     // hide the question intro 8s after it loaded
     questionIntroTimeToDisplay = setTimeout(function()
     {
         minimizeIntroductionQuestions();
-    }, 8000);   
+    }, 8000);
+    */
 }
 
 // Load Questions and Propositions
@@ -417,7 +419,7 @@ let displayQuestion = function(questionIndex, event)
             let questionAreaPosX = questionArea.offsetLeft - imgBgPosX;
             let questionAreaPosY = questionArea.offsetTop - imgBgPosY;
 
-            minimizeIntroductionQuestions();
+            //minimizeIntroductionQuestions();
 
             /*imgBgContainer.style.width = imgBgWidth + "px";
             imgBgContainer.style.height = imgBgHeight + questionIntro.offsetHeight + "px";*/
@@ -478,8 +480,10 @@ let updateQuiz = function(themePosition)
 
 let loadQuestions = function(themePosition)
 {
+    /*
     // cleartimeout to prevent the previous influence the following 
     clearTimeout(questionIntroTimeToDisplay);
+    */
 
     currentTheme = themePosition.slice(0, 1);
     updateQuiz(themePosition);

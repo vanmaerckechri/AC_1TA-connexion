@@ -161,7 +161,7 @@ const quizA2 =
 	    xOrigin: 60,
 	    yOrigin: 30,
 	   	tag: document.getElementById("questionButton02"),
-	    question: "Miam des fruits! Que choisis-tu pour le desert?",
+	    question: "Miam des fruits! Que choisis-tu pour le dessert?",
 	    proposition01: 
 	    {
 	    	proposition: "Des fraises dans un ravier carton",
@@ -267,7 +267,7 @@ const quizA3 =
 	    xOrigin: 53,
 	    yOrigin: 41,
 	   	tag: document.getElementById("questionButton02"),
-	    question: "Au magain, tu vois les bouteilles d'eau dont tu as vu la pub le matin à la tv...",
+	    question: "Au magasin, tu vois les bouteilles d'eau dont tu as vu la pub le matin à la tv...",
 	    proposition01: 
 	    {
 	    	proposition: "Tu insistes auprès de tes parents pour les acheter",
@@ -326,6 +326,6 @@ const quizA3 =
 	    	stats_sante: 1,
 	    	stats_social: 2
 	    },
-	    openQuestion: "Question Ouverte par Défaut!"
+	    openQuestion: "Qu'est ce qui dans ton alimentation pourrait avoir un impact positif sur la planète ?"
 	}
 };

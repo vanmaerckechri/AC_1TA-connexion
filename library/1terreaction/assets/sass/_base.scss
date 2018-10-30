@@ -2,7 +2,6 @@
 html
 {
 	background-color: #e3e9ea;
-	font-family: 'fontFamMain';
 	//font-family: $'fontFamMain';
 }
 body
@@ -11,4 +10,5 @@ body
 	flex-direction: column;
 	justify-content: space-between;
 	min-height: 100vh;
+	font-family: $fontFamMain;
 }

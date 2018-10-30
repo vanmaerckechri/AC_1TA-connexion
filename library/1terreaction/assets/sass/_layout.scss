@@ -28,7 +28,7 @@
 		.planetName
 		{
 			letter-spacing: .8rem;
-	    	font-family: 'fontFamTitles';
+	    	font-family: $fontFamTitles;
 			font-size: 1.5rem;
 			max-width: calc(100% - 50px);
 			overflow: hidden;
@@ -150,7 +150,7 @@
 			}
 			.planetInfosTitle
 			{    
-				font-family: 'fontFamTitles';
+				font-family: $fontFamTitles;
 				font-size: 1.3rem;
 			}
 		}
@@ -160,7 +160,7 @@
 			.freeClassroomName
 			{
 				display: block;
-    			font-family: 'fontFamMain';
+    			font-family: $fontFamMain;
 				font-size: 1rem;
 				color: white;
 				text-decoration: none;
@@ -185,7 +185,7 @@
 			display: block;
 			max-width: 1920px;
 			width: 100%;
-			font-family: 'fontFamMain';
+			font-family: $fontFamMain;
 			font-size: 1rem;
 			color: white;
 			list-style: none;
@@ -337,7 +337,7 @@
 	justify-content: center;
 	align-items: baseline;
 	text-align: right;
-	font-family: 'fontFamTitles';
+	font-family: $fontFamTitles;
 	font-size: 1rem;
 	font-weight: bold;
 	color: white;
@@ -433,7 +433,7 @@
 		right: 10px;
 		top: 20px;
 		border: none;
-		font-family: 'fontFamTitles';
+		font-family: $fontFamTitles;
 		font-size: 1.2rem;
 		font-weight: bold;
 		color: white;
@@ -489,9 +489,8 @@
 	{
 		margin-bottom: 15px;
 		text-align: center;
-		font-size: 1.2rem;
+		font-size: 1rem;
 		color: white;
-		font-family: 'fontFamMain';
 	}
 	img
 	{
@@ -532,7 +531,7 @@
 		color: white;
 		font-size: 1.5rem;
 		letter-spacing: .2rem;
-		font-family: 'fontFamTitles';
+		font-family: $fontFamTitles;
 		font-weight: bold;
 		white-space: nowrap;
 		background-color: rgba(0, 0, 55, .1);
@@ -572,7 +571,7 @@
 				padding: 1rem 0;
 				width: 100px;
 				height: 100px;
-				font-family: 'fontFamTitles';
+				font-family: $fontFamTitles;
 				font-size: .8rem;
 				letter-spacing: .2rem;
 				color: rgba(0, 60, 120, 1);
@@ -644,7 +643,7 @@
 			align-items: center;
 			min-width: 75vw;
 			min-height: 75vh;
-			font-family: 'fontFamTitles';
+			font-family: $fontFamTitles;
 			font-size: 1rem;
 			color: black;
 			background-color: rgba(0, 60, 120, .2);
@@ -713,7 +712,7 @@
 		left: 0;
 		width: 100vw;
 		height: 100%;
-		font-family: 'fontFamTitles';
+		font-family: $fontFamTitles;
 		background-color: black;
 		.backOnPreviousQuestionButton
 		{
@@ -797,7 +796,8 @@
 			position: absolute;
 			left: 50%;
 			text-align: center;
-			font-size: 1rem;
+			font-family: $fontFamMain;
+			font-size: 1.25rem;
 			max-width: 100%;
 			background-color: white;
 			color: black;
@@ -846,6 +846,7 @@
 				border-top-right-radius: 12px;
 				border-top-left-radius: 12px;
 				padding: 10px;
+				font-family: $fontFamMain;
 				font-size: 1.2rem;
 				font-weight: bold;
 				color: black;
@@ -885,7 +886,7 @@
 					align-items: center;
 					text-align: center;
 					color: black;
-					font-size: 1rem;
+					font-size: 1.25rem;
 					background-color: white;
 					transition: all .5s;
 					&:hover
@@ -905,6 +906,7 @@
 					{
 						flex: 3;
 						text-align: left;
+						font-family: $fontFamMain;
 					}
 					.proposition
 					{
@@ -926,18 +928,29 @@
 // about
 .buttonsContainer
 {
-	margin: 110px 0 0 4rem;
+	margin: 110px 4rem 0 4rem;
 	position: fixed;
 	top: 0;
 	left: 0;
+	width: calc(100vw - 8rem);
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
+}
+.smsInlineWithButton
+{
+	margin-top: 10px;
+	width: 100%;
+	text-align: left;
+	font-size: 1.1rem;
+	letter-spacing: 0.1rem;
+	color: white;
+	overflow-wrap: break-word;
 }
 .aboutUsButton, .adminTutoButton, .dossierPeda, .testGame
 {
-	margin: 5px;
+	margin: 0 10px 10px 0;
 	position: static;
 	right: unset;
 	bottom: unset;
@@ -996,13 +1009,13 @@
 		.aboutUsContent
 		{
 			margin-bottom: 40px;
-			font-family: 'fontFamMain';
+			font-family: $fontFamMain;
 			h2
 			{
 				margin-bottom: 20px;
 				padding: 4px 8px;
 				border-radius: 4px;
-				font-family: 'fontFamTitles';
+				font-family: $fontFamTitles;
 				font-size: 1.4rem;
 				background: linear-gradient(to right, rgba(0, 177, 227, .9), rgba(0, 177, 227, 0));
 			}

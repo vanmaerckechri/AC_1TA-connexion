@@ -1,4 +1,8 @@
 @import "variables";
+.smsAlert, .smsInfo, .sms, .smsHelp
+{
+	margin-bottom: 10px;
+}
 .smsAlert
 {
 	display: inline-block;
@@ -10,8 +14,22 @@
 }
 .sms
 {
-	margin-bottom: 10px;
 	font-size: 1.2rem;
+}
+.smsHelp
+{
+	margin: 15px 0;
+}
+.ad_nick
+{
+	font-size: 1.25rem;
+	color: $ac-blue;
+	text-decoration: none;
+	&:hover
+	{
+		border-bottom: 1px solid $ac-blue;
+		color: black;
+	}
 }
 .g-recaptcha
 {
@@ -24,9 +42,12 @@
 	border-radius: 8px;
 	min-height: 35px;
 	min-width: 90px;
-	color: black;
+	font-family: $fontFamTitles;
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: white;
 	text-decoration: none;
-	background-color: rgba(74, 180, 241, .4);
+	background-color: $ac-blue;
 	box-shadow: -1px 2px 3px 1px rgba(0, 0, 60, .4);
 	transition: all .3s;
 	&:hover
@@ -61,6 +82,7 @@
 {
 	margin-left: 10px;
 	white-space: nowrap;
+	font-family: $fontFamTitles;
 	.disconnect
 	{
 		font-size: 1.5;

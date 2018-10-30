@@ -6,7 +6,7 @@ body
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-	font-family: 'fontFamMain';
+	font-family: $fontFamMain;
 	background-color: white;
 }
 footer
@@ -24,7 +24,7 @@ footer
 }
 h1, h2, label
 {
-	font-family: 'fontFamTitles';
+	font-family: $fontFamTitles;
 }
 h1
 {

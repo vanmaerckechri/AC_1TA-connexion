@@ -4,9 +4,13 @@
 }
 
 @font-face {
-    font-family: 'fontFamMain';
+    font-family: 'fontFamSecond';
     src: url(../fonts/minionpro_regular.otf);
 }
+
+$fontFamMain: arial;
+$fontFamSecond: 'fontFamSecond';
+$fontFamTitles: 'fontFamTitles';
 
 $ac-blue: #5cbced;
 $enabel-red: #ce1d21;

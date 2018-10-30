@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -9,61 +9,42 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="400"
-   height="530"
-   viewBox="0 0 105.83333 140.2294"
    version="1.1"
-   id="svg8"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="arrow_bot.svg">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="206.86459"
-     inkscape:cy="335.64971"
-     inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
-     showgrid="false"
-     units="px"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="100"
-     inkscape:window-maximized="1" />
-  <metadata
-     id="metadata5">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     inkscape:label="Calque 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(0,-156.77057)">
-    <path
-       style="fill:#ffffff;stroke:#000000;stroke-width:0.26458377px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 8.5525492,238.73512 46.2377038,53.45399 50.249427,-56.53543 -27.264209,0.14147 -1.603618,-72.69744 -46.578714,0.81706 0.07374,71.34583 z"
-       id="path4528"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccc" />
-    <path
-       id="path4518"
-       d="m 105.03968,235.65368 c 0,0.93027 -0.32649,1.84996 -0.95541,2.58365 l -47.62499,55.5625 c -0.75407,0.87974 -1.85473,1.38589 -3.01334,1.38589 -1.15861,0 -2.25928,-0.50615 -3.01334,-1.38589 L 2.8075994,238.23733 c -1.00886,-1.1766 -1.24011,-2.83342 -0.59241,-4.241 0.64797,-1.40838 2.05582,-2.31061 3.60575,-2.31061 H 25.66469 V 163.6878 c 0,-2.1918 1.77694,-3.96875 3.96875,-3.96875 h 47.625 c 2.1918,0 3.96875,1.77695 3.96875,3.96875 v 67.99792 h 19.84374 c 1.54993,0 2.95804,0.90223 3.60574,2.31034 0.24395,0.53023 0.36301,1.09591 0.36301,1.65762 z M 53.44594,285.11859 92.44208,239.62322 H 77.25844 c -2.19181,0 -3.96875,-1.77694 -3.96875,-3.96875 v -67.99792 h -39.6875 v 67.99792 c 0,2.19181 -1.77695,3.96875 -3.96875,3.96875 H 14.44979 Z"
-       style="fill:#3282f9;stroke-width:0.26458332"
-       inkscape:connector-curvature="0" />
-  </g>
+   id="Capa_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 512 512"
+   style="enable-background:new 0 0 512 512;"
+   xml:space="preserve"
+   sodipodi:docname="arrow_bot01.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"><metadata
+   id="metadata1570"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs1568" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1853"
+   inkscape:window-height="1025"
+   id="namedview1566"
+   showgrid="false"
+   inkscape:snap-global="false"
+   inkscape:zoom="0.4609375"
+   inkscape:cx="-240.81356"
+   inkscape:cy="256"
+   inkscape:window-x="67"
+   inkscape:window-y="27"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Capa_1" />
+<path
+   style="fill:#5cbced;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+   d="M 113.70508,305.8125 261.0918,477.03515 408.47852,305.8125 H 351.0918 c -8.284,0 -15,-6.6886 -15,-14.9375 l 0,-255.910155 h -150 l 0,255.910155 c 0,8.2489 -6.716,14.9375 -15,14.9375 z"
+   id="path1532"
+   inkscape:connector-curvature="0" />
 </svg>
