@@ -62,6 +62,16 @@ input {
 @font-face {
   font-family: 'fontFamSecond';
   src: url(../fonts/minionpro_regular.otf); }
+a {
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  font-style: italic;
+  transition: color .3s, border-color .5s;
+  color: #5cbced; }
+  a:hover {
+    border-color: #5cbced;
+    color: black; }
+
 .smsAlert, .smsInfo, .sms, .smsHelp {
   margin-bottom: 10px; }
 
@@ -418,18 +428,26 @@ input {
   align-items: center; }
   .producer p {
     font-size: .8rem; }
-  .producer a {
-    border-bottom: 2px solid white;
-    text-decoration: none;
-    font-style: italic;
-    transition: color .3s, border-color .5s;
-    color: #5cbced; }
-    .producer a:hover {
-      border-color: #5cbced;
-      color: black; }
   .producer img {
     width: 64px;
     height: auto; }
+
+.privacy {
+  border-top: 1px solid black;
+  padding: 20px 40px;
+  display: block;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8); }
+  .privacy p {
+    font-size: 1rem;
+    line-height: 1.3rem;
+    color: white; }
+  .privacy .privacyClose {
+    margin: 10px 10px 0; }
 
 #main .libElemContainer {
   width: 100%;

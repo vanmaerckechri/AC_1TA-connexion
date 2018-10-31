@@ -1,4 +1,10 @@
 @charset "UTF-8";
+@font-face {
+  font-family: 'fontFamTitles';
+  src: url(../../../../assets/fonts/brauerneue.otf); }
+@font-face {
+  font-family: 'fontFamSecond';
+  src: url(../../../../assets/fonts/minionpro_regular.otf); }
 html, body, header, nav, footer, section, div, span, h1, h2, h3, p, a, blockquote, cite, img, ol, ul, li, form, fieldset, input, textarea, label, legend {
   margin: 0;
   padding: 0;
@@ -237,6 +243,10 @@ body {
       transform: translate(-50%, -50%);
       transition: all .5s;
       pointer-events: none; }
+    .flsContainer .flsFruitLegumeContainer .flsFruitLegumeName {
+      margin: 8px 0;
+      font-family: arial;
+      font-size: 1.4rem; }
     .flsContainer .flsFruitLegumeContainer .flsFruitLegumeImgAnswerTrue {
       left: calc(100% + 256px); }
     .flsContainer .flsFruitLegumeContainer .flsFruitLegumeImgAnswerFalse {
@@ -433,7 +443,7 @@ $font-main: 'Open Sans', sans-serif;*/
       justify-content: flex-start; }
     .flsContainer .flsTutoContainer {
       border-radius: 0;
-      padding: 20px 20px; }
+      padding: 20px 20px 40px; }
       .flsContainer .flsTutoContainer h3 {
         margin: 50px 0; }
       .flsContainer .flsTutoContainer .flsTutoContent p {

@@ -117,7 +117,9 @@ let Fruilegsais = class
 
 			let lengthList = this.restFruitsLegumesList.length;
 			let randFruitLegume = Math.floor((Math.random() * lengthList) + 0);
-
+			// insert fruit/leg name to DOM
+			flsFruitLegumeName.innerText = this.restFruitsLegumesList[randFruitLegume].alt;
+			// insert fruit/leg image to DOM
 			let currentImg = this.restFruitsLegumesList[randFruitLegume].img;
 			currentImg.setAttribute("id", "flsFruitLegumeImg");
 			currentImg.setAttribute("class", "flsFruitLegumeImg");
@@ -571,6 +573,8 @@ let Fruilegsais = class
 		//Current Fruit/Legume
 		let flsFruitLegumeContainer = createElem("div", ["id", "class"], ["flsFruitLegumeContainer", "flsFruitLegumeContainer"]);
 		flsContainer.appendChild(flsFruitLegumeContainer);
+		let flsFruitLegumeName = createElem("div", ["id", "class"], ["flsFruitLegumeName", "flsFruitLegumeName"]);
+		flsFruitLegumeContainer.appendChild(flsFruitLegumeName);
 
 		//Canvas
 		let flsCanvasContainer = createElem("div", ["id", "class"], ["flsCanvasContainer", "flsCanvasContainer"]);

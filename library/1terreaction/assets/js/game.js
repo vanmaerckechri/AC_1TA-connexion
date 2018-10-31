@@ -3,6 +3,7 @@ let bonusGameAlreadyPlayed = [false, false];
 let indexAllActiveThemes = [];
 let openQuestions = [];
 let openQuestion;
+let smsWantCloseVid;
 
 let launchVideo = function(file)
 {
@@ -32,9 +33,9 @@ let launchVideo = function(file)
 
     let validationCloseVideo = function()
     {
+        clearTimeout(smsWantCloseVid);
         document.body.onkeypress = null;
         videoContainer.remove();
-        
         document.getElementById("homeSms").classList.add("homeSms");
     }
 
@@ -47,7 +48,7 @@ let launchVideo = function(file)
         textValidation.innerText = "Appuie sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
         videoContainer.appendChild(textValidation);
 
-        questionIntroTimeToDisplay = setTimeout(function()
+        smsWantCloseVid = setTimeout(function()
         {
             textValidation.remove();
             videoContainer.onclick = closeVideo;
@@ -338,7 +339,6 @@ let backOnPreviousQuestion = function()
     document.getElementById("questionButton0" + questionIndex).classList.remove("questionButtonClosed");
 }
 
-let questionIntroTimeToDisplay;
 let minimizeIntroductionQuestions = function()
 {
     /*clearTimeout(questionIntroTimeToDisplay);*/

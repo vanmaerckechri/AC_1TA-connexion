@@ -1,4 +1,17 @@
 @import "variables";
+a
+{
+	border-bottom: 2px solid transparent;
+	text-decoration: none;
+	font-style: italic;
+	transition: color .3s, border-color .5s;
+	color: $ac-blue;
+	&:hover
+	{
+		border-color: $ac-blue;
+		color: black;
+	}
+}
 .smsAlert, .smsInfo, .sms, .smsHelp
 {
 	margin-bottom: 10px;

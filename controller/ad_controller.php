@@ -30,6 +30,7 @@ function testSpam()
 }
 
 // -- TOOLS! --
+
 function createClassrooms()
 {
 	if (isset($_POST['newClassName']))

@@ -28,7 +28,7 @@ button {
     box-shadow: 0 0 5px 0 white;
     background-color: rgba(255, 255, 255, 0.8); }
   100% {
-    box-shadow: 0 0 20px 0 white;
+    box-shadow: 0 0 20px 10px white;
     background-color: white; } }
 @keyframes backButton {
   0% {
@@ -615,7 +615,7 @@ body {
       cursor: pointer; }
 
 .statsLocalPreviousGameContainer {
-  bottom: 63px; }
+  bottom: 55px; }
 
 .uiMainMenuStudent {
   position: fixed;
@@ -1093,7 +1093,7 @@ body {
   animation: flashButton 1s infinite alternate; }
   .backToSolarSystem::after {
     margin: 0 0 0 10px;
-    content: "< Regarde la conclusion en images";
+    content: "Regarde la conclusion en images";
     position: absolute;
     left: 100%;
     top: 50%;

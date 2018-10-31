@@ -278,6 +278,12 @@ body
   			transition: all .5s;
   			pointer-events: none;
   		}
+      .flsFruitLegumeName
+      {
+        margin: 8px 0;
+        font-family: $fontFamMain;
+        font-size: 1.4rem;
+      }
   		.flsFruitLegumeImgAnswerTrue
   		{
   			left: calc(100% + 256px);

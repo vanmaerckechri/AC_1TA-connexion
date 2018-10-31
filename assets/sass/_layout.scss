@@ -338,23 +338,32 @@
 	{
 		font-size: .8rem;
 	}
-	a
-	{
-		border-bottom: 2px solid white;
-		text-decoration: none;
-		font-style: italic;
-		transition: color .3s, border-color .5s;
-		color: $ac-blue;
-		&:hover
-		{
-			border-color: $ac-blue;
-			color: black;
-		}
-	}
 	img
 	{
 		width: 64px;
 		height: auto;
+	}
+}
+.privacy
+{
+	border-top: 1px solid black;
+	padding: 20px 40px;
+	display: block;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100vw;
+	text-align: center;
+	background-color: rgba(0, 0, 0, .8);
+	p
+	{
+		font-size: 1rem;
+		line-height: 1.3rem;
+		color: white;
+	}
+	.privacyClose
+	{
+		margin: 10px 10px 0;
 	}
 }
 

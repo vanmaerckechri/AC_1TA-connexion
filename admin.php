@@ -1,5 +1,4 @@
 <?php
-
 require('./controller/ad_controller.php');
 
 // ROUTER!

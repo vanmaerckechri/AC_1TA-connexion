@@ -209,6 +209,7 @@ let loadAboutUs = function()
 loadAboutUs();
 
 // Launch Final Theme Video
+let smsWantCloseVid;
 let launchVideo = function(theme)
 {
 
@@ -229,6 +230,7 @@ let launchVideo = function(theme)
 
     let validationCloseVideo = function()
     {
+        clearTimeout(smsWantCloseVid);
         document.body.onkeypress = null;
         videoContainer.remove();
     }
@@ -240,7 +242,7 @@ let launchVideo = function(theme)
         textValidation.innerText = "Appuie sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
         videoContainer.appendChild(textValidation);
 
-        questionIntroTimeToDisplay = setTimeout(function()
+        smsWantCloseVid = setTimeout(function()
         {
             textValidation.remove();
             videoContainer.onclick = closeVideo;

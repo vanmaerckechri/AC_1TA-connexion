@@ -1,5 +1,4 @@
 <?php
-
 require('./model/model.php');
 
 // -- ACTIVATE SESSION --
