@@ -245,7 +245,7 @@ let launchVideo = function(theme)
             textValidation.remove();
             videoContainer.onclick = closeVideo;
             document.body.onkeypress = closeVideo;
-        }, 3000);
+        }, 6000);
 
         videoContainer.onclick = validationCloseVideo;
         document.body.onkeypress = function(event)

@@ -643,7 +643,11 @@ window.addEventListener('load', function()
                         for (let lengthPropositions = 4, j = 1; j < lengthPropositions; j++)
                         {
                             let answersContainer = createDomElem("div", [["class"], ["propositionClassroomAverage"]]);
-                            answersContainer.innerHTML += propositionList[i]["proposition0"+j]["proposition"]+": "+answersAverage[i][j-1];
+                            if (j % 2 != 0)
+                            {
+                                answersContainer.classList.add("rowHot");
+                            }
+                            answersContainer.innerHTML += propositionList[i]["proposition0"+j]["proposition"]+": <span class='resultCrAnswersAverage'>"+answersAverage[i][j-1]+"</span>";
                             questionsRepliesContainer.appendChild(answersContainer);
                         }
                     }                   

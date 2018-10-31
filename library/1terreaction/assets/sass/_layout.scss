@@ -232,10 +232,11 @@
 		}
 		.questionIntro
 		{
-			padding: 8px 20px;
-			width: 100%;
+			padding: 16px 20px;
 			display: inline-block;
+			font-weight: bold;
 			color: black;
+			width: 100%;
 			background-color: white;
 		}
 		.questionReplyRow
@@ -322,12 +323,22 @@
 // classroom answers average
 .questionClassroomAverage
 {
-	margin: 16px 0 8px;
+	padding: 16px 0;
 	font-weight: bold;
+	background-color: white;
+	color: black;
 }
 .propositionClassroomAverage
 {
-	margin-bottom: 4px;
+	padding: 10px 0;
+}
+.resultCrAnswersAverage
+{
+	font-weight: bold;
+}
+.rowHot
+{
+	background-color: rgba(0, 0, 0, 0.5);
 }
 // -- STUDENT --
 
@@ -1091,7 +1102,7 @@
 	&::after
 	{
 		margin: 0 0 0 10px;
-		content: "Regarde la conclusion de Yasmina et Léo";
+		content: "< Regarde la conclusion en images";
 		position: absolute;
 		left: 100%;
 		top: 50%;
