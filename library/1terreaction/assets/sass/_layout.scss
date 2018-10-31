@@ -628,6 +628,11 @@
 			transform: translateY(330px) rotateZ(360deg);
 			opacity: 1;
 		}
+		.mainMenuOpenButton03
+		{
+			transform: translateY(440px) rotateZ(360deg);
+			opacity: 1;
+		}
 		.menuMainButtonOpen
 		{
 			border: 1px solid rgba(255, 255, 255, .5);
@@ -947,6 +952,44 @@
 		}
 	}
 }
+// how to play
+.howToPlayContainer
+{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+	background-color: rgba(255, 255, 255, .5);
+	.howToPlayContent
+	{
+		padding: 10px 4rem 50px;
+		border-radius: 8px;
+		width: 80vw;
+		max-width: 640px;
+		max-height: 100%;
+		background-color: white;
+		overflow: auto;
+		font-family: $fontFamMain;
+		h2
+		{
+			margin-bottom: 20px;
+			padding: 4px 8px;
+			border-radius: 4px;
+			font-size: 1.2rem;
+			background: linear-gradient(to right, rgba(0, 177, 227, .9), rgba(0, 177, 227, 0));
+		}
+		p
+		{
+			margin-bottom: 20px;
+			line-height: 1.2rem;
+		}
+	}
+}
 // about
 .buttonsContainer
 {
@@ -979,6 +1022,24 @@
 	background-color: $ac-blue;
 	pointer-events: auto;
 }
+.aboutUsCloseModalContainer
+{
+	margin-bottom: 20px;
+	width: 100%;
+	text-align: right;
+	.aboutUsCloseModal
+	{
+		color: black;
+		font-size: 1.2rem;
+		transition: all .2s;
+		&:hover
+		{
+			cursor: pointer;
+			color: $ac-blue;
+			text-shadow: 0 0 15px $ac-blue, 0 0 30px $ac-blue;
+		}
+	}
+}
 .aboutUsContainer
 {
 	margin-top: 105px;
@@ -1008,24 +1069,6 @@
 			{
 				margin-left: 10px;
 				list-style-type: none;
-			}
-		}
-		.aboutUsCloseModalContainer
-		{
-			margin-bottom: 20px;
-			width: 100%;
-			text-align: right;
-			.aboutUsCloseModal
-			{
-				color: black;
-				font-size: 1.2rem;
-				transition: all .2s;
-				&:hover
-				{
-					cursor: pointer;
-					color: $ac-blue;
-					text-shadow: 0 0 15px $ac-blue, 0 0 30px $ac-blue;
-				}
 			}
 		}
 		.aboutUsContent

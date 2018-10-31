@@ -64,6 +64,15 @@
 			background-color: rgba(255, 255, 255, .9);
 		}
 	}
+	// how to play
+	.howToPlayContainer
+	{
+		.howToPlayContent
+		{
+			padding: 10px 20px 50px;
+			width: 90vw;
+		}
+	}
 }
 @media (max-width: 812px)
 {
@@ -344,6 +353,11 @@
 			.mainMenuOpenButton02
 			{
 				transform: translateX(330px) rotateZ(360deg);
+				opacity: 1;
+			}
+			.mainMenuOpenButton03
+			{
+				transform: translateX(440px) rotateZ(360deg);
 				opacity: 1;
 			}
 		}

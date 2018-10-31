@@ -326,6 +326,6 @@ const quizA3 =
 	    	stats_sante: 1,
 	    	stats_social: 2
 	    },
-	    openQuestion: "Qu'est ce qui dans ton alimentation pourrait avoir un impact positif sur la planète ?"
+	    openQuestion: "Qu'est-ce qui, dans ton alimentation, pourrait avoir un impact positif sur la planète ?"
 	}
 };

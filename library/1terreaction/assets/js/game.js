@@ -5,6 +5,26 @@ let openQuestions = [];
 let openQuestion;
 let smsWantCloseVid;
 
+let loadHowToPlay = function()
+{
+    let howToPlayContainer = document.getElementById("howToPlayContainer");
+    howToPlayContainer.classList.remove("disabled");
+    let closeHowToPlay = function()
+    {
+        if (!howToPlayContainer.classList.contains("disabled"))
+        {
+            howToPlayContainer.classList.add("disabled");
+        }
+    }
+    howToPlayContainer.onclick = function(event)
+    {
+        if (event.target === howToPlayContainer)
+        {
+            closeHowToPlay();
+        }
+    };
+    document.getElementById("howToPlayCloseButton").onclick = closeHowToPlay;
+}
 let launchVideo = function(file)
 {
 
@@ -37,6 +57,7 @@ let launchVideo = function(file)
         document.body.onkeypress = null;
         videoContainer.remove();
         document.getElementById("homeSms").classList.add("homeSms");
+        loadHowToPlay();
     }
 
     let closeVideo = function()
@@ -719,6 +740,8 @@ backToSolarSystemButton.onclick = function()
 {
     window.location.href = "index.php";
 };
+// How to Play Modal
+document.getElementById("howToPlayButton").addEventListener("click", loadHowToPlay, false);
 // Leave
 let leaveGameButton = document.querySelector("#leaveGame");
 leaveGameButton.addEventListener("click", function()

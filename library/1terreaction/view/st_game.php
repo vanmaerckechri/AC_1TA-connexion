@@ -25,6 +25,9 @@ ob_start();
                     <button id="launchThemesMenuButton" class="menuButton disabled_v2">Jouer</button>
                 </div>
                 <div class="menuButtonContainer">
+                    <button id="howToPlayButton" class="menuButton disabled_v2">Comment Jouer</button>
+                </div>
+                <div class="menuButtonContainer">
                      <button id="backToSolarSystem" class="menuButton disabled_v2">Planète</button>
                 </div>
                 <div class="menuButtonContainer">
@@ -144,6 +147,18 @@ ob_start();
             }
         ?>
         <div id="flsContainer" class="flsContainer disabled">
+        </div>
+        <div id="howToPlayContainer" class="howToPlayContainer disabled">
+            <div class="howToPlayContent">
+            <div class="aboutUsCloseModalContainer"><span id="howToPlayCloseButton" class="aboutUsCloseModal">X</span></div>
+                <h2>Bonjour <?=$_SESSION['nickname']?>,</h2>
+                <br>
+                <p>Bienvenue dans le monde d’1TerreAction.</p>
+                <p>Voici ton territoire, ta maison. En cliquant sur Menu puis sur Jouer, tu vas devoir répondre à des questions concernant des choses que tu fais dans la vie de tous les jours. Tu constateras que tes décisions auront un impact sur ton environnement local, la mer qui figure sur ton territoire sera plus ou moins bleue ou polluée, l’herbe plus ou moins verte, il y aura plus ou moins de fleurs, etc. mais aussi, dans une moindre mesure, sur les humains et ta santé.</p>
+                <p>Tes réponses/actions auront également un impact global sur la terre habitée par tous les élèves de la classe, sur la planète. Et oui, si toutes les petites actions individuelles sont mises ensemble, de grands changements mondiaux peuvent se produire !</p>
+                <br>
+                <p>À toi de jouer ;-)</p>
+            </div>
         </div>
     </div>
 <?php

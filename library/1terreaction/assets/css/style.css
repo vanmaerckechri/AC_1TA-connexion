@@ -736,6 +736,9 @@ body {
     #main .menu .mainMenuOpenButton02 {
       transform: translateY(330px) rotateZ(360deg);
       opacity: 1; }
+    #main .menu .mainMenuOpenButton03 {
+      transform: translateY(440px) rotateZ(360deg);
+      opacity: 1; }
     #main .menu .menuMainButtonOpen {
       border: 1px solid rgba(255, 255, 255, 0.5);
       background-color: rgba(0, 60, 120, 0.2); }
@@ -977,6 +980,36 @@ body {
         #main #step_questions .questionContainer .propositionsContainer .propositionContainerMid {
           margin: 30px 0; }
 
+.howToPlayContainer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.5); }
+  .howToPlayContainer .howToPlayContent {
+    padding: 10px 4rem 50px;
+    border-radius: 8px;
+    width: 80vw;
+    max-width: 640px;
+    max-height: 100%;
+    background-color: white;
+    overflow: auto;
+    font-family: arial; }
+    .howToPlayContainer .howToPlayContent h2 {
+      margin-bottom: 20px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 1.2rem;
+      background: linear-gradient(to right, rgba(0, 177, 227, 0.9), rgba(0, 177, 227, 0)); }
+    .howToPlayContainer .howToPlayContent p {
+      margin-bottom: 20px;
+      line-height: 1.2rem; }
+
 .buttonsContainer {
   margin: 110px 4rem 0 4rem;
   position: fixed;
@@ -1005,6 +1038,19 @@ body {
   background-color: #5cbced;
   pointer-events: auto; }
 
+.aboutUsCloseModalContainer {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: right; }
+  .aboutUsCloseModalContainer .aboutUsCloseModal {
+    color: black;
+    font-size: 1.2rem;
+    transition: all .2s; }
+    .aboutUsCloseModalContainer .aboutUsCloseModal:hover {
+      cursor: pointer;
+      color: #5cbced;
+      text-shadow: 0 0 15px #5cbced, 0 0 30px #5cbced; }
+
 .aboutUsContainer {
   margin-top: 105px;
   position: fixed;
@@ -1030,18 +1076,6 @@ body {
       .aboutUsContainer .aboutUs ul li {
         margin-left: 10px;
         list-style-type: none; }
-    .aboutUsContainer .aboutUs .aboutUsCloseModalContainer {
-      margin-bottom: 20px;
-      width: 100%;
-      text-align: right; }
-      .aboutUsContainer .aboutUs .aboutUsCloseModalContainer .aboutUsCloseModal {
-        color: black;
-        font-size: 1.2rem;
-        transition: all .2s; }
-        .aboutUsContainer .aboutUs .aboutUsCloseModalContainer .aboutUsCloseModal:hover {
-          cursor: pointer;
-          color: #5cbced;
-          text-shadow: 0 0 15px #5cbced, 0 0 30px #5cbced; }
     .aboutUsContainer .aboutUs .aboutUsContent {
       margin-bottom: 40px;
       font-family: arial; }
@@ -1147,7 +1181,11 @@ body {
     text-align: center;
     transform: translate(-50%, -50%);
     color: black;
-    background-color: rgba(255, 255, 255, 0.9); } }
+    background-color: rgba(255, 255, 255, 0.9); }
+
+  .howToPlayContainer .howToPlayContent {
+    padding: 10px 20px 50px;
+    width: 90vw; } }
 @media (max-width: 812px) {
   .headerProfile {
     padding: 10px 20px;
@@ -1282,6 +1320,9 @@ body {
       opacity: 1; }
     #main .menu .mainMenuOpenButton02 {
       transform: translateX(330px) rotateZ(360deg);
+      opacity: 1; }
+    #main .menu .mainMenuOpenButton03 {
+      transform: translateX(440px) rotateZ(360deg);
       opacity: 1; }
   #main #step_questions .questionContainer .propositionsContainer {
     justify-content: flex-start; }
