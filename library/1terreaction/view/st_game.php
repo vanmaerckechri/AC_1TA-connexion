@@ -178,13 +178,13 @@ ob_start();
         ?>
 
     </script>
-
+    <script type= "text/javascript" src="assets/js/preloadImages.js"></script>
+    <script type= "text/javascript" src="assets/js/createDomElem.js"></script>
     <script type= "text/javascript" src="assets/js/dgl_game-engine.js"></script>
     <script type= "text/javascript" src="assets/js/fls_game-engine.js"></script>
     <script type= "text/javascript" src="assets/js/questions.js"></script>
     <script type= "text/javascript" src="assets/js/game.js"></script>
     <script type= "text/javascript" src="assets/js/stats.js"></script>
-    <script type= "text/javascript" src="assets/js/createDomElem.js"></script>
 <?php
 $script = ob_get_clean();
 

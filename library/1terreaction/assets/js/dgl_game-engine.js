@@ -10,7 +10,7 @@ let DinoGameLike = class
 
 		this.plxGoal =
 		{
-			img: createElem("img", "src", "assets/img/goal.svg"),
+			img: dglBackgroundImages[0],
 			posX: 0,
 			posY: 1,
 			speedZ: 6,
@@ -22,7 +22,7 @@ let DinoGameLike = class
 
 		this.plxRoad = 
 		{
-			img: createElem("img", "src", "assets/img/road.svg"),
+			img: dglBackgroundImages[1],
 			posX: 0,
 			posY: 1,
 			speedZ: 6,
@@ -32,7 +32,7 @@ let DinoGameLike = class
 		};
 		this.plxForest = 
 		{
-			img: createElem("img", "src", "assets/img/forest.svg"),
+			img: dglBackgroundImages[2],
 			posX: 0,
 			posY: 1,
 			speedZ: 6,
@@ -42,7 +42,7 @@ let DinoGameLike = class
 		};
 		this.plxMountainsA = 
 		{
-			img: createElem("img", "src", "assets/img/mountains_a.svg"),
+			img: dglBackgroundImages[3],
 			posX: 0,
 			posY: 1,
 			speedZ: 3,
@@ -52,7 +52,7 @@ let DinoGameLike = class
 		};
 		this.plxMountainsB = 
 		{
-			img: createElem("img", "src", "assets/img/mountains_b.svg"),
+			img: dglBackgroundImages[4],
 			posX: 0,
 			posY: 1,
 			speedZ: 2,
@@ -62,7 +62,7 @@ let DinoGameLike = class
 		};
 		this.plxClouds = 
 		{
-			img: createElem("img", "src", "assets/img/clouds.svg"),
+			img: dglBackgroundImages[5],
 			posX: 0,
 			posY: 0,
 			speedZ: 1,
@@ -74,14 +74,14 @@ let DinoGameLike = class
 
 		this.player = 
 		{
-			img: [createElem("img", "src", "assets/img/bike01.svg"), createElem("img", "src", "assets/img/bike02.svg"), createElem("img", "src", "assets/img/bike03.svg"), createElem("img", "src", "assets/img/bike04.svg")],
+			img: [dglPlayerImages[0], dglPlayerImages[1], dglPlayerImages[2], dglPlayerImages[3]],
 			currentImgIndex: 0,
 			imgEveryFrame: 0,
 			posX: 0,
 			posY: 0,
 			floorPosY: 0,
 			jump: 0,
-			jumpImg: createElem("img", "src", "assets/img/bikeJump.svg"),
+			jumpImg: dglPlayerImages[4],
 			jumpStep: 0,
 			jumpInertieMaxPosY: 0,
 			jumpMaxPosY: 0,
@@ -89,10 +89,9 @@ let DinoGameLike = class
 			height: 800
 		};
 
-		this.obsCowImg = createElem("img", "src", "assets/img/cow.svg");
 		this.obsCow =
 		{
-			img: this.obsCowImg,
+			img: dglEnemiesImages[0],
 			posX: 0,
 			posY: 0,
 			width: 64,
@@ -101,10 +100,9 @@ let DinoGameLike = class
 			elemType: "floor"
 		};
 
-		this.obsCowV02Img = createElem("img", "src", "assets/img/cow_v02.svg");
 		this.obsCowV02 =
 		{
-			img: this.obsCowV02Img,
+			img: dglEnemiesImages[1],
 			posX: 0,
 			posY: 0,
 			width: 78,
@@ -113,10 +111,9 @@ let DinoGameLike = class
 			elemType: "floor"
 		};
 
-		this.obsBalloonImg = createElem("img", "src", "assets/img/balloon.svg");
 		this.obsBalloon =
 		{
-			img: this.obsBalloonImg,
+			img: dglEnemiesImages[2],
 			posX: 0,
 			posY: 0,
 			width: 42,
@@ -133,7 +130,6 @@ let DinoGameLike = class
 		[
 			this.apple = 
 			{
-				img: createElem("img", "src", "assets/img/apple.svg"),
 				alt: "pomme",
 				co2: -10,
 				posX: 0,
@@ -145,7 +141,6 @@ let DinoGameLike = class
 			},
 			this.bottle = 
 			{
-				img: createElem("img", "src", "assets/img/bottle.svg"),
 				alt: "bouteille d'eau",
 				co2: 10,
 				posX: 0,
@@ -157,7 +152,6 @@ let DinoGameLike = class
 			},
 			this.mushroom = 
 			{
-				img: createElem("img", "src", "assets/img/mushroom.svg"),
 				alt: "champignons en vrac",
 				co2: -10,
 				posX: 0,
@@ -169,7 +163,6 @@ let DinoGameLike = class
 			},
 			this.pear = 
 			{
-				img: createElem("img", "src", "assets/img/pears.svg"),
 				alt: "poire en vrac",
 				co2: -10,
 				posX: 0,
@@ -181,7 +174,6 @@ let DinoGameLike = class
 			},
 			this.avocado = 
 			{
-				img: createElem("img", "src", "assets/img/avocado.svg"),
 				alt: "avocat",
 				co2: 10,
 				posX: 0,
@@ -193,7 +185,6 @@ let DinoGameLike = class
 			},
 			this.olives = 
 			{
-				img: createElem("img", "src", "assets/img/olives.svg"),
 				alt: "olives en vrac",
 				co2: -10,
 				posX: 0,
@@ -205,7 +196,6 @@ let DinoGameLike = class
 			},
 			this.flask = 
 			{
-				img: createElem("img", "src", "assets/img/flask.svg"),
 				alt: "gourde",
 				co2: -10,
 				posX: 0,
@@ -217,7 +207,6 @@ let DinoGameLike = class
 			},
 			this.beef = 
 			{
-				img: createElem("img", "src", "assets/img/beef.svg"),
 				alt: "morceau de boeuf",
 				co2: 20,
 				posX: 0,
@@ -229,7 +218,6 @@ let DinoGameLike = class
 			},
 			this.kiwi = 
 			{
-				img: createElem("img", "src", "assets/img/kiwi.svg"),
 				alt: "kiwi",
 				co2: 10,
 				posX: 0,
@@ -240,6 +228,17 @@ let DinoGameLike = class
 				elemType: "floor"
 			}
 		];
+
+		// try to fix img loading problem with this
+		let indexItemsList = 0;
+		for (let item in this.itemsList)
+		{
+		  this.itemsList[item].img = dglAlimImages[indexItemsList]
+		  indexItemsList += 1;
+		}
+		// ---------------------------------
+
+
 		this.itemCreateEveryFrame = 0;
 		this.nextItem = "";
 		this.currentItems = [];

@@ -16,7 +16,7 @@ const quizA1 =
 	{
 		intro: "« Il est très important de prendre un bon petit déjeuner le matin ! » Aujourd’hui, tu peux choisir ce que tu prends ! Que choisis-tu ?",
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		image: mainGameQuizABgImages[0],
 	    sizeOrigin: 4,
 	    xOrigin: 60,
 	    yOrigin: 32,
@@ -25,7 +25,7 @@ const quizA1 =
 	    proposition01: 
 	    {
 	    	proposition: "Des céréales au chocolat",
-	    	imageSrc: "assets/img/cereals.svg",
+	    	image: mainGameQuizA1PropositionsImages[0],
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
 	    	stats_social: 1
@@ -33,7 +33,7 @@ const quizA1 =
 	    proposition02: 
 	    {
 	    	proposition: "Du pain et de la confiture maison",
-	    	imageSrc: "assets/img/toast.svg",
+	    	image: mainGameQuizA1PropositionsImages[1],
 	    	stats_environnement: 2,
 	    	stats_sante: 1,
 	    	stats_social: 1
@@ -41,7 +41,7 @@ const quizA1 =
 	    proposition03: 
 	    {
 	    	proposition: "Des croissants du supermarché",
-	    	imageSrc: "assets/img/croissant.svg",
+	    	image: mainGameQuizA1PropositionsImages[2],
 	    	stats_environnement: 1,
 	    	stats_sante: 0,
 	    	stats_social: 1
@@ -50,7 +50,7 @@ const quizA1 =
 	question02: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		image: mainGameQuizABgImages[0],
 	    sizeOrigin: 4,
 	    xOrigin: 70,
 	    yOrigin: 50,
@@ -59,7 +59,7 @@ const quizA1 =
 	   	proposition01: 
 	    {
 	    	proposition: "Du jus d'orange pressé",
-	    	imageSrc: "assets/img/orange-juice.svg",
+	    	image: mainGameQuizA1PropositionsImages[3],
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 1
@@ -67,7 +67,7 @@ const quizA1 =
 	    proposition02: 
 	    {
 	    	proposition: "Du lait bio",
-	    	imageSrc: "assets/img/milk.svg",
+	    	image: mainGameQuizA1PropositionsImages[4],
 	    	stats_environnement: 2,
 	    	stats_sante: 1,
 	    	stats_social: 1
@@ -75,7 +75,7 @@ const quizA1 =
 	    proposition03: 
 	    {
 	    	proposition: "Du soda",
-	    	imageSrc: "assets/img/can.svg",
+	    	image: mainGameQuizA1PropositionsImages[5],
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
 	    	stats_social: 0
@@ -84,7 +84,7 @@ const quizA1 =
 	question03: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg01.svg",
+		image: mainGameQuizABgImages[0],
 	    sizeOrigin: 4,
 	    xOrigin: 50,
 	    yOrigin: 45,
@@ -93,7 +93,7 @@ const quizA1 =
 	    proposition01: 
 	    {
 	    	proposition: "Une barre chocolatée",
-	    	imageSrc: "assets/img/chocolate.svg",
+	    	image: mainGameQuizA1PropositionsImages[6],
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
 	    	stats_social: 0
@@ -101,7 +101,7 @@ const quizA1 =
 	    proposition02: 
 	    {
 	    	proposition: "Une pomme",
-	    	imageSrc: "assets/img/apple.svg",
+	    	image: mainGameQuizA1PropositionsImages[7],
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 1
@@ -109,7 +109,7 @@ const quizA1 =
 	    proposition03: 
 	    {
 	    	proposition: "Gâteau fait maison",
-	    	imageSrc: "assets/img/muffin.svg",
+	    	image: mainGameQuizA1PropositionsImages[8],
 	    	stats_environnement: 1,
 	    	stats_sante: 1,
 	    	stats_social: 2
@@ -122,7 +122,7 @@ const quizA2 =
 	{
 		intro: "« C'est l'heure du souper ! »",
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg02.svg",
+		image: mainGameQuizABgImages[1],
 	    sizeOrigin: 4,
 	    xOrigin: 27,
 	    yOrigin: 65,
@@ -131,7 +131,7 @@ const quizA2 =
 	    proposition01: 
 	    {
 	    	proposition: "Du poisson pané",
-	    	imageSrc: "assets/img/fish_breaded.svg",
+	    	image: mainGameQuizA2PropositionsImages[0],
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
 	    	stats_social: 0
@@ -139,7 +139,7 @@ const quizA2 =
 	    proposition02: 
 	    {
 	    	proposition: "Du saumon élevé en Ecosse",
-	    	imageSrc: "assets/img/salmon.svg",
+	    	image: mainGameQuizA2PropositionsImages[1],
 	    	stats_environnement: 0,
 	    	stats_sante: 1,
 	    	stats_social: 0
@@ -147,7 +147,7 @@ const quizA2 =
 	    proposition03: 
 	    {
 	    	proposition: "Du poisson issu de la pêche durable",
-	    	imageSrc: "assets/img/fish.svg",
+	    	image: mainGameQuizA2PropositionsImages[2],
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
@@ -156,7 +156,7 @@ const quizA2 =
 	question02: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg02.svg",
+		image: mainGameQuizABgImages[1],
 	    sizeOrigin: 4,
 	    xOrigin: 60,
 	    yOrigin: 30,
@@ -165,7 +165,7 @@ const quizA2 =
 	    proposition01: 
 	    {
 	    	proposition: "Des fraises dans un ravier carton",
-	    	imageSrc: "assets/img/strawberry.svg",
+	    	image: mainGameQuizA2PropositionsImages[3],
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 1
@@ -173,7 +173,7 @@ const quizA2 =
 	    proposition02: 
 	    {
 	    	proposition: "Des tranches d'ananas en conserve",
-	    	imageSrc: "assets/img/pineapple.svg",
+	    	image: mainGameQuizA2PropositionsImages[4],
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
 	    	stats_social: 1
@@ -181,7 +181,7 @@ const quizA2 =
 	   	proposition03: 
 	    {
 	    	proposition: "Des poires en vrac",
-	    	imageSrc: "assets/img/pear.svg",
+	    	image: mainGameQuizA2PropositionsImages[5],
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 1
@@ -190,7 +190,7 @@ const quizA2 =
 	question03: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg02.svg",
+		image: mainGameQuizABgImages[1],
 	    sizeOrigin: 4,
 	    xOrigin: 25,
 	    yOrigin: 39,
@@ -199,7 +199,7 @@ const quizA2 =
 	   	proposition01: 
 	    {
 	    	proposition: "Tu poses des questions",
-	    	imageSrc: "assets/img/question.svg",
+	    	image: mainGameQuizA2PropositionsImages[6],
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 2
@@ -207,7 +207,7 @@ const quizA2 =
 	    proposition02: 
 	    {
 	    	proposition: "Tu changes de chaîne parce que tu n’y comprends rien (c’est un problème de grands !)",
-	    	imageSrc: "assets/img/controller.svg",
+	    	image: mainGameQuizA2PropositionsImages[7],
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
 	    	stats_social: 0
@@ -215,7 +215,7 @@ const quizA2 =
 	    proposition03: 
 	    {
 	    	proposition: "Tu demandes à tes parents d’envoyer de l’argent aux agriculteurs pour qu’ils ne soient plus pauvres",
-	    	imageSrc: "assets/img/cash.svg",
+	    	image: mainGameQuizA2PropositionsImages[8],
 	    	stats_environnement: 1,
 	    	stats_sante: 1,
 	    	stats_social: 1
@@ -228,7 +228,7 @@ const quizA3 =
 	{
 		intro: "« Tu pars faire les courses avec les parents. Tu t’emmitoufles dans ton manteau parce qu’il fait très froid en ce mois de décembre. Que mettez-vous dans le caddie ? »",
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg03.svg",
+		image: mainGameQuizABgImages[2],
 	    sizeOrigin: 4,
 	    xOrigin: 74,
 	    yOrigin: 45,
@@ -237,7 +237,7 @@ const quizA3 =
 	    proposition01: 
 	    {
 	    	proposition: "Du boeuf",
-	    	imageSrc: "assets/img/beef.svg",
+	    	image: mainGameQuizA3PropositionsImages[0],
 	    	stats_environnement: 0,
 	    	stats_sante: 1,
 	    	stats_social: 0
@@ -245,7 +245,7 @@ const quizA3 =
 	    proposition02: 
 	    {
 	    	proposition: "Du poulet",
-	    	imageSrc: "assets/img/chicken.svg",
+	    	image: mainGameQuizA3PropositionsImages[1],
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 0
@@ -253,7 +253,7 @@ const quizA3 =
 	    proposition03: 
 	    {
 	    	proposition: "Un burger végé",
-	    	imageSrc: "assets/img/burger_green.svg",
+	    	image: mainGameQuizA3PropositionsImages[2],
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 1
@@ -262,7 +262,7 @@ const quizA3 =
 	question02: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg03.svg",
+		image: mainGameQuizABgImages[2],
 	    sizeOrigin: 4,
 	    xOrigin: 53,
 	    yOrigin: 41,
@@ -271,7 +271,7 @@ const quizA3 =
 	    proposition01: 
 	    {
 	    	proposition: "Tu insistes auprès de tes parents pour les acheter",
-	    	imageSrc: "assets/img/bottle.svg",
+	    	image: mainGameQuizA3PropositionsImages[3],
 	    	stats_environnement: 0,
 	    	stats_sante: 2,
 	    	stats_social: 1
@@ -279,7 +279,7 @@ const quizA3 =
 	    proposition02: 
 	    {
 	    	proposition: "Tu t'en fiches, tu as ta gourde à la maison",
-	    	imageSrc: "assets/img/water.svg",
+	    	image: mainGameQuizA3PropositionsImages[4],
 	    	stats_environnement: 2,
 	    	stats_sante: 2,
 	    	stats_social: 1
@@ -287,7 +287,7 @@ const quizA3 =
 	    proposition03: 
 	    {
 	    	proposition: "Tu achètes un bidon de 5l comme d'habitude",
-	    	imageSrc: "assets/img/plastic.svg",
+	    	image: mainGameQuizA3PropositionsImages[5],
 	    	stats_environnement: 1,
 	    	stats_sante: 2,
 	    	stats_social: 1
@@ -296,7 +296,7 @@ const quizA3 =
 	question03: 
 	{
 		// number in % from background size
-		imageSrc: "assets/img/alim_bg03.svg",
+		image: mainGameQuizABgImages[2],
 	    sizeOrigin: 4,
 	    xOrigin: 35,
 	    yOrigin: 45,
@@ -305,7 +305,7 @@ const quizA3 =
 	    proposition01: 
 	    {
 	    	proposition: "Des chips",
-	    	imageSrc: "assets/img/chips.svg",
+	    	image: mainGameQuizA3PropositionsImages[6],
 	    	stats_environnement: 0,
 	    	stats_sante: 0,
 	    	stats_social: 0
@@ -313,7 +313,7 @@ const quizA3 =
 	    proposition02: 
 	    {
 	    	proposition: "Des bonbons",
-	    	imageSrc: "assets/img/candy.svg",
+	    	image: mainGameQuizA3PropositionsImages[7],
 	    	stats_environnement: 1,
 	    	stats_sante: 1,
 	    	stats_social: 1
@@ -321,7 +321,7 @@ const quizA3 =
 	    proposition03: 
 	    {
 	    	proposition: "Du chocolat équitable",
-	    	imageSrc: "assets/img/chocolate.svg",
+	    	image: mainGameQuizA3PropositionsImages[8],
 	    	stats_environnement: 2,
 	    	stats_sante: 1,
 	    	stats_social: 2

@@ -12,91 +12,77 @@ let Fruilegsais = class
 		this.currentDay = 21;
 		this.currentFruiLeg;
 
-		this.flsImagesSrc = ["assets/img/cassis.png", "assets/img/cerise.png", "assets/img/groseille.png", "assets/img/myrtille.png", "assets/img/pomme.png", "assets/img/poire.png", "assets/img/carotte.png", "assets/img/petitpois.png", "assets/img/potiron.png", "assets/img/tomate.png", "assets/img/pdt.png", "assets/img/radirose.png"]
-
 		this.fruitsLegumesList =
 		[
 			this.cassis = 
 			{
 				monthToEat: ["juillet", "août"],
-				//img: createElem("img", "src", "assets/img/cassis.png"),
 				alt: "cassis",
 				id: 0
 			},
 			this.cerises = 
 			{
 				monthToEat: ["juillet", "août"],
-				//img: createElem("img", "src", "assets/img/cerise.png"),
 				alt: "cerises",
 				id: 1
 			},
 			this.groseilles = 
 			{
 				monthToEat: ["juin", "juillet"],
-				//img: createElem("img", "src", "assets/img/groseille.png"),
 				alt: "groseilles",
 				id: 2		
 			},
 			this.myrtilles = 
 			{
 				monthToEat: ["juillet", "août"],
-				//img: createElem("img", "src", "assets/img/myrtille.png"),
 				alt: "myrtilles",
 				id: 3		
 			},
 			this.pomme = 
 			{
 				monthToEat: ["mars", "septembre", "octobre", "novembre", "décembre", "janvier", "février"],
-				//img: createElem("img", "src", "assets/img/pomme.png"),
 				alt: "pomme",
 				id: 4	
 			},
 			this.poire = 
 			{
 				monthToEat: ["mars", "septembre", "octobre", "novembre", "décembre", "janvier", "février"],
-				//img: createElem("img", "src", "assets/img/poire.png"),
 				alt: "poire",
 				id: 5	
 			},
 			this.carotte = 
 			{
 				monthToEat: ["juin", "juillet", "août", "septembre", "octobre"],
-				//img: createElem("img", "src", "assets/img/carotte.png"),
 				alt: "carotte",	
 				id: 6
 			},
 			this.petitspois = 
 			{
 				monthToEat: ["juin", "juillet"],
-				//img: createElem("img", "src", "assets/img/petitpois.png"),
 				alt: "petits pois",	
 				id: 7
 			},
 			this.potiron = 
 			{
 				monthToEat: ["août", "septembre", "octobre", "novembre", "décembre", "janvier", "février"],
-				//img: createElem("img", "src", "assets/img/potiron.png"),
 				alt: "potiron",		
 				id: 8
 			},
 			this.tomate = 
 			{
 				monthToEat: ["mai", "juin", "juillet", "août", "septembre", "octobre"],
-				//img: createElem("img", "src", "assets/img/tomate.png"),
 				alt: "tomate",	
 				id: 9
 			},
 			this.pdt = 
 			{
 				monthToEat: ["mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "décembre", "janvier", "février"],
-				//img: createElem("img", "src", "assets/img/pdt.png"),
 				alt: "pommes de terre",	
 				id: 10
 			},
 			this.radi = 
 			{
 				monthToEat: ["avril", "mai", "juin", "juillet", "août", "septembre"],
-				//img: createElem("img", "src", "assets/img/radirose.png"),
 				alt: "radis roses",		
 				id: 11
 			}
@@ -106,14 +92,20 @@ let Fruilegsais = class
 		let indexFruitLegList = 0;
 		for (let fruitLeg in this.fruitsLegumesList)
 		{
-		  this.fruitsLegumesList[fruitLeg].img = new Image();
-		  this.fruitsLegumesList[fruitLeg].img.src = this.flsImagesSrc[indexFruitLegList]
+		  this.fruitsLegumesList[fruitLeg].img = flsFrLegImages[indexFruitLegList]
 		  indexFruitLegList += 1;
 		}
+
+		this.badAnswerImg = flsGoodBadImages[0];
+		this.goodAnswerImg = flsGoodBadImages[1];
+		this.badAnswerImg.setAttribute("class", "flsAnswerImg");
+		this.badAnswerImg.setAttribute("class", "flsAnswerImg");
+		this.goodAnswerImg.setAttribute("id", "flsAnswerImg");
+		this.badAnswerImg.setAttribute("id", "flsAnswerImg");
 		//----------------------------------------
 
-		this.badAnswerImg = createElem("img", ["id", "class", "src"], ["flsAnswerImg", "flsAnswerImg", "assets/img/answer_inco.svg"]);
-		this.goodAnswerImg = createElem("img", ["id", "class", "src"], ["flsAnswerImg", "flsAnswerImg", "assets/img/answer_co.svg"]);
+		//this.badAnswerImg = createElem("img", ["id", "class", "src"], ["flsAnswerImg", "flsAnswerImg", "assets/img/answer_inco.svg"]);
+		//this.goodAnswerImg = createElem("img", ["id", "class", "src"], ["flsAnswerImg", "flsAnswerImg", "assets/img/answer_co.svg"]);
 
 		this.restFruitsLegumesList = this.fruitsLegumesList.slice();// empty slice to clone array with objects(not instance it)
 		this.finalResult = [[], [], []];//this.finalResult[ [0] = fruit/legume index/id, [1] = month index, [2] = good/bad answer

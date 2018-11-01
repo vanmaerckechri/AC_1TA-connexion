@@ -415,7 +415,7 @@ let displayQuestion = function(questionIndex, event)
             for (let i = propositions.length - 1; i >= 0; i--)
             {
                 let proposition = "proposition0" + (i + 1)
-                propositions[i].src = currentQuestion[proposition]["imageSrc"];
+                propositions[i].src = currentQuestion[proposition]["image"].src;
                 propositions[i].alt = currentQuestion[proposition]["proposition"];
                 propositions[i].id = currentQuestion[proposition]["proposition"];
                 propositionsText[i].innerText = currentQuestion[proposition]["proposition"];
@@ -521,7 +521,7 @@ let loadQuestions = function(themePosition)
         }
     }
     // load theme image for this 3 questions
-    document.querySelector("#themeBackground").src = quiz["question01"]["imageSrc"];
+    document.querySelector("#themeBackground").src = quiz["question01"]["image"].src;
     // when theme image is loaded organize circles question buttons on image
     document.getElementById("themeBackground").onload = function()
     {
@@ -728,64 +728,68 @@ document.getElementById("questionButton01").addEventListener("click", displayQue
 document.getElementById("questionButton02").addEventListener("click", displayQuestion.bind(this, 2), false);
 document.getElementById("questionButton03").addEventListener("click", displayQuestion.bind(this, 3), false);
 
-// -- BUTTONS --
-// Display themes menu
-initThemes();
-// Back to local UI
-let backToLocalBgButton = document.querySelector("#backToLocalBgContainer");
-backToLocalBgButton.addEventListener("click", closeThemesMenu, false);
-// Back to solar system
-let backToSolarSystemButton = document.querySelector("#backToSolarSystem");
-backToSolarSystemButton.onclick = function()
-{
-    window.location.href = "index.php";
-};
-// How to Play Modal
-document.getElementById("howToPlayButton").addEventListener("click", loadHowToPlay, false);
-// Leave
-let leaveGameButton = document.querySelector("#leaveGame");
-leaveGameButton.addEventListener("click", function()
-{
-    window.location.href = "../../library.php";
-}, false);
-// Main menu
-let mainMenuButton = document.querySelector("#mainMenuButton");
-mainMenuButton.addEventListener("click", displayMainMenu, false);
 
-// Proposition buttons to record answers
-let propositionButtons = document.querySelectorAll(".propositionContainer");
-for (let i = propositionButtons.length - 1; i >=0; i--)
+function initGame()
 {
-    propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i, false), false);
-}
-// Back on previous question
-document.getElementById("backOnPreviousQuestionButton").addEventListener("click", backOnPreviousQuestion, false);
-
-// Maximize/Minimize question Intro
-document.getElementById("questionIntro").addEventListener("click", function()
-{
-    if (document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
-    {
-        maximizeIntroductionQuestions();
-    }
-    else
-    {
-        minimizeIntroductionQuestions();
-    }
-}, false);
-
-// -- Invite player to look at planet stats and final video theme if he is just finish to play a theme --
-
-if (activeScoreTab === true)
-{
-    displayMainMenu();
+    // -- BUTTONS --
+    // Display themes menu
+    initThemes();
+    // Back to local UI
+    let backToLocalBgButton = document.querySelector("#backToLocalBgContainer");
+    backToLocalBgButton.addEventListener("click", closeThemesMenu, false);
+    // Back to solar system
     let backToSolarSystemButton = document.querySelector("#backToSolarSystem");
-    backToSolarSystemButton.classList.add("backToSolarSystem");
-    let themeName = document.querySelector(".statsLocalPreviousGameContainer h3").innerText;
-    themeName = themeName.toLowerCase();
-    themeName = themeName.substr(0, themeName.length-1); 
     backToSolarSystemButton.onclick = function()
     {
-        window.location.href = "index.php?action=main&themevideo="+themeName;
+        window.location.href = "index.php";
     };
+    // How to Play Modal
+    document.getElementById("howToPlayButton").addEventListener("click", loadHowToPlay, false);
+    // Leave
+    let leaveGameButton = document.querySelector("#leaveGame");
+    leaveGameButton.addEventListener("click", function()
+    {
+        window.location.href = "../../library.php";
+    }, false);
+    // Main menu
+    let mainMenuButton = document.querySelector("#mainMenuButton");
+    mainMenuButton.addEventListener("click", displayMainMenu, false);
+
+    // Proposition buttons to record answers
+    let propositionButtons = document.querySelectorAll(".propositionContainer");
+    for (let i = propositionButtons.length - 1; i >=0; i--)
+    {
+        propositionButtons[i].addEventListener("click", saveAnswer.bind(this, i, false), false);
+    }
+    // Back on previous question
+    document.getElementById("backOnPreviousQuestionButton").addEventListener("click", backOnPreviousQuestion, false);
+
+    // Maximize/Minimize question Intro
+    document.getElementById("questionIntro").addEventListener("click", function()
+    {
+        if (document.getElementById("questionIntro").classList.contains("questionIntroMinimize"))
+        {
+            maximizeIntroductionQuestions();
+        }
+        else
+        {
+            minimizeIntroductionQuestions();
+        }
+    }, false);
+
+    // -- Invite player to look at planet stats and final video theme if he is just finish to play a theme --
+
+    if (activeScoreTab === true)
+    {
+        displayMainMenu();
+        let backToSolarSystemButton = document.querySelector("#backToSolarSystem");
+        backToSolarSystemButton.classList.add("backToSolarSystem");
+        let themeName = document.querySelector(".statsLocalPreviousGameContainer h3").innerText;
+        themeName = themeName.toLowerCase();
+        themeName = themeName.substr(0, themeName.length-1); 
+        backToSolarSystemButton.onclick = function()
+        {
+            window.location.href = "index.php?action=main&themevideo="+themeName;
+        };
+    }
 }
