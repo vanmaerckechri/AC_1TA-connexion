@@ -1,7 +1,7 @@
 let mainGameQuizABgImagesSrc = ["assets/img/alim_bg01.svg", "assets/img/alim_bg02.svg", "assets/img/alim_bg03.svg"];
 let mainGameQuizA1PropositionsImagesSrc = ["assets/img/cereals.svg", "assets/img/toast.svg", "assets/img/croissant.svg", "assets/img/orange-juice.svg", "assets/img/milk.svg", "assets/img/can.svg", "assets/img/chocolate.svg", "assets/img/apple.svg", "assets/img/muffin.svg"];
-let mainGameQuizA2PropositionsImagesSrc = ["assets/img/fish_breaded.svg", "assets/img/salmon.svg", "assets/img/fish.svg", "assets/img/alim_bg02.svg", "assets/img/strawberry.svg", "assets/img/pineapple.svg", "assets/img/pear.svg", "assets/img/question.svg", "assets/img/controller.svg", "assets/img/cash.svg"];
-let mainGameQuizA3PropositionsImagesSrc = ["assets/img/beef.svg", "assets/img/chicken.svg", "assets/img/burger_green.svg", "assets/img/bottle.svg", "assets/img/water.svg", "assets/img/plastic.svg", "assets/img/alim_bg03.svg", "assets/img/chips.svg", "assets/img/candy.svg", "assets/img/chocolate.svg"];
+let mainGameQuizA2PropositionsImagesSrc = ["assets/img/fish_breaded.svg", "assets/img/salmon.svg", "assets/img/fish.svg", "assets/img/strawberry.svg", "assets/img/pineapple.svg", "assets/img/pear.svg", "assets/img/question.svg", "assets/img/controller.svg", "assets/img/cash.svg"];
+let mainGameQuizA3PropositionsImagesSrc = ["assets/img/beef.svg", "assets/img/chicken.svg", "assets/img/burger_green.svg", "assets/img/bottle.svg", "assets/img/water.svg", "assets/img/plastic.svg", "assets/img/chips.svg", "assets/img/candy.svg", "assets/img/chocolate.svg"];
 
 let flsFrLegImagesSrc = ["assets/img/cassis.png", "assets/img/cerise.png", "assets/img/groseille.png", "assets/img/myrtille.png", "assets/img/pomme.png", "assets/img/poire.png", "assets/img/carotte.png", "assets/img/petitpois.png", "assets/img/potiron.png", "assets/img/tomate.png", "assets/img/pdt.png", "assets/img/radirose.png"];
 let flsGoodBadImagesSrc = ["assets/img/answer_inco.svg", "assets/img/answer_co.svg"];
@@ -28,9 +28,11 @@ let preloadImages = function(imgSrcList)
 			numberOfLoadedImages += 1;
 			if (numberOfLoadedImages == numberTotalImages)
 			{
-				initGame();
-
-				console.log(dglBackgroundImages)
+  				window.addEventListener("load", function(event)
+  				{
+  					initGame();
+  					console.log(dglBackgroundImages)
+  				});
 			}
 		}
 	}

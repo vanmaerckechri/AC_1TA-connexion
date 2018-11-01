@@ -1,4 +1,6 @@
 // -- GAME OBJECT --
+let removeTest;
+
 let DinoGameLike = class
 {
 	constructor()
@@ -7,6 +9,7 @@ let DinoGameLike = class
 		this.canvasList = [];
 		this.timeStart;
 		this.speed = 1;
+		this.jumpEvent;
 
 		this.plxGoal =
 		{
@@ -735,7 +738,25 @@ let DinoGameLike = class
 		}
 		this.updateCanvasSizes();
 	}
+	eventsManagement(status, that)
+	{
+		if (status === true)
+		{
+			document.addEventListener("keydown", this.jumpEvent, false);
+			document.addEventListener("keyup", this.jumpEvent, false);
 
+			document.addEventListener("touchstart", this.jumpEvent, false) || document.addEventListener("mousedown", this.jumpEvent, false);
+			document.addEventListener("touchend", this.jumpEvent, false) || document.addEventListener("mouseup", this.jumpEvent, false);
+		}
+		else
+		{
+			document.removeEventListener("keydown", this.jumpEvent, false);
+			document.removeEventListener("keyup", this.jumpEvent, false);
+
+			document.removeEventListener("touchstart", this.jumpEvent, false) || document.removeEventListener("mousedown", this.jumpEvent, false);
+			document.removeEventListener("touchend", this.jumpEvent, false) || document.removeEventListener("mouseup", this.jumpEvent, false);			
+		}
+	}
 	initEvents()
 	{
 		let that = this;
@@ -755,12 +776,9 @@ let DinoGameLike = class
 				that.updateInteractiveElements(that.currentItems[i]);
 			}
 		}, false);
-		// commands
-		document.addEventListener("keydown", this.detectKeyDown.bind(that, this), false);
-		document.addEventListener("keyup", this.detectKeyUp.bind(that, this), false);
-
-		document.addEventListener("touchstart", this.detectKeyDown.bind(that, this), false) || document.addEventListener("mousedown", this.detectKeyDown.bind(that, this), false);
-		document.addEventListener("touchend", this.detectKeyUp.bind(that, this), false) || document.addEventListener("mouseup", this.detectKeyUp.bind(that, this), false);
+		// jump player
+		this.jumpEvent = this.detectKeyDown.bind(that, this);
+		this.eventsManagement(true, that);
 	}
 
 	loadUI()
@@ -815,6 +833,8 @@ let DinoGameLike = class
 		}
 		delete window.DinoGameLike;
 		document.getElementById("flsContainer").classList.toggle("disabled");
+				this.eventsManagement(false, that);
+
 	}
 
 	launchTuto()

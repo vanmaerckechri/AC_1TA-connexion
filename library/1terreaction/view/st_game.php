@@ -25,7 +25,7 @@ ob_start();
                     <button id="launchThemesMenuButton" class="menuButton disabled_v2">Jouer</button>
                 </div>
                 <div class="menuButtonContainer">
-                    <button id="howToPlayButton" class="menuButton disabled_v2">Comment Jouer</button>
+                    <button id="ressourcesButton" class="menuButton disabled_v2">Ressources</button>
                 </div>
                 <div class="menuButtonContainer">
                      <button id="backToSolarSystem" class="menuButton disabled_v2">Planète</button>

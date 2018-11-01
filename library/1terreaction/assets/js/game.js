@@ -743,8 +743,8 @@ function initGame()
     {
         window.location.href = "index.php";
     };
-    // How to Play Modal
-    document.getElementById("howToPlayButton").addEventListener("click", loadHowToPlay, false);
+    // Ressources Button
+            //document.getElementById("ressourcesButton").addEventListener("click", loadHowToPlay, false);
     // Leave
     let leaveGameButton = document.querySelector("#leaveGame");
     leaveGameButton.addEventListener("click", function()
