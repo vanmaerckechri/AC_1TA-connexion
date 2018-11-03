@@ -31,69 +31,53 @@ let launchVideo = function(file)
     let videoContainer = document.createElement("div");
     let video = document.createElement("VIDEO");
 
-    if (video.canPlayType("video/mp4"))
-    {
-        video.setAttribute("src", file);
-    } 
-    else 
-    {
-        //video.setAttribute("src","movie.ogg");
-    }
-
-    /*video.setAttribute("width", "320");
-    video.setAttribute("height", "240");
-    video.requestFullscreen();*/
-    video.play();
-    video.volume = 0.5;
-    //video.setAttribute("controls", "controls");
-    video.classList.add("videoContent");
-    videoContainer.classList.add("videoContainer");
-    videoContainer.appendChild(video);
-    document.body.appendChild(videoContainer);
-
     let validationCloseVideo = function()
     {
         clearTimeout(smsWantCloseVid);
         document.body.onkeypress = null;
         videoContainer.remove();
-        document.getElementById("homeSms").classList.add("homeSms");
         loadHowToPlay();
     }
 
-    let closeVideo = function()
+    let closeVideo = function(event)
     {
-        document.getElementById("homeSms").classList.remove("homeSms");
-
-        textValidation = document.createElement("p")
-        textValidation.classList.add("textValidation");
-        textValidation.innerText = "Appuie sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
-        videoContainer.appendChild(textValidation);
-
+        clearTimeout(smsWantCloseVid);
+        videoCloseButton.classList.remove("disabled");
         smsWantCloseVid = setTimeout(function()
         {
-            textValidation.remove();
-            videoContainer.onclick = closeVideo;
-            document.body.onkeypress = closeVideo;
-        }, 6000);
-
-        videoContainer.onclick = validationCloseVideo;
-        document.body.onkeypress = function(event)
-        {
-            if (event.charCode === 32)
+            if (!videoCloseButton.classList.contains("disabled"))
             {
-                validationCloseVideo();
+                videoCloseButton.classList.add("disabled");
             }
-        };
-
+        }, 6000);
     }
 
-    videoContainer.onclick = closeVideo;
-    document.body.onkeypress = closeVideo;
+    let videoCloseButton = document.createElement("button");
+    videoCloseButton.setAttribute("id", "videoCloseButton");
+    videoCloseButton.setAttribute("class", "buttonDefault disabled")
+    videoCloseButton.innerText = "passer";
+    videoContainer.appendChild(videoCloseButton);
+    videoCloseButton.onclick = validationCloseVideo;
+
+    video.classList.add("videoContent");
+    videoContainer.classList.add("videoContainer");
+    videoContainer.appendChild(video);
+    document.body.appendChild(videoContainer);
+
+    if (video.canPlayType("video/mp4"))
+    {
+        video.setAttribute("src", file);
+        video.setAttribute("controls", "controls")
+        video.volume = 0.5;
+        video.play();
+    } 
+    else 
+    {
+        validationCloseVideo();
+    }
+
+    video.onmousemove = closeVideo;
     video.onended = validationCloseVideo;
-}
-if (launchIntroVideo === true)
-{
-    launchVideo("assets/videos/intro.mp4");
 }
 
 // -- DISPLAY THEMES MENU --
@@ -665,6 +649,10 @@ let fitBackgroundQuestions = function()
 }
 let initThemes = function()
 {
+    if (launchIntroVideo === true)
+    {
+        launchVideo("assets/videos/intro.mp4");
+    }
     // if no one theme have informations from db for this planet => active the first theme
     if (allThemesActivation.length === 0)
     {

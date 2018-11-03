@@ -210,23 +210,11 @@ loadAboutUs();
 
 // Launch Final Theme Video
 let smsWantCloseVid;
-let launchVideo = function(theme)
+let launchVideo = function(file)
 {
 
     let videoContainer = document.createElement("div");
     let video = document.createElement("VIDEO");
-
-    if (video.canPlayType("video/mp4"))
-    {
-        video.setAttribute("src", "assets/videos/"+theme+".mp4");
-    } 
-
-    video.play();
-    video.volume = 0.5;
-    video.classList.add("videoContent");
-    videoContainer.classList.add("videoContainer");
-    videoContainer.appendChild(video);
-    document.body.appendChild(videoContainer);
 
     let validationCloseVideo = function()
     {
@@ -235,36 +223,50 @@ let launchVideo = function(theme)
         videoContainer.remove();
     }
 
-    let closeVideo = function()
+    let closeVideo = function(event)
     {
-        textValidation = document.createElement("p")
-        textValidation.classList.add("textValidation");
-        textValidation.innerText = "Appuie sur la touche \"espace\", sur l'écran tactile ou clique avec le bouton de la souris pour passer la vidéo!"
-        videoContainer.appendChild(textValidation);
-
+        clearTimeout(smsWantCloseVid);
+        videoCloseButton.classList.remove("disabled");
         smsWantCloseVid = setTimeout(function()
         {
-            textValidation.remove();
-            videoContainer.onclick = closeVideo;
-            document.body.onkeypress = closeVideo;
-        }, 6000);
-
-        videoContainer.onclick = validationCloseVideo;
-        document.body.onkeypress = function(event)
-        {
-            if (event.charCode === 32)
+            if (!videoCloseButton.classList.contains("disabled"))
             {
-                validationCloseVideo();
+                videoCloseButton.classList.add("disabled");
             }
-        };
+        }, 6000);
     }
 
-    videoContainer.onclick = closeVideo;
-    document.body.onkeypress = closeVideo;
+    let videoCloseButton = document.createElement("button");
+    videoCloseButton.setAttribute("id", "videoCloseButton");
+    videoCloseButton.setAttribute("class", "buttonDefault disabled")
+    videoCloseButton.innerText = "passer";
+    videoContainer.appendChild(videoCloseButton);
+    videoCloseButton.onclick = validationCloseVideo;
+
+    video.classList.add("videoContent");
+    videoContainer.classList.add("videoContainer");
+    videoContainer.appendChild(video);
+    document.body.appendChild(videoContainer);
+
+    if (video.canPlayType("video/mp4"))
+    {
+        video.setAttribute("src", file);
+        video.setAttribute("controls", "controls")
+        video.volume = 0.5;
+        video.play();
+    } 
+    else 
+    {
+        validationCloseVideo();
+    }
+
+    video.onmousemove = closeVideo;
     video.onended = validationCloseVideo;
 }
 if (themeVideo != false)
 {
-    launchVideo(themeVideo);
+    //launchVideo(themeVideo);
+        launchVideo("assets/videos/intro.mp4");
+
 }
 });

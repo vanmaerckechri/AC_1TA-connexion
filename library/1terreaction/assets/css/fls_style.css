@@ -86,6 +86,8 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     background-color: white; }
+  .flsContainer .flsTutoBg {
+    background: center/cover no-repeat url("../img/fls_tutobg.jpg"); }
   .flsContainer .flsTutoContainer {
     margin: 0 auto;
     padding: 20px 60px;

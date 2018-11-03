@@ -12,6 +12,9 @@
   overflow: hidden;
   background: linear-gradient(to bottom, #7db9e8 0%, #91bbc5 100%); }
 
+.dglTutoBg {
+  background: center/cover no-repeat url("../img/dgl_tutobg.svg"); }
+
 .dglTutoBikeImg {
   position: absolute;
   left: 85px;

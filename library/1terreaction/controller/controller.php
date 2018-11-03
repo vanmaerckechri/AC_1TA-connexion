@@ -30,7 +30,7 @@ function loadAvatar()
 	    else
 	    {
 	        ?>
-            <img class=<?=$avatarThemeName?> src="assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
+            <img class=<?=$avatarThemeName?> src="../../assets/img/<?=$avatarThemeName?>01col01.svg" alt="">
 	        <?php
 	    }
 	}

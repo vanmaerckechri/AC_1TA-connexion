@@ -1,6 +1,12 @@
 <?php
 require('./controller/controller.php');
 
+$_SESSION["id"] = 19;
+$_SESSION["nickname"] = "Martin";
+$_SESSION["password"] = "12345678";
+$_SESSION["id_classroom"] = 5;
+$_SESSION["classroom"] = "Classe de Test 01";
+
 function checkSession()
 {
 	$auth = new Authentification;

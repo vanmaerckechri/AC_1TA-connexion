@@ -17,8 +17,7 @@ ob_start();
     </div>
     <div id="main">
         <div id="step_localBackground">
-            <div class="localBgContainer">
-                <img class="localBg localBgAir" src="<?=$localBgAir_imgSrc?>" alt="ciel faisant parti du parallax">
+            <div id="localBgContainer" class="localBgContainer">
             </div>
             <div id="mainMenuContainer" class="menu">
                 <div class="menuButtonContainer">
@@ -169,6 +168,7 @@ ob_start();
         let gameInfos = <?=json_encode($gameInfos)?>;
         let allThemesActivation = <?=json_encode($allThemes)?>;
         let launchIntroVideo = <?=json_encode($GLOBALS['launchIntroVideo'])?>;
+        let backgroundImageSrc = <?=json_encode($localBgAir_imgSrc)?>;
         let activeScoreTab = false;
         <?php
         if ($activeScoreTab === true)
