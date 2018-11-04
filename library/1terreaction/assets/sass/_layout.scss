@@ -1004,12 +1004,14 @@
 	margin: 110px 4rem 0 4rem;
 	position: fixed;
 	top: 0;
-	left: 0;
-	width: calc(100vw - 8rem);
+	left: 25%;
+	max-width: 1920px;
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-items: center;
+	transform: translateX(-50%);
 }
 .smsInlineWithButton
 {
