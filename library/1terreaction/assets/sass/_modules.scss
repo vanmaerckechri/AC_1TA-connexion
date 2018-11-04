@@ -225,6 +225,7 @@
 		max-width: 1920px;
 		width: 100%;
 		transform: translateX(-50%);
+		z-index: 3;
 	}
 	.videoContent
 	{
@@ -283,6 +284,7 @@
 }
 .ressourcesLink
 {
+	margin-bottom: 5px;
 	border-bottom: 2px solid transparent;
 	text-decoration: none;
 	font-style: italic;

@@ -13,12 +13,16 @@ window.addEventListener('load', function()
     scene = new THREE.Scene();
 
 // -- EARTH AND MOON --
+    if (planetStats && planetStats["stats_environnement"])
+    {
+        planetStats["stats_environnement"] = Math.round(planetStats["stats_environnement"]);
+    }
     let createPlanets = function()
     {
         // Earth
         let planet;
         let geometry = new THREE.SphereGeometry(100, 64, 64);
-        let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse1.jpg');
+        let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse'+planetStats["stats_environnement"]+'.jpg');
         //let diffuseMap = new THREE.TextureLoader().load('assets/img/earth_diffuse'+imgNbr+'.jpg');
         //let bumpMap = new THREE.TextureLoader().load('assets/img/earth_bump1.jpg');
         //let specularMap = new THREE.TextureLoader().load('assets/img/earth_specular1.jpg');
