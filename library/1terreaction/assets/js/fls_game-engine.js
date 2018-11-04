@@ -98,7 +98,7 @@ let Fruilegsais = class
 
 		this.badAnswerImg = flsGoodBadImages[0];
 		this.goodAnswerImg = flsGoodBadImages[1];
-		this.badAnswerImg.setAttribute("class", "flsAnswerImg");
+		this.goodAnswerImg.setAttribute("class", "flsAnswerImg");
 		this.badAnswerImg.setAttribute("class", "flsAnswerImg");
 		this.goodAnswerImg.setAttribute("id", "flsAnswerImg");
 		this.badAnswerImg.setAttribute("id", "flsAnswerImg");

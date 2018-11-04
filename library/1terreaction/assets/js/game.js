@@ -27,10 +27,6 @@ let loadHowToPlay = function()
 }
 let launchVideo = function(file)
 {
-
-    let videoContainer = document.createElement("div");
-    let video = document.createElement("VIDEO");
-
     let validationCloseVideo = function()
     {
         clearTimeout(smsWantCloseVid);
@@ -52,11 +48,17 @@ let launchVideo = function(file)
         }, 6000);
     }
 
+    let videoContainer = document.createElement("div");
+    let videoButtonContainer = document.createElement("div");
+    videoButtonContainer.setAttribute("class", "videoButtonContainer");
+    let video = document.createElement("VIDEO");
+
     let videoCloseButton = document.createElement("button");
     videoCloseButton.setAttribute("id", "videoCloseButton");
     videoCloseButton.setAttribute("class", "buttonDefault disabled")
     videoCloseButton.innerText = "passer";
-    videoContainer.appendChild(videoCloseButton);
+    videoButtonContainer.appendChild(videoCloseButton);
+    videoContainer.appendChild(videoButtonContainer);
     videoCloseButton.onclick = validationCloseVideo;
 
     video.classList.add("videoContent");
@@ -76,6 +78,7 @@ let launchVideo = function(file)
         validationCloseVideo();
     }
 
+    videoContainer.onclick = closeVideo;
     video.onmousemove = closeVideo;
     video.onended = validationCloseVideo;
 }
@@ -292,7 +295,7 @@ let saveAnswer = function(answerIndex, blockBonus)
                 sendAnswersToDbButton.setAttribute("class", "buttonDefault sendAnswersToDbButton");
 
                 buttonsBottomContainer.insertBefore(sendAnswersToDbButton, document.querySelector(".buttonsBottomContainer a"));
-                
+
                 sendAnswersToDbButton.addEventListener("click", sendToDb, false);
             //}
         //}
