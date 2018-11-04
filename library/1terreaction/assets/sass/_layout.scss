@@ -535,12 +535,14 @@
 		.localBg
 		{
 			position: absolute;
-			left: 0;
+			left: 50%;
 			top: 0;
+			max-width: 1920px;
 			width: 100vw;
 			height: 100vh;
 			object-fit: cover;
 			pointer-events: none;
+			transform: translateX(-50%)
 		}
 	}
 	.homeSms
@@ -572,7 +574,8 @@
 	    width: 100%;
 		position: absolute;
 		top: 115px;
-		left: 0;
+		left: 50%;
+		transform: translateX(-50%);
 		z-index: 1;
 		.menuButtonContainer
 		{
