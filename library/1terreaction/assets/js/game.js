@@ -5,6 +5,31 @@ let openQuestions = [];
 let openQuestion;
 let smsWantCloseVid;
 
+let loadRessources = function()
+{
+    const req = new XMLHttpRequest();
+    req.onreadystatechange = function(event)
+    {
+        if (this.readyState === XMLHttpRequest.DONE)
+        {
+            if (this.status === 200)
+            {
+                document.getElementById('howToPlayContainer').innerHTML = req.responseText;
+                document.querySelector('.aboutUsCloseModal').onclick = function()
+                {
+                    document.getElementById('howToPlayContainer').classList.add("disabled");
+                }
+                let launchRessources = function()
+                {
+                    document.getElementById('howToPlayContainer').classList.remove("disabled");
+                }
+                document.getElementById("ressourcesButton").onclick = launchRessources;
+            }
+        }
+    };
+    req.open('GET', 'view/st_ressources.html', true);
+    req.send(null);
+}
 let loadHowToPlay = function()
 {
     let howToPlayContainer = document.getElementById("howToPlayContainer");
@@ -14,6 +39,7 @@ let loadHowToPlay = function()
         if (!howToPlayContainer.classList.contains("disabled"))
         {
             howToPlayContainer.classList.add("disabled");
+            loadRessources();
         }
     }
     howToPlayContainer.onclick = function(event)

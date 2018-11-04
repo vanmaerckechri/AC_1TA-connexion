@@ -569,11 +569,11 @@
 	.menu
 	{
 		margin: 0 auto;
-		padding: 2rem 4rem;
+		padding: 0 4rem;
 	    max-width: 1920px;
 	    width: 100%;
 		position: absolute;
-		top: 115px;
+		top: 100px;
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 1;
@@ -995,6 +995,10 @@
 		{
 			margin-bottom: 20px;
 			line-height: 1.2rem;
+		}
+		a
+		{
+			display: block;
 		}
 	}
 }

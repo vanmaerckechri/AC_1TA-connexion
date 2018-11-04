@@ -707,11 +707,11 @@ body {
     transition: all .5s; }
   #main .menu {
     margin: 0 auto;
-    padding: 2rem 4rem;
+    padding: 0 4rem;
     max-width: 1920px;
     width: 100%;
     position: absolute;
-    top: 115px;
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1; }
@@ -1032,6 +1032,8 @@ body {
     .howToPlayContainer .howToPlayContent p {
       margin-bottom: 20px;
       line-height: 1.2rem; }
+    .howToPlayContainer .howToPlayContent a {
+      display: block; }
 
 .buttonsContainer {
   margin: 110px 4rem 0 4rem;
@@ -1332,21 +1334,18 @@ body {
     top: auto;
     bottom: 60px;
     transform: none; }
-  #main .menu {
-    padding: 2rem 20px;
-    top: 31px; }
-    #main .menu .mainMenuOpenButton00 {
-      transform: translateX(110px) rotateZ(360deg);
-      opacity: 1; }
-    #main .menu .mainMenuOpenButton01 {
-      transform: translateX(220px) rotateZ(360deg);
-      opacity: 1; }
-    #main .menu .mainMenuOpenButton02 {
-      transform: translateX(330px) rotateZ(360deg);
-      opacity: 1; }
-    #main .menu .mainMenuOpenButton03 {
-      transform: translateX(440px) rotateZ(360deg);
-      opacity: 1; }
+  #main .menu .mainMenuOpenButton00 {
+    transform: translateX(110px) rotateZ(360deg);
+    opacity: 1; }
+  #main .menu .mainMenuOpenButton01 {
+    transform: translateX(220px) rotateZ(360deg);
+    opacity: 1; }
+  #main .menu .mainMenuOpenButton02 {
+    transform: translateX(330px) rotateZ(360deg);
+    opacity: 1; }
+  #main .menu .mainMenuOpenButton03 {
+    transform: translateX(440px) rotateZ(360deg);
+    opacity: 1; }
   #main #step_questions .questionContainer .propositionsContainer {
     justify-content: flex-start; }
 

@@ -151,7 +151,7 @@ ob_start();
         </div>
         <div id="howToPlayContainer" class="howToPlayContainer disabled">
             <div class="howToPlayContent">
-            <div class="aboutUsCloseModalContainer"><span id="howToPlayCloseButton" class="aboutUsCloseModal">X</span></div>
+                <div class="aboutUsCloseModalContainer"><span id="howToPlayCloseButton" class="aboutUsCloseModal">X</span></div>
                 <h2>Bonjour <?=$_SESSION['nickname']?>,</h2>
                 <br>
                 <p>Bienvenue dans le monde d’1TerreAction.</p>
