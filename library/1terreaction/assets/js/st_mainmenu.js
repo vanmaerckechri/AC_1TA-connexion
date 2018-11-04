@@ -272,7 +272,6 @@ let launchVideo = function(file)
 }
 if (themeVideo != false)
 {
-    //launchVideo(themeVideo);
-    launchVideo("assets/videos/intro.mp4");
+    launchVideo("assets/videos/"+themeVideo+".mp4");
 }
 });
