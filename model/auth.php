@@ -8,20 +8,6 @@ else if (file_exists('../../model/hum.php'))
 {
 	require('../../model/hum.php');
 }
-else
-{
-	// to work in local without "hum.php" file
-	function connectDB()
-	{
-		//$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "phpmyadmin", "1234");
-		$db = new PDO('mysql:host=localhost; dbname=pe_connexion; charset=utf8', "root", "");
-		return $db;
-	}
-	function getSecretCaptchaKey()
-	{
-		return "";
-	}
-}
 
 class Authentification
 {
