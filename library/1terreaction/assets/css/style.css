@@ -706,23 +706,27 @@ body {
       object-fit: cover;
       pointer-events: none;
       transform: translateX(-50%); }
-  #main .homeSms {
-    border-radius: 8px;
-    padding: 2px 4px;
-    position: absolute;
-    top: 50%;
+  #main .homeSmsContainer {
+    position: fixed;
+    max-width: 1920px;
+    width: 100%;
     left: 50%;
-    color: white;
-    font-size: 1.5rem;
-    letter-spacing: .2rem;
-    font-family: "fontFamTitles";
-    font-weight: bold;
-    white-space: nowrap;
-    background-color: rgba(0, 0, 55, 0.1);
-    opacity: 1;
-    animation: hideAfterSec 2s 8s forwards;
-    transform: translate(-50%, -50%);
-    transition: all .5s; }
+    top: 50%;
+    transform: translateX(-50%);
+    text-align: center; }
+    #main .homeSmsContainer .homeSms {
+      border-radius: 8px;
+      padding: 2px 4px;
+      color: white;
+      font-size: 1.5rem;
+      letter-spacing: .2rem;
+      font-family: "fontFamTitles";
+      font-weight: bold;
+      white-space: nowrap;
+      background-color: rgba(0, 0, 55, 0.1);
+      opacity: 1;
+      animation: hideAfterSec 2s 8s forwards;
+      transition: all .5s; }
   #main .menu {
     margin: 0 auto;
     padding: 0 4rem;
@@ -1196,7 +1200,7 @@ body {
     left: 50%;
     top: 50px;
     transform: translate(-50%, 0); }
-  #main .homeSms {
+  #main .homeSmsContainer {
     width: 100%;
     left: 0;
     top: 50%;
@@ -1345,13 +1349,12 @@ body {
     .ui .aboutUsContainer .aboutUs .aboutUsContent .aboutUsPartnersContainer .aboutUsPartnerImg {
       margin: 0 20px 20px 20px; } }
 @media only screen and (max-height: 620px) and (orientation: landscape) {
-  #main .homeSms {
-    margin-right: 20px;
-    left: initial;
-    right: 0;
-    top: auto;
+  #main .homeSmsContainer {
+    top: unset;
     bottom: 60px;
-    transform: none; }
+    text-align: right; }
+    #main .homeSmsContainer .homeSms {
+      margin-right: 4rem; }
   #main .menu .mainMenuOpenButton00 {
     transform: translateX(110px) rotateZ(360deg);
     opacity: 1; }

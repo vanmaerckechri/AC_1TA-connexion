@@ -143,7 +143,9 @@ ob_start();
             else
             {
         ?>
+            <div class="homeSmsContainer">
                 <p id="homeSms" class="homeSms">Bienvenue chez toi!</p>
+            </div>
         <?php
             }
         ?>
