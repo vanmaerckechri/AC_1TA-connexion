@@ -434,7 +434,7 @@ let displayQuestion = function(questionIndex, event)
             for (let i = propositions.length - 1; i >= 0; i--)
             {
                 let proposition = "proposition0" + (i + 1)
-                propositions[i].src = currentQuestion[proposition]["image"].src;
+                propositions[i].src = currentQuestion[proposition]["imageSrc"];
                 propositions[i].alt = currentQuestion[proposition]["proposition"];
                 propositions[i].id = currentQuestion[proposition]["proposition"];
                 propositionsText[i].innerText = currentQuestion[proposition]["proposition"];
@@ -540,7 +540,7 @@ let loadQuestions = function(themePosition)
         }
     }
     // load theme image for this 3 questions
-    document.querySelector("#themeBackground").src = quiz["question01"]["image"].src;
+    document.querySelector("#themeBackground").src = quiz["question01"]["imageSrc"];
     // when theme image is loaded organize circles question buttons on image
     document.getElementById("themeBackground").onload = function()
     {
