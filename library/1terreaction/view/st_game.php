@@ -91,10 +91,12 @@ ob_start();
                     </div>
                 </div>
             </div>
-            <div id="backOnPreviousQuestionButton" class="backOnPreviousQuestionButton previousContainer disabled_v2">
-                <img class="backOnPreviousQuestionImg previous" src="assets/img/previous_darkfill.svg">
+            <div class="buttonsBottomContainer">
+                <div id="backOnPreviousQuestionButton" class="backOnPreviousQuestionButton previousContainer disabled_v2">
+                    <img class="backOnPreviousQuestionImg previous" src="assets/img/previous_darkfill.svg">
+                </div>
+                <a class="buttonDefault abandonGame" href="index.php?action=game&video=false">abandonner</a>
             </div>
-            <a class="buttonDefault abandonGame" href="index.php?action=game&video=false">abandonner</a>
         </div>
         <?php 
             if ($GLOBALS["playerHaveStats"] === true)

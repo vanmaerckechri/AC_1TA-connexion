@@ -440,6 +440,7 @@ let Fruilegsais = class
 		}
 		
 		document.getElementById("flsPassBonusButton").innerText = "continuer";
+		document.body.appendChild(document.getElementById("flsButtonsContainer"));
 	}
 
 	callFinalScreen()
@@ -646,6 +647,7 @@ let Fruilegsais = class
 	{
 		window.cancelAnimationFrame(this.refreshGameLoop);
 		let flsContainerChilds = document.querySelectorAll("#flsContainer div");
+		document.getElementById("flsPassBonusButton").remove();
 		for (let i = flsContainerChilds.length - 1; i >= 0; i--)
 		{
 	        maximizeIntroductionQuestions();

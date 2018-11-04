@@ -265,11 +265,13 @@ let saveAnswer = function(answerIndex, blockBonus)
             {*/
                 let propositionsContainer = document.getElementById("propositionsContainer");
                 let openQuestionTextArea = document.getElementById("openQuestionTextArea");
-                let step_questions = document.getElementById("step_questions");
+                let buttonsBottomContainer = document.querySelector(".buttonsBottomContainer");
+                //let step_questions = document.getElementById("step_questions");
 
                 document.getElementById("questionIntro").innerText = "";   
                 openQuestionTextArea.classList.remove("disabled");
                 openQuestionTextArea.focus();
+
                 if (openQuestion != "")
                 {
                     document.getElementById("question").innerText = openQuestion;
@@ -282,12 +284,15 @@ let saveAnswer = function(answerIndex, blockBonus)
                 fitBackgroundQuestions();               
 
                 questionContainer.classList.remove("disabled_v2");
+                questionContainer.classList.add("questionOpenQuestionContainer");
                 propositionsContainer.classList.add("disabled");
 
                 let sendAnswersToDbButton = document.createElement("button");
                 sendAnswersToDbButton.innerText = "valider";
                 sendAnswersToDbButton.setAttribute("class", "buttonDefault sendAnswersToDbButton");
-                step_questions.appendChild(sendAnswersToDbButton);
+
+                buttonsBottomContainer.insertBefore(sendAnswersToDbButton, document.querySelector(".buttonsBottomContainer a"));
+                
                 sendAnswersToDbButton.addEventListener("click", sendToDb, false);
             //}
         //}
@@ -335,6 +340,7 @@ let backOnPreviousQuestion = function()
     {
         document.getElementById("openQuestionTextArea").classList.add("disabled");
         document.getElementById("questionContainer").classList.add("disabled_v2");
+        document.getElementById("questionContainer").classList.remove("questionOpenQuestionContainer");
         document.getElementById("propositionsContainer").classList.remove("disabled");
 
         document.querySelector(".sendAnswersToDbButton").remove();

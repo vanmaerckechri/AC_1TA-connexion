@@ -847,7 +847,6 @@
         	transform: translateX(-50%) scaleY(.2);
         	color: white;
 		}
-
 		.questionContainer
 		{
 			margin-top: 30px;
@@ -952,6 +951,11 @@
 					margin: 30px 0;
 				}
 			}
+		}
+		.questionOpenQuestionContainer
+		{
+			margin-top: 0;
+			max-height: none;
 		}
 	}
 }

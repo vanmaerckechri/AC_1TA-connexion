@@ -3,11 +3,13 @@
 {
 	padding: 0 4rem 20px;
 	position: fixed;
-	left: 0;
+	left: 50%;
 	bottom: 0;
+	max-width: 1920px;
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
+	transform: translateX(-50%);
 	z-index: 10;
 	.flsLaunchGameButton
 	{

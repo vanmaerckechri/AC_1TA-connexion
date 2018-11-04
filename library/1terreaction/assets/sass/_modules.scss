@@ -254,3 +254,14 @@
 		height: 100%;
 	}
 }
+
+.buttonsBottomContainer
+{
+	position: fixed;
+	left: 50%;
+	bottom: 0;
+	max-width: 1920px;
+	width: 100%;
+	transform: translateX(-50%);
+	z-index: 2;
+}
