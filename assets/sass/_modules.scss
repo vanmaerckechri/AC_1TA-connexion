@@ -65,9 +65,11 @@ a
 	transition: all .3s;
 	&:hover
 	{
+		border: none;
 		cursor: pointer;
 		background-color: $ac-blue;
 		box-shadow: 0px 0px 20px 0px $ac-blue;
+		color: white;
 	}
 }
 .deleteSomething

@@ -1,4 +1,4 @@
-# 1TerreAction et Annoncer la Couleur (en dév.)
+# 1TerreAction et Annoncer la Couleur
 
 ## Présentation du Projet
 
