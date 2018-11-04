@@ -95,8 +95,8 @@ ob_start();
         planetsList.push({name: "Créer une Nouvelle Planète"});
     </script>
     <script src="assets/threejs/three.js"></script>
-    <script src="assets/threejs/OrbitControls.js"></script>
-    <script src="assets/js/tools.js"></script>    
+    <!--<script src="assets/threejs/OrbitControls.js"></script>-->
+    <script src="assets/js/tools.js"></script>   
     <script src="assets/js/stats.js"></script>
     <script src="assets/js/questions.js"></script>             
     <script src="assets/js/ad_managePlanets.js"></script>

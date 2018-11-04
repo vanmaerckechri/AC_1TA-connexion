@@ -317,6 +317,22 @@ body {
   transform: translateX(-50%);
   z-index: 2; }
 
+.ressourcesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: baseline; }
+
+.ressourcesLink {
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  font-style: italic;
+  transition: color .3s, border-color .5s;
+  color: #5cbced; }
+  .ressourcesLink:hover {
+    border-color: #5cbced;
+    color: black; }
+
 @font-face {
   font-family: 'fontFamTitles';
   src: url(../../../../assets/fonts/brauerneue.otf); }
@@ -1032,8 +1048,6 @@ body {
     .howToPlayContainer .howToPlayContent p {
       margin-bottom: 20px;
       line-height: 1.2rem; }
-    .howToPlayContainer .howToPlayContent a {
-      display: block; }
 
 .buttonsContainer {
   margin: 110px 4rem 0 4rem;
