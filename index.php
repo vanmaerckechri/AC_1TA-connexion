@@ -33,7 +33,7 @@ function checkSession()
 		}
 		else
 		{
-			// Student connexion
+			// wrong connexion
 			header('Location: ./index.php');	  
 			exit; 
 		}

@@ -125,13 +125,18 @@ class Authentification
 						{
 							$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Vous n'avez pas activé votre compte suite à votre inscription. Un nouveau lien d'activation vient de vous être envoyé par mail!</span>";
 							$sendActiveCode = new SendMail();
-							$sendActiveCode->activeAccount($resultReq[0]["mail"], $resultReq[0]["activated"]);
+							$sendActiveCode->activeAccount($resultReq[0]["mail"], $this->_sessionNickname, $resultReq[0]["activated"]);
 							$return = 'needActivation';
 						}
 						// Données sont mauvaises
 						else if (!isset($resultReq)|| empty($resultReq))
 						{
 							$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
+							$_SESSION['id'] = "";
+							$_SESSION['nickname'] = "";
+							$_SESSION['password'] = "";
+							$_SESSION['classroom'] = "";
+							$_SESSION['id_classroom'] = "";
 							$return = 'wrong';
 						}
 						return $return;
