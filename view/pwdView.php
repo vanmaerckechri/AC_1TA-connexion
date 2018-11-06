@@ -1,11 +1,11 @@
 <?php ob_start(); ?>
         <h2>Connexion</h2>
-        <a class="userInfosLink" href="index.php"><?=$_SESSION["nickname"]?>
+        <a class="userInfosLink" href="index.php"><?=htmlspecialchars($_SESSION["nickname"], ENT_NOQUOTES)?>
         <?php 
         	if (isset($_SESSION["classroom"]) && !empty($_SESSION["classroom"]))
         	{
         		?>
-        		<span href="index.php"> | <?=$_SESSION["classroom"]?></span>
+        		<span href="index.php"> | <?=htmlspecialchars($_SESSION["classroom"], ENT_NOQUOTES)?></span>
         		<?php
         	}
         ?>

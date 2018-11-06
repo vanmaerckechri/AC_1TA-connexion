@@ -57,7 +57,8 @@ class Authentification
 	{
 		if (is_string($sessionVar))
 		{
-			$this->$sessionVarName = htmlspecialchars($sessionVar, ENT_NOQUOTES);
+			//$this->$sessionVarName = htmlspecialchars($sessionVar, ENT_NOQUOTES);
+			$this->$sessionVarName = $sessionVar;
 		}
 	}
 
