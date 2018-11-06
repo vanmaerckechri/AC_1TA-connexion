@@ -2,7 +2,7 @@
         <h2>Connexion</h2>
         <form action="index.php" method="post">
             <label for="nickname">Nom d'utilisateur</label>
-            <input class="formInput" type="text" name="nickname" autofocus required value="<?=$nickname?>">
+            <input class="formInput" type="text" name="nickname" autofocus required value=<?=htmlspecialchars($nickname, ENT_NOQUOTES)?>>
         	<a class="recovery" href="index.php?action=namerecovery">Nom d'utilisateur oublié ?</a>
         	<a href="index.php?action=newadminaccount">Créer un compte</a>
             <input class="formButton" type="submit" value="Suivant">
