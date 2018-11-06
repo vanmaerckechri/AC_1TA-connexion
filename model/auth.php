@@ -132,13 +132,13 @@ class Authentification
 						else if (!isset($resultReq)|| empty($resultReq))
 						{
 							$_SESSION['smsAlert']['default'] = "<span class='smsAlert'>Certaines des informations que vous nous avez transmises sont incorrectes!</span>";
-							$_SESSION['id'] = "";
-							$_SESSION['nickname'] = "";
-							$_SESSION['password'] = "";
-							$_SESSION['classroom'] = "";
-							$_SESSION['id_classroom'] = "";
 							$return = 'wrong';
 						}
+						$_SESSION['id'] = "";
+						$_SESSION['nickname'] = "";
+						$_SESSION['password'] = "";
+						$_SESSION['classroom'] = "";
+						$_SESSION['id_classroom'] = "";
 						return $return;
 					}
 				}
